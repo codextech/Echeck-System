@@ -1,0 +1,20 @@
+.md-check{
+    padding-left: 0;
+}
+
+:host  ::ng-deep .table-header{
+        background-color: blue !important;
+        color : #ffffff; 
+}
+
+
+
+:host /deep/ .ngx-pagination-steps{
+
+    margin-top: 10px;
+}  
+
+
+.btn{
+    margin-right: 5px;
+}

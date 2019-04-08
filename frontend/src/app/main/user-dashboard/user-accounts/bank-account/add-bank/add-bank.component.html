@@ -1,0 +1,168 @@
+<div class="padding">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="box">
+        <div class="box-header">
+          <h2>Bank Account</h2>
+        </div>
+        <div class="box-body">
+          <form #bankForm="ngForm" (ngSubmit)="addBank()">
+            <div class="form-row">
+              <div class="col-sm-12 mb-3">
+                <button
+                  (click)="routNumber.open()"
+                  type="button"
+                  class="btn primary"
+                >
+                  <i class="fa fa-plus"></i> Add Routing Number
+                </button>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Routing Number</label>
+                <input
+                  [(ngModel)]="bankModel.routingNumber"
+                  name="rn"
+                  type="text"
+                  class="form-control"
+                  id="rn"
+                  placeholder="Email"
+                />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Bank Name</label>
+                <input
+                  [(ngModel)]="bankModel.bankName"
+                  name="bankName"
+                  type="text"
+                  class="form-control"
+                  placeholder="Password"
+                />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputCity">City</label>
+                <input
+                  [(ngModel)]="bankModel.city"
+                  name="city"
+                  type="text"
+                  class="form-control"
+                />
+              </div>
+
+              <div class="form-group col-md-6">
+                <label>Telephone</label>
+                <input
+                  [(ngModel)]="bankModel.telephone"
+                  name="telephone"
+                  type="text"
+                  class="form-control"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputAddress">Address</label>
+              <input
+                [(ngModel)]="bankModel.address"
+                name="address"
+                type="text"
+                class="form-control"
+                id="inputAddress"
+                placeholder="1234 Main St"
+              />
+            </div>
+            <button type="submit" class="btn success">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ngx-smart-modal #routNumber identifier="routNumber">
+  <div class="modal-header">
+    <h5 class="modal-title">Routing Number</h5>
+  </div>
+  <div class="modal-body text-center p-lg">
+    <div class="form-group col-md-12">
+      <input type="text" class="form-control" placeholder="number" #rn />
+    </div>
+    <button
+      type="button"
+      class="btn dark-white p-x-md"
+      (click)="routNumber.close()"
+    >
+      cancel
+    </button>
+    <button
+      (click)="getBankDetails(rn.value)"
+      type="button"
+      class="btn danger p-x-md"
+      (click)="routNumber.close()"
+    >
+      submit
+    </button>
+  </div>
+</ngx-smart-modal>
+
+<ngx-smart-modal
+  #bankaddModal
+  identifier="bankaddModal"
+  customClass="nsm-centered nsm-dialog-animation-ttb"
+>
+  <div class="box-header accent">
+    <h3><i class="fa fa-check"></i>Bank is Added !</h3>
+  </div>
+  <div class="box-body">
+    <span class="badge text-lg primary pos-rlt mr-2">
+      <b class="arrow left b-primary"></b>
+      Step 2:
+    </span>
+
+    
+    <h6>Add Bank Account for this Bank</h6>
+    
+
+    <button
+      [routerLink]="['add/bank-account']"
+      type="button"
+      class="btn btn-create success p-x-md"
+    >
+      Lets Create
+    </button>
+  </div>
+  <button
+    type="button"
+    class="btn dark-white p-x-md"
+    (click)="bankaddModal.close()"
+  >
+    cancel
+  </button>
+
+  <!-- <div class="modal-content">
+          <div class="row">
+            <div class="card z-depth-0" style="margin: 0;">
+              <div class="card-image">
+                <img src="https://cdn.dribbble.com/users/159981/screenshots/2112264/checkmark.gif">
+                <span class="card-title">Bank<br>Added</span>
+                <a class="btn-floating halfway-fab waves-effect waves-light red" (click)="bankaddModal.close()">
+                  <i class="material-icons">close</i>
+                </a>
+              </div>
+              <div class="card-content">
+                  <span class="badge text-lg primary pos-rlt mr-2">
+                    <b class="arrow left b-primary"></b>
+                    Step 2:
+                  </span>
+                <p>Add Your Bank Accounts Related tot his Bank !</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <span (click)="bankaddModal.close()" class="modal-action modal-close waves-effect waves-green btn-flat"
+                style="float: right; margin: 10px;">Close</span>
+        </div> -->
+</ngx-smart-modal>

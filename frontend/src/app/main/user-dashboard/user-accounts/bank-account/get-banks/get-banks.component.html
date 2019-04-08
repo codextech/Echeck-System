@@ -1,0 +1,39 @@
+<!-- Main -->
+<!-- ############ Main START-->
+<div class="padding">
+  <div class="box">
+    <div class="box-header">
+      <h3>Banks</h3>
+    </div>
+
+    <div class="col-md-12 table-responsive">
+      <ngx-table
+        [configuration]="configuration"
+        [data]="banks"
+        [columns]="columns"
+      >
+        <ng-template let-row let-index="index">
+          <td>{{ row.bankName }}</td>
+          <td>{{ row.routingNumber }}</td>
+          <td>{{ row.city }}</td>
+          <td>{{ row.telephone }}</td>
+          <td class="fit">
+            <button class="btn btn-outline b-success text-success">
+              <i class="fa fa-plus-square"></i>
+            </button>
+
+            <button class="btn btn-outline b-accent text-accent">
+              <i class="fa fa-pencil"></i>
+            </button>
+
+            <button class="btn btn-outline b-danger text-danger">
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
+        </ng-template>
+      </ngx-table>
+    </div>
+  </div>
+</div>
+
+<!-- .modal -->

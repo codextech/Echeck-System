@@ -1,0 +1,13 @@
+{
+  "/apiroutenumber": {
+    "target": "https://www.routingnumbers.info/api/data.json",
+    "secure": false,
+    "changeOrigin": "true",
+    "pathRewrite": {"^/apiroutenumber": ""}
+  }
+}
+
+
+
+
+  

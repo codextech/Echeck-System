@@ -1,0 +1,222 @@
+<!-- Main -->
+<!-- ############ Main START-->
+<div class="padding">
+  <button
+    class="btn primary mb-3"
+    data-toggle="modal"
+    (click)="compModal.open()"
+  >
+    Add Company 
+  </button>
+
+  <div class="box">
+    <div class="box-header">
+      <h3>Companies</h3>
+    </div>
+
+    <div class="col-md-12 table-responsive">
+      <ngx-table
+        [configuration]="configuration"
+        [data]="companies"
+        [columns]="columns"
+      >
+        <ng-template let-row let-index="index">
+          <td>{{ row.companyName }}</td>
+          <td>{{ row.EIN }}</td>
+          <td>{{ row.hasPartner }}</td>
+          <td class="fit">
+              <button (click)="onCompanyEdit(row.Id)"  class="btn btn-outline b-accent text-accent">
+                         <i class="fa fa-pencil"></i>                 
+              </button>
+
+            <button (click)="onCompanyDelete(row.Id)" class="btn btn-outline b-danger text-danger">
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
+        </ng-template>
+      </ngx-table>
+    </div>
+  </div>
+</div>
+
+<!-- .modal Add company -->
+
+<ngx-smart-modal #compModal identifier="compModal" customClass="">
+  <div class="modal-header">
+    <h5 class="modal-title">Comapny</h5>
+  </div>
+  <div class="modal-body text-center p-lg">
+    <form #companyForm="ngForm" (ngSubmit)="addCompany()" class="p-x-xs">
+      <div class="mb-2-lg row">
+        <div class="col-sm-12">
+          <div class="row row-sm">
+            <div class="col-sm-6">
+              <div class="md-form-group float-label">
+                <input
+                  [(ngModel)]="companyModel.companyName"
+                  name="name"
+                  class="md-input"
+                  required
+                />
+                <label>Company Name</label>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="md-form-group float-label">
+                <input
+                  [(ngModel)]="companyModel.EIN"
+                  name="einNumber"
+                  class="md-input"
+                  required
+                />
+                <label> EIN#</label>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="md-form-group float-label">
+                <input
+                  [(ngModel)]="companyModel.address"
+                  name="address"
+                  class="md-input"
+                />
+                <label> Address</label>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <label class="md-check">
+                <input
+                  type="checkbox"
+                  [(ngModel)]="companyModel.hasPartner"
+                  name="hasPartner"
+                />
+                <i class="indigo"></i>
+                Has Partner
+              </label>
+            </div>
+
+            <div *ngIf="companyModel.hasPartner" class="col-sm-6">
+              <div class="md-form-group float-label">
+                <input
+                  [(ngModel)]="companyModel.partnerEmail"
+                  name="partnerEmail"
+                  class="md-input"
+                  required
+                />
+                <label>Your Partner Email</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="btn dark-white p-x-md"
+        (click)="compModal.close()"
+      >
+        Cancel
+      </button>
+      <button
+        type="submit"
+        class="btn success p-x-md"
+        (click)="compModal.close()"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</ngx-smart-modal>
+
+
+<!-- Update Company -->
+
+
+<ngx-smart-modal #updateModal identifier="updateModal" customClass="">
+    <div class="modal-header">
+      <h5 class="modal-title">Edit Comapny</h5>
+    </div>
+    <div class="modal-body text-center p-lg">
+      <form #updateForm="ngForm" (ngSubmit)="updateCompany()" class="p-x-xs">
+        <div class="mb-2-lg row">
+          <div class="col-sm-12">
+            <div class="row row-sm">
+              <div class="col-sm-6">
+                <div class="md-form-group float-label">
+                  <input
+                    [(ngModel)]="companyModel.companyName"
+                    name="name"
+                    class="md-input"
+                    required
+                  />
+                  <label>Company Name</label>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="md-form-group float-label">
+                  <input
+                    [(ngModel)]="companyModel.EIN"
+                    name="einNumber"
+                    class="md-input"
+                    required
+                  />
+                  <label> EIN#</label>
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="md-form-group float-label">
+                  <input
+                    [(ngModel)]="companyModel.address"
+                    name="address"
+                    class="md-input"
+                  />
+                  <label> Address</label>
+                </div>
+              </div>
+  
+              <div class="col-sm-4">
+                <label class="md-check">
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="companyModel.hasPartner"
+                    name="hasPartner"
+                  />
+                  <i class="indigo"></i>
+                  Has Partner
+                </label>
+              </div>
+  
+              <div *ngIf="companyModel.hasPartner" class="col-sm-6">
+                <div class="md-form-group float-label">
+                  <input
+                    [(ngModel)]="companyModel.partnerEmail"
+                    name="partnerEmail"
+                    class="md-input"
+                    required
+                  />
+                  <label>Your Partner Email</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <button
+          type="button"
+          class="btn dark-white p-x-md"
+          (click)="updateModal.close()"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="btn success p-x-md"
+         
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  </ngx-smart-modal>
+
+<!-- ############ Main END-->

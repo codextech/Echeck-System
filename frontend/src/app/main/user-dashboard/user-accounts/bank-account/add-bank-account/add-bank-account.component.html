@@ -1,0 +1,121 @@
+<div class="padding">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="box">
+        <div class="box-header">
+          <h2>Bank Account</h2>
+        </div>
+        <div class="box-body">
+          <form #accountForm="ngForm" (ngSubmit)="addBankAccount()">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputCity">Bank</label>
+
+                <select
+                  [(ngModel)]="accountModel.bankId"
+                  name="bank"
+                  class="form-control custom-select my-2">
+                  <option disabled selected="true" value="">Choose Bank</option>
+                  <option *ngFor="let bank of banks" [value]="bank.bankId">
+                    {{ bank.bankName }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label>Your Company</label>
+
+                <select
+                  [(ngModel)]="accountModel.Id"
+                  name="company"
+                  class="form-control custom-select my-2">
+                  <option disabled selected="true" value=""
+                    >Choose Company
+                  </option>
+                  <option *ngFor="let comp of companies" [value]="comp.Id">
+                    {{comp.companyName}}</option
+                  >
+                </select>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Account Number</label>
+                <input
+                  [(ngModel)]="accountModel.accountNumber"
+                  name="accnumber"
+                  type="text"
+                  class="form-control"
+                  placeholder="account number"
+                />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Account Name</label>
+                <input
+                  [(ngModel)]="accountModel.accountName"
+                  name="accName"
+                  type="text"
+                  class="form-control"
+                  placeholder="account name"
+                />
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Upload Account Signature </label>
+
+                <div *ngIf="imagePreview" class="col-6 col-sm-3 col-md-4">
+                  <div class="box">
+                    <div>
+                      <img class="w-100" alt="" [src]="imagePreview" />
+                    </div>
+                  </div>
+                </div>
+
+                <br />
+                <input
+                  style="display:none"
+                  #fileInput
+                  type="file"
+                  (change)="onImagePicked($event)"
+                />
+
+                <button
+                  type="button"
+                  (click)="fileInput.click()"
+                  class="btn btn-fw accent"
+                >
+                  <i class="fa fa-upload"></i>
+                </button>
+              </div>
+
+              <div class="form-group col-md-12">
+                <label for="inputEmail4">Used Signature </label>
+
+                <div class="sign-history">
+                  <div
+                    drag-scroll
+                    drag-scroll-y-disabled="true"
+                    scrollbar-hidden="true"
+                  >
+                    <!-- <drag-scroll drag-scroll-y-disabled="true"
+                           scrollbar-hidden="true"> -->
+                    <img
+                      drag-scroll-item
+                      (click)="activeIndex = i; selectedSign(sign.signatureId)"
+                      [ngClass]="{selected: activeIndex === i &&
+                         isSignSelected == true}"
+                      *ngFor="let sign of signatures; let i = index"
+                      [src]="sign.signatureImage"
+                    />
+                    <!-- </drag-scroll> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn success">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
