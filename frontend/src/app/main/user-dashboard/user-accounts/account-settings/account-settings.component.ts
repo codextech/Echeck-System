@@ -3,6 +3,9 @@ import { UserAccountService } from 'src/app/_services/user-account.service';
 
 import {  FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { DropzoneConfigInterface, DropzoneComponent } from 'ngx-dropzone-wrapper';
+import { UserAuthService } from 'src/app/_services/user-auth.service';
+import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute, Router } from '@angular/router';
 // define the constant url we would be uploading to.
 
 @Component({
@@ -30,9 +33,15 @@ export class AccountSettingsComponent implements OnInit {
   profileModel: any = {};
   imagePreview: any;
 
+  // change password
+  changePassModel: any = {};
+
   public uploader: FileUploader = new FileUploader({url: 'URL', itemAlias: 'image'});
 
-  constructor(private accountService: UserAccountService) { }
+  constructor(private accountService: UserAccountService,
+              private authService: UserAuthService,
+              private toastr: ToastrService,
+              private router: Router) { }
 
   ngOnInit() {
 
@@ -85,5 +94,22 @@ export class AccountSettingsComponent implements OnInit {
   public onUploadError(args: any): void {
     // console.log('error:', args);
   }
+
+
+
+  changePassword() {
+
+      console.log(this.changePassModel);
+      this.authService.changePassword(this.changePassModel).subscribe(res => {
+          this.toastr.success(res.message);
+          this.router.navigate(['/dashboard']);
+
+
+      }, err => {
+        this.toastr.error(err.message);
+
+
+      });
+    }
 
 }

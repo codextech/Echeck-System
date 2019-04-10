@@ -45,6 +45,29 @@ userSignUp(model) {
 
 
 
+  // send email to user with token
+  sendEmailForReset(model) {
+    return this.http.post<any>(this.baseUrl + 'api/auth/reset-request', model);
+  }
+
+  // token validity after email sent
+  checkTokenValidity(token) {
+    return this.http.get<any>(this.baseUrl + 'api/auth/resetpassword/' + token);
+  }
+
+  resetPassword(model) {
+    return this.http.post<any>(this.baseUrl + 'api/auth/resetpassword', model);
+  }
+
+
+  // change Password
+
+  changePassword(model) {
+    model.userId = this.decodedtoken.Id;
+    return this.http.post<any>(this.baseUrl + 'api/auth/changepassword', model);
+  }
+
+
 
   logout() {
     localStorage.removeItem('access_token');

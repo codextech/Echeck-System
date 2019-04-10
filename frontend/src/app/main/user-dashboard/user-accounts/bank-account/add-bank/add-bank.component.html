@@ -4,8 +4,15 @@
       <div class="box">
         <div class="box-header">
           <h2>Bank Account</h2>
+
         </div>
         <div class="box-body">
+          
+            <ngb-alert *ngIf="messageAlert" [dismissible]="false">
+                <strong>Warning!</strong> 
+                You can give bank info manually, if info is wrong.
+            </ngb-alert>
+
           <form #bankForm="ngForm" (ngSubmit)="addBank()">
             <div class="form-row">
               <div class="col-sm-12 mb-3">

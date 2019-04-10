@@ -55,6 +55,8 @@
           </div>
         </div>
       </div>
+
+
       <div  class="col p-0">
         <div class="tab-content pos-rlt">
           <div class="tab-pane active" id="tab-1">
@@ -241,14 +243,15 @@
             <div class="p-4 b-b _600">Security</div>
             <div class="p-4">
               <div class="clearfix">
-                <form role="form" class="col-md-6 p-0">
+
+                <form #changePassForm="ngForm" (ngSubmit)="changePassword()" class="col-md-6 p-0">
                   <div class="form-group">
                     <label>Old Password</label>
-                    <input type="password" class="form-control" />
+                    <input [(ngModel)]="changePassModel.oldPassword" name="oldPass" type="password" class="form-control" />
                   </div>
                   <div class="form-group">
                     <label>New Password</label>
-                    <input type="password" class="form-control" />
+                    <input [(ngModel)]="changePassModel.newPassword" name="newpass" type="password" class="form-control" />
                   </div>
                   <div class="form-group">
                     <label>New Password Again</label>

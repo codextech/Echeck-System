@@ -15,7 +15,10 @@ export class AddBankComponent implements OnInit {
               private ngxModalService: NgxSmartModalService ) { }
 
   bankModel: any = {};
+  messageAlert = false;
+
   ngOnInit() {
+    // setTimeout(() => this.messageAlert = true, 6000); // after 6 seconds bootsrap laert message close
   }
 
   getBankDetails(id) {
@@ -26,7 +29,6 @@ export class AddBankComponent implements OnInit {
 
         console.log(result);
         if (result.status === 202) {
-
           this.getBankByLiveApi(id); // look by Live api.
         } else {
           const data =  result.data as any;
@@ -38,6 +40,8 @@ export class AddBankComponent implements OnInit {
             routingNumber : data.routingNumber
           };
         }
+
+        this.messageAlert = true;
 
       });
 

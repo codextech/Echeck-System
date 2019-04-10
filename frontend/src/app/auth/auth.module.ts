@@ -5,6 +5,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { NewPasswordComponent } from './new-password/new-password.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 const routes: Routes = [];
 
@@ -17,8 +20,10 @@ const routes: Routes = [];
     ],
     declarations: [
         LoginComponent,
-        SignupComponent
-
+        SignupComponent,
+        ResetPasswordComponent,
+        NewPasswordComponent,
+        ChangePasswordComponent
     ],
 
 })

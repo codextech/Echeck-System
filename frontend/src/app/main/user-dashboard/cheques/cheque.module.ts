@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { UserDashBoardComponent } from '../user-dashboard.component';
 import { AuthGuard } from 'src/app/_guards/auth.guard';
-
 const routes: Routes = [
 
     {path: '', component: UserDashBoardComponent, canActivate: [AuthGuard],

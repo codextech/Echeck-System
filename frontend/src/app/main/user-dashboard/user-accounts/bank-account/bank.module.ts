@@ -10,6 +10,7 @@ import { GetBanksComponent } from './get-banks/get-banks.component';
 import { TableModule } from 'ngx-easy-table';
 import { DragScrollModule } from 'ngx-drag-scroll';
 import { EditBankAccountComponent } from './edit-bank-account/edit-bank-account.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 const routes: Routes = [];
 
@@ -20,7 +21,8 @@ const routes: Routes = [];
         FormsModule,
         NgxSmartModalModule.forChild(),
         TableModule, // for data table
-        DragScrollModule
+        DragScrollModule,
+        NgbModule
     ],
     declarations: [
         AddBankComponent,

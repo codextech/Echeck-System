@@ -12,6 +12,7 @@ const Company = require("./models/company");
 const Signature = require("./models/user-signature");
 const Bank = require("./models/bank");
 const BankAccount = require("./models/bank-account");
+const Token = require("./models/token");
 // ------------------------------------------------
 
 
@@ -41,6 +42,13 @@ app.use((req, res, next) => {
 
 app.use('/api', apiRoutes);
 
+
+
+
+// -------User & Token
+User.hasOne(Token,{foreignKey: 'userId'});
+Token.belongsTo(User, {foreignKey: "userId"})
+// -----------------------------
 
 
 

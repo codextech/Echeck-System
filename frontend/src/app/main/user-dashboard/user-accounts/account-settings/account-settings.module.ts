@@ -8,7 +8,15 @@ import { DropzoneModule } from 'ngx-dropzone-wrapper';
 
 
 
-const routes: Routes = [];
+const routes: Routes = [
+
+//         {path: 'settings', component: AccountSettingsComponent, canActivate: [AuthGuard],
+//   children: [
+//     { path: 'profile', component: UserProfileComponent },
+
+//   ]}
+
+];
 
 @NgModule({
     imports: [

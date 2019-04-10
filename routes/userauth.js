@@ -7,4 +7,16 @@ const router = express.Router();
 router.post("/login", authController.logIn);
 router.post("/signup", authController.signUp);
 
+// reset password
+router.post("/reset-request", authController.resetPasswordRequest); // send token in mail
+router.get("/resetpassword/:token", authController.getresetPassword);
+router.post("/resetpassword", authController.postresetPassword);
+
+// change password
+
+router.post("/changepassword", authController.changePassword);
+
+
+
+
 module.exports = router

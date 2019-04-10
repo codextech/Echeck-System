@@ -30,67 +30,173 @@
                 <div class="col-sm-12 mb-3">
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputEmail4">Email</label>
+                  <label for="inputEmail4">Sender Name</label>
                   <input
-                    type="email"
+                    type="text"
                     class="form-control"
-                    id="inputEmail4"
-                    placeholder="Email"
+                    placeholder="name"
                   />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputPassword4">Password</label>
+                  <label for="inputPassword4">Amount</label>
                   <input
-                    type="password"
+                    type="number"
                     class="form-control"
-                    id="inputPassword4"
-                    placeholder="Password"
+                    placeholder="check amount"
                   />
                 </div>
-              </div>
-              <div class="form-group">
-                <label for="inputAddress">Address</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="inputAddress"
-                  placeholder="1234 Main St"
-                />
-              </div>
-              <div class="form-group">
-                <label for="inputAddress2">Address 2</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="inputAddress2"
-                  placeholder="Apartment, studio, or floor"
-                />
-              </div>
-              <div class="form-row">
+
                 <div class="form-group col-md-6">
-                  <label for="inputCity">City</label>
-                  <input type="text" class="form-control" id="inputCity" />
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="inputState" class="d-block">State</label>
-                  <select id="inputState" class="custom-select w-100">
-                    <option selected>Choose...</option>
-                    <option>...</option>
-                  </select>
-                </div>
-                <div class="form-group col-md-2">
-                  <label for="inputZip">Zip</label>
-                  <input type="text" class="form-control" id="inputZip" />
-                </div>
+                    <label for="inputCity">Bank</label>
+    
+                    <select
+                      name="bank"
+                      class="form-control custom-select my-2">
+                      <option disabled selected="true" value="">Choose Bank</option>
+                      <option >
+                         
+                      </option>
+                    </select>
+                  </div>
+    
+                  <div class="form-group col-md-6">
+                    <label>Your Company</label>
+    
+                    <select
+                      name="company"
+                      class="form-control custom-select my-2">
+                      <option disabled selected="true" value="">
+                        Choose Company
+                      </option>
+                      <option >
+                        </option>
+                    </select>
+                  </div>
+
+
+                  <div class="col-md-12">
+
+                      <div class="box-color dark pos-rlt">
+                          <span class="arrow bottom  b-dark"></span>
+                          <div class="box-body">
+                             Cheque Signatures
+                          </div>
+                      </div>
+
+                    </div>
+
+ 
+                  <div class="form-group col-md-6">
+                      <label>Upload Your Partner Signature </label>
+      
+                  <p>
+                      <label class="md-check">
+                          <input type="checkbox">
+                          <i class="indigo"></i>
+                          Check on your behalf
+                      </label>
+                  </p>
+                  </div>
+
+                    
+                    <div class="form-group col-md-12">
+                        <label for="inputEmail4">Upload Partner Signature </label>
+        
+                        <div style="display: none" class="col-6 col-sm-3 col-md-4">
+                          <div class="box">
+                            <div>
+                              <img class="w-100" alt="" src="" />
+                            </div>
+                          </div>
+                        </div>
+        
+                        <br />
+                        <input
+                          style="display:none"
+                          #fileInput
+                          type="file"
+                        />
+        
+                        <button
+                          type="button"
+                          (click)="fileInput.click()"
+                          class="btn btn-fw accent"
+                        >
+                          <i class="fa fa-upload"></i>
+                        </button>
+                    </div>
+
+
+                   
+                    
+                    <div class="form-group col-md-6">
+                        <label>Send to Partner for Sign </label>
+        
+                    <p>
+                        <label class="md-check">
+                            <input type="checkbox">
+                            <i class="indigo"></i>
+                            
+                        </label>
+                    </p>
+                    </div>
+
+
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Partner Email</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Email"
+                        />
+                      </div>
+
+                   
+                      <div class="col-md-12">
+
+
+                      <div class="box-color dark pos-rlt">
+                          <span class="arrow bottom  b-dark"></span>
+                          <div class="box-body">
+                              Receiver Detail
+                          </div>
+                      </div>
+
+                    </div>
+
+
+
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Reciever Email</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Receiver Email"
+                        />
+                    </div>
+
+
+                  <div class="form-group col-md-12">
+                      <label for="inputEmail4">Choose Background </label>
+      
+                      <div class="sign-history">
+                        <div>
+                         
+                          <img src="../../../../../assets/images/a1.jpg">
+                          <img src="../../../../../assets/images/a0.jpg">
+                          <img src="../../../../../assets/images/a11.jpg">
+                          <img src="../../../../../assets/images/a10.jpg">
+                        
+                        </div>
+                      </div>
+                  </div>
+
+
+
               </div>
-              <div class="form-group">
-                <div class="form-check">
-                  <label class="form-check-label">
-                    <input class="form-check-input" type="checkbox" /> Activate
-                  </label>
-                </div>
-              </div>
-              <button type="submit" class="btn primary">Add</button>
+             
+             
+              <button type="submit" class="btn primary">Send</button>
             </form>
           </div>
         </div>
