@@ -44,7 +44,16 @@ userSignUp(model) {
   }
 
 
+// email verification
 
+verifyEmail(token, email) {
+  return this.http.post<any>(this.baseUrl + 'api/auth/reset-request', {
+    params: {verifytoken: token, email: email}
+  });
+
+}
+
+// ------------------Forgot Password-----------
   // send email to user with token
   sendEmailForReset(model) {
     return this.http.post<any>(this.baseUrl + 'api/auth/reset-request', model);

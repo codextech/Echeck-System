@@ -8,6 +8,7 @@ import { SignupComponent } from './signup/signup.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { NewPasswordComponent } from './new-password/new-password.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { EmailVerifyComponent } from './email-verify/email-verify.component';
 
 const routes: Routes = [];
 
@@ -23,7 +24,8 @@ const routes: Routes = [];
         SignupComponent,
         ResetPasswordComponent,
         NewPasswordComponent,
-        ChangePasswordComponent
+        ChangePasswordComponent,
+        EmailVerifyComponent
     ],
 
 })

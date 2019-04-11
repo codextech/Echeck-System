@@ -7,6 +7,10 @@ const router = express.Router();
 router.post("/login", authController.logIn);
 router.post("/signup", authController.signUp);
 
+
+// POST /email-verication?verifytoken=[string]&email=[string]
+router.post('/email-verification', authController.emailVerification);
+
 // reset password
 router.post("/reset-request", authController.resetPasswordRequest); // send token in mail
 router.get("/resetpassword/:token", authController.getresetPassword);

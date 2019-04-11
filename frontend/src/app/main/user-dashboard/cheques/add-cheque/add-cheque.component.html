@@ -7,16 +7,36 @@
           </div>
           <div class="box-body">
 
-              <div class="example-boundary">
-                  <div class="example-box" cdkDragBoundary=".example-boundary" cdkDrag>
+              <div [ngStyle]="{'background': 'url(' + chequeBackground + ') no-repeat 0 0'}" class="example-boundary">
+                  <!-- <div class="example-box" cdkDragBoundary=".example-boundary" cdkDrag>
                     I can only be dragged within the dotted container
+                  </div> -->
+
+
+                  <div class="row">
+
+                  <div cdkDragBoundary=".example-boundary" cdkDrag class="col-sm-6">
+                      <div class="md-form-group float-label">
+                        <label style="margin-bottom: 0">Date</label>
+                          <input class="md-input" required="" onkeyup="this.setAttribute('value', this.value);" value="">
+                      </div>
                   </div>
 
+                  <div cdkDragBoundary=".example-boundary" cdkDrag class="col-sm-6">
+                      <div class="md-form-group float-label">
+                        <label style="margin-bottom: 0">Signature</label>
+                          <input class="md-input" required="" onkeyup="this.setAttribute('value', this.value);" value="">
+                      </div>
+                  </div>
 
-                  <div cdkDropList cdkDropListOrientation="horizontal" class="example-list">
+                </div>
+
+
+
+                  <!-- <div cdkDragBoundary=".example-boundary"  cdkDropList cdkDropListOrientation="horizontal" class="example-list">
                       <input  style="width:50%" type="text" value="signature" cdkDrag>
-                      <input  style="width:48%; margin-left: 5px" type="text" value="Date" cdkDrag>
-                    </div>
+                      <input  style="width:49%; margin-left: 5px" type="text" value="Date" cdkDrag>
+                    </div> -->
 
 
 
@@ -182,10 +202,10 @@
                       <div class="sign-history">
                         <div>
                          
-                          <img src="../../../../../assets/images/a1.jpg">
+                          <img (click)="onClickBackgroundImage('../../../../../assets/images/a1.jpg')" src="../../../../../assets/images/a1.jpg">
                           <img src="../../../../../assets/images/a0.jpg">
                           <img src="../../../../../assets/images/a11.jpg">
-                          <img src="../../../../../assets/images/a10.jpg">
+                          <img (click)="onClickBackgroundImage('../../../../../assets/images/a10.jpg')" src="../../../../../assets/images/a10.jpg">
                         
                         </div>
                       </div>

@@ -3,8 +3,12 @@ const User = require("../models/user");
 // update user profile
 exports.updateProfile = (req, res, next) => {
 
-  const imageUrl = getImageUrl(req);
+  var imageUrl;
   const model = req.body;
+
+  if (req.file) {
+    imageUrl = getImageUrl(req);
+  }
 
   User.update (
     {

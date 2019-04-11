@@ -7,12 +7,12 @@ const sendgridTransport = require('nodemailer-sendgrid-transport');
 
 const transporter = nodemailer.createTransport(sendgridTransport({
   auth:{
-    api_key : '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'
 
   }
 }))
 
 const User = require("../models/user");
+const Token = require("../models/token");
 
 exports.logIn = (req, res, next) => {
   console.log("logged in reach***********");
@@ -83,23 +83,76 @@ exports.signUp = async (req, res, next) => {
       password: hash
     });
 
-    // generate Token
+    // generate Jwt Token
 
-    token = generateToken(createdUser);
+    token = generateToken(createdUser); 
+
+    // generate Email verification Token
+
+    const emailToken = await generateCryptoToken();
+
+    // save to db
+
+   const userEmailVerifyToken = await Token.create({
+      userId: createdUser.Id,
+      token: emailToken
+   });
 
     // send email
 
     var sendEmail = await transporter.sendMail({
-      to: req.body.email,
+      to: createdUser.email,
       from: 'tanzeelsaleem10@gmail.com',
-      subject: 'Sign up Succeed',
-      html: `<h1>Welcom ! </h1>`
+      subject: 'Email Verification',
+      html: `<h1>Click on this link to verify email</h1>
+      <a href="http://localhost:4200/email-verification?verifytoken=${emailToken}&email=${createdUser.email}">
+        Verify Email
+      </a> `
     });
 
   } catch (error) {
     res.status(500).json({error: error,message: "Registeration Failed"});
   }
   res.status(201).json({message: "Registered",token: token});
+
+}
+
+
+
+// Email Verification 
+exports.emailVerification = async (req, res, next) => { 
+
+  var user;
+
+  try {
+   user = await User.find({
+      where: { email: req.query.email }
+    });
+    
+
+    if (user.isVerified) {
+      return res.status(202).json(`Email Already Verified`);
+    }
+
+  const foundToken = await  Token.find({
+      where: { token: req.query.verifytoken }
+    });
+
+    if(foundToken){
+    await  user.update({ isVerified: true });
+    }
+
+    
+
+
+  } catch (error) {
+  res.status(500).json({message: error});
+    
+  }
+
+  res.status(201).json({message:`User with ${user.email} has been verified`});
+
+
 
 }
 
