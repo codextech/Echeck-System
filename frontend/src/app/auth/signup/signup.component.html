@@ -31,15 +31,18 @@
                         <div class="my-3 text-sm">
                             OR
                         </div>
-                        <form #signUpForm="ngForm" (ngSubmit)="signUp()">
+                        <form #signUpForm="ngForm" (ngSubmit)="signUpForm.form.valid  && signUp()">
                             <div class="form-group">
-                                <input [(ngModel)]="signUpModel.uniqueName" name="name" type="text" class="form-control" placeholder="Username" required>
+                                <input [(ngModel)]="signUpModel.uniqueName" #name="ngModel" name="name" type="text" class="form-control"
+                                 [ngClass]="{'is-invalid': signUpForm.submitted && name.invalid}" placeholder="Username" required>
                             </div>
                             <div class="form-group">
-                                <input [(ngModel)]="signUpModel.email" name="email" type="email" class="form-control" placeholder="Email" required>
+                                <input [(ngModel)]="signUpModel.email" #email="ngModel" name="email" type="email" class="form-control"
+                                [ngClass]="{'is-invalid': signUpForm.submitted && email.invalid}" placeholder="Email" required>
                             </div>
                             <div class="form-group">
-                                <input [(ngModel)]="signUpModel.password" name="pasword" type="password" class="form-control" placeholder="Password" required>
+                                <input [(ngModel)]="signUpModel.password" #password="ngModel"  name="pasword" type="password" class="form-control"
+                                [ngClass]="{'is-invalid': signUpForm.submitted && password.invalid}" placeholder="Password" required>
                             </div>
                             <div class="mb-3 text-sm">
                                 <span class="text-muted">By clicking Sign Up, I agree to the</span>

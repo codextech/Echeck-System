@@ -14,7 +14,9 @@ exports.creatCompany = (req,res,next) => {
       Company.create({
         companyName : model.companyName,
         EIN : model.EIN,
-        hasPartner: model.hasPartner
+        hasPartner: model.hasPartner,
+        companyAddress: model.address
+
       }).then(company => {
        return company.addUser(id);
       })
@@ -69,7 +71,7 @@ exports.getSingleCompany = async (req, res, next) => {
   }
   res.status(200).json({ message: "Succefull",  data: company});  
 
-};
+}
 
 
 // update company by CompanyId
@@ -81,7 +83,8 @@ try {
   company = await Company.update({
     companyName: model.companyName,
     EIN: model.EIN,
-    hasPartner: model.hasPartner
+    hasPartner: model.hasPartner,
+    companyAddress: model.address
   }, {where: { Id: model.Id }})
   
 } catch (error) {

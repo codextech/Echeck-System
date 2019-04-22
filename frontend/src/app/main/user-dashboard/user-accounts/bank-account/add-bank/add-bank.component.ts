@@ -75,4 +75,9 @@ export class AddBankComponent implements OnInit {
     });
 
   }
+
+
+  onClickAddAnother() {
+    this.bankModel = {};
+  }
 }

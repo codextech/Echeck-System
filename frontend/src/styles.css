@@ -10,3 +10,21 @@
 @import '~dropzone/dist/min/dropzone.min.css';
 /* theme Style */
 
+
+
+/* bootstrap modal chenges  -> creating problem in mobile view */ 
+.modal-open {
+    overflow: auto;
+}
+.modal-backdrop.show {
+    opacity: 0;
+}
+
+.modal-backdrop {
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 1040;
+    width: 0; 
+    height: 0;
+}

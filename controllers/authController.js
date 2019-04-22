@@ -7,22 +7,32 @@ const sendgridTransport = require('nodemailer-sendgrid-transport');
 
 const transporter = nodemailer.createTransport(sendgridTransport({
   auth:{
+    api_key : ''
 
   }
 }))
 
 const User = require("../models/user");
 const Token = require("../models/token");
+// enum
+const {TokenType} = require('../helpers/token-type');
+
+// Helper
+
+const CheckHelper = require("../helpers/checkHelper");
+
+
+
+
 
 exports.logIn = (req, res, next) => {
-  console.log("logged in reach***********");
   let foundUser;
-  User.findOne({ where: { email: req.body.email } })
+  User.findOne({ where: { uniqueName: req.body.uniqueName } })
     .then(user => {
-      // check email exist
+      // check uniqueName exist
       if (!user) {
         return res.status(400).json({
-          message: "Email not Found"
+          message: "Name not Found"
         });
       }
       foundUser = user;
@@ -55,16 +65,22 @@ exports.signUp = async (req, res, next) => {
 
   var user;
   var createdUser;
-  var token;
+  var jwtToken;
+  var tokenInRequest = req.query.checkToken;
   try {
-    // check for email 
+
+
+    // if no token is present in Request
+      
+
+    // check  email 
     user = await User.findOne({ where: { email: req.body.email } });
     if (user) {
       return res.status(400).json({
         message: "Email already in use!"
       });
     }
-    // check for unique name
+    // check  unique name
     var nameId = await User.findOne({where: { uniqueName: req.body.uniqueName }});
     if (nameId) {
       return res.status(400).json({
@@ -85,8 +101,9 @@ exports.signUp = async (req, res, next) => {
 
     // generate Jwt Token
 
-    token = generateToken(createdUser); 
+    jwtToken = generateToken(createdUser); 
 
+    
     // generate Email verification Token
 
     const emailToken = await generateCryptoToken();
@@ -100,20 +117,22 @@ exports.signUp = async (req, res, next) => {
 
     // send email
 
-    var sendEmail = await transporter.sendMail({
+     await transporter.sendMail({
       to: createdUser.email,
-      from: 'tanzeelsaleem10@gmail.com',
+      from: 'echeck@gmail.com',
       subject: 'Email Verification',
       html: `<h1>Click on this link to verify email</h1>
-      <a href="http://localhost:4200/email-verification?verifytoken=${emailToken}&email=${createdUser.email}">
+      <a href="${apiUrl}/auth/email-verification?verifytoken=${emailToken}&email=${createdUser.email}&checkToken=${tokenInRequest}">
         Verify Email
       </a> `
     });
 
+  
+
   } catch (error) {
     res.status(500).json({error: error,message: "Registeration Failed"});
   }
-  res.status(201).json({message: "Registered",token: token});
+  res.status(201).json({message: "Registered",token: jwtToken});
 
 }
 
@@ -123,26 +142,53 @@ exports.signUp = async (req, res, next) => {
 exports.emailVerification = async (req, res, next) => { 
 
   var user;
-
+  var tokenInRequest = req.query.checkToken;
   try {
-   user = await User.find({
+   user = await User.findOne({
       where: { email: req.query.email }
     });
     
 
     if (user.isVerified) {
-      return res.status(202).json(`Email Already Verified`);
+      return res.status(202).json({message: `Email Already Verified`});
     }
 
-  const foundToken = await  Token.find({
+  const foundEmailToken = await  Token.findOne({
       where: { token: req.query.verifytoken }
     });
 
-    if(foundToken){
+    if(foundEmailToken){
     await  user.update({ isVerified: true });
     }
 
-    
+     // if  token is present in Request.
+  if(tokenInRequest != "null") {
+
+    const foundToken = await Token.findOne({where:{token: tokenInRequest}});
+
+    // if token is not presnt in Table
+    if (!foundToken) {
+     res.status(400).json({message: "Check Token Not Valid",data: {}}); 
+    }
+
+    // Token is for is Check Recived
+    if (foundToken.tokenType == TokenType.checkRecieve ) {
+     await CheckHelper.addRecieverInCheck(foundToken, user.Id);
+
+    }
+
+    // Token is for Sender Partner Signature 
+    if (foundToken.tokenType == TokenType.sndPartnerSign ) {
+     await CheckHelper.addSenderPartnerInCheck(foundToken, user.Id);      
+    }
+
+      // Token is for Reciever Partner Signature 
+      if (foundToken.tokenType == TokenType.recPartnerSign ) {
+     await CheckHelper.addRecieverPartnerInCheck(foundToken, user.Id);            
+      }
+
+
+  }
 
 
   } catch (error) {
@@ -150,28 +196,30 @@ exports.emailVerification = async (req, res, next) => {
     
   }
 
-  res.status(201).json({message:`User with ${user.email} has been verified`});
+  res.redirect(`http://localhost:4200/dashboard`);
+
+  // res.status(201).json({message:`User with ${user.email} has been verified`});
 
 
 
 }
 
 
-exports.getAllUsers = async (req, res, next) => {
+// exports.getAllUsers = async (req, res, next) => {
 
-  var users;
-  try {
-    users = await User.findAll({
-      attributes: [
-      "Id",
-      "email",
-      "uniqueName"]});
-  } 
-  catch (error) {
-    return res.status(500).json({message: "something wrong", error: err});
-  }
-  res.status(200).json({message: "users", data: users})
-}
+//   var users;
+//   try {
+//     users = await User.findAll({
+//       attributes: [
+//       "Id",
+//       "email",
+//       "uniqueName"]});
+//   } 
+//   catch (error) {
+//     return res.status(500).json({message: "something wrong", error: err});
+//   }
+//   res.status(200).json({message: "users", data: users})
+// }
    
 
 

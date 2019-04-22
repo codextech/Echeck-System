@@ -67,23 +67,39 @@
     margin-bottom :35px;
 
   }
-  .example-boundary {
+  /* .check-boundary {
 
 
     background-size: cover;
-    width: 40em;
+    width: 59em;
     background-repeat: no-repeat;
-    height: 20em;
+    min-height: 30em;
     margin: 0 auto;
     max-width: 100%;
-    border: 1px solid #d1c6c6;
+  } */
+  
+
+
+  .check-boundary {
+
+
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+
+    background-size: cover;
+    max-width: 59em;
+    background-repeat: no-repeat;
+    min-height: 23em;
+    margin: 0 auto;
+    border: 3px solid;
+
+    /* max-width: 100%; */
+    /* border: 1px solid #d1c6c6; */
   }
-  
-
-
 
   
-.sign-history{
+.background-history{
   padding: 10px 10px 10px 10px;
   box-sizing: border-box;
   border: 1px solid;
@@ -94,13 +110,82 @@
   height: auto;
 }
 
-img {
+/* .back-img {
+  height: 60px;
+  width: 65px;
+} */
+
+.sign-img {
+  height: 75px;
+  max-width: 30%;
+}
+
+
+.check-image {
   height: 100px;
-  width: 110px;
+  width: 150px;
   padding: 3px;
   cursor: pointer;
 }
 
+
+
 .selected{
   border: 1px solid;
+}
+
+
+.check-label{
+margin-bottom: 0;
+}
+
+
+.md-input {
+  height: 20px;
+    padding: 2px;
+    padding-left: 50px;
+    border-bottom: 1px solid rgba(105, 105, 105, 0.77);
+    width: 100%;
+}
+
+.md-form-group {
+  padding: 5px 0 15px 0;
+  position: relative;
+}
+
+.no-margin{
+    margin-right: 0px; 
+     margin-left: 0px; 
+}
+
+.form-area{
+  border: 3px solid;
+  /* min-height: 20rem; */
+}
+
+
+.issued-number{
+  font-weight: bold;
+  float: right;
+  width: 10%;
+}
+.l-pd {
+  padding-left: 0px;
+}
+.order-w {
+  width: 98%;
+}
+
+.w-50{
+  width: 50%;
+}
+
+.box {
+  min-height: 163px;
+}
+
+
+.check-sign{
+    width: 100%;
+    padding-left: .5rem;
 }

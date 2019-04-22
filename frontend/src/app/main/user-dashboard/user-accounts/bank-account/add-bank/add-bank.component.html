@@ -3,14 +3,14 @@
     <div class="col-sm-12">
       <div class="box">
         <div class="box-header">
-          <h2>Bank Account</h2>
+          <h2>Bank Details</h2>
 
         </div>
         <div class="box-body">
           
             <ngb-alert *ngIf="messageAlert" [dismissible]="false">
-                <strong>Warning!</strong> 
-                You can give bank info manually, if info is wrong.
+                <strong>Note!</strong> 
+                Found incorrect Bank Details. Please Add Bank Details Manually.
             </ngb-alert>
 
           <form #bankForm="ngForm" (ngSubmit)="addBank()">
@@ -32,7 +32,7 @@
                   type="text"
                   class="form-control"
                   id="rn"
-                  placeholder="Email"
+                  placeholder="Routing Number"
                 />
               </div>
               <div class="form-group col-md-6">
@@ -42,7 +42,7 @@
                   name="bankName"
                   type="text"
                   class="form-control"
-                  placeholder="Password"
+                  placeholder="Bank Name"
                 />
               </div>
             </div>
@@ -106,7 +106,7 @@
     <button
       (click)="getBankDetails(rn.value)"
       type="button"
-      class="btn danger p-x-md"
+      class="btn success p-x-md"
       (click)="routNumber.close()"
     >
       submit
@@ -117,36 +117,32 @@
 <ngx-smart-modal
   #bankaddModal
   identifier="bankaddModal"
-  customClass="nsm-centered nsm-dialog-animation-ttb"
+  customClass="nsm-dialog-animation-ttb"
 >
-  <div class="box-header accent">
-    <h3><i class="fa fa-check"></i>Bank is Added !</h3>
+  <div class="modal-header accent">
+    <h6><i class="fa fa-check"></i>Bank is Added !</h6>
   </div>
-  <div class="box-body">
-    <span class="badge text-lg primary pos-rlt mr-2">
-      <b class="arrow left b-primary"></b>
-      Step 2:
-    </span>
+  <div class="modal-body text-center p-lg col-md-12">
 
-    
-    <h6>Add Bank Account for this Bank</h6>
-    
+      <h5>Do you want to add another bank ?</h5>
 
     <button
-      [routerLink]="['add/bank-account']"
+      routerLink="/add/bank-account"
       type="button"
-      class="btn btn-create success p-x-md"
-    >
-      Lets Create
+      class="btn dark-white p-x-md">
+      No
     </button>
+
+    <button
+      (click)="onClickAddAnother()"
+      type="button"
+      class="btn success p-x-md"
+      (click)="bankaddModal.close()">
+      Yes
+    </button>
+
   </div>
-  <button
-    type="button"
-    class="btn dark-white p-x-md"
-    (click)="bankaddModal.close()"
-  >
-    cancel
-  </button>
+
 
   <!-- <div class="modal-content">
           <div class="row">

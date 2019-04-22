@@ -1,0 +1,51 @@
+.check-boundary {
+
+
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+
+    background-size: cover;
+    max-width: 59em;
+    background-repeat: no-repeat;
+    height: 26.5em;
+    margin: 0 auto;
+    border: 3px solid;
+
+    /* max-width: 100%; */
+    /* border: 1px solid #d1c6c6; */
+  }
+
+  .no-margin{
+    margin-right: 0px; 
+     margin-left: 0px; 
+}
+  
+  .check-image {
+    height: 26em;
+    width: 100%;
+  }
+
+  .check-sign{
+    padding-left: 1em;
+
+}
+
+.box {
+    min-height: 163px;
+  }
+
+  .sign-img {
+    height: 75px;
+      width: 20%;
+  }
+
+
+.back-sign-bottom {
+  width: 100%;
+    margin: auto;
+  height: 60px;
+    position: absolute;
+    left: 0px;
+    top: 18em;
+  }

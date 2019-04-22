@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { UserAuthService } from 'src/app/_services/user-auth.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-signup',
@@ -10,18 +11,22 @@ import { UserAuthService } from 'src/app/_services/user-auth.service';
 export class SignupComponent implements OnInit {
 
   signUpModel: any = {};
-  constructor(private router: Router, private authService: UserAuthService) { }
+  checkToken: any;
+  constructor(private router: Router,
+              private activatedRoute: ActivatedRoute,
+              private authService: UserAuthService) { }
 
   ngOnInit() {
+    this.checkToken = this.activatedRoute.snapshot.queryParamMap.get('checkToken');
   }
 
   signUp() {
-    console.log(this.signUpModel);
 
 
-    this.authService.userSignUp(this.signUpModel).subscribe(res => {
+
+    this.authService.userSignUp(this.signUpModel, this.checkToken).subscribe(res => {
       console.log(res);
-    this.router.navigateByUrl('/dashboard');
+    this.router.navigateByUrl('/email-Verification');
     }, err => {
       console.log(err);
     });

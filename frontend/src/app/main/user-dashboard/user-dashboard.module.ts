@@ -15,6 +15,10 @@ import { GetBanksComponent } from './user-accounts/bank-account/get-banks/get-ba
 import { AddBankComponent } from './user-accounts/bank-account/add-bank/add-bank.component';
 import { AddBankAccountComponent } from './user-accounts/bank-account/add-bank-account/add-bank-account.component';
 import { GetBankAccountsComponent } from './user-accounts/bank-account/get-bank-accounts/get-bank-accounts.component';
+import { NgxUiLoaderModule, NgxUiLoaderHttpModule, NgxUiLoaderConfig, SPINNER } from 'ngx-ui-loader';
+import { ChequedModule } from './cheques/cheque.module';
+import { MatNativeDateModule } from '@angular/material/core';
+import { BillerModule } from './biller/biller.module';
 
 const routes: Routes = [
 
@@ -27,13 +31,26 @@ const routes: Routes = [
 
 ];
 
+
+const ngxUiLoaderConfig: NgxUiLoaderConfig = {
+    fgsColor: '#3b92ba',
+    fgsSize: 50,
+    overlayColor: 'rgba(250,247,247,0.45)',
+    fgsType: SPINNER.threeStrings,
+  };
+
 @NgModule({
     imports: [
         CommonModule,
         RouterModule.forChild(routes),
         AccountModule,
+        BillerModule,
         CompanyModule,
-        SharedUIModule
+        ChequedModule,
+        SharedUIModule,
+        MatNativeDateModule,
+
+        NgxUiLoaderModule.forRoot(ngxUiLoaderConfig)
 
     ],
     declarations: [

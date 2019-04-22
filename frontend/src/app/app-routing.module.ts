@@ -12,7 +12,7 @@ const routes: Routes = [
   {path: 'sign-up', component: SignupComponent},
   {path: 'reset-request', component: ResetPasswordComponent},
   {path: 'reset-password/:token', component: NewPasswordComponent},
-  {path: 'email-verification', component: EmailVerifyComponent},
+  {path: 'email-Verification', component: EmailVerifyComponent},
 
 
 ];

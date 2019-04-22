@@ -1,6 +1,4 @@
-.md-check{
-    padding-left: 0;
-}
+
 
 :host  ::ng-deep .table-header{
         background-color: blue !important;

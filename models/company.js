@@ -18,6 +18,7 @@ const Company = sequelize.define('company', {
     allowNull: false
   },
   hasPartner: Sequelize.BOOLEAN,
+  companyAddress: Sequelize.STRING,
   companyDocument: Sequelize.STRING,
 });
 

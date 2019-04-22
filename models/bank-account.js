@@ -13,12 +13,13 @@ const BankAccount = sequelize.define('bank_account', {
     type: Sequelize.STRING,
     allowNull: false
   },
+  isSubAccount: Sequelize.BOOLEAN,
+  subAccountNumber: Sequelize.STRING,
   accountName: {
     type: Sequelize.STRING,
     allowNull: false
   },
-  maxChequeAmount: Sequelize.STRING,
-
+  accountType : Sequelize.STRING
 });
 
 module.exports = BankAccount;

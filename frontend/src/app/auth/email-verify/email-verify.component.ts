@@ -16,18 +16,21 @@ export class EmailVerifyComponent implements OnInit {
               private toastr: ToastrService) { }
 
   ngOnInit() {
-    this.emailVerification();
+    // this.emailVerification();
   }
 
   emailVerification() {
-    const token = this.activatedRoute.snapshot.params.verifytoken;
-    const email = this.activatedRoute.snapshot.params.email;
+    const token = this.activatedRoute.snapshot.queryParams.verifytoken;
+    const email = this.activatedRoute.snapshot.queryParams.email;
+
     this.authService.verifyEmail(token, email).subscribe(result => {
       console.log(result);
-      this.toastr.success('Email is Verified');
-      this.router.navigate(['/dashbaord']);
+      this.toastr.success(result.message);
+    this.router.navigateByUrl('/dashboard');
+
     }, err => {
       console.log(err);
+      this.toastr.error(err.message);
     });
   }
 

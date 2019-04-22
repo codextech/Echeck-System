@@ -9,7 +9,10 @@ const Token = sequelize.define('token', {
     allowNull: false,
     primaryKey: true
   },
-  token: Sequelize.STRING
+  token: Sequelize.STRING,
+  tokenType: {
+    type:   Sequelize.STRING,
+  }
 
 });
 

@@ -1,4 +1,12 @@
-<div class="app" id="app">
+
+ <div style="position: relative"> <!-- the position of the parent container must be set to relative -->
+    <!-- It is really important to set loaderId for non-master loader -->
+    <ngx-ui-loader></ngx-ui-loader>
+  </div>
+
+<div ngxUiLoaderBlurred class="app" id="app">
+
+       
    <!-- ############ LAYOUT START-->
    <!-- ############ Aside START-->
    <app-sidebar></app-sidebar>
@@ -9,6 +17,7 @@
        <app-header></app-header>
        <!-- Main -->
        <div class="content-main " id="content-main">
+
            <!-- ############ Main START-->
            <router-outlet></router-outlet>
         

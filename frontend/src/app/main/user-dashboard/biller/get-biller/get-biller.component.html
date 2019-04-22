@@ -1,0 +1,203 @@
+<!-- Main -->
+<!-- ############ Main START-->
+<div class="padding">
+    <button
+      class="btn primary mb-3"
+      data-toggle="modal"
+      (click)="billerModal.open()"
+    >
+      Add Biller 
+    </button>
+  
+    <div class="box">
+      <div class="box-header">
+        <h3>Billers</h3>
+      </div>
+  
+      <div class="col-md-12 table-responsive">
+        <ngx-table
+          [configuration]="configuration"
+          [data]="recievers"
+          [columns]="columns"
+        >
+          <ng-template let-row let-index="index">
+            <td>{{ row.recieverName }}</td>
+            <td>{{ row.recieverEmail }}</td>
+            <td>{{ row.telephone }}</td>
+            <td>{{ row.address }}</td>
+            <td class="fit">
+                <button (click)="onBillerEdit(row.recieverId)"  class="btn btn-outline b-accent text-accent">
+                           <i class="fa fa-pencil"></i>                 
+                </button>
+  
+              <button (click)="onBillerDelete(row.recieverId)" class="btn btn-outline b-danger text-danger">
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </ng-template>
+        </ngx-table>
+      </div>
+    </div>
+  </div>
+  
+  <!-- .modal Add Biller -->
+  
+  <ngx-smart-modal #billerModal identifier="billerModal" customClass="">
+    <div class="modal-header">
+      <h5 class="modal-title">Biller</h5>
+    </div>
+    <div class="modal-body text-center p-lg">
+      <form #companyForm="ngForm" (ngSubmit)="addBiller()" class="p-x-xs">
+        <div class="mb-2-lg row">
+          <div class="col-sm-12">
+            <div class="row row-sm">
+              <div class="col-sm-6">
+                <div class="md-form-group float-label">
+                  <input
+                    [(ngModel)]="recieverModel.recieverName"
+                    name="name"
+                    class="md-input"
+                    required
+                  />
+                  <label>Name</label>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="md-form-group float-label">
+                  <input
+                    [(ngModel)]="recieverModel.recieverEmail"
+                    name="email"
+                    class="md-input"
+                    required
+                  />
+                  <label> Email</label>
+                </div>
+              </div>
+  
+              <div class="col-sm-6">
+                  <div class="md-form-group float-label">
+                    <input
+                      [(ngModel)]="recieverModel.telephone"
+                      name="telephone"
+                      class="md-input"
+                      required
+                    />
+                    <label> Telephone</label>
+                  </div>
+                </div>
+  
+              <div class="col-sm-12">
+                <div class="md-form-group float-label">
+                  <input
+                    [(ngModel)]="recieverModel.address"
+                    name="address"
+                    class="md-input"
+                  />
+                  <label> Address</label>
+                </div>
+              </div>
+  
+            </div>
+          </div>
+        </div>
+  
+        <button
+          type="button"
+          class="btn dark-white p-x-md"
+          (click)="billerModal.close()"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="btn success p-x-md"
+          (click)="billerModal.close()"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  </ngx-smart-modal>
+  
+  
+  <!-- Update Biller -->
+  
+  
+  <ngx-smart-modal #updateModal identifier="updateModal" customClass="">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Biller Details</h5>
+      </div>
+      <div class="modal-body text-center p-lg">
+        <form #updateForm="ngForm" (ngSubmit)="updateBiller()" class="p-x-xs">
+          <div class="mb-2-lg row">
+            <div class="col-sm-12">
+              <div class="row row-sm">
+                <div class="col-sm-6">
+                  <div class="md-form-group float-label">
+                    <input
+                      [(ngModel)]="recieverModel.recieverName"
+                      name="name"
+                      class="md-input"
+                      required
+                    />
+                    <label>Name</label>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="md-form-group float-label">
+                    <input
+                      [(ngModel)]="recieverModel.recieverEmail"
+                      name="email"
+                      class="md-input"
+                      required
+                    />
+                    <label> Email</label>
+                  </div>
+                </div>
+  
+                <div class="col-sm-6">
+                    <div class="md-form-group float-label">
+                      <input
+                        [(ngModel)]="recieverModel.telephone"
+                        name="telephone"
+                        class="md-input"
+                        required
+                      />
+                      <label> Telephone</label>
+                    </div>
+                  </div>
+                  
+                <div class="col-sm-12">
+                  <div class="md-form-group float-label">
+                    <input
+                      [(ngModel)]="recieverModel.address"
+                      name="address"
+                      class="md-input"
+                    />
+                    <label> Address</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+          <button
+            type="button"
+            class="btn dark-white p-x-md"
+            (click)="updateModal.close()"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            class="btn success p-x-md"
+           
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+    </ngx-smart-modal>
+  
+  <!-- ############ Main END-->
+  

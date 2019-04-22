@@ -73,18 +73,18 @@ exports.creatBankAccount = async (req, res, next) => {
   var bankAccount;
   var signId;
   try {
-    bankAccount = await BankAccount.findOne({where: {companyId: model.Id, bankId: model.bankId}});
+    // bankAccount = await BankAccount.findOne({where: {companyId: model.Id, bankId: model.bankId}});
   
-    if (bankAccount) {
-      return res.status(400).json({ message: "Bank is already attached to company" });
-    }
+    // if (bankAccount) {
+    //   return res.status(400).json({ message: "Bank is already attached to company" });
+    // }
 
-    // avalibale for other company or not --- search by bank routing and account number
-    var isAccountAvailable = await BankAccount.findOne({where: {bankId: model.bankId, accountNumber: model.accountNumber}});
+    // // avalibale for other company or not --- search by bank routing and account number
+    // var isAccountAvailable = await BankAccount.findOne({where: {bankId: model.bankId, accountNumber: model.accountNumber}});
 
-    if (isAccountAvailable) {
-      return res.status(400).json({ message: "Bank Account is already in use of other company" });
-    }
+    // if (isAccountAvailable) {
+    //   return res.status(400).json({ message: "Bank Account is already in use of other company" });
+    // }
 
     // add signature to signature table for maintaing history
     if (model.signatureId) {
@@ -92,7 +92,7 @@ exports.creatBankAccount = async (req, res, next) => {
       var signature = await Signature.create({
         signatureImage : signImageUrl,
         userId : model.userId
-      });
+      }); 
       signId = signature.signatureId; // new sign
     }
       else{
@@ -104,8 +104,10 @@ exports.creatBankAccount = async (req, res, next) => {
         {
           accountName: model.accountName,
           accountNumber: model.accountNumber,
+          isSubAccount: model.isSubAccount,
+          subAccountNumber: model.subAccountNumber,
           userId: model.userId,
-          companyId: model.Id,
+          // companyId: model.Id,
           bankId: model.bankId,
           signatureId : signId
         });

@@ -23,18 +23,20 @@
               </div>
 
               <div class="form-group col-md-6">
-                <label>Your Company</label>
+                <label>Account Type</label>
 
                 <select
-                  [(ngModel)]="accountModel.Id"
+                  [(ngModel)]="accountModel.accountType"
                   name="company"
                   class="form-control custom-select my-2">
-                  <option disabled selected="true" value=""
-                    >Choose Company
+                  <option disabled selected="true" value="">Choose Account Type
                   </option>
-                  <option *ngFor="let comp of companies" [value]="comp.Id">
-                    {{comp.companyName}}</option
-                  >
+                  <option>
+                    Current/Checking
+                  </option>
+                  <option>
+                      Savings
+                  </option>
                 </select>
               </div>
 
@@ -48,8 +50,30 @@
                   placeholder="account number"
                 />
               </div>
+
+
               <div class="form-group col-md-6">
-                <label for="inputPassword4">Account Name</label>
+                  <label for="">I have Sub-Account</label>
+                  <br>
+                  <input
+                    [(ngModel)]="accountModel.isSubAccount"
+                    name="subaccountcheck"
+                    type="checkbox"
+                  />
+              </div>
+              <div class="form-group col-md-6">
+                  <label for="">Sub-Account Number</label>
+                  <input
+                    [(ngModel)]="accountModel.subAccountNumber"
+                    name="subAccountNumber"
+                    type="text"
+                    class="form-control"
+                    placeholder="sub account number"
+                  />
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="">Account Name</label>
                 <input
                   [(ngModel)]="accountModel.accountName"
                   name="accName"
@@ -94,8 +118,7 @@
                   <div
                     drag-scroll
                     drag-scroll-y-disabled="true"
-                    scrollbar-hidden="true"
-                  >
+                    scrollbar-hidden="true">
                     <!-- <drag-scroll drag-scroll-y-disabled="true"
                            scrollbar-hidden="true"> -->
                     <img
@@ -106,6 +129,7 @@
                       *ngFor="let sign of signatures; let i = index"
                       [src]="sign.signatureImage"
                     />
+                    
                     <!-- </drag-scroll> -->
                   </div>
                 </div>

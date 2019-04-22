@@ -13,8 +13,8 @@
         <ng-template let-row let-index="index">
             <td>{{ row.accountNumber }}</td>
           <td>{{ row.accountName }}</td>
+          <td>{{ row.bank.isSubAccount }}</td>
           <td>{{ row.bank.bankName }}</td>
-          <td>{{ row.company.companyName }}</td>
           <td class="fit">
               <button [routerLink]="['/edit/bank-account', row.bankAccountId]" class="btn btn-outline b-accent text-accent">
                 <i class="fa fa-pencil"></i> 

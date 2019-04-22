@@ -18,6 +18,7 @@ const routes: Routes = [
         CommonModule,
         UserDashBoardModule,
         RouterModule,
+
     ],
     declarations: [
         MainComponent

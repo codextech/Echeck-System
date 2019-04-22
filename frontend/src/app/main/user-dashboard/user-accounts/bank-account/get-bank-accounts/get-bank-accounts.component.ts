@@ -22,13 +22,12 @@ export class GetBankAccountsComponent implements OnInit {
       title: 'Account Name',
     },
     {
+      key: 'subAccount',
+      title: 'Sub Account'
+    },
+    {
       key: 'bank',
       title: 'Bank'
-    },
-
-    {
-      key: 'company',
-      title: 'company'
     },
 
     {

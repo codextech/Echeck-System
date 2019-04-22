@@ -8,8 +8,8 @@ router.post("/login", authController.logIn);
 router.post("/signup", authController.signUp);
 
 
-// POST /email-verication?verifytoken=[string]&email=[string]
-router.post('/email-verification', authController.emailVerification);
+// get /email-verication?verifytoken=[string]&email=[string]&checkToken=[string(Optional)]
+router.get('/email-verification', authController.emailVerification);
 
 // reset password
 router.post("/reset-request", authController.resetPasswordRequest); // send token in mail

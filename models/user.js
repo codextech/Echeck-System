@@ -29,6 +29,7 @@ const User = sequelize.define('user', {
   resetToken: Sequelize.STRING,
   resetTokenExpire : Sequelize.STRING,
   isVerified: Sequelize.BOOLEAN,
+  onBehalfSignature: Sequelize.BOOLEAN, // user is allowed to second sign on behalf or Not
   rejectReason: Sequelize.STRING
 });
 

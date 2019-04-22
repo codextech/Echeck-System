@@ -1,0 +1,28 @@
+<div class="padding">
+    <div class="row">
+        
+        <div class="col-md-12">
+            <div *ngIf="checkImages.length > 0" class="row row-xs">
+                <div *ngFor="let check of checkImages" class="col-6 col-sm-4 col-md-4">
+                    <div class="box p-1">
+                        <a [routerLink]="['/reciever/signature-request', check.checkId]">
+                            <img [src]="check.check_Image.checkBack" alt="" class="w-100">
+                        </a>
+                        <!-- <div class="p-2">
+                            <div class="text-ellipsis">{{check.recieverName}}</div>
+                        </div> -->
+                    </div>
+                </div>
+                
+            </div>
+
+            <div *ngIf="checkImages.length <= 0" class="py-5 clearfix">
+                <div class="text-center mb-5">
+                    <h2 class="_700"> No Check Right Now!</h2>
+                    <h5 class="my-4 text-muted">You will be updated soon when check will arrive</h5>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</div>

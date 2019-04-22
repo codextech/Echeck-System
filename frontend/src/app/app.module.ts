@@ -18,19 +18,12 @@ import { UserAuthService } from './_services/user-auth.service';
 import { AuthGuard } from './_guards/auth.guard';
 import { AuthInterceptor } from './auth/auth-interceptor';
 
+
 // reqiur in all app Globally function
 export function tokenGetter() {
   return localStorage.getItem('access_token');
 }
 
-const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
-  // Change this to your upload POST address:
-   url: 'http://localhost:3000/api/upload',
-   maxFilesize: 50,
-   acceptedFiles: 'image/*',
-   autoProcessQueue : false,
-   addRemoveLinks: true
- };
 
 @NgModule({
   declarations: [
@@ -52,14 +45,11 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
         blacklistedRoutes: ['localhost:4200/api/auth']
       }
     }),
-    DropzoneModule
+
+
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-    {
-      provide: DROPZONE_CONFIG,
-      useValue: DEFAULT_DROPZONE_CONFIG
-    },
      UserAuthService,
       AuthGuard
     ],

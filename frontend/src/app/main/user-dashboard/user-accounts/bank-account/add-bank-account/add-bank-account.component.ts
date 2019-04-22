@@ -70,6 +70,8 @@ export class AddBankAccountComponent implements OnInit {
     formData.append('Id', this.accountModel.Id); // companyuId
     formData.append('accountName', this.accountModel.accountName);
     formData.append('accountNumber', this.accountModel.accountNumber);
+    formData.append('isSubAccount', this.accountModel.isSubAccount);
+    formData.append('subAccountNumber', this.accountModel.subAccountNumber);
     this.accountService.addBankAccount(formData).subscribe(result => {
       this.toastr.success('Account Added !');
       this.router.navigate(['/get/bank-accounts']);

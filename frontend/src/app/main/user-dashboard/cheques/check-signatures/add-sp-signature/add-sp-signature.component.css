@@ -1,0 +1,85 @@
+.check-boundary {
+
+
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+
+    background-size: cover;
+    max-width: 59em;
+    background-repeat: no-repeat;
+    height: 23.3em;
+    margin: 0 auto;
+    border: 3px solid;
+
+    /* max-width: 100%; */
+    /* border: 1px solid #d1c6c6; */
+  }
+
+
+  .no-margin{
+    margin-right: 0px; 
+     margin-left: 0px; 
+}
+
+  
+
+  
+  
+  .check-image {
+    height: 23em;
+    width: 100%;
+
+    /* position: relative;
+    top: 0;
+    left: 0; */
+  }
+
+  .check-sign2 {
+    position: relative;
+      width: 35%;
+  }
+
+.sign-img {
+    max-height: 100px;
+      max-width: 30%;
+  }
+
+.box {
+    min-height: 163px;
+  }
+
+
+
+/* Image lay out */
+
+.parent {
+    position: relative;
+    top: 0;
+    left: 0;
+  }
+
+
+  
+  /* .sign {
+    position: absolute;
+    top: 14.5em;
+    left: 45em;
+  }
+
+  .sign-number {
+    position: absolute;
+    top: 16.4em;
+    left: 46em;
+    width: 100%;
+
+  } */
+
+  .drag-img-section{
+
+        width: 35%;
+        position: absolute;
+        top: 25em;
+        left: 50em;
+    
+  }

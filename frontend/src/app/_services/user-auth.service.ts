@@ -30,8 +30,10 @@ return this.http.post<any>(this.baseUrl + 'api/auth/login', model).pipe(
 }
 
 
-userSignUp(model) {
-  return this.http.post<any>(this.baseUrl + 'api/auth/signup', model).pipe(
+userSignUp(model, checkToken) {
+  return this.http.post<any>(this.baseUrl + 'api/auth/signup', model, {
+    params: {checkToken: checkToken}
+  }).pipe(
     map(result => {
       if (result) {
         localStorage.setItem('access_token', result.token);
@@ -47,7 +49,7 @@ userSignUp(model) {
 // email verification
 
 verifyEmail(token, email) {
-  return this.http.post<any>(this.baseUrl + 'api/auth/reset-request', {
+  return this.http.get<any>(this.baseUrl + 'api/auth/email-verification', {
     params: {verifytoken: token, email: email}
   });
 

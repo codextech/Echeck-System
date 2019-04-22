@@ -24,7 +24,6 @@ const routes: Routes = [
     { path: 'add-bank', component: AddBankComponent },
     { path: 'add/bank-account', component: AddBankAccountComponent },
     { path: 'get/bank-accounts', component: GetBankAccountsComponent },
-    { path: 'add/bank-account', component: AddBankAccountComponent },
     { path: 'edit/bank-account/:id', component: EditBankAccountComponent },
 
 

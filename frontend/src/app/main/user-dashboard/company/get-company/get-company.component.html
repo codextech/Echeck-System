@@ -72,6 +72,19 @@
                 <label> EIN#</label>
               </div>
             </div>
+
+            <div class="col-sm-6">
+                <div class="md-form-group float-label">
+                  <input
+                    [(ngModel)]="companyModel.telephone"
+                    name="telephone"
+                    class="md-input"
+                    required
+                  />
+                  <label> Telephone</label>
+                </div>
+              </div>
+
             <div class="col-sm-12">
               <div class="md-form-group float-label">
                 <input
@@ -83,7 +96,7 @@
               </div>
             </div>
 
-            <div class="col-sm-4">
+            <div class="col-sm-12 text-left">
               <label class="md-check">
                 <input
                   type="checkbox"
@@ -91,11 +104,11 @@
                   name="hasPartner"
                 />
                 <i class="indigo"></i>
-                Has Partner
+                Do you have partner ?
               </label>
             </div>
 
-            <div *ngIf="companyModel.hasPartner" class="col-sm-6">
+            <div *ngIf="companyModel.hasPartner" class="col-sm-6 mt-3">
               <div class="md-form-group float-label">
                 <input
                   [(ngModel)]="companyModel.partnerEmail"
@@ -163,6 +176,19 @@
                   <label> EIN#</label>
                 </div>
               </div>
+
+              <div class="col-sm-6">
+                  <div class="md-form-group float-label">
+                    <input
+                      [(ngModel)]="companyModel.telephone"
+                      name="telephone"
+                      class="md-input"
+                      required
+                    />
+                    <label> Telephone</label>
+                  </div>
+                </div>
+                
               <div class="col-sm-12">
                 <div class="md-form-group float-label">
                   <input
@@ -174,19 +200,19 @@
                 </div>
               </div>
   
-              <div class="col-sm-4">
-                <label class="md-check">
-                  <input
-                    type="checkbox"
-                    [(ngModel)]="companyModel.hasPartner"
-                    name="hasPartner"
-                  />
-                  <i class="indigo"></i>
-                  Has Partner
-                </label>
-              </div>
+              <div class="col-sm-12 text-left">
+                  <label class="md-check">
+                    <input
+                      type="checkbox"
+                      [(ngModel)]="companyModel.hasPartner"
+                      name="hasPartner" value=false
+                    />
+                    <i class="indigo"></i>
+                    Do you have partner ?
+                  </label>
+                </div>
   
-              <div *ngIf="companyModel.hasPartner" class="col-sm-6">
+              <div *ngIf="companyModel.hasPartner" class="col-sm-6 mt-3">
                 <div class="md-form-group float-label">
                   <input
                     [(ngModel)]="companyModel.partnerEmail"
