@@ -5,5 +5,5 @@ import { Component } from '@angular/core';
   templateUrl: './user-dashboard.component.html',
 })
 export class UserDashBoardComponent {
-  title = 'Echeck-App';
+  title = 'Echeck';
 }

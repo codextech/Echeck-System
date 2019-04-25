@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { UserAuthService } from './user-auth.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,20 @@ constructor(private http: HttpClient, private auth: UserAuthService) { }
     return this.http.post<any>(environment.apiUrl + 'api/account/update-profile', model);
   }
 
+  // KYC Document
+
+
+  uploadKycDoc(model) {
+    model.append('userId', this.auth.decodedtoken.Id);
+    return this.http.post<any>(environment.apiUrl + 'api/account/kyc-Idverification',
+     model);
+
+  }
+
+
+
+
+
   // Live APi that Gives Bank Details, with creating proxy server check conf.json filr
   getBankByRoutingId(id) {
     return this.http.get<any>('http://localhost:4200/apiroutenumber', {
@@ -40,9 +55,21 @@ constructor(private http: HttpClient, private auth: UserAuthService) { }
     return this.http.post<any>(environment.apiUrl + 'api/bank/', model);
   }
 
+  addBankAccountSignature(model) {
+    model.append('userId', this.auth.decodedtoken.Id);
+  return this.http.post<any>(environment.apiUrl + 'api/bank/bank-account/sign', model);
+
+  }
+
   getBanks() {
     return this.http.get<any>(environment.apiUrl + 'api/bank/allbanks');
   }
+
+
+  getBankAccountTypes() {
+    return this.http.get<any>(environment.apiUrl + 'api/bank/bank-account/account-types');
+  }
+
 
   getBankByUserId() {
     return this.http.get<any>(environment.apiUrl + 'api/bank', {
@@ -51,7 +78,8 @@ constructor(private http: HttpClient, private auth: UserAuthService) { }
   }
 
   addBankAccount(model) {
-    model.append('userId', this.auth.decodedtoken.Id);
+    model.userId = this.auth.decodedtoken.Id;
+    // model.append('userId', this.auth.decodedtoken.Id);
     return this.http.post<any>(environment.apiUrl + 'api/bank/bank-account', model);
 
   }
@@ -95,6 +123,10 @@ constructor(private http: HttpClient, private auth: UserAuthService) { }
       params: {bankAccountId : id}
     });
   }
+
+
+
+
 
 
 

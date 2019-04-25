@@ -8,7 +8,7 @@
     background-size: cover;
     max-width: 59em;
     background-repeat: no-repeat;
-    height: 23.3em;
+    height: 28.4em;
     margin: 0 auto;
     border: 3px solid;
 
@@ -23,11 +23,11 @@
 }
 
   
-
+ 
   
   
   .check-image {
-    height: 23em;
+    height: 28em;
     width: 100%;
 
     /* position: relative;
@@ -79,7 +79,7 @@
 
         width: 35%;
         position: absolute;
-        top: 25em;
+        top: 30em;
         left: 50em;
     
   }

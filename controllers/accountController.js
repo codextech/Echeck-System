@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const accountHelper = require("../helpers/accountHelper");
 
 // update user profile
 exports.updateProfile = (req, res, next) => {
@@ -39,7 +40,8 @@ exports.getProfile = (req, res, next) => {
       "uniqueName",
       "profileImageUrl",
       "firstName",
-      "lastName"
+      "lastName",
+      "kycStatus"
     ]
   })
     .then(profile => {
@@ -52,9 +54,36 @@ exports.getProfile = (req, res, next) => {
     });
 };
 
-//  function getProfileById(id){
 
-// }
+
+// add user KYC
+
+exports.kycIdVerification = async (req, res, next) => {
+
+  var imageUrl;
+  const model = req.body;
+  var document;
+  try {
+
+    if (req.file) {
+      imageUrl = getImageUrl(req);
+    }
+
+    // addKYCDocumnet
+    document =  await accountHelper.userIdVerification(model.userId, imageUrl)
+    if (!document) {
+      res.status(400).json({ message: "Could not Upload", data:{} });      
+    }
+    
+  } catch (error) {
+    res.status(500).json({error:error });          
+  }
+  res.status(200).json({ message: "Uploaded", data:document });      
+ 
+}
+
+
+
 
 function getImageUrl(req) {
 

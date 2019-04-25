@@ -1,0 +1,21 @@
+.check-boundary {
+
+
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+
+    background-size: cover;
+    max-width: 59em;
+    background-repeat: no-repeat;
+    height: 40em;
+    margin: 0 auto;
+
+  }
+
+
+  .inline {
+      display: inline;
+      padding-left: 15px;
+      cursor: pointer;
+  }

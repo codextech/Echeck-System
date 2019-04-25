@@ -6,7 +6,7 @@
 
                 <div  *ngFor="let check of checksImages" class="col-6 col-sm-12 col-md-4">
                     <div class="box p-1">
-                        <a [routerLink]="['/reciever-signature', check.checkId]">
+                        <a [routerLink]="['/check-history/sent', check.checkId]">
                             <img [src]="check.check_Image.checkFront" alt="" class="w-100">
                         </a>
                         <!-- <div class="p-2">

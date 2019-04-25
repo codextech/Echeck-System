@@ -27,6 +27,7 @@ const Check = sequelize.define('check', {
   senderAddress: Sequelize.STRING,
   isSignCompleted: Sequelize.BOOLEAN,
   isRecieverSignCompleted: Sequelize.BOOLEAN,
+  senderOnBhalfSign: Sequelize.BOOLEAN,
   senderPartnerSignDate: Sequelize.DATE,
   recieverPhone:Sequelize.STRING,
   recieverEmail: Sequelize.STRING,

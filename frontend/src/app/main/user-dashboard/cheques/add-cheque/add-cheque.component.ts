@@ -4,7 +4,11 @@ import { UserCompanyService } from 'src/app/_services/user-company.service';
 import { UserCheckService } from 'src/app/_services/user-check.service';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import domtoimage from 'dom-to-image'; // html to Image
+import numbo from 'numbo'; // html to Image
 import { RecieverService } from 'src/app/_services/reciever.service';
+import { UserAuthService } from 'src/app/_services/user-auth.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-cheque',
@@ -21,6 +25,11 @@ export class AddChequeComponent implements OnInit {
 
   selectedCompany: any = {};
   selectedbankAccount: any = {};
+  wordsAmount = '';
+  recieverName = '';
+
+  kycStatus: any;
+  messageAlert = false;
 
   secondSignImage: any;
 
@@ -37,17 +46,30 @@ export class AddChequeComponent implements OnInit {
     private companyService: UserCompanyService,
     private checkService: UserCheckService,
     private ngxModalService: NgxSmartModalService,
+    private router: Router,
+    private toastr: ToastrService,
   ) {}
 
   ngOnInit() {
+    this.getCurrentUserById();
     this.getCheckIssuedNumber();
     this.getBankAccounts();
     this.getCompanies();
     this.getSignatures();
     this.getReceivers();
     this.getCheckBackgrounds();
+
   }
 
+  getCurrentUserById() {
+    this.accountService.getUserProfile().subscribe(
+      result => {
+        this.kycStatus = result.profile.kycStatus;
+        this.messageAlert = true;
+      },
+      err => console.log(err)
+    );
+  }
   getCheckIssuedNumber() {
     this.checkService.getIssuedNumber().subscribe(
       result => {
@@ -132,10 +154,11 @@ export class AddChequeComponent implements OnInit {
 
     formData.append('checkImage', this.checkModel.checkImageFile); // check image (dom to png)
     formData.append('backgroundImage', this.checkModel.checkBackgroundimage); // check bacground image
+    formData.append('secondSignImage', this.checkModel.secondSignImage); // PartnerSign image
+    formData.append('senderOnBhalfSign', this.checkModel.senderOnBhalfSign);
     formData.append('checkNumber', this.checkModel.checkNumber);
     formData.append('issuedDate', this.checkModel.issuedDate);
     formData.append('amount', this.checkModel.amount);
-    formData.append('recieverName', this.checkModel.recieverName);
     formData.append('checkMemo', this.checkModel.checkMemo);
     formData.append('bankAccountId', this.checkModel.bankAccountId);
     // indivual
@@ -144,9 +167,10 @@ export class AddChequeComponent implements OnInit {
     formData.append('senderAddress', this.checkModel.senderAddress);
     // comapny
     formData.append('companyId', this.checkModel.companyId);
-    // reviever
-    formData.append('recieverEmail', this.checkModel.recieverEmail);
-    formData.append('recieverPhone', this.checkModel.recieverPhone);
+    // reciever
+    formData.append('billerId', this.checkModel.billerId);
+    // formData.append('recieverEmail', this.checkModel.recieverEmail);
+    // formData.append('recieverPhone', this.checkModel.recieverPhone);
     // sneder Partner
     if (this.checkModel.senderPartnerEmail) {
     formData.append('senderPartnerEmail', this.checkModel.senderPartnerEmail);
@@ -157,6 +181,9 @@ export class AddChequeComponent implements OnInit {
 
     this.checkService.saveCheck(formData).subscribe(
       result => {
+
+        this.router.navigate(['/check-history/sent']);
+        this.toastr.success('Check Sent');
         console.log(result.data);
       },
       err => {
@@ -178,16 +205,31 @@ export class AddChequeComponent implements OnInit {
     // tslint:disable-next-line:triple-equals
     const account = this.bankAccounts.find(x => x.bankAccountId == id);
     console.log(account);
-    const sign = this.signatures.find(
-      item => item.signatureId === account.signatureId
-    );
-    console.log(sign);
+    if (account.signatureId) {
+      const sign = this.signatures.find(
+        item => item.signatureId === account.signatureId
+      );
+      console.log(sign);
+      this.selectedbankAccount = {
+        routingNumber: account.bank.routingNumber,
+        accountNumber: account.accountNumber,
+        signature: sign.signatureImage
+      };
+    } else {
+      this.ngxModalService.open('bankAccountModal');
+    }
 
-    this.selectedbankAccount = {
-      routingNumber: account.bank.routingNumber,
-      accountNumber: account.accountNumber,
-      signature: sign.signatureImage
-    };
+  }
+
+
+
+  onChangeBiller(id) {
+    console.log(this.checkModel.billerId);
+    // tslint:disable-next-line:triple-equals
+    const reciever = this.recievers.find(x => x.recieverId == id);
+      console.log(reciever);
+      this.recieverName = reciever.recieverName;
+
   }
 
   onCheckBackgroundPicked(event) {
@@ -201,15 +243,13 @@ export class AddChequeComponent implements OnInit {
       reader.readAsDataURL(file);
          this.checkModel.checkBackgroundId = null; // user want to upload new background
        this.isBackSelected = false;
-
-
     }
   }
 
   onSignImagePicked() {
     const file = (event.target as any).files[0];
     if (file) {
-      // this.checkModel.secondSignImage = file;
+      this.checkModel.secondSignImage = file;
       const reader = new FileReader();
       reader.onload = () => {
         this.secondSignImage = reader.result; // preview of image & change Check background Image
@@ -255,6 +295,9 @@ export class AddChequeComponent implements OnInit {
 
   }
 
+  convertAmountToWords() {
+    this.wordsAmount = numbo.convert(this.checkModel.amount, 'check');
+  }
 
 
 }

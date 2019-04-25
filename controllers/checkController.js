@@ -87,11 +87,14 @@ exports.saveCheck = async (req, res, next) => {
   var model = req.body;
   var savedCheck;
   var savedCheckBackground;
+  var savedSecondPartnerSign;
   var checkBackgroundId;
+  var biller;
   var recieverId;
   var foundReciever;
   var foundSenderPartner;
   var senderPartnerId;
+  var senderPartnerSignatureId;
   var signatureCompleted = true; // assume that signature process is complete
   try {
 
@@ -101,6 +104,15 @@ exports.saveCheck = async (req, res, next) => {
     var savedCheckImage = await CheckImage.create({
       checkFront: checkFrontImage,
     });
+
+    if (model.senderOnBhalfSign != 'false' && model.senderOnBhalfSign != 'undefined') {
+      var secondPartnerSign = getImageUrlFromArray(req, req.files['secondSignImage'][0]); // url of image
+       savedSecondPartnerSign = await Signature.create({
+        signatureImage: secondPartnerSign,
+        userId: model.userId
+      });
+      senderPartnerSignatureId = secondPartnerSign.signatureId;
+    }
 
     // save checkbacground Image into Db
 
@@ -126,14 +138,17 @@ exports.saveCheck = async (req, res, next) => {
       }
 
       /* ------------------ #### user search in Database #### ----------------------- */
-     
+
+      // Find Biller by BillerId
+       biller = await CheckHelper.findBiller(model.billerId);  // biller is list of biller details that users add      
+
       // First Find the reciever in Database
-      if (model.recieverEmail) {
-      foundReciever = await authHelper.getUserByEmail(model.recieverEmail);        
+      if (biller) {
+      foundReciever = await authHelper.getUserByEmail(biller.recieverEmail);    // this will actual reciever    
       }
 
       if (foundReciever) {
-        recieverId = foundReciever.Id;
+        recieverId = foundReciever.Id; // biller email present as a user in Db 
       }
 
       if (foundSenderPartner) {
@@ -150,12 +165,10 @@ exports.saveCheck = async (req, res, next) => {
         isSignCompleted: signatureCompleted, // sender sign process
         amount: model.amount,
         checkMemo: model.checkMemo,
-        recieverName: model.recieverName,
         individual: model.individual,
         senderAddress: model.senderAddress,
         senderName: model.senderName,
-        recieverEmail: model.recieverEmail,
-        recieverPhone: model.recieverPhone,
+        billerId: model.billerId,  // its biller details for user
         bankAccountId: model.bankAccountId,
         companyId: model.companyId,
         senderId: model.userId,
@@ -164,7 +177,7 @@ exports.saveCheck = async (req, res, next) => {
         checkBackgroundId: checkBackgroundId,
         CheckImageId: savedCheckImage.checkImageId,
         senderPartnerId: senderPartnerId,
-        // senderPartnerSignId: signature.signatureId, // first save sign into signature table and get Id
+        senderPartnerSignId: senderPartnerSignatureId, // first save sign into signature table and get Id
       });
 
     }
@@ -191,7 +204,7 @@ exports.saveCheck = async (req, res, next) => {
       // send email to Reciver For check
 
       var sendEmail = await transporter.sendMail({
-        to: model.recieverEmail,
+        to: biller.recieverEmail,
         from: 'echeck@gmail.com',
         subject: 'Check Recieved',
         html: `<h1>Hi, you have recievd Check For ${model.recieverName} </h1>
@@ -359,6 +372,8 @@ exports.saveCheckSenderPartnerSign = async (req, res, next) => {
   var model = req.body;
   var checkDetails;
   var spSignatureId;
+  var foundReciever;
+  var recieverId;
   try {
 
     var checkImage = await CheckImage.findOne({ where: { checkImageId: model.checkImageId } });
@@ -387,22 +402,27 @@ exports.saveCheckSenderPartnerSign = async (req, res, next) => {
       spSignatureId = model.signatureId;
     }
 
+     // find reciever in Db
 
+     foundReciever = await authHelper.getUserByEmail(model.recieverEmail);
+      if (foundReciever) {
+        recieverId = foundReciever.Id;
+      }
     // update Check
     if (spSignatureId) {
 
       checkDetails = await Check.findOne({ where: { checkId: model.checkId } })
 
+     
       await checkDetails.update({
         senderPartnerSignId: spSignatureId,
         isSignCompleted: true,
         senderPartnerSignDate: Date.now(),
-        recieverEmail: model.recieverEmail,
-        recieverPhone: model.recieverPhone,
+        recieverId : recieverId 
       });
     }
 
-    if (model.recieverEmail != '') {
+    if (!foundReciever) {
 
       // generate Token against checkId
 
@@ -433,9 +453,7 @@ exports.saveCheckSenderPartnerSign = async (req, res, next) => {
  </a> `
       });
     }
-    else{
-   res.status(400).json({ message: 'Please Provide Reciever Details.', data: {} });
-    }
+
 
 
   } catch (error) {

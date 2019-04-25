@@ -1,0 +1,42 @@
+<div class="padding">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="box">
+          <div class="box-header">
+            <h2>Check # {{checkModel.checkNumber}}</h2>
+          </div>
+          <div class="box-body">
+
+              <p (click)="onClickFlip()" class="inline py-3 mt-3">
+                  <i class="fa fa-undo text-primary fa-2x"></i>
+              </p>
+              
+
+              <p (click)="downLoadCheck()" class="inline py-3 mt-3">
+                  <i class="fa fa-cloud-download text-warning fa-2x"></i>
+              </p>
+
+              <div  *ngIf="checkModel.check_BackGround"  class="check-boundary">
+                  <ngx-flip [flip]="flipCheck">
+                      <div back class="row no-margin form-area">
+              
+                          <img class="check-image" [src]="checkModel.check_Image.checkBack" alt="">
+                        </div>
+                  <div front class="row no-margin form-area">
+              
+                    <img class="check-image" [src]="checkModel.check_Image.checkFront" alt="">
+                     
+                  </div>
+                  
+                  </ngx-flip>
+    
+              </div>
+
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

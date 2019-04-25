@@ -57,6 +57,9 @@ export class AddRecieverSignatureComponent implements OnInit {
     formData.append('checkId', this.checkModel.checkId);
     formData.append('signatureId', this.checkModel.signatureId); // if selected sign
     // reciever need for second sign from his partner
+    if (!this.checkModel.recieverPartnerEmail) {
+      this.checkModel.recieverPartnerEmail = ''; // if email not present
+    }
     formData.append('recieverPartnerEmail', this.checkModel.recieverPartnerEmail);
 
     this.checkService.addCheckBack(formData).subscribe(

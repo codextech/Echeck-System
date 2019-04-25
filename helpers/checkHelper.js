@@ -2,6 +2,7 @@
 const Check = require("../models/check");
 const CheckImage = require("../models/check-image");
 const CheckBackground = require("../models/check-background");
+const Biller = require("../models/reciever");
 const Token = require("../models/token");
 
 exports.addRecieverInCheck = async (foundToken, id) => {
@@ -231,6 +232,23 @@ exports.allRecievedChecks = async (id) => {
 
     return checks;
 
+}
+
+// find biller By BillerId
+
+
+exports.findBiller = async (id) => {
+
+    var biller;
+    try {
+        biller = await Biller.findOne({
+            where : {recieverId: id}
+        });
+    } catch (error) {
+        console.log(error);
+        
+    }
+    return biller;
 }
 
 // sender Partner Token

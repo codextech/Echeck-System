@@ -9,7 +9,7 @@
           <form #accountForm="ngForm" (ngSubmit)="addBankAccount()">
             <div class="form-row">
               <div class="form-group col-md-6">
-                <label for="inputCity">Bank</label>
+                <label for="">Bank</label>
 
                 <select
                   [(ngModel)]="accountModel.bankId"
@@ -26,17 +26,15 @@
                 <label>Account Type</label>
 
                 <select
-                  [(ngModel)]="accountModel.accountType"
+                  [(ngModel)]="accountModel.bankaccountTypeId"
                   name="company"
                   class="form-control custom-select my-2">
                   <option disabled selected="true" value="">Choose Account Type
                   </option>
-                  <option>
-                    Current/Checking
+                  <option *ngFor="let type of bankAccountTypes" [value]="type.bankAccountTypeId">
+                      {{ type.bankaccountType }}
                   </option>
-                  <option>
-                      Savings
-                  </option>
+                
                 </select>
               </div>
 
@@ -51,17 +49,36 @@
                 />
               </div>
 
+              <div class="form-group col-md-6">
+                  <label for="">Account Name</label>
+                  <input
+                    [(ngModel)]="accountModel.accountName"
+                    name="accName"
+                    type="text"
+                    class="form-control"
+                    placeholder="account name"
+                  />
+                </div>
 
               <div class="form-group col-md-6">
-                  <label for="">I have Sub-Account</label>
+
+                  <label class="md-check">
+                      <input
+                        type="checkbox"
+                        [(ngModel)]="accountModel.isSubAccount"
+                        name="isSubAccount"/>
+                      <i class="indigo"></i>
+                      I have Sub-Account
+                    </label>
+                  <!-- <label for="">I have Sub-Account</label>
                   <br>
                   <input
                     [(ngModel)]="accountModel.isSubAccount"
                     name="subaccountcheck"
                     type="checkbox"
-                  />
+                  /> -->
               </div>
-              <div class="form-group col-md-6">
+              <div *ngIf="accountModel.isSubAccount" class="form-group col-md-6">
                   <label for="">Sub-Account Number</label>
                   <input
                     [(ngModel)]="accountModel.subAccountNumber"
@@ -72,18 +89,9 @@
                   />
               </div>
 
-              <div class="form-group col-md-6">
-                <label for="">Account Name</label>
-                <input
-                  [(ngModel)]="accountModel.accountName"
-                  name="accName"
-                  type="text"
-                  class="form-control"
-                  placeholder="account name"
-                />
-              </div>
 
-              <div class="form-group col-md-6">
+<!-- 
+              <div  class="form-group col-md-12">
                 <label for="inputEmail4">Upload Account Signature </label>
 
                 <div *ngIf="imagePreview" class="col-6 col-sm-3 col-md-4">
@@ -109,9 +117,9 @@
                 >
                   <i class="fa fa-upload"></i>
                 </button>
-              </div>
+              </div> -->
 
-              <div class="form-group col-md-12">
+              <!-- <div class="form-group col-md-12">
                 <label for="inputEmail4">Used Signature </label>
 
                 <div class="sign-history">
@@ -119,8 +127,7 @@
                     drag-scroll
                     drag-scroll-y-disabled="true"
                     scrollbar-hidden="true">
-                    <!-- <drag-scroll drag-scroll-y-disabled="true"
-                           scrollbar-hidden="true"> -->
+                   
                     <img
                       drag-scroll-item
                       (click)="activeIndex = i; selectedSign(sign.signatureId)"
@@ -130,10 +137,11 @@
                       [src]="sign.signatureImage"
                     />
                     
-                    <!-- </drag-scroll> -->
                   </div>
                 </div>
-              </div>
+              </div> -->
+
+              
             </div>
 
             <button type="submit" class="btn success">Submit</button>
@@ -143,3 +151,32 @@
     </div>
   </div>
 </div>
+
+
+
+
+
+
+<!-- Modal -->
+
+<ngx-smart-modal
+  #bankAccountModal
+  identifier="bankAccountModal"
+  customClass="nsm-dialog-animation-ttb">
+
+
+    <div class="modal-body text-center">
+        <p class="py-3 mt-3">
+            <i class="fa fa-check text-primary fa-4x"></i>
+        </p>
+        <p>Do you want to add another account?</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn white" type="button"
+         (click)="bankAccountModal.close()" >No</button>
+        <button class="btn danger" type="button"
+         (click)="onClickAddAnother() && bankAccountModal.close()">Yes</button>
+    </div>
+
+
+</ngx-smart-modal>

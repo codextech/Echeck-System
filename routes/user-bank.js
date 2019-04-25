@@ -30,14 +30,25 @@ router.get("/bank-account/getall",checkAuth, bankController.getBankAccount); // 
 
 router.get("/bank-account",checkAuth, bankController.getBankAccountById); // singlee bank account
 
+// router.post("/bank-account",checkAuth,
+//  multer({ storage: fileStorage }).single("image"),
+//   bankController.creatBankAccount);
+
 router.post("/bank-account",checkAuth,
- multer({ storage: fileStorage }).single("image"),
   bankController.creatBankAccount);
 
 router.put("/bank-account",checkAuth,
   multer({ storage: fileStorage }).single("image"),
    bankController.updateBankAccount);
 router.delete("/bank-account",checkAuth, bankController.deleteBankAccount);
+
+// Add bank account sign
+router.post("/bank-account/sign",checkAuth,
+ multer({ storage: fileStorage }).single("signImage"),
+  bankController.addSignature);
+  
+//bank account type
+router.get("/bank-account/account-types",checkAuth, bankController.getBankAccountTypes); // all bank account
 
 //user signatures
 router.get("/bank-account/signatures",checkAuth, bankController.getSignatures);

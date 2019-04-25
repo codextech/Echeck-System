@@ -11,6 +11,7 @@ import { TableModule } from 'ngx-easy-table';
 import { DragScrollModule } from 'ngx-drag-scroll';
 import { EditBankAccountComponent } from './edit-bank-account/edit-bank-account.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { AddSignatureComponent } from './add-signature/add-signature.component';
 
 const routes: Routes = [];
 
@@ -29,7 +30,8 @@ const routes: Routes = [];
         GetBanksComponent,
         GetBankAccountsComponent,
         AddBankAccountComponent,
-        EditBankAccountComponent
+        EditBankAccountComponent,
+        AddSignatureComponent
     ],
 
 })

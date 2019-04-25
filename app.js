@@ -12,10 +12,14 @@ const Company = require("./models/company");
 const Signature = require("./models/user-signature");
 const Bank = require("./models/bank");
 const BankAccount = require("./models/bank-account");
+const BankAccountType = require("./models/bankaccount-type");
 const Token = require("./models/token");
 const Check = require("./models/check");
 const CheckImage = require("./models/check-image");
 const CheckBackground = require("./models/check-background");
+const KYC = require("./models/kyc");
+
+
 
 // ------------------------------------------------
 // ______our routes________
@@ -53,6 +57,10 @@ User.hasOne(Token,{foreignKey: 'userId'});
 Token.belongsTo(User, {foreignKey: "userId"});
 // -----------------------------
 
+// -------User & KYC
+User.hasMany(KYC,{foreignKey: 'userId'});
+KYC.belongsTo(User,{foreignKey: 'userId'});
+// -----------------------------
 
 // -------User & Reciever
 User.hasMany(Reciever, {foreignKey : 'userId'});
@@ -88,10 +96,21 @@ Signature.hasMany(BankAccount,{foreignKey : 'signatureId'});
 BankAccount.belongsTo(Signature,{foreignKey : 'signatureId'});
 // ----------------------------
 
-// ------- Bank_Accounts -> Company
-Company.hasMany(BankAccount,{foreignKey : 'companyId'});
-BankAccount.belongsTo(Company,{foreignKey : 'companyId'});
+// ------- Bank_Accounts -> Signatures
+Signature.hasMany(BankAccount,{foreignKey : 'signatureId'});
+BankAccount.belongsTo(Signature,{foreignKey : 'signatureId'});
 // ----------------------------
+
+// ------- Bank_Accounts -> Company
+// Company.hasMany(BankAccount,{foreignKey : 'companyId'});
+// BankAccount.belongsTo(Company,{foreignKey : 'companyId'});
+// ----------------------------
+
+// ------- Bank_Accounts -> BankAccountType
+BankAccountType.hasMany(BankAccount,{foreignKey : 'accountTypeId'});
+BankAccount.belongsTo(BankAccountType,{foreignKey : 'accountTypeId'});
+// ----------------------------
+
  
 //------------- bank_account -> check
 
@@ -148,8 +167,8 @@ User.hasMany(CheckBackground,{foreignKey: 'userId'});
 
 
 sequelize
-  //  .sync() 
- .sync({force: true}) 
+   .sync() 
+//  .sync({force: true}) 
   .then(result => {
     // console.log(result);
     console.log('table created');

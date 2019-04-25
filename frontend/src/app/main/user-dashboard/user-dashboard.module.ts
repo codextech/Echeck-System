@@ -19,6 +19,7 @@ import { NgxUiLoaderModule, NgxUiLoaderHttpModule, NgxUiLoaderConfig, SPINNER } 
 import { ChequedModule } from './cheques/cheque.module';
 import { MatNativeDateModule } from '@angular/material/core';
 import { BillerModule } from './biller/biller.module';
+import { GalleryModule } from './gallery/gallery.module';
 
 const routes: Routes = [
 
@@ -46,6 +47,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
         AccountModule,
         BillerModule,
         CompanyModule,
+        GalleryModule,
         ChequedModule,
         SharedUIModule,
         MatNativeDateModule,

@@ -53,11 +53,9 @@
       
       
                             <div *ngIf="imagePreview" class="col-6 col-sm-3 col-md-4">
-                              <div class="box">
                                 <div>
                                   <img class="w-100" alt="" [src]="imagePreview"  />
                                 </div>
-                              </div>
                             </div>
       
                             <br />
@@ -76,7 +74,7 @@
                     
                   </div>
 
-                  <div *ngIf="checkModel.recieverEmail" class="row">
+                  <div *ngIf="checkModel.billerId" class="row">
 
 
                   <div class="col-md-12">
@@ -96,11 +94,11 @@
                         placeholder="Receiver Email" />
                     </div>
   
-                    <div class="form-group col-md-6">
+                    <!-- <div class="form-group col-md-6">
                       <label for="">Phone#</label>
                       <input [(ngModel)]="checkModel.recieverPhone" name="recieverPhone" type="text" class="form-control"
                         placeholder="Reciever Phone" />
-                    </div>
+                    </div> -->
 
                   </div>
 

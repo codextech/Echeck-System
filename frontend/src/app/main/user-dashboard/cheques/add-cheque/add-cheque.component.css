@@ -189,3 +189,25 @@ margin-bottom: 0;
     width: 100%;
     padding-left: .5rem;
 }
+
+.dollar{
+  float: right;
+}
+
+
+.mb-22{
+  margin-bottom: -22px;
+}
+
+
+
+@font-face {
+  font-family: 'MicrFont';
+  src: url('../../../../../assets/fonts/micrenc.ttf')  format('truetype'), /* Safari, Android, iOS */
+}
+
+
+.check-boundary {
+font-family: 'MicrFont';
+
+}

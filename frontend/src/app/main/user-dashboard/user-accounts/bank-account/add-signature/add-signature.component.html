@@ -1,0 +1,102 @@
+<div class="padding">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="box">
+          <div class="box-header">
+            <h2>Account Signature</h2>
+  
+          </div>
+          <div class="box-body">
+            
+            <form #bankForm="ngForm" (ngSubmit)="addSignature()">
+              <div class="form-row">
+                
+                <!-- <div class="form-group col-sm-12">
+                    <label for="inputAddress">Choose Bank Account</label>
+
+                    
+                <select
+                [(ngModel)]="signatureModel.bankAccountId"
+                name="bank"
+                class="form-control custom-select my-2">
+                <option disabled selected="true" value="">Choose Bank</option>
+                <option>
+                  Account Name
+                </option>
+              </select>
+
+                </div> -->
+
+                <div  class="form-group col-md-12">
+                  <label>Choose Bank Account</label>
+                  <select [(ngModel)]="signatureModel.bankAccountId" name="bankAccountId"
+                   class="form-control">
+                    <option value="0">Select Account</option>
+                    <option *ngFor="let account of bankAccounts" [value]="account.bankAccountId">
+                      {{account.accountName}} | {{account.accountNumber}}
+                    </option>
+                  </select>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="box p-3">
+                      <strong class="text-muted">Upload Signature</strong>
+                      <br>
+
+
+
+                      <div *ngIf="signImage"  class="col-6 col-sm-3 col-md-4">
+                        <div class="box">
+                          <div>
+                            <img class="w-100" alt="" [src]="signImage" />
+                          </div>
+                        </div>
+                      </div>
+
+                      <br />
+                      <input style="display:none" #signFile type="file"  (change)="onSignImagePicked($event)" />
+
+                      <button type="button" (click)="signFile.click()" class="btn btn-fw accent">
+                        <i class="fa fa-upload"></i>
+                      </button>
+
+
+                    </div>
+                  </div>
+
+              
+              </div>
+  
+   
+              <button type="submit" class="btn success">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+
+  
+<ngx-smart-modal
+#signModal
+identifier="signModal"
+customClass="nsm-dialog-animation-ttb">
+
+
+  <div class="modal-body text-center">
+      <p class="py-3 mt-3">
+          <i class="fa fa-check text-primary fa-4x"></i>
+      </p>
+      <p>Do you want to add another signature?</p>
+  </div>
+  <div class="modal-footer">
+      <button class="btn white" type="button"
+       (click)="signModal.close(); onClickAddAnother()" >No</button>
+      <button class="btn danger" type="button"
+       (click)="onClickAddAnother(); signModal.close()">Yes</button>
+  </div>
+
+
+</ngx-smart-modal>

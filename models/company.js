@@ -19,6 +19,8 @@ const Company = sequelize.define('company', {
   },
   hasPartner: Sequelize.BOOLEAN,
   companyAddress: Sequelize.STRING,
+  city: Sequelize.STRING,
+  zipCode: Sequelize.STRING,
   companyDocument: Sequelize.STRING,
 });
 

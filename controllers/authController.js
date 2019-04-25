@@ -205,20 +205,19 @@ exports.emailVerification = async (req, res, next) => {
 }
 
 
-// exports.getAllUsers = async (req, res, next) => {
+// exports.getCurrentUser = async (req, res, next) => {
 
-//   var users;
+//   var user;
 //   try {
-//     users = await User.findAll({
+//     user = await User.findAll({
 //       attributes: [
 //       "Id",
-//       "email",
-//       "uniqueName"]});
+//       "kycStatus"]});
 //   } 
 //   catch (error) {
 //     return res.status(500).json({message: "something wrong", error: err});
 //   }
-//   res.status(200).json({message: "users", data: users})
+//   res.status(200).json({message: "users", data: user})
 // }
    
 

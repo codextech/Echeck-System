@@ -1,13 +1,7 @@
 <!-- Main -->
 <!-- ############ Main START-->
 <div class="padding">
-  <button
-    class="btn primary mb-3"
-    data-toggle="modal"
-    (click)="compModal.open()"
-  >
-    Add Company 
-  </button>
+  
 
   <div class="box">
     <div class="box-header">
@@ -15,6 +9,13 @@
     </div>
 
     <div class="col-md-12 table-responsive">
+        <button
+        class="btn primary mb-3"
+        data-toggle="modal"
+        (click)="compModal.open()">
+        Add Company 
+      </button>
+      
       <ngx-table
         [configuration]="configuration"
         [data]="companies"
@@ -46,7 +47,7 @@
     <h5 class="modal-title">Comapny</h5>
   </div>
   <div class="modal-body text-center p-lg">
-    <form #companyForm="ngForm" (ngSubmit)="addCompany()" class="p-x-xs">
+    <form #companyForm="ngForm" (ngSubmit)="addCompany() && companyForm.form.valid" class="p-x-xs">
       <div class="mb-2-lg row">
         <div class="col-sm-12">
           <div class="row row-sm">
@@ -56,6 +57,8 @@
                   [(ngModel)]="companyModel.companyName"
                   name="name"
                   class="md-input"
+                  #companyName="ngModel"
+                  [ngClass]="{'is-invalid': companyName.touched && companyName.invalid}"
                   required
                 />
                 <label>Company Name</label>
@@ -67,6 +70,8 @@
                   [(ngModel)]="companyModel.EIN"
                   name="einNumber"
                   class="md-input"
+                  #ein="ngModel"
+                  [ngClass]="{'is-invalid': ein.touched && ein.invalid}"
                   required
                 />
                 <label> EIN#</label>
@@ -79,6 +84,8 @@
                     [(ngModel)]="companyModel.telephone"
                     name="telephone"
                     class="md-input"
+                    #telephone="ngModel"
+                    [ngClass]="{'is-invalid': telephone.touched && telephone.invalid}"
                     required
                   />
                   <label> Telephone</label>
@@ -91,6 +98,9 @@
                   [(ngModel)]="companyModel.address"
                   name="address"
                   class="md-input"
+                  #address="ngModel"
+                  [ngClass]="{'is-invalid': address.touched && address.invalid}"
+                  required
                 />
                 <label> Address</label>
               </div>
@@ -101,10 +111,9 @@
                 <input
                   type="checkbox"
                   [(ngModel)]="companyModel.hasPartner"
-                  name="hasPartner"
-                />
+                  name="hasPartner"/>
                 <i class="indigo"></i>
-                Do you have partner ?
+                I have a partner/Director
               </label>
             </div>
 
@@ -133,8 +142,8 @@
       <button
         type="submit"
         class="btn success p-x-md"
-        (click)="compModal.close()"
-      >
+        [disabled]="companyForm.invalid"
+        (click)="compModal.close()">
         Submit
       </button>
     </form>
@@ -160,6 +169,8 @@
                     [(ngModel)]="companyModel.companyName"
                     name="name"
                     class="md-input"
+                    #companyName="ngModel"
+                    [ngClass]="{'is-invalid': updateForm.submitted && companyName.invalid}"
                     required
                   />
                   <label>Company Name</label>
@@ -171,6 +182,9 @@
                     [(ngModel)]="companyModel.EIN"
                     name="einNumber"
                     class="md-input"
+                    #ein="ngModel"
+                    [ngClass]="{'is-invalid': updateForm.submitted && ein.invalid}"
+
                     required
                   />
                   <label> EIN#</label>
@@ -183,6 +197,8 @@
                       [(ngModel)]="companyModel.telephone"
                       name="telephone"
                       class="md-input"
+                      #telephone="ngModel"
+                      [ngClass]="{'is-invalid': updateForm.submitted && telephone.invalid}"
                       required
                     />
                     <label> Telephone</label>
@@ -195,6 +211,9 @@
                     [(ngModel)]="companyModel.address"
                     name="address"
                     class="md-input"
+                    #address="ngModel"
+                    [ngClass]="{'is-invalid': updateForm.submitted && address.invalid}"
+                    required
                   />
                   <label> Address</label>
                 </div>
@@ -208,7 +227,7 @@
                       name="hasPartner" value=false
                     />
                     <i class="indigo"></i>
-                    Do you have partner ?
+                    I have a partner/Director
                   </label>
                 </div>
   

@@ -1,9 +1,5 @@
 
-const User = require("../models/user");
-const Reciever = require("../models/reciever");
-
 // helper 
-
 const recieverHelper = require("../helpers/recieverHelper");
 
 

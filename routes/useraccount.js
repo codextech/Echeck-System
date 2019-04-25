@@ -27,4 +27,12 @@ router.post(
   accountController.updateProfile
 );
 
+
+router.post(
+  "/kyc-Idverification",
+  checkAuth,
+  multer({ storage: fileStorage }).single("kycDocument"),
+  accountController.kycIdVerification
+);
+
 module.exports = router;

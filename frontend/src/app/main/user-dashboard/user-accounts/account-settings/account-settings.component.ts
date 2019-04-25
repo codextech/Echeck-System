@@ -33,6 +33,12 @@ export class AccountSettingsComponent implements OnInit {
   profileModel: any = {};
   imagePreview: any;
 
+
+  // kyc
+
+  kycPreview: any;
+  kycModel: any = {};
+  messageAlert = false;
   // change password
   changePassModel: any = {};
 
@@ -95,6 +101,34 @@ export class AccountSettingsComponent implements OnInit {
     // console.log('error:', args);
   }
 
+  // upload KYC Doc
+
+
+  public onDocumentPicked(event: Event) {
+    const file =  (event.target as any).files[0];
+    if (file) {
+     this.kycModel.kycDocument = file;
+     const reader = new FileReader();
+     reader.onload = () => {
+       this.kycPreview = reader.result;
+     };
+     reader.readAsDataURL(file);
+    }
+ }
+
+  uploadKYCDoc() {
+
+    const formData = new FormData();
+    formData.append('kycDocument', this.kycModel.kycDocument);
+    this.accountService.uploadKycDoc(formData).subscribe(res => {
+      this.messageAlert = true;
+        console.log(res);
+
+    }, err => {
+      console.log(err);
+
+    });
+  }
 
 
   changePassword() {
@@ -107,8 +141,6 @@ export class AccountSettingsComponent implements OnInit {
 
       }, err => {
         this.toastr.error(err.message);
-
-
       });
     }
 

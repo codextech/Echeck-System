@@ -20,3 +20,23 @@ exports.getUserByEmail = async (email) => {
     return user;
 
 }
+
+
+
+
+exports.getUserById = async (id) => {
+
+    var user;
+    try {
+        user = await User.findOne({
+            where : {Id: id},
+          
+        });
+    } catch (error) {
+        console.log(error);
+        throw new Error(error);
+        
+    }
+    return user;
+
+}

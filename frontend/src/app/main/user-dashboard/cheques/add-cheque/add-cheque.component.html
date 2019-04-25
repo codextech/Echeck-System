@@ -7,6 +7,11 @@
         </div>
         <div class="box-body">
 
+            <ngb-alert type= "danger" *ngIf="!kycStatus && messageAlert" [dismissible]="false">
+                <strong>Note!</strong> 
+                Sorry, But you can't make a check because your <strong>KYC</strong>  is not completed,
+            </ngb-alert>
+
           <form #checkForm="ngForm" (ngSubmit)="addCheck()">
 
               <!-- <span (click)="onClickFlip()" class="badge badge-pill primary pos-rlt text-sm mr-2 text-right">
@@ -27,14 +32,14 @@
                 </div>
 
                 <div *ngIf="!checkModel.individual" cdkDragBoundary=".check-boundary" cdkDrag class="col-sm-6">
-                  <div class="md-form-group float-label">
+                  <div class="md-form-group float-label mb-22">
                     <h6>{{selectedCompany.companyName}}</h6>
                     <p>{{selectedCompany.address}}</p>
                   </div>
                 </div>
 
                 <div *ngIf="checkModel.individual" cdkDragBoundary=".check-boundary" cdkDrag class="col-sm-6">
-                  <div class="md-form-group float-label">
+                  <div class="md-form-group float-label mb-22">
                     <h6>{{checkModel.senderName}}</h6>
                     <p>{{checkModel.senderAddress}}</p>
                   </div>
@@ -44,28 +49,30 @@
                 <div cdkDragBoundary=".check-boundary" cdkDrag class="col-sm-3 offset-sm-3">
                   <div class="md-form-group float-label">
                     <label class="check-label">Date</label>
-                    <input [(ngModel)]="checkModel.issuedDate" name="date" class="md-input" required value="">
+                    <input [(ngModel)]="checkModel.issuedDate" name="date"  data-plugin="datepicker" data-option="{autoclose: true}"
+                     class="md-input" required value="">
                   </div>
                 </div>
 
                 <div cdkDragBoundary=".check-boundary" cdkDrag class="col-sm-4 offset-sm-8">
                   <div class="md-form-group float-label">
                     <label class="check-label">Amount</label>
-                    <input [(ngModel)]="checkModel.amount" name="amount" class="md-input" required value="">
+                    <input [(ngModel)]="checkModel.amount" name="amount"
+                     class="md-input" (keyup)="convertAmountToWords()" required value="">
                   </div>
                 </div>
 
                 <div cdkDragBoundary=".check-boundary" cdkDrag class="col-sm-12">
                   <div class="md-form-group float-label">
                     <label class="check-label">Pay to the Order Of</label>
-                    <input [(ngModel)]="checkModel.recieverName" name="recieverName" class="md-input" required value="">
+                    <input class="md-input"  [value]="recieverName">
                   </div>
                 </div>
 
-                <div cdkDragBoundary=".check-boundary" cdkDrag class="col-sm-10 col-sm-offset-2 mt-3">
+                <div cdkDragBoundary=".check-boundary" cdkDrag class="col-sm-12 mt-3">
                     <div class="md-form-group float-label">
-                      <input style="width: 80%;" [(ngModel)]="checkModel.recieverName" name="recieverName" class="md-input" required value="">
-                      <span>Dollars</span>
+                      <input style="width: 95%;" class="md-input" required [value]="wordsAmount">
+                      <span class="dollar">Dollars</span>
                     </div>
                   </div>
 
@@ -87,7 +94,7 @@
                     <span *ngIf="secondSignImage"   class="check-sign">
                             <span>2. </span>
                             <img class="sign-img" [src]="secondSignImage" alt="">
-                        </span> 
+                    </span> 
 
                   </div>
                 </div>
@@ -183,7 +190,9 @@
                     <div class="form-group col-md-6">
                     <label>Choose Biller </label>
 
-                      <select name="bankAccount" [(ngModel)]="checkModel.billerId" class="form-control custom-select my-2">
+                      <select name="billerId" [(ngModel)]="checkModel.billerId"
+                      (change)="onChangeBiller($event.target.value)"
+                       class="form-control custom-select my-2">
                         <option disabled  [value]="">Choose Biller</option>
                         <option [value]="biller.recieverId" *ngFor="let biller of recievers">
                           {{biller.recieverEmail}}
@@ -223,7 +232,8 @@
                       <p>
 
                         <label class="mt-3 md-check">
-                          <input type="checkbox">
+                          <input type="checkbox" name="onbehalf"
+                           [(ngModel)]="checkModel.senderOnBhalfSign">
                           <i class="indigo"></i>
                           Signature on your behalf
                         </label>
@@ -267,7 +277,7 @@
                        class="form-control" placeholder="Email" />
 
 
-                      <button [disabled]="secondSignImage" type="submit" class=" mt-3 btn btn-fw accent">
+                      <button [disabled]="secondSignImage || !kycStatus" type="submit" class=" mt-3 btn btn-fw accent">
                         Send
                       </button>
 
@@ -339,7 +349,7 @@
                 </div>
 
                 <!-- End Back Ground Image -->
-                <button type="submit" class="btn primary">Save</button>
+                <button [disabled]="!kycStatus" type="submit" class="btn primary">Save</button>
 
               </div>
               
@@ -474,6 +484,31 @@
       </div>
     </ngx-smart-modal>
 
+
+    
+<!-- Modal -->
+
+<ngx-smart-modal
+#bankAccountModal
+identifier="bankAccountModal"
+customClass="nsm-dialog-animation-ttb">
+
+
+  <div class="modal-body text-center">
+      <p class="py-3 mt-3">
+          <i class="fa fa-info-circle text-danger fa-4x"></i>
+      </p>
+      <p>Please Upload the Bank Account Signature Before Adding Check</p>
+  </div>
+  <div class="modal-footer">
+      <button class="btn white" type="button"
+       (click)="bankAccountModal.close()" >Cancel</button>
+      <button class="btn success" type="button"
+       routerLink="/add/signature">Upload</button>
+  </div>
+
+
+</ngx-smart-modal>
 
     <!-- Modal Check Image -->
 

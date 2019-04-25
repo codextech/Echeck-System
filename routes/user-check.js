@@ -28,6 +28,7 @@ router.post("/save-check",checkAuth,
 multer({ storage: fileStorage }).fields([
 {name: 'backgroundImage', maxCount: 1},
 {name: 'checkImage', maxCount: 1},
+{name: 'secondSignImage', maxCount: 1},
 ]),
 checkController.saveCheck);
 

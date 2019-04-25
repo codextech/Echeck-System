@@ -12,6 +12,7 @@ import { AddBankComponent } from './bank-account/add-bank/add-bank.component';
 import { AddBankAccountComponent } from './bank-account/add-bank-account/add-bank-account.component';
 import { GetBankAccountsComponent } from './bank-account/get-bank-accounts/get-bank-accounts.component';
 import { EditBankAccountComponent } from './bank-account/edit-bank-account/edit-bank-account.component';
+import { AddSignatureComponent } from './bank-account/add-signature/add-signature.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,8 @@ const routes: Routes = [
     { path: 'add/bank-account', component: AddBankAccountComponent },
     { path: 'get/bank-accounts', component: GetBankAccountsComponent },
     { path: 'edit/bank-account/:id', component: EditBankAccountComponent },
+    { path: 'add/signature', component: AddSignatureComponent },
+
 
 
 

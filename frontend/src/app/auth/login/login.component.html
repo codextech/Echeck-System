@@ -39,7 +39,9 @@
                             <div class="form-group">
                                 <input [(ngModel)]="logInModel.password" #password="ngModel" name="password" type="password" class="form-control"
                                 [ngClass]="{'is-invalid': loginForm.submitted && password.invalid}" placeholder="password" required>
+                               
                             </div>
+
                             <div class="mb-3">
                                 <label class="md-check">
                                     <input type="checkbox">

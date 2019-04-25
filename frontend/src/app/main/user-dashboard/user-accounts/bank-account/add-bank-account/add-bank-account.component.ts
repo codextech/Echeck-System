@@ -3,6 +3,7 @@ import { UserAccountService } from 'src/app/_services/user-account.service';
 import { UserCompanyService } from 'src/app/_services/user-company.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { NgxSmartModalService } from 'ngx-smart-modal';
 
 @Component({
   selector: 'app-add-bank-account',
@@ -14,6 +15,7 @@ export class AddBankAccountComponent implements OnInit {
 
   accountModel: any = {};
   banks: any[] = [];
+  bankAccountTypes: any[] = [];
   companies: any[] = [];
   signatures: any[] = [];
   imagePreview;
@@ -23,10 +25,11 @@ export class AddBankAccountComponent implements OnInit {
   constructor(private accountService: UserAccountService,
               private companyService: UserCompanyService,
               private toastr: ToastrService,
-              private router: Router) { }
+              private ngxModalService: NgxSmartModalService) { }
 
   ngOnInit() {
      this.getBankList(); // bank dropdown
+     this.getBankAccountType(); // bank account Type dropdown
      this.getcompanyList(); // user company drop down
      this.getUserSignatures(); // user signatureHistory
   }
@@ -34,12 +37,19 @@ export class AddBankAccountComponent implements OnInit {
 
   getBankList() {
     this.accountService.getBanks().subscribe(result => {
-    console.log(result);
     this.banks = result.data;
 
     }, err => console.log(err));
   }
 
+
+  getBankAccountType() {
+    this.accountService.getBankAccountTypes().subscribe(result => {
+      console.log(result);
+    this.bankAccountTypes = result.data;
+
+    }, err => console.log(err));
+  }
   getcompanyList() {
     this.companyService.getUserCompany().subscribe(result => {
     console.log(result);
@@ -64,17 +74,20 @@ export class AddBankAccountComponent implements OnInit {
 
     const formData = new FormData();
 
-    formData.append('signatureId', this.accountModel.signatureId); // in case if user choose selected sign
-    formData.append('image', this.accountModel.image);
-    formData.append('bankId', this.accountModel.bankId);
-    formData.append('Id', this.accountModel.Id); // companyuId
-    formData.append('accountName', this.accountModel.accountName);
-    formData.append('accountNumber', this.accountModel.accountNumber);
-    formData.append('isSubAccount', this.accountModel.isSubAccount);
-    formData.append('subAccountNumber', this.accountModel.subAccountNumber);
-    this.accountService.addBankAccount(formData).subscribe(result => {
+    // formData.append('signatureId', this.accountModel.signatureId); // in case if user choose selected sign
+    // formData.append('image', this.accountModel.image);
+
+    // formData.append('bankId', this.accountModel.bankId);
+    // formData.append('bankaccountTypeId', this.accountModel.bankaccountTypeId); // companyuId
+    // formData.append('accountName', this.accountModel.accountName);
+    // formData.append('accountNumber', this.accountModel.accountNumber);
+    // formData.append('isSubAccount', this.accountModel.isSubAccount);
+    // formData.append('subAccountNumber', this.accountModel.subAccountNumber);
+    this.accountService.addBankAccount(this.accountModel).subscribe(result => {
       this.toastr.success('Account Added !');
-      this.router.navigate(['/get/bank-accounts']);
+      // this.router.navigate(['/get/bank-accounts']);
+      this.ngxModalService.open('bankAccountModal');
+
 
       }, err => {
          this.toastr.error(err.error.message);
@@ -101,4 +114,7 @@ export class AddBankAccountComponent implements OnInit {
    this.isSignSelected = true;
   }
 
+  onClickAddAnother() {
+    this.accountModel = {};
+  }
 }
