@@ -12,8 +12,8 @@ import { UserCheckService } from 'src/app/_services/user-check.service';
 export class HeaderComponent implements OnInit {
 
 recievedCheck: number;
-signatoryChecks: number;
-reciverSignatoryChecks: number;
+signatoryChecksOfSender: number;
+signatoryChecksOfReciever: number;
   constructor(public authService: UserAuthService,
               private router: Router,
               private toaster: ToastrService,
@@ -42,7 +42,7 @@ reciverSignatoryChecks: number;
     this.checkService.getCheckSignatureRequests().subscribe(
       result => {
         console.log(result);
-        this.signatoryChecks = result.data.length;
+        this.signatoryChecksOfSender = result.data.length;
       },
       err => console.log(err)
     );
@@ -55,7 +55,7 @@ reciverSignatoryChecks: number;
     this.checkService.getRecieverCheckSignatureRequests().subscribe(
       result => {
         console.log(result);
-        this.reciverSignatoryChecks = result.data.length;
+        this.signatoryChecksOfReciever = result.data.length;
       },
       err => console.log(err)
     );

@@ -191,39 +191,40 @@
                 <!-- Navbar collapse -->
                 <div class="navbar-collapse order-lg-1 collapse show" id="navbarToggler">
                     <ul class="navbar-nav mt-2 mt-lg-0 mx-0 mx-lg-2 ">
-                       
+
                             <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" aria-expanded="false" href="#" data-toggle="dropdown">
-                                        As Payeer
-                                     <b *ngIf="signatoryChecks" class="badge badge-pill badge-xs danger up"></b>                                
+                                        As Payer
+                                     <b *ngIf="signatoryChecksOfSender > 0" class="badge badge-pill badge-xs danger up"></b>
 
                                     </a>
                                     <div class="dropdown-menu mt-2 w pt-2 mt-2 animate fadeIn">
                                         <a class="dropdown-item" routerLink="/sender/signature-requests">
-                                            Signature Request                                                
-                                        <span *ngIf="signatoryChecks" class="badge badge-pill badge-sm primary">{{signatoryChecks}}</span>
+                                            Signature Request
+                                        <span *ngIf="signatoryChecksOfSender > 0"
+                                           class="badge badge-pill badge-sm primary">{{signatoryChecksOfSender}}</span>
                                         </a>
-                                       
+
                                     </div>
                             </li>
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" aria-expanded="false" href="#" data-toggle="dropdown">
                                 As Reciever
-                                <b  *ngIf="recievedCheck || reciverSignatoryChecks" class="badge badge-pill badge-xs danger up"></b>                                
+                                <b  *ngIf="recievedCheck > 0|| signatoryChecksOfReciever > 0" class="badge badge-pill badge-xs danger up"></b>
 
                             </a>
                             <div class="dropdown-menu mt-2 w pt-2 mt-2 animate fadeIn">
                                 <a class="dropdown-item" routerLink="/recieved-checks">
                                     Check Recieved
-                                    <span *ngIf="recievedCheck" class="badge badge-pill badge-sm primary">
+                                    <span *ngIf="recievedCheck > 0" class="badge badge-pill badge-sm primary">
                                         {{recievedCheck}}
                                     </span>
                                 </a>
                                 <a class="dropdown-item" routerLink="/reciever/signature-requests">
                                     Signature Request
-                                    <span *ngIf="reciverSignatoryChecks" class="badge badge-pill badge-sm primary">
-                                        {{reciverSignatoryChecks}}
+                                    <span *ngIf="signatoryChecksOfReciever > 0" class="badge badge-pill badge-sm primary">
+                                        {{signatoryChecksOfReciever}}
                                     </span>
                                 </a>
                             </div>
@@ -232,7 +233,7 @@
                 </div>
             </div>
 
-  
+
 </div>
 
  <!-- <button routerLink="/recieved-checks" class="btn white">Check Recieved

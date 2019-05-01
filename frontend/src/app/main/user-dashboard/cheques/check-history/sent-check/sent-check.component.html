@@ -7,35 +7,51 @@
           </div>
           <div class="box-body">
 
-              
+
 
               <p (click)="onClickFlip()" class="inline py-3 mt-3">
                   <i class="fa fa-undo text-primary fa-2x"></i>
               </p>
-             
+
 
               <p (click)="downLoadCheck()" class="inline py-3 mt-3">
                   <i class="fa fa-cloud-download text-warning fa-2x"></i>
               </p>
-              
+
 
               <div  *ngIf="checkModel.check_BackGround"  class="check-boundary">
                   <ngx-flip [flip]="flipCheck">
                       <div back class="row no-margin form-area">
-              
+
                           <img class="check-image" [src]="checkModel.check_Image.checkBack" alt="">
                         </div>
                   <div front class="row no-margin form-area">
-              
+
                     <img class="check-image" [src]="checkModel.check_Image.checkFront" alt="">
-                     
+
                   </div>
-                  
+
                   </ngx-flip>
-    
+
               </div>
 
 
+
+              <div class="col-xs-1 col-md-6" *ngIf="checkModel.documentId">
+
+                <div class="box p-3">
+                  <strong class="text-muted"><i class="fa fa-paperclip"></i> Attctached File</strong>
+                  <br>
+                  <label>{{checkModel?.document?.documentName}}</label>
+                  <br>
+
+                  <button type="button" class="btn btn-fw accent" (click)="downloadFile()">
+
+                    <i class="fa fa-cloud-download"></i>
+                  </button>
+                </div>
+
+              </div>
 
 
           </div>

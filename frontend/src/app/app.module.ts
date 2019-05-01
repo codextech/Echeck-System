@@ -5,6 +5,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
+
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
@@ -17,17 +18,28 @@ import { UserDashBoardModule } from './main/user-dashboard/user-dashboard.module
 import { UserAuthService } from './_services/user-auth.service';
 import { AuthGuard } from './_guards/auth.guard';
 import { AuthInterceptor } from './auth/auth-interceptor';
+import { LandingPageComponent } from './home/landing-page/landing-page.component';
+import { HomeFooterComponent } from './home/home-ui/home-footer/home-footer.component';
+import { HomeHeaderComponent } from './home/home-ui/home-header/home-header.component';
 
 
-// reqiur in all app Globally function
+const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
+  // Change this to your upload POST address:
+   maxFilesize: 50,
+   acceptedFiles: 'image/*,application/pdf,.psd'
+ };
+
+ // reqiur in all app Globally function
 export function tokenGetter() {
   return localStorage.getItem('access_token');
 }
 
-
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LandingPageComponent,
+    HomeFooterComponent,
+    HomeHeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -44,12 +56,12 @@ export function tokenGetter() {
         tokenGetter: tokenGetter,
         blacklistedRoutes: ['localhost:4200/api/auth']
       }
-    }),
-
+    })
 
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    {provide: DROPZONE_CONFIG, useValue: DEFAULT_DROPZONE_CONFIG},
      UserAuthService,
       AuthGuard
     ],

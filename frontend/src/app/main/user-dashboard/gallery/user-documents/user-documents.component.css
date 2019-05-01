@@ -1,0 +1,19 @@
+
+
+
+:host /deep/ dropzone > .dropzone.dz-wrapper .dz-message {
+    min-height: 100px;
+    border: 2px dashed #5aa9fa;
+    background-color: #fff;
+}
+
+
+.doc-container {
+   height: 170px
+}
+
+.doc-image {
+  height: 130px;
+  width: 100%;
+  cursor: pointer;
+}

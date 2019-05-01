@@ -3,23 +3,35 @@ const checkController = require('../controllers/checkController');
 const checkAuth = require('../middleware/check-auth'); // verify token for Api request
 const router = express.Router();
 var multer = require("multer");
- 
+
 
 // --------------multer file upload settings -------------
 const fileStorage = multer.diskStorage({
     destination: (req, file, cb) => {
       cb(null, "./uploads");
     },
-  
+
     filename: (req, file, cb) => {
       cb(null, Date.now() + "-" + file.originalname);
     }
   });
-  
-  // -------------------------------------------------------
-  
 
-  
+  // -------------------------------------------------------
+
+
+
+router.get(
+    "/docs",
+    checkAuth,
+    checkController.getDocuments
+);
+router.post(
+    "/docs",
+    multer({ storage: fileStorage }).any(),
+    checkController.uploadDocuments
+  );
+
+
 router.get("/check-number",checkAuth, checkController.checkIssuedNumber);
 router.get("/check-background",checkAuth, checkController.getCheckBackgrounds);
 
@@ -73,7 +85,7 @@ router.get("/sign/reciever-partner", checkController.checkRecieverPartnerVerify)
 router.get("/all-unread-recieve", checkController.UnreadRecievedCheck);
 
 //Unread Recieve Check @param checkId
-router.get("/unread-recieve", checkController.UnreadRecievedCheckById);
+router.get("", checkController.getCheckById);
 
 
 // senderPartner Token verification
@@ -81,7 +93,7 @@ router.get("/sign/sender-partner", checkController.checkSenderPartnerVerify);
 
 
 
-//all signature request for check By Sender 
+//all signature request for check By Sender
 router.get("/sender/all-signature-request", checkController.requestCheckSignaturesBySender);
 router.get("/sender/signature-request", checkController.requestSenderCheckSignaturById);
 

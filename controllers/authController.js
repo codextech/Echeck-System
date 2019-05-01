@@ -71,9 +71,9 @@ exports.signUp = async (req, res, next) => {
 
 
     // if no token is present in Request
-      
 
-    // check  email 
+
+    // check  email
     user = await User.findOne({ where: { email: req.body.email } });
     if (user) {
       return res.status(400).json({
@@ -101,9 +101,9 @@ exports.signUp = async (req, res, next) => {
 
     // generate Jwt Token
 
-    jwtToken = generateToken(createdUser); 
+    jwtToken = generateToken(createdUser);
 
-    
+
     // generate Email verification Token
 
     const emailToken = await generateCryptoToken();
@@ -127,7 +127,7 @@ exports.signUp = async (req, res, next) => {
       </a> `
     });
 
-  
+
 
   } catch (error) {
     res.status(500).json({error: error,message: "Registeration Failed"});
@@ -138,8 +138,8 @@ exports.signUp = async (req, res, next) => {
 
 
 
-// Email Verification 
-exports.emailVerification = async (req, res, next) => { 
+// Email Verification
+exports.emailVerification = async (req, res, next) => {
 
   var user;
   var tokenInRequest = req.query.checkToken;
@@ -147,7 +147,7 @@ exports.emailVerification = async (req, res, next) => {
    user = await User.findOne({
       where: { email: req.query.email }
     });
-    
+
 
     if (user.isVerified) {
       return res.status(202).json({message: `Email Already Verified`});
@@ -168,7 +168,7 @@ exports.emailVerification = async (req, res, next) => {
 
     // if token is not presnt in Table
     if (!foundToken) {
-     res.status(400).json({message: "Check Token Not Valid",data: {}}); 
+     res.status(400).json({message: "Check Token Not Valid",data: {}});
     }
 
     // Token is for is Check Recived
@@ -177,14 +177,14 @@ exports.emailVerification = async (req, res, next) => {
 
     }
 
-    // Token is for Sender Partner Signature 
+    // Token is for Sender Partner Signature
     if (foundToken.tokenType == TokenType.sndPartnerSign ) {
-     await CheckHelper.addSenderPartnerInCheck(foundToken, user.Id);      
+     await CheckHelper.addSenderPartnerInCheck(foundToken, user.Id);
     }
 
-      // Token is for Reciever Partner Signature 
+      // Token is for Reciever Partner Signature
       if (foundToken.tokenType == TokenType.recPartnerSign ) {
-     await CheckHelper.addRecieverPartnerInCheck(foundToken, user.Id);            
+     await CheckHelper.addRecieverPartnerInCheck(foundToken, user.Id);
       }
 
 
@@ -193,7 +193,7 @@ exports.emailVerification = async (req, res, next) => {
 
   } catch (error) {
   res.status(500).json({message: error});
-    
+
   }
 
   res.redirect(`http://localhost:4200/dashboard`);
@@ -213,13 +213,13 @@ exports.emailVerification = async (req, res, next) => {
 //       attributes: [
 //       "Id",
 //       "kycStatus"]});
-//   } 
+//   }
 //   catch (error) {
 //     return res.status(500).json({message: "something wrong", error: err});
 //   }
 //   res.status(200).json({message: "users", data: user})
 // }
-   
+
 
 
 
@@ -296,7 +296,7 @@ try {
 }
 
 res.status(200).json({
-  message: "", 
+  message: "",
   data: user.Id
 });
 
@@ -336,7 +336,7 @@ res.status(200).json({
     });
 
 
-    
+
   } catch (error) {
      res.status(400).json({
       message: error

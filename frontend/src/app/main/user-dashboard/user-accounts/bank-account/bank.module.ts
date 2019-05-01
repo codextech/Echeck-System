@@ -8,7 +8,6 @@ import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { AddBankAccountComponent } from './add-bank-account/add-bank-account.component';
 import { GetBanksComponent } from './get-banks/get-banks.component';
 import { TableModule } from 'ngx-easy-table';
-import { DragScrollModule } from 'ngx-drag-scroll';
 import { EditBankAccountComponent } from './edit-bank-account/edit-bank-account.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AddSignatureComponent } from './add-signature/add-signature.component';
@@ -22,7 +21,6 @@ const routes: Routes = [];
         FormsModule,
         NgxSmartModalModule.forChild(),
         TableModule, // for data table
-        DragScrollModule,
         NgbModule
     ],
     declarations: [

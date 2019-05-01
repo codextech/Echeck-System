@@ -9,6 +9,9 @@ import { RecieverService } from 'src/app/_services/reciever.service';
 import { UserAuthService } from 'src/app/_services/user-auth.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import 'hammerjs';
+import { NguCarouselConfig } from '@ngu/carousel';
+import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker/ngx-bootstrap-datepicker';
 
 @Component({
   selector: 'app-add-cheque',
@@ -22,6 +25,7 @@ export class AddChequeComponent implements OnInit {
   signatures: any[] = [];
   recievers: any[] = [];
   backgrounds: any[] = [];
+  docs: any[] = [];
 
   selectedCompany: any = {};
   selectedbankAccount: any = {};
@@ -31,8 +35,28 @@ export class AddChequeComponent implements OnInit {
   kycStatus: any;
   messageAlert = false;
 
+  documentName: any;
+
   secondSignImage: any;
 
+  public docTiles: NguCarouselConfig = {
+    grid: { xs: 3, sm: 3, md: 3, lg: 4, all: 0 },
+    slide: 3,
+    speed: 250,
+    point: {
+      visible: true
+    },
+    load: 3,
+    velocity: 0,
+    touch: true,
+    easing: 'cubic-bezier(0, 0, 0.2, 1)'
+  };
+
+  // date picker
+
+  colorTheme = 'theme-blue';
+
+  bsConfig: Partial<BsDatepickerConfig>;
   checkBackgroundPreview: any; // check baground Image
   flipCheck = false;
   @ViewChild('checkContainer') container;
@@ -58,8 +82,24 @@ export class AddChequeComponent implements OnInit {
     this.getSignatures();
     this.getReceivers();
     this.getCheckBackgrounds();
+    this.getDocumnets();
+
+    // date picker
+
+  this.bsConfig = Object.assign({}, { containerClass: this.colorTheme });
+
 
   }
+
+  getDocumnets() {
+    this.checkService.getuserDocumnets().subscribe(result => {
+      this.docs = result.data;
+
+    }, err => {
+      console.log(err);
+    });
+  }
+
 
   getCurrentUserById() {
     this.accountService.getUserProfile().subscribe(
@@ -169,6 +209,8 @@ export class AddChequeComponent implements OnInit {
     formData.append('companyId', this.checkModel.companyId);
     // reciever
     formData.append('billerId', this.checkModel.billerId);
+    // document
+    formData.append('documentId', this.checkModel.documentId);
     // formData.append('recieverEmail', this.checkModel.recieverEmail);
     // formData.append('recieverPhone', this.checkModel.recieverPhone);
     // sneder Partner
@@ -187,7 +229,7 @@ export class AddChequeComponent implements OnInit {
         console.log(result.data);
       },
       err => {
-        console.log(err);
+        this.toastr.error(err.error.message);
       }
     );
   }
@@ -213,6 +255,8 @@ export class AddChequeComponent implements OnInit {
       this.selectedbankAccount = {
         routingNumber: account.bank.routingNumber,
         accountNumber: account.accountNumber,
+        isSubAccount: account.isSubAccount,
+        subAccountNumber: account.subAccountNumber,
         signature: sign.signatureImage
       };
     } else {
@@ -292,8 +336,18 @@ export class AddChequeComponent implements OnInit {
         this.chequeBackground = back.Image;
       // css style
       this.isBackSelected = true;
-
   }
+
+
+  selectDocument(id) {
+    const document = this.docs.find(item => item.documentId === id);
+    this.checkModel.documentId = document.documentId;
+    // change background of Check
+      this.documentName = document.documentName;
+
+      this.ngxModalService.close('docModal');
+
+}
 
   convertAmountToWords() {
     this.wordsAmount = numbo.convert(this.checkModel.amount, 'check');

@@ -27,6 +27,8 @@ exports.updateProfile = (req, res, next) => {
     });
 };
 
+
+
 // get user Profile
 exports.getProfile = (req, res, next) => {
   console.log("************" + req.query.Id);

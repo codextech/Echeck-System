@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MainComponent } from './main.component';
 import { UserDashBoardModule } from './user-dashboard/user-dashboard.module';
 import { AuthGuard } from '../_guards/auth.guard';
-
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 
 
@@ -18,10 +18,13 @@ const routes: Routes = [
         CommonModule,
         UserDashBoardModule,
         RouterModule,
+        BsDatepickerModule.forRoot(),
+
 
     ],
     declarations: [
-        MainComponent
+        MainComponent,
+
     ],
     providers: [
 

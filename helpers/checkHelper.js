@@ -3,7 +3,22 @@ const Check = require("../models/check");
 const CheckImage = require("../models/check-image");
 const CheckBackground = require("../models/check-background");
 const Biller = require("../models/reciever");
+const Document = require("../models/user-document");
 const Token = require("../models/token");
+
+
+exports.findCheckByCheckNumber = async (checkNumber) => {
+  var check;
+  try {
+       check = await Check.findOne({
+          where : {checkNumber: checkNumber}});
+  } catch (error) {
+      console.log(error);
+  }
+  return check;
+
+}
+
 
 exports.addRecieverInCheck = async (foundToken, id) => {
 
@@ -24,7 +39,7 @@ exports.addRecieverInCheck = async (foundToken, id) => {
     }
     return check;
 
-   
+
 }
 
 exports.addRecieverPartnerInCheck = async (foundToken, id) => {
@@ -82,7 +97,7 @@ exports.unreadRecieveCheck = async (id) => {
     try {
         var check = await Check.findAll({
             where : {recieverId: id, isRecieved: false,  isSignCompleted: true}, // isSignCompleted means Signature Process from Sender
-          
+
             include: [
                 { model: CheckBackground },
                 { model: CheckImage }
@@ -90,7 +105,7 @@ exports.unreadRecieveCheck = async (id) => {
         });
     } catch (error) {
         console.log(error);
-        
+
     }
 
     return check;
@@ -99,21 +114,22 @@ exports.unreadRecieveCheck = async (id) => {
 
 // unread check by Id
 
-exports.recieverCheck = async (id) => {
+exports.getCheck = async (id) => {
 
     var check;
     try {
          check = await Check.findOne({
             where : {checkId: id},
-          
+
             include: [
                 { model: CheckBackground },
-                { model: CheckImage }
+                { model: CheckImage },
+                { model: Document }
             ]
         });
     } catch (error) {
         console.log(error);
-        
+
     }
     return check;
 
@@ -129,7 +145,7 @@ exports.requestCheckSignatures = async (id) => {
     try {
          check = await Check.findAll({
             where : {senderPartnerId: id, isSignCompleted: false}, // isSignCompleted means Signature Process from Sender
-          
+
             include: [
                 { model: CheckBackground },
                 { model: CheckImage }
@@ -137,7 +153,7 @@ exports.requestCheckSignatures = async (id) => {
         });
     } catch (error) {
         console.log(error);
-        
+
     }
 
     return check;
@@ -153,7 +169,7 @@ exports.requestCheckSignatureById = async (id) => {
     try {
          check = await Check.findOne({
             where : {checkId: id},
-          
+
             include: [
                 { model: CheckBackground },
                 { model: CheckImage }
@@ -161,7 +177,7 @@ exports.requestCheckSignatureById = async (id) => {
         });
     } catch (error) {
         console.log(error);
-        
+
     }
     return check;
 }
@@ -175,7 +191,7 @@ exports.requestRecieverCheckSignatures = async (id) => {
     try {
          check = await Check.findAll({
             where : {recieverPartnerId: id, isRecieverSignCompleted: false}, // isSignCompleted means Signature Process from Sender
-          
+
             include: [
                 { model: CheckBackground },
                 { model: CheckImage }
@@ -183,7 +199,7 @@ exports.requestRecieverCheckSignatures = async (id) => {
         });
     } catch (error) {
         console.log(error);
-        
+
     }
 
     return check;
@@ -200,14 +216,14 @@ exports.allSentChecks = async (id) => {
     try {
          checks = await Check.findAll({
             where : {senderId: id},
-          
+
             include: [
                 { model: CheckImage }
             ]
         });
     } catch (error) {
         console.log(error);
-        
+
     }
 
     return checks;
@@ -220,14 +236,14 @@ exports.allRecievedChecks = async (id) => {
     try {
          checks = await Check.findAll({
             where : {recieverId: id},
-          
+
             include: [
                 { model: CheckImage }
             ]
         });
     } catch (error) {
         console.log(error);
-        
+
     }
 
     return checks;
@@ -246,10 +262,45 @@ exports.findBiller = async (id) => {
         });
     } catch (error) {
         console.log(error);
-        
+
     }
     return biller;
 }
+
+// documents
+
+
+
+exports.addDocuments = async (model) => {
+
+    var doc
+    try {
+
+        // creat doc
+        doc = await Document.bulkCreate(model);
+
+    } catch (error) {
+        console.log(error);
+    }
+    return doc;
+}
+
+exports.getDocuments = async (id) => {
+
+    var docs
+    try {
+
+        // creat doc
+        docs = await Document.findAll({where: {userId: id}});
+
+    } catch (error) {
+        console.log(error);
+    }
+    return docs;
+}
+
+
+
 
 // sender Partner Token
 
@@ -263,9 +314,9 @@ exports.createToken = async (tokenModel) => {
             userId: tokenModel.userId,
             checkId : tokenModel.checkId
         });
-        
+
     } catch (error) {
-        console.log(error);     
+        console.log(error);
     }
     return createToken;
 

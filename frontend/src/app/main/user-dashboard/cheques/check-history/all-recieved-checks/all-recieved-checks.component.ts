@@ -9,6 +9,7 @@ import { UserCheckService } from 'src/app/_services/user-check.service';
 export class AllRecievedChecksComponent implements OnInit {
 
   checksImages: any[] = [];
+  p = 1;
   constructor(private checkService: UserCheckService) { }
 
   ngOnInit() {

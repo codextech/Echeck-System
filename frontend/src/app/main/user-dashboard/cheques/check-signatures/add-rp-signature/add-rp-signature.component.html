@@ -9,37 +9,37 @@
 
               <span (click)="onClickFlip()" class="badge badge-pill primary pos-rlt text-sm mr-2 text-right">
                   <b class="arrow left b-primary pull-in"></b>
-                <i class="fa fa-undo"></i>                
+                <i class="fa fa-undo"></i>
               </span>
 
               <div  *ngIf="checkModel.check_BackGround"  class="check-boundary">
                   <ngx-flip [flip]="flipCheck">
                   <div #checkBackContainer back style="position: relative; height:26em;" [ngStyle]="{'background': 'url(' + checkModel?.check_BackGround.Image + ') no-repeat 0 0'}"  class="row no-margin form-area">
-    
-                        
+
+
                     <img class="check-image" [src]="checkModel.check_Image.checkBack" alt="">
-                          
-                          
-                              
-                               
+
+
+
+
                                 <span *ngIf="imagePreview" class="check-sign sign-2">
                                   <span>2. </span>
                                   <img class="sign-img" [src]="imagePreview" alt="">
                                 </span>
-                          
-                         
-                          
-                   
-                     
+
+
+
+
+
                   </div>
                   <div front class="row no-margin form-area">
-              
+
                     <img class="check-image" [src]="checkModel.check_Image.checkFront" alt="">
-                     
+
                   </div>
-                  
+
                   </ngx-flip>
-    
+
               </div>
 
 
@@ -47,7 +47,7 @@
 
             <div class="mt-3 mb-2-lg row">
                 <div class="col-sm-12 col-sm-offset-2">
-  
+
                 <form #checkForm="ngForm" (ngSubmit)="completeReciverCheckSign()" >
 
                   <div class="form-row">
@@ -56,29 +56,29 @@
                           <div class="box p-3">
                             <strong class="text-muted">Upload Signature</strong>
                             <br>
-      
-      
+
+
                             <div *ngIf="imagePreview" class="col-6 col-sm-3 col-md-4">
                                 <div>
                                   <img class="w-100" alt="" [src]="imagePreview"  />
                                 </div>
                             </div>
-      
+
                             <br />
                             <input style="display:none" #fileInput type="file" (change)="onImagePicked($event)" />
-      
+
                             <button type="button" (click)="fileInput.click()" class="btn btn-fw accent">
                               <i class="fa fa-upload"></i>
                             </button>
-      
-      
+
+
                           </div>
                       </div>
 
-                        
+
                   </div>
                   <button type="submit" class="btn primary">Save</button>
-                
+
                 </form>
 
                 </div>

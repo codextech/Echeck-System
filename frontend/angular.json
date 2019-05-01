@@ -23,16 +23,13 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "src/styles.css",
-              "node_modules/ngx-easy-table/style.css"
-                         
+              "./node_modules/ngx-easy-table/style.css"
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
               "./node_modules/datatables.net/js/jquery.dataTables.js"
-              
-
-              
             ]
           },
           "configurations": {
@@ -87,6 +84,8 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "src/styles.css"
             ],
             "scripts": [],

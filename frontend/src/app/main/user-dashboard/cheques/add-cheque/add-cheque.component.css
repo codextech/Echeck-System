@@ -20,7 +20,7 @@
                 0 2px 2px 0 rgba(0, 0, 0, 0.14),
                 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   }
-  
+
   .example-box:active {
     box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
                 0 8px 10px 1px rgba(0, 0, 0, 0.14),
@@ -61,7 +61,7 @@
   padding-right: 5px
 }
 
-  
+
   .cheque{
 
     margin-bottom :35px;
@@ -77,7 +77,7 @@
     margin: 0 auto;
     max-width: 100%;
   } */
-  
+
 
 
   .check-boundary {
@@ -94,13 +94,15 @@
     margin: 0 auto;
     border: 3px solid;
 
+    font-weight: bold;
+
     /* max-width: 100%; */
     /* border: 1px solid #d1c6c6; */
   }
 
-  
+
 .background-history{
-  padding: 10px 10px 10px 10px;
+  /* padding: 10px 10px 10px 10px; */
   box-sizing: border-box;
   border: 1px solid;
   border-color: #CFCFCF;
@@ -154,8 +156,8 @@ margin-bottom: 0;
 }
 
 .no-margin{
-    margin-right: 0px; 
-     margin-left: 0px; 
+    margin-right: 0px;
+     margin-left: 0px;
 }
 
 .form-area{
@@ -180,8 +182,8 @@ margin-bottom: 0;
   width: 50%;
 }
 
-.box {
-  min-height: 163px;
+.sign-part {
+  min-height: 160px;
 }
 
 
@@ -199,15 +201,83 @@ margin-bottom: 0;
   margin-bottom: -22px;
 }
 
+.check-sec-head{
+  font-size: 20px;
+    background-color: rgba(158, 158, 158, 0.2);
+    font-weight: bold;
+    padding: 10px;
+}
 
-
+/*
 @font-face {
   font-family: 'MicrFont';
-  src: url('../../../../../assets/fonts/micrenc.ttf')  format('truetype'), /* Safari, Android, iOS */
+  src: url('../../../../../assets/fonts/micrenc.ttf')  format('truetype'),
+} */
+
+/** MICR Font **/
+@font-face {
+	font-family: 'Conv_micrenc';
+	src: url('../../../../../assets/fonts/micrenc.eot');
+  src: local('☺'), url('../../../../../assets/fonts/micrenc.woff') format('woff'),
+   url('../../../../../assets/fonts/micrenc.ttf') format('truetype'),
+    url('../../../../../assets/fonts/micrenc.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
 }
 
 
-.check-boundary {
-font-family: 'MicrFont';
 
+
+.check-number {
+  font-family: 'Conv_micrenc',Sans-Serif;
+  font-size: 20px;
+
+}
+
+
+
+:host /deep/  .tile[_ngcontent-c7] {
+  box-shadow: none;
+}
+
+
+
+.tile {
+  height: 130px;
+  padding: 5px;
+  cursor: pointer;
+  width: 232px;
+    /* background-color: #ccc; */
+    background-size: cover!important;
+}
+
+.rightRs {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  opacity: 0.7;
+  box-shadow: 1px 2px 10px -1px rgba(0,0,0,.3);
+  right: 0;
+}
+
+.leftRs {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  opacity: 0.7;
+  box-shadow: 1px 2px 10px -1px rgba(0,0,0,.3);
+  left: 0;
+}
+
+
+.attach-image {
+  height: 80px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.attatch-label {
+  word-break: break-word;
 }

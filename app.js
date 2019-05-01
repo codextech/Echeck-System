@@ -18,6 +18,7 @@ const Check = require("./models/check");
 const CheckImage = require("./models/check-image");
 const CheckBackground = require("./models/check-background");
 const KYC = require("./models/kyc");
+const Document = require("./models/user-document");
 
 
 
@@ -164,6 +165,16 @@ Check.belongsTo(CheckImage,{foreignKey: 'CheckImageId'});
 //------------- User -> CheckBackground
 User.hasMany(CheckBackground,{foreignKey: 'userId'});
 //---------------------------------
+
+//------------- User -> Document
+User.hasMany(Document,{foreignKey: 'userId'});
+Document.belongsTo(User,{foreignKey: 'userId'});
+
+//------------- Check -> Document
+Document.hasMany(Check,{foreignKey: 'documentId'});
+Check.belongsTo(Document,{foreignKey: 'documentId'});
+
+
 
 
 sequelize

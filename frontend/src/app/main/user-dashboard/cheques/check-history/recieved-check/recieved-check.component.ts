@@ -28,7 +28,7 @@ export class RecievedCheckComponent implements OnInit {
 
 
   getCheckByCheckId() {
-    this.checkService.getUnreadRecieveCheck(this.checkId).subscribe(result => {
+    this.checkService.getCheckById(this.checkId).subscribe(result => {
         this.checkModel = result.data;
         console.log(this.checkModel);
       }, err => {
@@ -43,6 +43,15 @@ export class RecievedCheckComponent implements OnInit {
     saveAs(this.checkModel.check_Image.checkFront, 'Check Front' + this.checkModel.billerId + '.png');
     saveAs(this.checkModel.check_Image.checkBack, 'Check back' + this.checkModel.billerId +  '.png');
     this.ngxUiLoaderService.stop();
+  }
+
+
+  downloadFile() {
+    const file = this.checkModel.document;
+    this.ngxUiLoaderService.start();
+    saveAs(file.documentUrl , file.documentName);
+    this.ngxUiLoaderService.stop();
+
   }
 
   onClickFlip() {

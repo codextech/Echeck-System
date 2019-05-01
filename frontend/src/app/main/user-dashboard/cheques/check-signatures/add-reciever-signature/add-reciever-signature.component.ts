@@ -32,7 +32,7 @@ export class AddRecieverSignatureComponent implements OnInit {
 
 
   getCheckByCheckId() {
-    this.checkService.getUnreadRecieveCheck(this.checkId).subscribe(result => {
+    this.checkService.getCheckById(this.checkId).subscribe(result => {
         this.checkModel = result.data;
         console.log(this.checkModel);
       }, err => {

@@ -37,11 +37,19 @@ getUnreadRecieveChecks() {
   });
 }
 
-getUnreadRecieveCheck(id) {
-  return this.http.get<any>(environment.apiUrl + 'api/check/unread-recieve', {
+// getUnreadRecieveCheck(id) {
+//   return this.http.get<any>(environment.apiUrl + 'api/check/unread-recieve', {
+//     params: {checkId: id}
+//   });
+// }
+
+
+getCheckById(id) {
+  return this.http.get<any>(environment.apiUrl + 'api/check', {
     params: {checkId: id}
   });
 }
+
 
 
 getCheckSignatureRequests() {
@@ -111,5 +119,14 @@ getAllSentChecks() {
   });
 }
 
+
+
+// user documents
+
+getuserDocumnets() {
+  return this.http.get<any>(environment.apiUrl + 'api/check/docs/', {
+    params: {userId: this.auth.decodedtoken.Id}
+  });
+}
 
 }

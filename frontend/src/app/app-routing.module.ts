@@ -5,6 +5,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { NewPasswordComponent } from './auth/new-password/new-password.component';
 import { EmailVerifyComponent } from './auth/email-verify/email-verify.component';
+import { LandingPageComponent } from './home/landing-page/landing-page.component';
 
 const routes: Routes = [
 
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'reset-request', component: ResetPasswordComponent},
   {path: 'reset-password/:token', component: NewPasswordComponent},
   {path: 'email-Verification', component: EmailVerifyComponent},
+  {path: '', component: LandingPageComponent},
 
 
 ];

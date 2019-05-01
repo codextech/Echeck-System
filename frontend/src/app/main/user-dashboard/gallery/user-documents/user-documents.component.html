@@ -1,3 +1,63 @@
-<p>
-  user-documents works!
-</p>
+<div class="padding">
+    <p class="mb-3">
+        <strong>Dropzone</strong>
+        <a href="http://www.dropzonejs.com/" target="blank">
+            <i class="fa fa-link text-muted"></i>
+        </a>
+    </p>
+    <p class="text-muted">Upload your files</p>
+    <!-- <form action="api/dropzone" class="dropzone white b-a b-3x b-dashed b-primary p-a rounded p-5 text-center" data-plugin="dropzone" data-option="{url: 'api/dropzone'}">
+        <div class="dz-message">
+            <h4 class="my-4">Drop files here or click to upload.</h4>
+            <span class="text-muted d-block mb-4">(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</span>
+        </div>
+    </form> -->
+
+    <dropzone class="dropzone-container" [config]="config"
+        [message]="'Click or drag images here to upload'"
+      (init)="onUploadInit($event)" (error)="onUploadError($event)" (success)="onUploadSuccess($event)"></dropzone>
+<!--
+    <div #drpZone class="dropzone" [dropzone]="config"
+     (error)="onUploadError($event)" (success)="onUploadSuccess($event)"></div> -->
+
+     <button (click)="uploadFiles()" class="btn btn-primary">Upload</button>
+
+
+     <!-- <iframe src="../../../../../assets/images/a10.jpg" width="200px" height="200px"></iframe>
+     <iframe src="../../../../../assets/1556387139948-Srs example.pdf" width="200px" height="200px"></iframe> -->
+
+
+
+     <div class="col-md-12">
+
+      <div class="form-row justify-content-end">
+              <div class="form-group col-xs-2">
+                  <input class="form-control" type="text" [(ngModel)]="docFilter.documentName" placeholder="Search Document By Number">
+              </div>
+      </div>
+  <div *ngIf="docs.length > 0" class="row row-xs">
+
+      <div  *ngFor="let doc of docs | filterBy: docFilter | paginate: { itemsPerPage: 6, currentPage: p }"
+       class="col-6 col-sm-4 col-md-2">
+          <div class="box p-1 doc-container">
+
+            <!-- Only For Images -->
+                  <img *ngIf="(doc.documentUrl | extention) == true"
+                  class="doc-image" [src]="doc.documentUrl" alt="">
+                  <!-- Another Document -->
+                  <img *ngIf="(doc.documentUrl | extention) == false"
+                  class="doc-image" src="https://www.freeiconspng.com/uploads/text-file-icon-clip-art--royalty--32.png" alt="">
+              <div class="p-2">
+                  <div class="text-ellipsis text-center">{{doc.documentName}}</div>
+              </div>
+          </div>
+      </div>
+      <!-- if no check found with search -->
+  </div>
+  <div class="text-center">
+  <pagination-controls maxSize="9" autoHide="true" (pageChange)="p = $event"></pagination-controls>
+   </div>
+
+   </div>
+
+</div>

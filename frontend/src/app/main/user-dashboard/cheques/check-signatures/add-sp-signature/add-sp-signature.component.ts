@@ -52,7 +52,8 @@ export class AddSpSignatureComponent implements OnInit {
     formData.append('signImage', this.checkModel.signImage); // check image after sign
     formData.append('checkId', this.checkModel.checkId); // check image after sign
     formData.append('checkImageId', this.checkModel.check_Image.checkImageId); // check image
-    formData.append('signatureId', this.checkModel.signatureId); // check image
+    formData.append('signatureId', this.checkModel.signatureId);
+    formData.append('billerId', this.checkModel.billerId);
 
     // if reciever ingo is not provided before
     formData.append('recieverEmail', this.checkModel.recieverEmail); // check image

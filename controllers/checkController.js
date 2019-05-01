@@ -26,6 +26,65 @@ const authHelper = require("../helpers/authHelper");
 
 
 
+// Upload User Docs
+exports.uploadDocuments = async (req, res, next) => {
+
+  var userId = req.query.userId;
+  var documents;
+  var docArrays = [];
+  try {
+
+    req.files.forEach(file => {
+    var docUrl = getImageUrlFromArray(req, file);
+
+    docArrays.push({
+      userId : userId,
+      documentName : file.originalname,
+      documentUrl: docUrl,
+      createdDate: Date.now()
+    });
+    });
+
+    documents = await CheckHelper.addDocuments(docArrays);
+
+
+    if (documents.length == 0) {
+      res.status(400).json({messgae: '', data: {}});
+    }
+  } catch (error) {
+    res.status(500).json({messgae: error, data: {}});
+
+  }
+  res.status(201).json({messgae: 'Uploaded', data : documents});
+
+};
+
+
+// get Documents
+
+
+exports.getDocuments = async (req, res, next) => {
+
+  var userId = req.query.userId;
+  var documents;
+  try {
+
+
+    documents = await CheckHelper.getDocuments(userId);
+
+
+    if (!documents) {
+      res.status(400).json({messgae: 'You have no documnets', data: {}});
+    }
+  } catch (error) {
+    res.status(500).json({messgae: error, data: {}});
+
+  }
+  res.status(201).json({messgae: 'Your Documents', data : documents});
+
+};
+
+
 
 exports.checkIssuedNumber = async (req, res, next) => {
 
@@ -36,7 +95,7 @@ exports.checkIssuedNumber = async (req, res, next) => {
 
     check = await Check.findOne({
       where: { senderId: userId },
-      order: [['checkId', 'DESC']],
+      order: [['issuedDate', 'DESC']],
 
     });
 
@@ -51,6 +110,7 @@ exports.checkIssuedNumber = async (req, res, next) => {
   } catch (error) {
     res.status(500).json({ message: error });
   }
+
 
   res.status(200).json({ data: checknmber });
 
@@ -98,6 +158,12 @@ exports.saveCheck = async (req, res, next) => {
   var signatureCompleted = true; // assume that signature process is complete
   try {
 
+    // see if checIssuedkNumber Is unique
+ var foundCheckNumber =  await CheckHelper.findCheckByCheckNumber(model.checkNumber);
+
+ if (foundCheckNumber) {
+   return res.status(400).json({message: 'Check number already exists', data: {}})
+ }
 
     // save check Image in Db
     var checkFrontImage = getImageUrlFromArray(req, req.files['checkImage'][0]); // url of image
@@ -132,6 +198,7 @@ exports.saveCheck = async (req, res, next) => {
     if (checkBackgroundId) {
 
       // second Sender Partner
+
       if (model.senderPartnerEmail) {
         signatureCompleted = false;  // we have to send email to sender Paertner
         foundSenderPartner = await authHelper.getUserByEmail(model.senderPartnerEmail);
@@ -140,25 +207,24 @@ exports.saveCheck = async (req, res, next) => {
       /* ------------------ #### user search in Database #### ----------------------- */
 
       // Find Biller by BillerId
-       biller = await CheckHelper.findBiller(model.billerId);  // biller is list of biller details that users add      
+       biller = await CheckHelper.findBiller(model.billerId);  // biller is list of biller details that users add
 
       // First Find the reciever in Database
       if (biller) {
-      foundReciever = await authHelper.getUserByEmail(biller.recieverEmail);    // this will actual reciever    
+      foundReciever = await authHelper.getUserByEmail(biller.recieverEmail);    // this will actual reciever
       }
 
       if (foundReciever) {
-        recieverId = foundReciever.Id; // biller email present as a user in Db 
+        recieverId = foundReciever.Id; // biller email present as a user in Db
       }
 
       if (foundSenderPartner) {
         senderPartnerId = foundSenderPartner.Id;
       }
 
-      /* ------------------  ################################### --------------- */
 
 
-      // save check to db
+      // ----------save check to db ----------------------
       savedCheck = await Check.create({
         checkNumber: model.checkNumber,
         issuedDate: model.issuedDate,
@@ -178,15 +244,16 @@ exports.saveCheck = async (req, res, next) => {
         CheckImageId: savedCheckImage.checkImageId,
         senderPartnerId: senderPartnerId,
         senderPartnerSignId: senderPartnerSignatureId, // first save sign into signature table and get Id
+        documentId: model.documentId,
+
       });
 
     }
 
 /* ------------------  ##### ------------------------- ##### --------------- */
+    // if reciever email not present in Db & isSignCompleted true then send token
 
-    // if reciever email not present in Db & isSignCompleted true then send token  
-
-    if (!foundReciever && !model.senderPartnerEmail) {
+    if (!foundReciever && signatureCompleted) {
       // generate Token against checkId
 
       var checkToken = await generateCryptoToken();
@@ -216,11 +283,10 @@ exports.saveCheck = async (req, res, next) => {
 
     }
 
-/* ------------------  ################################### --------------- */
 
 /* ------------------  ##### sender Partner Email  ##### --------------- */
-
-    if (model.senderPartnerEmail) {
+// if senderPartner is not in db and email false then send email
+    if (senderPartnerId == undefined && model.senderPartnerEmail) {
       var senderPartnerToken = await generateCryptoToken();
 
       const tokenModel = {
@@ -238,7 +304,7 @@ exports.saveCheck = async (req, res, next) => {
         to: model.senderPartnerEmail,
         from: 'echeck@gmail.com',
         subject: 'Signature Request',
-        html: `<h1>Hi, Your Business Partner Need your Sign on Check For <br> ${model.recieverName} </h1>
+        html: `<h1>Hi, Your Business Partner Need your Sign on Check For </h1>
   <a href="${apiUrl}/check/sign/sender-partner?checkToken=${spCreatedToken.token}">
     Click Here
   </a> `
@@ -246,7 +312,6 @@ exports.saveCheck = async (req, res, next) => {
 
     }
 
-/* ------------------  ################################### --------------- */
 
 
   } catch (error) {
@@ -371,6 +436,7 @@ exports.saveCheckSenderPartnerSign = async (req, res, next) => {
 
   var model = req.body;
   var checkDetails;
+  var biller;
   var spSignatureId;
   var foundReciever;
   var recieverId;
@@ -402,57 +468,71 @@ exports.saveCheckSenderPartnerSign = async (req, res, next) => {
       spSignatureId = model.signatureId;
     }
 
-     // find reciever in Db
+    //check if Biiler Id is present
 
-     foundReciever = await authHelper.getUserByEmail(model.recieverEmail);
+    biller =  await CheckHelper.findBiller(model.billerId);
+
+
+    if (biller) {
+      // find reciever
+      foundReciever = await authHelper.getUserByEmail(biller.recieverEmail);
       if (foundReciever) {
         recieverId = foundReciever.Id;
       }
-    // update Check
-    if (spSignatureId) {
 
-      checkDetails = await Check.findOne({ where: { checkId: model.checkId } })
+      // update check
 
-     
+         // update Check
+
+      checkDetails = await Check.findOne({ where: { checkId: model.checkId } });
+
       await checkDetails.update({
         senderPartnerSignId: spSignatureId,
         isSignCompleted: true,
         senderPartnerSignDate: Date.now(),
-        recieverId : recieverId 
+        recieverId : recieverId
       });
+
     }
 
-    if (!foundReciever) {
 
-      // generate Token against checkId
+    else {
 
-      var checkToken = await generateCryptoToken();
+        // generate Token against checkId
 
-      // save token into db
+        var checkToken = await generateCryptoToken();
 
-      const tokenModel = {
-        token: checkToken,
-        tokenType: TokenType.checkRecieve,
-        userId: model.userId,
-        checkId: checkDetails.checkId
-      }
+        // save token into db
 
-      var checkCreatedToken = await CheckHelper.createToken(tokenModel);
+        const tokenModel = {
+          token: checkToken,
+          tokenType: TokenType.checkRecieve,
+          userId: model.userId,
+          checkId: checkDetails.checkId
+        }
+
+        var checkCreatedToken = await CheckHelper.createToken(tokenModel);
 
 
 
-      // send email to Reciver For check
+        // send email to Reciver For check
 
-      var sendEmail = await transporter.sendMail({
-        to: model.recieverEmail,
-        from: 'echeck@gmail.com',
-        subject: 'Check Recieved',
-        html: `<h1>Hi, you have recievd Check For ${model.recieverName} </h1>
- <a href="${apiUrl}/check/check-recieved?checkToken=${checkCreatedToken}">
-   View Check
- </a> `
-      });
+        var sendEmail = await transporter.sendMail({
+          to: model.recieverEmail,
+          from: 'echeck@gmail.com',
+          subject: 'Check Recieved',
+          html: `<h1>Hi, you have recievd Check </h1>
+   <a href="${apiUrl}/check/check-recieved?checkToken=${checkCreatedToken}">
+     View Check
+   </a> `
+        });
+
+
     }
+
+
+
+
 
 
 
@@ -509,7 +589,7 @@ exports.saveCheckRecieverPartnerSign = async (req, res, next) => {
       checkDetails = await Check.findOne({ where: { checkId: model.checkId } })
 
       await checkDetails.update({
-        recieverPartnerSignId: rpSignatureId,  
+        recieverPartnerSignId: rpSignatureId,
         isRecieverSignCompleted: true,
       });
     }
@@ -618,27 +698,6 @@ exports.UnreadRecievedCheck = async (req, res, next) => {
   }
 
   return res.status(200).json({ message: 'Unread Checks', data: check });
-
-}
-
-
-exports.UnreadRecievedCheckById = async (req, res, next) => {
-
-  const checkId = req.query.checkId
-  var check;
-  try {
-
-    check = await CheckHelper.recieverCheck(checkId);
-
-    if (!check) {
-      return res.status(200).json({ message: 'No Check Found', data: {} });
-    }
-
-  } catch (error) {
-    return res.status(500).json({ message: error });
-  }
-
-  return res.status(200).json({ message: 'Check', data: check });
 
 }
 
@@ -778,6 +837,28 @@ exports.getAllRecievedChecks = async (req, res, next) => {
 
   return res.status(200).json({ message: 'all checks', data: checks });
 
+
+}
+
+
+
+exports.getCheckById = async (req, res, next) => {
+
+  const checkId = req.query.checkId
+  var check;
+  try {
+
+    check = await CheckHelper.getCheck(checkId);
+
+    if (!check) {
+      return res.status(200).json({ message: 'No Check Found', data: {} });
+    }
+
+  } catch (error) {
+    return res.status(500).json({ message: error });
+  }
+
+  return res.status(200).json({ message: 'Check', data: check });
 
 }
 

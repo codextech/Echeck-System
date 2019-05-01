@@ -1,10 +1,17 @@
 <div class="padding">
     <div class="row">
-        
+
         <div class="col-md-12">
+
+                <div class="form-row justify-content-end">
+                        <div class="form-group col-xs-2">
+                            <input class="form-control" type="text" [(ngModel)]="checkFilter.checkNumber" placeholder="Search Check Number">
+                        </div>
+                </div>
             <div *ngIf="checksImages.length > 0" class="row row-xs">
 
-                <div  *ngFor="let check of checksImages" class="col-6 col-sm-12 col-md-4">
+                <div  *ngFor="let check of checksImages | filterBy: checkFilter | paginate: { itemsPerPage: 6, currentPage: p }"
+                 class="col-6 col-sm-12 col-md-3">
                     <div class="box p-1">
                         <a [routerLink]="['/check-history/sent', check.checkId]">
                             <img [src]="check.check_Image.checkFront" alt="" class="w-100">
@@ -14,16 +21,23 @@
                         </div> -->
                     </div>
                 </div>
-  
-            </div>
+                <!-- if no check found with search -->
 
+                <div *ngIf="(checksImages | filterBy: checkFilter).length === 0"class="text-center mb-5">
+                        <h2 class="_700"> No Check Found</h2>
+                </div>
+
+            </div>
+            <div class="text-center">
+            <pagination-controls maxSize="9" autoHide="true" (pageChange)="p = $event"></pagination-controls>
+             </div>
             <div *ngIf="checksImages.length <= 0" class="py-5 clearfix">
                 <div class="text-center mb-5">
                     <h2 class="_700"> No Check right now!</h2>
                     <h5 class="my-4 text-muted">Don't worry,We will keep your checks history.</h5>
                 </div>
             </div>
-           
+
         </div>
     </div>
 </div>

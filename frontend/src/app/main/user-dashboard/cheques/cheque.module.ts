@@ -7,10 +7,12 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import { UserDashBoardComponent } from '../user-dashboard.component';
 import { AuthGuard } from 'src/app/_guards/auth.guard';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
-import { DragScrollModule } from 'ngx-drag-scroll';
 import { FlipModule } from 'ngx-flip';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
+import {NgxPaginationModule} from 'ngx-pagination';
+import { FilterPipeModule } from 'ngx-filter-pipe';
+import { NguCarouselModule } from '@ngu/carousel';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { SenderSignatoryComponent } from './signatory-checks/sender-signatory/sender-signatory.component';
 import { RecieverSignatoryComponent } from './signatory-checks/reciever-signatory/reciever-signatory.component';
@@ -22,6 +24,7 @@ import { AllRecievedChecksComponent } from './check-history/all-recieved-checks/
 import { RecievedChecksComponent } from './recieved-checks/recieved-checks.component';
 import { RecievedCheckComponent } from './check-history/recieved-check/recieved-check.component';
 import { SentCheckComponent } from './check-history/sent-check/sent-check.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 const routes: Routes = [
 
     {path: '', component: UserDashBoardComponent, canActivate: [AuthGuard],
@@ -58,11 +61,13 @@ const routes: Routes = [
         DragDropModule,
         RouterModule.forChild(routes),
         NgxSmartModalModule.forChild(),
-        DragScrollModule,
         FlipModule,
-        NgbModule
-
-
+        NgbModule,
+        NgxPaginationModule,
+        FilterPipeModule,
+        NguCarouselModule,
+        BsDatepickerModule,
+        SharedModule
     ],
     declarations: [
             AddChequeComponent,
@@ -75,7 +80,7 @@ const routes: Routes = [
             AllSentChecksComponent,
             AllRecievedChecksComponent,
             SentCheckComponent,
-            RecievedCheckComponent
+            RecievedCheckComponent,
 
     ],
 
