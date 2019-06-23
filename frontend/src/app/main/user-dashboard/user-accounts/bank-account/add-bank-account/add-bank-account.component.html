@@ -3,13 +3,52 @@
     <div class="col-sm-12">
       <div class="box">
         <div class="box-header">
-          <h2>Bank Account</h2>            
+          <h2>Add Bank Account</h2>
         </div>
         <div class="box-body">
           <form #accountForm="ngForm" (ngSubmit)="addBankAccount()">
             <div class="form-row">
+
+                <div class="form-group col-md-6 mt-3">
+                    <p>
+                        <label class="md-check">
+                            <input [(ngModel)]="accountModel.individualAccount"
+                             name="individualAccount"
+                             type="checkbox"
+                             (change)="onClickIndividualAccount($event.target.checked)" >
+                            <i class="blue"></i>
+                            Personal Acccount
+                        </label>
+                    </p>
+              </div>
+
+
+                <div class="form-group col-md-6">
+
+                    <p>
+                        <label class="md-check">
+                            <input [(ngModel)]="accountModel.businessAccount"
+                            name="businessAccount"
+                            (change)="onClickBusinessAccount($event.target.checked)"
+                            type="checkbox">
+                            <i class="blue"></i>
+                            Business Acccount
+                        </label>
+                    </p>
+
+                </div>
+
+                <div *ngIf="coSignatory" class="form-group col-md-12">
+                    <label>Do you also want to add Co-Signatory/Signatory ?  </label>
+                    <button class="btn white ml-3" type="button"
+                    (click)="coSignatory = false;  onClickCoPartnerInfo(false)" >No</button>
+                   <button class="btn primary ml-3"
+                   (click)="coSignatory = false;coPartnerModal.open(); onClickCoPartnerInfo(true)"
+                    type="button">Yes</button>
+                </div>
+
               <div class="form-group col-md-6">
-                <label for="">Bank</label>
+                <label for="">Select Bank</label>
 
                 <select
                   [(ngModel)]="accountModel.bankId"
@@ -23,7 +62,7 @@
               </div>
 
               <div class="form-group col-md-6">
-                <label>Account Type</label>
+                <label>Select Account Type</label>
 
                 <select
                   [(ngModel)]="accountModel.bankaccountTypeId"
@@ -34,7 +73,7 @@
                   <option *ngFor="let type of bankAccountTypes" [value]="type.bankAccountTypeId">
                       {{ type.bankaccountType }}
                   </option>
-                
+
                 </select>
               </div>
 
@@ -50,17 +89,18 @@
               </div>
 
               <div class="form-group col-md-6">
-                  <label for="">Account Name</label>
+                  <label for="">Account Holder</label>
                   <input
                     [(ngModel)]="accountModel.accountName"
                     name="accName"
                     type="text"
                     class="form-control"
-                    placeholder="account name"
+                    placeholder="Enter on who's name this account is
+                    "
                   />
                 </div>
 
-              <div class="form-group col-md-6">
+              <div class="form-group col-md-12">
 
                   <label class="md-check">
                       <input
@@ -69,14 +109,8 @@
                         name="isSubAccount"/>
                       <i class="indigo"></i>
                       I have Sub-Account
-                    </label>
-                  <!-- <label for="">I have Sub-Account</label>
-                  <br>
-                  <input
-                    [(ngModel)]="accountModel.isSubAccount"
-                    name="subaccountcheck"
-                    type="checkbox"
-                  /> -->
+                  </label>
+
               </div>
               <div *ngIf="accountModel.isSubAccount" class="form-group col-md-6">
                   <label for="">Sub-Account Number</label>
@@ -89,62 +123,9 @@
                   />
               </div>
 
-
-<!-- 
-              <div  class="form-group col-md-12">
-                <label for="inputEmail4">Upload Account Signature </label>
-
-                <div *ngIf="imagePreview" class="col-6 col-sm-3 col-md-4">
-                  <div class="box">
-                    <div>
-                      <img class="w-100" alt="" [src]="imagePreview" />
-                    </div>
-                  </div>
-                </div>
-
-                <br />
-                <input
-                  style="display:none"
-                  #fileInput
-                  type="file"
-                  (change)="onImagePicked($event)"
-                />
-
-                <button
-                  type="button"
-                  (click)="fileInput.click()"
-                  class="btn btn-fw accent"
-                >
-                  <i class="fa fa-upload"></i>
-                </button>
-              </div> -->
-
-              <!-- <div class="form-group col-md-12">
-                <label for="inputEmail4">Used Signature </label>
-
-                <div class="sign-history">
-                  <div
-                    drag-scroll
-                    drag-scroll-y-disabled="true"
-                    scrollbar-hidden="true">
-                   
-                    <img
-                      drag-scroll-item
-                      (click)="activeIndex = i; selectedSign(sign.signatureId)"
-                      [ngClass]="{selected: activeIndex === i &&
-                         isSignSelected == true}"
-                      *ngFor="let sign of signatures; let i = index"
-                      [src]="sign.signatureImage"
-                    />
-                    
-                  </div>
-                </div>
-              </div> -->
-
-              
             </div>
 
-            <button type="submit" class="btn success">Submit</button>
+            <button type="submit" class="btn primary">Submit</button>
           </form>
         </div>
       </div>
@@ -153,6 +134,8 @@
 </div>
 
 
+
+<!-- Co partner Popover -->
 
 
 
@@ -174,9 +157,175 @@
     <div class="modal-footer">
         <button class="btn white" type="button"
          (click)="bankAccountModal.close()" >No</button>
-        <button class="btn danger" type="button"
-         (click)="onClickAddAnother() && bankAccountModal.close()">Yes</button>
+        <button class="btn primary" type="button"
+         (click)="onClickAddAnother(); bankAccountModal.close()">Yes</button>
     </div>
 
 
 </ngx-smart-modal>
+
+
+
+
+<ngx-smart-modal
+#coPartnerMsg
+identifier="coPartnerMsg"
+customClass="nsm-dialog-animation-ttb">
+
+
+  <div class="modal-body text-center">
+      <p class="py-3 mt-3">
+          <i class="fa fa-info-circle text-danger fa-4x"></i>
+      </p>
+      <h5>Do you also want to add Co-Signatory/Partner ?</h5>
+  </div>
+  <div class="modal-footer">
+      <button class="btn white" type="button"
+       (click)="coPartnerMsg.close();  onClickCoPartnerInfo(false)" >No</button>
+      <button class="btn primary"
+      (click)="coPartnerMsg.close(); coPartnerModal.open(); onClickCoPartnerInfo(true)"
+       type="button">Yes</button>
+  </div>
+
+
+</ngx-smart-modal>
+
+<ngx-smart-modal #coPartnerModal identifier="coPartnerModal" customClass="">
+    <div class="modal-header">
+      <h5 class="modal-title">Co Partner Information</h5>
+    </div>
+    <div class="modal-body text-center p-lg">
+        <div class="mb-2-lg row">
+          <div class="col-sm-12">
+            <div class="row row-sm">
+              <div class="col-sm-6">
+                <div class="md-form-group float-label">
+                  <input
+                    [(ngModel)]="accountModel.coPartnerName"
+                    name="partnerName"
+                    class="md-input"
+                  />
+                  <label>Partner First Name</label>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="md-form-group float-label">
+                  <input
+                    [(ngModel)]="accountModel.middleName"
+                    name="middleName"
+                    class="md-input"
+                  />
+                  <label> Middle Name</label>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                  <div class="md-form-group float-label">
+                    <input
+                      [(ngModel)]="accountModel.lastName"
+                      name="lastName"
+                      class="md-input"
+                    />
+                    <label> Last Name</label>
+                  </div>
+                </div>
+
+              <div class="col-sm-6">
+                <div class="md-form-group float-label">
+                  <input
+                    [(ngModel)]="accountModel.partnerEmail"
+                    name="partnerEmail"
+                    class="md-input"
+                    />
+                  <label> Partner Email</label>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                  <div class="md-form-group float-label">
+                    <input
+                      [(ngModel)]="accountModel.telephone"
+                      name="partnetTelephone"
+                      class="md-input"
+
+                    />
+                    <label> Telephone</label>
+                  </div>
+              </div>
+
+              <div class="col-sm-12">
+                  <div class="md-form-group float-label">
+                    <input
+                      [(ngModel)]="accountModel.address"
+                      name="partnerAddress"
+                      class="md-input"
+                    />
+                    <label> Partner Address</label>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          class="btn dark-white p-x-md"
+          (click)="coPartnerModal.close()"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="btn primary p-x-md"
+
+          (click)="coPartnerModal.close()">
+          Submit
+        </button>
+    </div>
+</ngx-smart-modal>
+
+
+<!-- Business Modal -->
+
+<ngx-smart-modal #businessDropDown identifier="businessDropDown"
+customClass="nsm-dialog-animation-ttb">
+   <div class="modal-header">
+     <h5 class="modal-title">Select Company</h5>
+   </div>
+
+   <div class="modal-body p-lg">
+     <form class="p-x-xs">
+       <div class="mb-2-lg row">
+         <div class="col-sm-12">
+           <div class="row row-sm">
+
+             <div class="form-group col-md-12">
+               <label>Select Company</label>
+
+               <select name="companyId" [(ngModel)]="accountModel.companyId"
+                  class="form-control custom-select my-2">
+                 <option disabled selected="true" value="">
+                     Select Company
+                 </option>
+                 <option [value]="comp.Id" *ngFor="let comp of companies">
+                   {{comp.companyName}}
+                 </option>
+               </select>
+             </div>
+
+           </div>
+         </div>
+       </div>
+
+
+
+       <button type="button" class="btn dark-white p-x-md" (click)="businessDropDown.close()">
+         Cancel
+       </button>
+       <button type="submit" class="btn primary p-x-md" (click)="businessDropDown.close()">
+         OK
+       </button>
+
+     </form>
+   </div>
+ </ngx-smart-modal>

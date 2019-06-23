@@ -1,32 +1,26 @@
 const crypto = require("crypto");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const nodemailer = require('nodemailer');
-const sendgridTransport = require('nodemailer-sendgrid-transport');
+const transporter = require('../nodeMailer');
+var path = require('path');
+const ejs = require('ejs')
 
 
-const transporter = nodemailer.createTransport(sendgridTransport({
-  auth:{
-    api_key : ''
-
-  }
-}))
 
 const User = require("../models/user");
 const Token = require("../models/token");
 // enum
 const {TokenType} = require('../helpers/token-type');
-
 // Helper
-
 const CheckHelper = require("../helpers/checkHelper");
 
 
 
 
 
-exports.logIn = (req, res, next) => {
+exports.logIn = async (req, res, next) => {
   let foundUser;
+  var token;
   User.findOne({ where: { uniqueName: req.body.uniqueName } })
     .then(user => {
       // check uniqueName exist
@@ -37,7 +31,7 @@ exports.logIn = (req, res, next) => {
       }
       foundUser = user;
       // user password match ,return promis,
-      return bcrypt.compare(req.body.password, user.password);
+      return bcrypt.compareSync(req.body.password, user.password);
     })
     .then(result => {
       if (!result) {
@@ -45,17 +39,20 @@ exports.logIn = (req, res, next) => {
           message: "Wrong Password"
         });
       }
-      // generatomg Token
-      const token = generateToken(foundUser);
 
-      res.status(200).json({
-        token: token
-      });
+      if (foundUser) {
+      // generatomg Token
+        token = generateToken(foundUser);
+
+        res.status(200).json({
+          token: token
+        });
+      }
+
     })
     .catch(err => {
       console.log(err);
-
-      return res.status(400).json({
+      return res.status(500).json({
         message: "Log in Failed"
       });
     });
@@ -89,8 +86,9 @@ exports.signUp = async (req, res, next) => {
     }
 
     // if checks pass
+    var hash = await bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
 
-    var hash = await bcrypt.hash(req.body.password, 10);
+    // var hash = await bcrypt.hash(req.body.password, 10);
 
     // Create User
     createdUser = await User.create({
@@ -115,18 +113,26 @@ exports.signUp = async (req, res, next) => {
       token: emailToken
    });
 
-    // send email
 
-     await transporter.sendMail({
-      to: createdUser.email,
-      from: 'echeck@gmail.com',
-      subject: 'Email Verification',
-      html: `<h1>Click on this link to verify email</h1>
-      <a href="${apiUrl}/auth/email-verification?verifytoken=${emailToken}&email=${createdUser.email}&checkToken=${tokenInRequest}">
-        Verify Email
-      </a> `
+       var link =  `${apiUrl}/auth/email-verification?verifytoken=${emailToken}&email=${createdUser.email}&checkToken=${tokenInRequest}`;
+
+       ejs.renderFile(path.join(ROOT ,'/emails/emailVerify.ejs'),
+        { name: createdUser.uniqueName, token: link },
+         async (err, str) => {
+        try {
+            if (err) { throw err }
+             else {
+                await transporter.sendMail({
+                    to: createdUser.email,
+                    subject: 'Email Verification',
+                    html: str,
+                    from: 'echeck@rxcoin.net'
+                })
+            }
+        } catch (error) {
+            console.log(error)
+        }
     });
-
 
 
   } catch (error) {
@@ -196,7 +202,7 @@ exports.emailVerification = async (req, res, next) => {
 
   }
 
-  res.redirect(`http://localhost:4200/dashboard`);
+  res.redirect(`${APPURL}`);
 
   // res.status(201).json({message:`User with ${user.email} has been verified`});
 
@@ -253,14 +259,27 @@ exports.resetPasswordRequest = async (req, res, next) => {
 
      // send email
 
-     var sendEmail = await transporter.sendMail({
-        to: user.email,
-        from: 'tanzeelsaleem10@gmail.com',
-        subject: 'Password Reset',
-        html: `<h1>Rest your Passwrod </h1>
-                <a href="http://localhost:4200/reset-password/${token}"> Click Here</a>
-        `
-      });
+
+
+     var link =  `${apiUrl}/reset-password/${token}`;
+
+     ejs.renderFile(path.join(ROOT ,'/emails/resetPassword.ejs'),
+      {token: link },
+       async (err, str) => {
+      try {
+          if (err) { throw err }
+           else {
+              await transporter.sendMail({
+                  to: req.body.email,
+                  subject: 'Reset Password Request',
+                  html: str,
+                  from: 'echeck@rxcoin.net'
+              })
+          }
+      } catch (error) {
+          console.log(error)
+      }
+  })
 
   } catch (error) {
     res.status(500).json({
@@ -269,7 +288,7 @@ exports.resetPasswordRequest = async (req, res, next) => {
   }
 
   res.status(200).json({
-    message: "Chech Email for furthure Action"
+    message: "Please check your email"
   });
 
 
@@ -300,6 +319,8 @@ res.status(200).json({
   data: user.Id
 });
 
+// res.redirect(`${APPURL}/reset-password/${token}`);
+
 
  }
 
@@ -323,12 +344,9 @@ res.status(200).json({
     }
 
     // if checks pass
+    var hash = await bcrypt.hashSync(model.password, bcrypt.genSaltSync(10));
+    // var hash = await bcrypt.hash(model.password, 10);
 
-    var hash = await bcrypt.hash(model.password, 10);
-    // updating user
-    // user.password = hash;
-    // user.resetToken = null;
-    // user.resetTokenExpire = null;
     await user.update({
       password : hash,
       resetToken : null,
@@ -357,43 +375,45 @@ exports.changePassword = async (req, res, next) => {
 const model = req.body;
 var user;
 
-try {
-  user = await User.findOne({Id: model.userId});
-  if (!user) {
-    return res.status(400).json({
-      message: "User Not Found"
+
+User.findOne({ where: { Id: model.userId } })
+    .then(foundUser => {
+      // check uniqueName exist
+      if (!foundUser) {
+        res.status(400).json({
+          message: "Name not Found"
+        });
+      }
+      user = foundUser;
+      // user password match ,return promise,
+      return bcrypt.compareSync(model.oldPassword, user.password);
+    })
+    .then(match => {
+      if (!match) {
+       return  res.status(400).json({
+          message: "Wrong Old Password"
+        });
+      }
+      return bcrypt.hashSync(model.newPassword, bcrypt.genSaltSync(10));
+    }).then(hash=>{
+      return  user.update({
+        password : hash
+      });
+    }).then(user => {
+       res.status(200).json({
+        message: "Password Changed"
+      });
+    })
+    .catch(err => {
+      console.log(err);
+
+      return res.status(500).json({
+        message: "something worng"
+      });
     });
+
+
   }
-
-  // matches the old Password
-
- const IsPassCorrect = await bcrypt.compare(model.oldPassword, user.password);
- if (!IsPassCorrect) {
-  return res.status(400).json({
-    message: "Old Password is Wrong"
-  });
-}
-// if old pasword is correct then save a new pass into db
-
-var hash = await bcrypt.hash(model.newPassword, 10); // create pasword hash
-
-// update userPass
-await user.update({
-  password : hash
-});
-
-} catch (error) {
-  return res.status(500).json({
-    message: error
-  });
-}
-
-return res.status(200).json({
-  message: "Password Changed"
-});
-
- }
-
 
 
 
@@ -422,7 +442,8 @@ function generateToken(foundUser) {
     {
       email: foundUser.email,
       uniqueName: foundUser.uniqueName,
-      Id: foundUser.Id
+      Id: foundUser.Id,
+      isAdmin: foundUser.isAdmin
     },
     "DevSecretkey",
     { expiresIn: "24h" }

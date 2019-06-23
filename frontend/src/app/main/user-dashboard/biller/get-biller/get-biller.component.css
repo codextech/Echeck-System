@@ -1,16 +1,31 @@
 
-
-:host  ::ng-deep .table-header{
-    background-color: blue !important;
-    color : #ffffff; 
+.btn-clr{
+  color: white;
 }
+
+:host  /deep/ .ngx-table__header{
+  background-color: #3f86ca !important;
+  color: #ffffff;
+}
+:host  /deep/ .ngx-table{
+  font-family: inherit;
+}
+
 
 
 
 :host /deep/ .ngx-pagination-steps{
 
-margin-top: 10px;
-}  
+    margin-top: 10px;
+}
+
+
+
+
+
+:host /deep/ .ngx-pagination-range {
+  display: none;
+}
 
 
 .btn{

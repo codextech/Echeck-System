@@ -299,6 +299,19 @@ exports.getDocuments = async (id) => {
     return docs;
 }
 
+exports.addCheckBackgroundImages = async (model) => {
+
+  var imgs;
+  try {
+
+      // add images
+      imgs = await CheckBackground.bulkCreate(model);
+
+  } catch (error) {
+      console.log(error);
+  }
+  return imgs;
+}
 
 
 

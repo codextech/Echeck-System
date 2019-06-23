@@ -10,7 +10,7 @@
 
           <div *ngIf="checkModel.check_BackGround" class="check-boundary">
 
-            <div #senderPartnerSign class="row no-margin" style="height: 33em;">
+            <div #senderPartnerSign class="row no-margin" style="height: 28.4em;">
 
                 <img class="" [src]="checkModel.check_Image.checkFront" alt="">
 
@@ -54,7 +54,8 @@
                       <input style="display:none" #fileInput type="file" (change)="onImagePicked($event)" />
 
                       <button type="button" (click)="fileInput.click()" class="btn btn-fw accent">
-                        <i class="fa fa-upload"></i>
+                        <i class="fa fa-image"></i>
+                        Select Signature
                       </button>
 
 

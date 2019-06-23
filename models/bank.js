@@ -19,8 +19,8 @@ const Bank = sequelize.define('bank', {
   },
   city: Sequelize.STRING,
   address: Sequelize.STRING,
-  telephone: Sequelize.STRING
-
+  zipCode: Sequelize.STRING,
+  telephone: Sequelize.STRING,
 });
 
 module.exports = Bank;

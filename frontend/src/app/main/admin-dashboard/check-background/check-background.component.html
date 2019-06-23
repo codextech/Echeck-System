@@ -1,0 +1,45 @@
+<div class="padding">
+
+
+  <h3 class="text-muted">Upload Images For Check Backgrounds </h3>
+
+  <dropzone class="dropzone-container" [config]="config"
+      [message]="'click here or drag images'"
+      (successMultiple)="onUploadSuccess($event)"></dropzone>
+<!--
+  <div #drpZone class="dropzone" [dropzone]="config"
+   (error)="onUploadError($event)" (success)="onUploadSuccess($event)"></div> -->
+
+   <button (click)="uploadFiles()" class="btn primary upload">Upload</button>
+
+
+
+
+
+   <div class="col-md-12 mt-3">
+
+
+<div *ngIf="images.length > 0" class="row row-xs">
+
+    <div  *ngFor="let img of images | paginate: { itemsPerPage: 12, currentPage: p }"
+     class="col-6 col-sm-4 col-md-2 img-container">
+        <div class="box p-1">
+
+          <!-- Only For Images -->
+                <img
+                class="w-100" [src]="img.Image" alt="">
+
+                <div class="delete">
+                    <button (click)="deleteCheckBackground(img.checkBackgroundId)" class="btn danger" type="button" ><i class="fa fa-trash"></i>
+                  </button>
+                </div>
+        </div>
+    </div>
+</div>
+<div class="text-center">
+<pagination-controls maxSize="9" autoHide="true" (pageChange)="p = $event"></pagination-controls>
+ </div>
+
+ </div>
+
+</div>

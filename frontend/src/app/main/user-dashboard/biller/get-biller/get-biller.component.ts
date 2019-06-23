@@ -16,7 +16,7 @@ export class GetBillerComponent implements OnInit {
   columns = [
     {
       key: 'recieverName',
-      title: 'Biller Name',
+      title: 'Payee Name',
     },
 
     {

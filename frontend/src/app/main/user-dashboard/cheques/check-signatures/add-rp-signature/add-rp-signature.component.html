@@ -14,7 +14,10 @@
 
               <div  *ngIf="checkModel.check_BackGround"  class="check-boundary">
                   <ngx-flip [flip]="flipCheck">
-                  <div #checkBackContainer back style="position: relative; height:26em;" [ngStyle]="{'background': 'url(' + checkModel?.check_BackGround.Image + ') no-repeat 0 0'}"  class="row no-margin form-area">
+                  <div #checkBackContainer back
+                  style="position: relative; height:30em;"
+                  [ngStyle]="{'background': 'url(' + checkModel?.check_BackGround.Image + ') no-repeat 0 0'}"
+                   class="row no-margin">
 
 
                     <img class="check-image" [src]="checkModel.check_Image.checkBack" alt="">
@@ -32,7 +35,7 @@
 
 
                   </div>
-                  <div front class="row no-margin form-area">
+                  <div front class="row no-margin">
 
                     <img class="check-image" [src]="checkModel.check_Image.checkFront" alt="">
 

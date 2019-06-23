@@ -1,0 +1,140 @@
+<div class="padding">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="box">
+          <div class="box-header">
+            <h2>Bank Logo</h2>
+
+          </div>
+          <div class="box-body">
+
+            <!-- <form #bankForm="ngForm" (ngSubmit)="addBankLogo()">
+              <div class="form-row">
+
+                <div  class="form-group col-md-12">
+                  <label>Choose Bank Account</label>
+                  <select [(ngModel)]="bankModel.bankId" name="bankId"
+                   class="form-control">
+                    <option value="0">Select Bank</option>
+                    <option *ngFor="let bank of banks" [value]="bank.bankId">
+                      {{bank.bankName}}
+                    </option>
+                  </select>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="box p-3">
+                      <strong class="text-muted">Upload Logo</strong>
+                      <br>
+
+
+
+                      <div *ngIf="logoImage"  class="col-6 col-sm-3 col-md-4">
+                        <div class="box">
+                          <div>
+                            <img class="w-100" alt="" [src]="logoImage" />
+                          </div>
+                        </div>
+                      </div>
+
+                      <br />
+                      <input style="display:none" #signFile type="file"  (change)="onSignImagePicked($event)" />
+
+                      <button type="button" (click)="signFile.click()" class="btn btn-fw accent">
+                        <i class="fa fa-upload"></i>
+                      </button>
+
+
+                    </div>
+                  </div>
+
+
+              </div>
+
+
+              <button type="submit" class="btn success">Submit</button>
+            </form> -->
+
+
+
+            <p class="mb-3">
+                <strong>Dropzone</strong>
+                <a href="http://www.dropzonejs.com/" target="blank">
+                    <i class="fa fa-link text-muted"></i>
+                </a>
+            </p>
+            <p class="text-muted">Upload your files</p>
+            <!-- <form action="api/dropzone" class="dropzone white b-a b-3x b-dashed b-primary p-a rounded p-5 text-center" data-plugin="dropzone" data-option="{url: 'api/dropzone'}">
+                <div class="dz-message">
+                    <h4 class="my-4">Drop files here or click to upload.</h4>
+                    <span class="text-muted d-block mb-4">(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</span>
+                </div>
+            </form> -->
+
+            <dropzone class="dropzone-container" [config]="config"
+                [message]="'Click or drag images here to upload'"
+              ></dropzone>
+        <!--
+            <div #drpZone class="dropzone" [dropzone]="config"
+             (error)="onUploadError($event)" (success)="onUploadSuccess($event)"></div> -->
+
+             <button (click)="uploadFiles()" class="btn primary mb-3">Upload</button>
+
+
+
+     <div class="col-md-12">
+
+        <div class="form-row justify-content-end">
+                <div class="form-group col-xs-2">
+                    <input class="form-control" type="text" [(ngModel)]="bankFilter.bankName" placeholder="search bank">
+                </div>
+        </div>
+    <div *ngIf="banksLogo.length > 0" class="row row-xs">
+
+        <div  *ngFor="let bank of banksLogo | filterBy: bankFilter | paginate: { itemsPerPage: 6, currentPage: p }"
+         class="col-6 col-sm-4 col-md-2">
+            <div class="box p-1 doc-container">
+
+                    <img class="doc-image" [src]="bank.bankLogo" alt="">
+
+            </div>
+        </div>
+        <!-- if no check found with search -->
+    </div>
+    <div class="text-center">
+    <pagination-controls maxSize="9" autoHide="true" (pageChange)="p = $event"></pagination-controls>
+     </div>
+
+     </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+<ngx-smart-modal
+#logoModal
+identifier="logoModal"
+customClass="nsm-dialog-animation-ttb">
+
+
+  <div class="modal-body text-center">
+      <p class="py-3 mt-3">
+          <i class="fa fa-check text-primary fa-4x"></i>
+      </p>
+      <p>Do you want to add another signature?</p>
+  </div>
+  <div class="modal-footer">
+      <button class="btn white" type="button"
+       (click)="logoModal.close(); Reset()" >No</button>
+      <button class="btn primary" type="button"
+       (click)="Reset(); logoModal.close()">Yes</button>
+  </div>
+
+
+</ngx-smart-modal>

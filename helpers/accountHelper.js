@@ -1,33 +1,138 @@
 
+const userHelper = require("../helpers/userHelper");
 const User = require("../models/user");
+const Document = require("../models/user-document");
 const KYC = require("../models/kyc");
+const KycType = require("../models/kyc-type");
 
 
 
 
-exports.userIdVerification = async (userId, imageUrl) => {
+exports.kycVerification = async (model, userId) => {
 
-    var document;
-    var user
-    try {
+  var docs
+  try {
 
-        document = await   KYC.create({
-            document: imageUrl,
-            documentType: 'id verification',
-            userId: userId
-        });
+      // add Kyc Documents
+      docs = await KYC.bulkCreate(model);
 
-        // find user with user and update Kyc Status -> false // admin will approve this
-        user = await User.findOne({where: {Id: userId}});
-        await user.update({
-            kycStatus: false
-        });
+      // update user kyc staus to pending, then admin will see and apprve
 
-       
-    } catch (error) {
-        console.log(error);
-        throw new Error(error);       
-    }
-    return document;
+      await User.update({
+        kycStatus : User.rawAttributes.kycStatus.values[1],
+      },
+       { where : {Id : userId}}
+       );
+
+  } catch (error) {
+      console.log(error);
+  }
+  return docs;
+}
+
+
+
+exports.getKycTypes = async () => {
+
+  var types;
+  try {
+
+    types = await KycType.findAll();
+
+
+  } catch (error) {
+      console.log(error);
+      throw new Error(error);
+  }
+  return types;
 
 }
+
+
+exports.addKycType = async (model) => {
+
+  try {
+
+      await KycType.create({
+        kycType: model.kycType,
+        kycTypeDescription: model.kycTypeDescription
+      });
+  } catch (error) {
+      console.log(error);
+  }
+}
+
+exports.deleteKycType = async (id) => {
+
+  try {
+
+      await KycType.destroy({
+        where : {kycTypeId: id}
+      });
+  } catch (error) {
+      console.log(error);
+  }
+}
+
+exports.deleteDocumentById = async (id) => {
+
+  try {
+
+      await Document.destroy({
+        where : {documentId: id}
+      });
+  } catch (error) {
+      console.log(error);
+  }
+}
+
+
+
+
+
+
+
+exports.kycDocs = async id => {
+
+  var docs;
+  try {
+
+    docs = await KYC.findAll({
+      where:{userId: id},
+      include: [
+        { model: KycType },
+    ]
+    });
+
+
+  } catch (error) {
+      console.log(error);
+      throw new Error(error);
+  }
+  return docs;
+
+}
+
+
+
+exports.updateKycStatus = async (userId) => {
+
+  var user;
+  try {
+    user = await userHelper.getUserById(userId);
+   await user.update({
+    trustedUser: true,
+    kycStatus: user.rawAttributes.kycStatus.values[2] // kyc Completed
+  });
+
+
+  } catch (error) {
+      console.log(error);
+      throw new Error(error);
+  }
+  return user;
+
+}
+
+
+

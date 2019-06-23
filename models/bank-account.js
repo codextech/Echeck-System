@@ -19,7 +19,9 @@ const BankAccount = sequelize.define('bank_account', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  accountType : Sequelize.STRING
+  individualAccount: Sequelize.BOOLEAN,
+  isIndividualCoPartner: Sequelize.BOOLEAN,
+
 });
 
 module.exports = BankAccount;

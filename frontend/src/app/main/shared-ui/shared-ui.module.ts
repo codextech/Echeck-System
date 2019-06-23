@@ -14,8 +14,8 @@ const routes: Routes = [];
 
     ],
     declarations: [
+      SidebarComponent,
         HeaderComponent,
-        SidebarComponent,
         FooterComponent
     ],
     exports: [

@@ -9,8 +9,8 @@
             <form #accountForm="ngForm" (ngSubmit)="updateBankAccount()">
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label for="inputCity">Bank</label>
-  
+                  <label for="">Bank</label>
+
                   <select
                     [(ngModel)]="accountModel.bankId"
                     name="bank"
@@ -21,23 +21,23 @@
                     </option>
                   </select>
                 </div>
-  
+
                 <div class="form-group col-md-6">
-                  <label>Your Company</label>
-  
+                  <label>Account Type</label>
+
                   <select
-                    [(ngModel)]="accountModel.companyId"
+                    [(ngModel)]="accountModel.bankaccountTypeId"
                     name="company"
                     class="form-control custom-select my-2">
-                    <option disabled selected="true" value=""
-                      >Choose Company
+                    <option disabled selected="true" value="">Choose Account Type
                     </option>
-                    <option *ngFor="let comp of companies" [value]="comp.Id">
-                      {{comp.companyName}}</option
-                    >
+                    <option *ngFor="let type of bankAccountTypes" [value]="type.bankAccountTypeId">
+                        {{ type.bankaccountType }}
+                    </option>
+
                   </select>
                 </div>
-  
+
                 <div class="form-group col-md-6">
                   <label for="inputEmail4">Account Number</label>
                   <input
@@ -48,29 +48,60 @@
                     placeholder="account number"
                   />
                 </div>
+
                 <div class="form-group col-md-6">
-                  <label for="inputPassword4">Account Name</label>
-                  <input
-                    [(ngModel)]="accountModel.accountName"
-                    name="accName"
-                    type="text"
-                    class="form-control"
-                    placeholder="account name"
-                  />
+                    <label for="">Account Name</label>
+                    <input
+                      [(ngModel)]="accountModel.accountName"
+                      name="accName"
+                      type="text"
+                      class="form-control"
+                      placeholder="account name"
+                    />
+                  </div>
+
+                <div class="form-group col-md-6">
+
+                    <label class="md-check">
+                        <input
+                          type="checkbox"
+                          [(ngModel)]="accountModel.isSubAccount"
+                          name="isSubAccount"/>
+                        <i class="indigo"></i>
+                        I have Sub-Account
+                      </label>
+                    <!-- <label for="">I have Sub-Account</label>
+                    <br>
+                    <input
+                      [(ngModel)]="accountModel.isSubAccount"
+                      name="subaccountcheck"
+                      type="checkbox"
+                    /> -->
                 </div>
-  
-                <div class="form-group col-md-6">
+                <div *ngIf="accountModel.isSubAccount" class="form-group col-md-6">
+                    <label for="">Sub-Account Number</label>
+                    <input
+                      [(ngModel)]="accountModel.subAccountNumber"
+                      name="subAccountNumber"
+                      type="text"
+                      class="form-control"
+                      placeholder="sub account number"
+                    />
+                </div>
+
+
+  <!--
+                <div  class="form-group col-md-12">
                   <label for="inputEmail4">Upload Account Signature </label>
-  
-                  <div class="col-6 col-sm-3 col-md-4">
+
+                  <div *ngIf="imagePreview" class="col-6 col-sm-3 col-md-4">
                     <div class="box">
                       <div>
-                          <img *ngIf="!imagePreview" class="w-100" alt="" [src]="signature" />
-                        <img *ngIf="imagePreview" class="w-100" alt="" [src]="imagePreview" />
+                        <img class="w-100" alt="" [src]="imagePreview" />
                       </div>
                     </div>
                   </div>
-  
+
                   <br />
                   <input
                     style="display:none"
@@ -78,7 +109,7 @@
                     type="file"
                     (change)="onImagePicked($event)"
                   />
-  
+
                   <button
                     type="button"
                     (click)="fileInput.click()"
@@ -86,18 +117,17 @@
                   >
                     <i class="fa fa-upload"></i>
                   </button>
-                </div>
-  
-                <div class="form-group col-md-12">
+                </div> -->
+
+                <!-- <div class="form-group col-md-12">
                   <label for="inputEmail4">Used Signature </label>
-  
+
                   <div class="sign-history">
                     <div
                       drag-scroll
                       drag-scroll-y-disabled="true"
-                      scrollbar-hidden="true"
-                    >
-                      
+                      scrollbar-hidden="true">
+
                       <img
                         drag-scroll-item
                         (click)="activeIndex = i; selectedSign(sign.signatureId)"
@@ -106,11 +136,14 @@
                         *ngFor="let sign of signatures; let i = index"
                         [src]="sign.signatureImage"
                       />
+
                     </div>
                   </div>
-                </div>
+                </div> -->
+
+
               </div>
-  
+
               <button type="submit" class="btn success">Submit</button>
             </form>
           </div>
@@ -118,4 +151,3 @@
       </div>
     </div>
   </div>
-  

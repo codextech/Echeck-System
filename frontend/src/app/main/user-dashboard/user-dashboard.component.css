@@ -1,0 +1,40 @@
+
+.statistic  .box{
+    color: #fff;
+    background-color: #285f94;
+}
+
+.list-item {
+
+    height: 100px;
+    display: inherit;
+    align-items: stretch;
+    padding: 0.75rem 0.5rem;
+    position: relative;
+    text-align: center;
+
+}
+
+.steps-container {
+  background: #f4f4f44a;
+  padding: 20px;
+}
+
+.steps {
+  width: 35%;
+    margin: auto;
+}
+
+
+
+.text {
+  font-weight: 700;
+    margin: auto;
+}
+
+
+
+
+.steps-link:hover {
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.15);
+}

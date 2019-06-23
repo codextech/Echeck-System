@@ -1,22 +1,22 @@
 <!-- Main -->
 <!-- ############ Main START-->
 <div class="padding">
-    
-  
+
+
     <div class="box">
       <div class="box-header">
-        <h3>Billers</h3>
+        <h3>Payees</h3>
       </div>
 
-  
+
       <div class="col-md-12 table-responsive">
           <button
-          class="btn primary mb-3"
+          class="btn warning mb-3 btn-clr"
           data-toggle="modal"
           (click)="billerModal.open()">
-          Add Biller 
+          Add Payee
         </button>
-        
+
         <ngx-table
           [configuration]="configuration"
           [data]="recievers"
@@ -29,9 +29,9 @@
             <td>{{ row.address }}</td>
             <td class="fit">
                 <button (click)="onBillerEdit(row.recieverId)"  class="btn btn-outline b-accent text-accent">
-                           <i class="fa fa-pencil"></i>                 
+                           <i class="fa fa-pencil"></i>
                 </button>
-  
+
               <button (click)="onBillerDelete(row.recieverId)" class="btn btn-outline b-danger text-danger">
                 <i class="fa fa-trash"></i>
               </button>
@@ -41,12 +41,12 @@
       </div>
     </div>
   </div>
-  
+
   <!-- .modal Add Biller -->
-  
+
   <ngx-smart-modal #billerModal identifier="billerModal" customClass="">
     <div class="modal-header">
-      <h5 class="modal-title">Biller</h5>
+      <h5 class="modal-title">Payee</h5>
     </div>
     <div class="modal-body text-center p-lg">
       <form #companyForm="ngForm" (ngSubmit)="addBiller()" class="p-x-xs">
@@ -61,7 +61,7 @@
                     class="md-input"
                     required
                   />
-                  <label>Name</label>
+                  <label>Payee Name</label>
                 </div>
               </div>
               <div class="col-sm-6">
@@ -72,22 +72,10 @@
                     class="md-input"
                     required
                   />
-                  <label> Email</label>
+                  <label>Payee Email</label>
                 </div>
               </div>
-  
-              <div class="col-sm-6">
-                  <div class="md-form-group float-label">
-                    <input
-                      [(ngModel)]="recieverModel.telephone"
-                      name="telephone"
-                      class="md-input"
-                      required
-                    />
-                    <label> Telephone</label>
-                  </div>
-                </div>
-  
+
               <div class="col-sm-12">
                 <div class="md-form-group float-label">
                   <input
@@ -98,11 +86,58 @@
                   <label> Address</label>
                 </div>
               </div>
-  
+
+              <div class="col-sm-6">
+                  <div class="md-form-group float-label">
+                    <input
+                      [(ngModel)]="recieverModel.city"
+                      name="city"
+                      class="md-input"
+                      required
+                    />
+                    <label> City </label>
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="md-form-group float-label">
+                      <input
+                        [(ngModel)]="recieverModel.country"
+                        name="country"
+                        class="md-input"
+                        required
+                      />
+                      <label> Country </label>
+                    </div>
+                  </div>
+                <div class="col-sm-6">
+                    <div class="md-form-group float-label">
+                      <input
+                        [(ngModel)]="recieverModel.zipCode"
+                        name="zipCode"
+                        class="md-input"
+                        required
+                      />
+                      <label> Zip Code</label>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6">
+                      <div class="md-form-group float-label">
+                        <input
+                          [(ngModel)]="recieverModel.telephone"
+                          name="telephone"
+                          class="md-input"
+                          required
+                        />
+                        <label> Telephone</label>
+                      </div>
+                    </div>
+
             </div>
           </div>
         </div>
-  
+
         <button
           type="button"
           class="btn dark-white p-x-md"
@@ -112,7 +147,7 @@
         </button>
         <button
           type="submit"
-          class="btn success p-x-md"
+          class="btn primary p-x-md"
           (click)="billerModal.close()"
         >
           Submit
@@ -120,11 +155,11 @@
       </form>
     </div>
   </ngx-smart-modal>
-  
-  
+
+
   <!-- Update Biller -->
-  
-  
+
+
   <ngx-smart-modal #updateModal identifier="updateModal" customClass="">
       <div class="modal-header">
         <h5 class="modal-title">Edit Biller Details</h5>
@@ -156,7 +191,57 @@
                     <label> Email</label>
                   </div>
                 </div>
-  
+
+
+                <div class="col-sm-12">
+                    <div class="md-form-group float-label">
+                      <input
+                        [(ngModel)]="recieverModel.address"
+                        name="address"
+                        class="md-input"
+                      />
+                      <label> Address</label>
+                    </div>
+                  </div>
+
+                <div class="col-sm-6">
+                    <div class="md-form-group float-label">
+                      <input
+                        [(ngModel)]="recieverModel.city"
+                        name="city"
+                        class="md-input"
+                        required
+                      />
+                      <label> City </label>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-6">
+                    <div class="md-form-group float-label">
+                      <input
+                        [(ngModel)]="recieverModel.country"
+                        name="country"
+                        class="md-input"
+                        required
+                      />
+                      <label> Country </label>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-6">
+                    <div class="md-form-group float-label">
+                      <input
+                        [(ngModel)]="recieverModel.zipCode"
+                        name="zipCode"
+                        class="md-input"
+                        required
+                      />
+                      <label> Zip Code </label>
+                    </div>
+                </div>
+
                 <div class="col-sm-6">
                     <div class="md-form-group float-label">
                       <input
@@ -168,21 +253,11 @@
                       <label> Telephone</label>
                     </div>
                   </div>
-                  
-                <div class="col-sm-12">
-                  <div class="md-form-group float-label">
-                    <input
-                      [(ngModel)]="recieverModel.address"
-                      name="address"
-                      class="md-input"
-                    />
-                    <label> Address</label>
-                  </div>
-                </div>
+
               </div>
             </div>
           </div>
-    
+
           <button
             type="button"
             class="btn dark-white p-x-md"
@@ -192,14 +267,13 @@
           </button>
           <button
             type="submit"
-            class="btn success p-x-md"
-           
+            class="btn primary p-x-md"
+
           >
             Submit
           </button>
         </form>
       </div>
     </ngx-smart-modal>
-  
+
   <!-- ############ Main END-->
-  

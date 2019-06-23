@@ -1,8 +1,15 @@
 .upload{
     padding-top: 5px;
-}  
+}
 
 
 .profile-img{
     max-height: 300px;
+}
+
+
+:host /deep/ dropzone > .dropzone.dz-wrapper .dz-message {
+  min-height: 100px;
+  border: 2px dashed #5aa9fa;
+  background-color: #fff;
 }

@@ -1,43 +1,32 @@
 <div class="padding">
-    <p class="mb-3">
-        <strong>Dropzone</strong>
-        <a href="http://www.dropzonejs.com/" target="blank">
-            <i class="fa fa-link text-muted"></i>
-        </a>
-    </p>
-    <p class="text-muted">Upload your files</p>
-    <!-- <form action="api/dropzone" class="dropzone white b-a b-3x b-dashed b-primary p-a rounded p-5 text-center" data-plugin="dropzone" data-option="{url: 'api/dropzone'}">
-        <div class="dz-message">
-            <h4 class="my-4">Drop files here or click to upload.</h4>
-            <span class="text-muted d-block mb-4">(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</span>
+
+
+    <div class=" mb-3 form-row justify-content-end">
+        <div class="form-group col-6 col-sm-3">
+            <input class="form-control" type="text" [(ngModel)]="docFilter.documentName" placeholder="Search Document">
         </div>
-    </form> -->
+</div>
+    <h3 class="text-muted">Upload your files</h3>
 
     <dropzone class="dropzone-container" [config]="config"
-        [message]="'Click or drag images here to upload'"
-      (init)="onUploadInit($event)" (error)="onUploadError($event)" (success)="onUploadSuccess($event)"></dropzone>
+        [message]="'click here or drag images'"
+      (init)="onUploadInit($event)" (error)="onUploadError($event)"  (successMultiple)="onUploadSuccess($event)"></dropzone>
 <!--
     <div #drpZone class="dropzone" [dropzone]="config"
      (error)="onUploadError($event)" (success)="onUploadSuccess($event)"></div> -->
 
-     <button (click)="uploadFiles()" class="btn btn-primary">Upload</button>
-
-
-     <!-- <iframe src="../../../../../assets/images/a10.jpg" width="200px" height="200px"></iframe>
-     <iframe src="../../../../../assets/1556387139948-Srs example.pdf" width="200px" height="200px"></iframe> -->
+     <button (click)="uploadFiles()" class="btn primary upload">Upload</button>
 
 
 
-     <div class="col-md-12">
 
-      <div class="form-row justify-content-end">
-              <div class="form-group col-xs-2">
-                  <input class="form-control" type="text" [(ngModel)]="docFilter.documentName" placeholder="Search Document By Number">
-              </div>
-      </div>
+
+ <div class="col-md-12 mt-3">
+
+
   <div *ngIf="docs.length > 0" class="row row-xs">
 
-      <div  *ngFor="let doc of docs | filterBy: docFilter | paginate: { itemsPerPage: 6, currentPage: p }"
+      <div  *ngFor="let doc of docs | filterBy: docFilter | paginate: { itemsPerPage: 12, currentPage: p }"
        class="col-6 col-sm-4 col-md-2">
           <div class="box p-1 doc-container">
 
@@ -46,8 +35,13 @@
                   class="doc-image" [src]="doc.documentUrl" alt="">
                   <!-- Another Document -->
                   <img *ngIf="(doc.documentUrl | extention) == false"
-                  class="doc-image" src="https://www.freeiconspng.com/uploads/text-file-icon-clip-art--royalty--32.png" alt="">
-              <div class="p-2">
+                  class="doc-image" src="http://www.imperialtools.in/wp-content/uploads/2017/04/58304-page-icon-blue-rwd.png.rendition.intel_.web_.225.225.png" alt="">
+
+                  <div class="delete">
+                    <button (click)="deleteDocument(doc.documentId)" class="btn danger" type="button" ><i class="fa fa-trash"></i>
+                  </button>
+                </div>
+               <div class="p-2">
                   <div class="text-ellipsis text-center">{{doc.documentName}}</div>
               </div>
           </div>
@@ -59,5 +53,71 @@
    </div>
 
    </div>
+
+
+
+
+
+
+
+
+
+   <div *ngIf="checkBackgrounds.length > 0" class="col-md-12 mt-5">
+
+
+      <h4 class="text-muted">Your Check Backgrounds</h4>
+
+      <div  class="row row-xs">
+
+          <div  *ngFor="let background of checkBackgrounds | paginate: { itemsPerPage: 8, currentPage: p }"
+           class="col-6 col-sm-4 col-md-3">
+              <div class="box p-1 doc-container">
+
+                <!-- Only For Images -->
+                      <img  class="doc-image" [src]="background.Image" alt="">
+                      <div class="delete">
+                          <button (click)="deleteCheckBackground(background.checkBackgroundId)" class="btn danger" type="button" ><i class="fa fa-trash"></i>
+                        </button>
+                      </div>
+              </div>
+          </div>
+          <!-- if no check found with search -->
+      </div>
+      <div class="text-center">
+      <pagination-controls maxSize="9" autoHide="true" (pageChange)="p = $event"></pagination-controls>
+       </div>
+
+       </div>
+
+
+
+
+
+
+       <div *ngIf="kycDocs.length > 0" class="col-md-12 mt-5">
+
+
+          <h4 class="text-muted">Kyc Documents</h4>
+
+          <div  class="row row-xs">
+
+              <div  *ngFor="let kycDoc of kycDocs | paginate: { itemsPerPage: 8, currentPage: p }"
+               class="col-6 col-sm-4 col-md-3">
+                  <div class="box p-1 doc-container">
+
+                    <!-- Only For Images -->
+                          <img  class="doc-image" [src]="kycDoc.document" alt="">
+                  </div>
+              </div>
+              <!-- if no check found with search -->
+          </div>
+          <div class="text-center">
+          <pagination-controls maxSize="9" autoHide="true" (pageChange)="p = $event"></pagination-controls>
+           </div>
+
+           </div>
+
+
+
 
 </div>

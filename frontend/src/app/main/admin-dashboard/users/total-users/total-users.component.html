@@ -1,0 +1,41 @@
+<!-- Main -->
+<!-- ############ Main START-->
+<div class="padding">
+
+
+  <div class="box">
+    <div class="box-header">
+      <h3>Users</h3>
+    </div>
+
+
+    <div class="col-md-12 table-responsive">
+
+
+      <ngx-table
+        [configuration]="configuration"
+        [data]="users"
+        [columns]="columns">
+        <ng-template let-row let-index="index">
+          <td>{{ row.uniqueName }}</td>
+          <td>{{ row.email }}</td>
+
+          <td *ngIf="row.isVerified; else notVerified ">
+              <span class="badge indigo">Yes</span>
+          </td>
+          <ng-template #notVerified>
+              <td >
+                  <span class="badge deep-orange">No</span>
+              </td>
+          </ng-template>
+
+          <td>
+              <span class="badge text-sm primary pos-rlt mr-2">
+            {{ row.kycStatus }}
+              </span>
+          </td>
+        </ng-template>
+      </ngx-table>
+    </div>
+  </div>
+</div>

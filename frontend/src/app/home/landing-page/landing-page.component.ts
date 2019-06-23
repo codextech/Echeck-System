@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HomeService } from 'src/app/_services/home.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LandingPageComponent implements OnInit {
 
-  constructor() { }
+  sliderImages: any[] = [];
+  constructor(private homeService: HomeService) { }
 
   ngOnInit() {
+    this.getSliderImages();
   }
 
+  getSliderImages() {
+    this.homeService.getSliderImages().subscribe(
+      result => {
+        this.sliderImages = result.data;
+      },
+      err => {
+        console.log(err.error);
+
+      }
+    );
+  }
 }

@@ -8,7 +8,7 @@
     background-size: cover;
     max-width: 59em;
     background-repeat: no-repeat;
-    height: 26.5em;
+    height: 27.5em;
     margin: 0 auto;
     border: 3px solid;
 
@@ -17,12 +17,12 @@
   }
 
   .no-margin{
-    margin-right: 0px; 
-     margin-left: 0px; 
+    margin-right: 0px;
+     margin-left: 0px;
 }
-  
+
   .check-image {
-    height: 26em;
+    height: 27em;
     width: 100%;
   }
 

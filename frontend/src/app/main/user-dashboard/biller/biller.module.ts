@@ -9,19 +9,11 @@ import { AuthGuard } from 'src/app/_guards/auth.guard';
 import { GetBillerComponent } from './get-biller/get-biller.component';
 
 
-const routes: Routes = [
-
-  {path: '', component: UserDashBoardComponent, canActivate: [AuthGuard],
-  children: [
-    { path: 'get-billers', component: GetBillerComponent },
-]},
-
-];
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(routes),
+    RouterModule,
     FormsModule,
     NgxSmartModalModule.forChild(),
     TableModule

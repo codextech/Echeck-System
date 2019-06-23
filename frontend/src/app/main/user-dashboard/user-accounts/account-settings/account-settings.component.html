@@ -16,15 +16,15 @@
                 >
               </li>
               <li class="nav-item">
-                <a
+                <a #kycTab
                   class="nav-link "
                   href="#"
                   data-toggle="tab"
                   data-target="#kyc"
                   >KYC</a>
               </li>
-              
-            
+
+
               <li class="nav-item">
                 <a
                   class="nav-link "
@@ -50,7 +50,7 @@
               role="form"
               class="p-4 col-md-6"
             >
-              
+<!--
               <div class="box p-1">
                 <div>
                   <img *ngIf="!imagePreview" class="profile-img w-100" alt="" [src]="profileModel.profileImageUrl" />
@@ -71,13 +71,21 @@
                     <i class="fa fa-upload"></i>
                   </button>
                 </div>
-                
-                  </div>
 
+              </div> -->
+              <ngb-alert type= "danger" *ngIf="accountVerification" [dismissible]="false">
+                  Your Account is not verified,
+                  <a (click)="kycTab.click()">
+                  <b>
+                    Click Here to Complete your Kyc
+                  </b>
+                </a>
+
+                </ngb-alert>
               <div class="form-group">
-                <label>Unique Id</label>
+                <label>User Name/ Login Id</label>
                 <input
-                  disabled
+
                   [(ngModel)]="profileModel.uniqueName"
                   name="uniqueId"
                   type="text"
@@ -107,10 +115,72 @@
                 <input
                   [(ngModel)]="profileModel.email"
                   name="email"
-                  type="text"
+                  type="email"
                   class="form-control"
                 />
               </div>
+              <div class="form-group">
+                <label>Address Number</label>
+                <input
+                  [(ngModel)]="profileModel.addressNumber"
+                  name="addressNumber"
+                  type="text"
+                  class="form-control"
+                />
+            </div>
+              <div class="form-group">
+                  <label>Address</label>
+                  <textarea
+                    [(ngModel)]="profileModel.address"
+                    name="address"
+                    type="text"
+                    class="form-control">
+                  </textarea>
+
+              </div>
+
+                  <div class="form-group">
+                      <label>City</label>
+                      <input
+                        [(ngModel)]="profileModel.city"
+                        name="city"
+                        type="text"
+                        class="form-control"
+                      />
+                  </div>
+
+                  <div class="form-group">
+                      <label>ZipCode</label>
+                      <input
+                        [(ngModel)]="profileModel.zipCode"
+                        name="zipCode"
+                        type="text"
+                        class="form-control"
+                      />
+                  </div>
+
+                  <div class="form-group">
+                    <label>State</label>
+                    <input
+                      [(ngModel)]="profileModel.state"
+                      name="state"
+                      type="text"
+                      class="form-control"
+                    />
+                </div>
+
+
+                  <div class="form-group">
+                      <label>Country</label>
+                      <input
+                        [(ngModel)]="profileModel.country"
+                        name="country"
+                        type="text"
+                        class="form-control"
+                      />
+                  </div>
+
+
               <!-- <div class="form-group">
                                 <label>Company</label>
                                 <input type="text" class="form-control">
@@ -129,47 +199,78 @@
             </form>
           </div>
           <div class="tab-pane" id="kyc">
-            <div class="p-4 b-b _600">Upload Idnetity Document/Image</div>
+            <div class="p-4 b-b _600">Please Submit Your KYC Documents Here</div>
+            <div class="row">
+
             <form
               #kycForm="ngForm"
               (ngSubmit)="uploadKYCDoc()"
               role="form"
               class="p-4 col-md-6">
-              
+
               <ngb-alert type= "success" *ngIf="messageAlert" [dismissible]="false">
-                  <strong>Thank you !</strong> 
+                  <strong>Thank you !</strong>
                 Your Document in under review, we will update you soon.
               </ngb-alert>
-             
-              
-              <div class="box p-1">
-                  <label style="font-weight: 700;">ID Verification</label>
-                <div>
-                  <img *ngIf="!kycPreview" class="profile-img w-100" alt="" [src]="kycModel.kycDocument" />
-                  <img *ngIf="kycPreview" class="profile-img w-100" alt="" [src]="kycPreview" />
-                </div>
-                <div class="upload">
 
-                    <input style="display:none"
-                    #documentFile
-                    type="file"
-                    (change)="onDocumentPicked($event)"
-                  />
-                  <button
-                    type="button"
-                    (click)="documentFile.click()"
-                    class="btn btn-block btn-outline b-warn text-warn"
-                  >
-                    <i class="fa fa-upload"></i>
-                  </button>
-                </div>
-                
-                  </div>
-       
-              <button type="submit" class="btn primary mt-2">Submit</button>
+
+                <dropzone class="dropzone-container" [config]="config"
+                  [message]="'Click or drag files here to upload'"
+                 (error)="onUploadError($event)"
+                 (sendingMultiple)="onSending($event)"
+                 (success)="onUploadSuccess($event)"></dropzone>
+
+                 <div class="row align-self-center">
+                   <div *ngFor="let type of kycTypes" class="col-sm-4 text-center">
+                     <p>
+                        <label class="md-check">
+                            <input [(ngModel)]="kycModel.kycTypeId"
+                             type="radio" name="kyctype"
+                             [value]="type.kycTypeId"
+                             (change)="onkycTypeChange(type.kycTypeId)"
+                              checked="">
+                            <i class="blue"></i>
+                            {{type.kycType}}
+                        </label>
+                     </p>
+                   </div>
+                   <!-- <div class="col-sm-4 text-center">
+                      <p>
+                         <label class="md-check">
+                             <input type="radio" name="radio">
+                             <i class="blue"></i>
+                             Address Verification
+                         </label>
+                      </p>
+                    </div>
+                    <div class="col-sm-4 text-center">
+                        <p>
+                           <label class="md-check">
+                               <input type="radio" name="radio">
+                               <i class="blue"></i>
+                               Other
+                           </label>
+                        </p>
+                      </div> -->
+                 </div>
+
+              <button type="button" (click)="uploadFiles()" class="btn primary mt-2">Submit</button>
             </form>
+
+
+            <div *ngIf="kycDescription" class="m-4 col-md-6 box">
+
+          <i class="pt-2 fa fa-info-circle text-warning fa-2x"></i>
+
+              <p class="py-3">
+               {{kycDescription}}
+              </p>
+
+            </div>
           </div>
-          
+
+          </div>
+
           <div class="tab-pane" id="tab-5">
             <div class="p-4 b-b _600">Security</div>
             <div class="p-4">
@@ -191,17 +292,16 @@
                   <button type="submit" class="btn primary mt-2">Update</button>
                 </form>
               </div>
-              <p class="mt-4">
+              <!-- <p class="mt-4">
                 <strong>Delete account?</strong>
               </p>
               <button
                 type="submit"
                 class="btn danger m-t"
                 data-toggle="modal"
-                data-target="#modal"
-              >
+                data-target="#modal">
                 Delete Account
-              </button>
+              </button> -->
             </div>
           </div>
         </div>

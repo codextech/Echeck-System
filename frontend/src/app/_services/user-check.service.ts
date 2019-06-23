@@ -25,6 +25,13 @@ getBackgrounds() {
   });
 }
 
+
+deleteCheckBackground(id) {
+  return this.http.delete<any>(environment.apiUrl + 'api/check/check-background', {
+    params: {checkBackgroundId: id}
+  });
+}
+
 saveCheck(model) {
   model.append('userId', this.auth.decodedtoken.Id);
   return this.http.post<any>(environment.apiUrl + 'api/check/save-check', model);

@@ -35,6 +35,7 @@ import { finalize } from 'rxjs/operators';
       .pipe(
         catchError((err, caught: Observable<HttpEvent<any>>) => {
           if (err instanceof HttpErrorResponse && err.status === 401) {
+            localStorage.removeItem('access_token');
             this.router.navigate(['login']);
             this.toastr.error('Session Expired');
             return of(err as any);

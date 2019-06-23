@@ -3,9 +3,8 @@ import { Routes, RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AccountSettingsComponent } from './account-settings.component';
 import { FormsModule } from '@angular/forms';
-import { FileSelectDirective } from 'ng2-file-upload';
-import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { DropzoneModule } from 'ngx-dropzone-wrapper';
 
 
 
@@ -24,13 +23,12 @@ const routes: Routes = [
         CommonModule,
         FormsModule,
         RouterModule,
-        DropzoneModule,
-        NgbModule
+        NgbModule,
+        DropzoneModule
 
     ],
     declarations: [
-        AccountSettingsComponent,
-        FileSelectDirective
+        AccountSettingsComponent
 
     ],
 

@@ -1,0 +1,40 @@
+<!-- Main -->
+<!-- ############ Main START-->
+<div class="padding">
+
+
+    <div class="box">
+      <div class="box-header">
+        <h3>Users</h3>
+      </div>
+
+
+      <div class="col-md-12 table-responsive">
+
+
+        <ngx-table
+          [configuration]="configuration"
+          [data]="kycRequests"
+          [columns]="columns">
+          <ng-template let-row let-index="index">
+            <td>{{ row.uniqueName }}</td>
+            <td>{{ row.email }}</td>
+
+             <td>
+                <span class="badge text-sm primary pos-rlt mr-2">
+              {{ row.kycStatus }}
+              </span>
+            </td>
+            <td class="fit">
+                <button [routerLink]="['/admin/kyc-request', row.Id]"   class="btn btn-outline b-accent text-accent">
+                           <i class="fa fa-angle-double-right"></i>
+                </button>
+            </td>
+
+
+
+          </ng-template>
+        </ngx-table>
+      </div>
+    </div>
+  </div>

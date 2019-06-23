@@ -25,41 +25,14 @@ import { RecievedChecksComponent } from './recieved-checks/recieved-checks.compo
 import { RecievedCheckComponent } from './check-history/recieved-check/recieved-check.component';
 import { SentCheckComponent } from './check-history/sent-check/sent-check.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-const routes: Routes = [
 
-    {path: '', component: UserDashBoardComponent, canActivate: [AuthGuard],
-    children: [
-      { path: 'generate-cheque', component: AddChequeComponent },
-
-      // Check Recieved
-      { path: 'recieved-checks', component: RecievedChecksComponent },
-      { path: 'reciever-signature/:checkId', component: AddRecieverSignatureComponent },
-
-      // Sender Partner Signatures
-      { path: 'sender/signature-requests', component: SenderSignatoryComponent },
-      { path: 'sender/signature-request/:checkId', component: AddSpSignatureComponent },
-
-       // Reciever Partner Signatures
-       { path: 'reciever/signature-requests', component: RecieverSignatoryComponent },
-      { path: 'reciever/signature-request/:checkId', component: AddRpSignatureComponent },
-
-      // check history
-      { path: 'check-history/sent', component: AllSentChecksComponent },
-      { path: 'check-history/receieved', component: AllRecievedChecksComponent },
-      { path: 'check-history/sent/:checkId', component: SentCheckComponent },
-      { path: 'check-history/receieved/:checkId', component: RecievedCheckComponent },
-
-  ]},
-
-
-  ];
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         DragDropModule,
-        RouterModule.forChild(routes),
+        RouterModule,
         NgxSmartModalModule.forChild(),
         FlipModule,
         NgbModule,

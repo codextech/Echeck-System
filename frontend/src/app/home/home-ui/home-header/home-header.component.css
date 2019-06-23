@@ -1,0 +1,11 @@
+
+
+.dashboard-link {
+  background: #83bceb54;
+    border-radius: 5px;
+    color: #15549a;
+}
+
+#logout {
+cursor: pointer;
+}

@@ -20,13 +20,6 @@ const routes: Routes = [
 
     {path: '', component: UserDashBoardComponent, canActivate: [AuthGuard],
   children: [
-    { path: 'settings', component: AccountSettingsComponent },
-    { path: 'banks', component: GetBanksComponent },
-    { path: 'add-bank', component: AddBankComponent },
-    { path: 'add/bank-account', component: AddBankAccountComponent },
-    { path: 'get/bank-accounts', component: GetBankAccountsComponent },
-    { path: 'edit/bank-account/:id', component: EditBankAccountComponent },
-    { path: 'add/signature', component: AddSignatureComponent },
 
 
 
@@ -43,7 +36,7 @@ const routes: Routes = [
         BankModule,
         ChequedModule,
         AccountSettingsModule,
-        RouterModule.forChild(routes)
+        RouterModule,
     ],
     declarations: [
     ],

@@ -20,19 +20,15 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     // get return url from route parameters or default to '/'
     this.route.queryParams
-    .subscribe(params => this.returnUrl = params['returnUrl'] || '/dashboard');
+    .subscribe(params => this.returnUrl = params['returnUrl'] || '/');
   }
 
   logIn() {
 
-    console.log(this.logInModel);
-    console.log(this.returnUrl);
-
-
     this.authService.userLogIn(this.logInModel).subscribe(res => {
-
         this.router.navigateByUrl(this.returnUrl);
         this.toastr.success('Welcome');
+
     }, err => {
       console.log(err);
       this.toastr.error(err.error.message);

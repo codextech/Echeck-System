@@ -11,8 +11,9 @@ import { TableModule } from 'ngx-easy-table';
 import { EditBankAccountComponent } from './edit-bank-account/edit-bank-account.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AddSignatureComponent } from './add-signature/add-signature.component';
-
-const routes: Routes = [];
+import { NguCarouselModule } from '@ngu/carousel';
+import { DropzoneModule } from 'ngx-dropzone-wrapper';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 @NgModule({
     imports: [
@@ -21,7 +22,12 @@ const routes: Routes = [];
         FormsModule,
         NgxSmartModalModule.forChild(),
         TableModule, // for data table
-        NgbModule
+        NgbModule,
+        NguCarouselModule,
+        DropzoneModule,
+        NgxIntlTelInputModule,
+
+
     ],
     declarations: [
         AddBankComponent,

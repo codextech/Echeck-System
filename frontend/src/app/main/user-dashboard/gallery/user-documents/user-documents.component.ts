@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DropzoneConfigInterface, DropzoneComponent, DropzoneDirective } from 'ngx-dropzone-wrapper';
 import { UserAuthService } from 'src/app/_services/user-auth.service';
 import { UserCheckService } from 'src/app/_services/user-check.service';
+import { environment } from 'src/environments/environment';
+import { UserService } from 'src/app/_services/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-documents',
@@ -12,13 +15,15 @@ export class UserDocumentsComponent implements OnInit {
 
 
   docs: any[] = [];
+  checkBackgrounds: any[] = [];
+  kycDocs: any[] = [];
   p = 1;
 
   // filter
   docFilter: any = { documentName: null };
 
   public config: DropzoneConfigInterface = {
-   url: `http://localhost:3000/api/check/docs?userId=${this.authService.decodedtoken.Id}`,
+   url: `${environment.apiUrl}api/check/docs?userId=${this.authService.decodedtoken.Id}`,
     clickable: true,
     uploadMultiple: true,
     autoProcessQueue: false,
@@ -26,20 +31,24 @@ export class UserDocumentsComponent implements OnInit {
     createImageThumbnails: true,
     autoReset: 5000,
     errorReset: null,
-    cancelReset: null
+    cancelReset: null,
+    addRemoveLinks: true
   };
 
   @ViewChild(DropzoneComponent) drpzone?: DropzoneComponent;
   @ViewChild(DropzoneDirective) directiveRef?: DropzoneDirective;
 
-  myDropzone: any;
 
   constructor(private authService: UserAuthService,
-              private checkService: UserCheckService) { }
+              private userService: UserService,
+              private checkService: UserCheckService,
+              private toastr: ToastrService) { }
 
   ngOnInit() {
     this.dropzoneImageUploadInit();
     this.getDocumnets();
+    this.getCheckBackgrounds();
+    this.getKycDocuments();
   }
 
   dropzoneImageUploadInit() {
@@ -47,11 +56,9 @@ export class UserDocumentsComponent implements OnInit {
 
       // this is not pointing to component, but to the dropzoneconfig
       this.on('processingmultiple', function(event) {
-        console.log('From init. Processing multiple ------> ', event);
         // classThis.isUploading = true;
       });      // this is not pointing to component, but to the dropzoneconfig
       this.on('completemultiple', function(event) {
-        console.log('From init. complete multiple ------> ', event);
         // classThis.isUploading = false;
       });
     };
@@ -67,6 +74,59 @@ export class UserDocumentsComponent implements OnInit {
     });
   }
 
+  getCheckBackgrounds() {
+    this.checkService.getBackgrounds().subscribe(
+      result => {
+        console.log(result);
+        result.data.map(item => {
+          if (item.uploadedByAdmin == false) {
+            this.checkBackgrounds.push(item);
+          }
+        });
+
+      },
+      err => console.log(err)
+    );
+  }
+
+
+
+
+  getKycDocuments() {
+    this.userService.getKycDocs(this.authService.getUserId).subscribe(
+      result => {
+        this.kycDocs = result.data;
+      },
+      err => {
+        console.log(err);
+      });
+  }
+
+ deleteDocument(id) {
+    this.userService.deleteDocument(id).subscribe(
+      result => {
+        this.docs =  this.docs.filter(item => item.documentId !== id);
+        this.toastr.success('Deleted !');
+        console.log(result);
+
+      },
+      err => {
+        console.log(err);
+      });
+  }
+
+  deleteCheckBackground(id) {
+    this.checkService.deleteCheckBackground(id).subscribe(
+      result => {
+        this.checkBackgrounds =  this.checkBackgrounds.filter(item => item.checkBackgroundId !== id);
+        this.toastr.success('Deleted !');
+        console.log(result);
+
+      },
+      err => {
+        console.log(err);
+      });
+  }
 
   uploadFiles() {
     this.drpzone.directiveRef.dropzone().processQueue();
@@ -84,5 +144,6 @@ export class UserDocumentsComponent implements OnInit {
 
   public onUploadSuccess(args: any): void {
     console.log('onUploadSuccess:', args);
+    args[1].data.map(item =>  this.docs.push(item) );
   }
 }

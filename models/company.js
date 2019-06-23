@@ -18,10 +18,16 @@ const Company = sequelize.define('company', {
     allowNull: false
   },
   hasPartner: Sequelize.BOOLEAN,
+  partnerEmail: Sequelize.STRING,
   companyAddress: Sequelize.STRING,
-  city: Sequelize.STRING,
-  zipCode: Sequelize.STRING,
-  companyDocument: Sequelize.STRING,
+  companyCity: Sequelize.STRING,
+  companyZipCode: Sequelize.STRING,
+  companyCountry: Sequelize.STRING,
+  companyTelephone: Sequelize.STRING,
+  partnerName: Sequelize.STRING,
+  partnerMiddleName: Sequelize.STRING,
+  partnerLastName: Sequelize.STRING,
+  partnerDesignation:Sequelize.STRING,
 });
 
 module.exports = Company;

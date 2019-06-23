@@ -7,9 +7,17 @@
         </div>
         <div class="box-body">
 
-            <ngb-alert type= "danger" *ngIf="!kycStatus && messageAlert" [dismissible]="false">
+            <ngb-alert type= "danger" *ngIf="!user.trustedUser && user.kycStatus=='none' && messageAlert" [dismissible]="false">
                 <strong>Note!</strong>
-                Sorry, But you can't make a check because your <strong>KYC</strong>  is not completed,
+                Please complete your KYC Process
+                 <strong>
+                    <a [routerLink]="['/settings']">Click Here </a>
+                </strong>
+            </ngb-alert>
+
+            <ngb-alert type= "danger" *ngIf="user.kycStatus=='pending' && messageAlert" [dismissible]="false">
+                <strong>Note!</strong>
+                Your Documents is under review we will verify your documents soon.
             </ngb-alert>
 
           <form #checkForm="ngForm" (ngSubmit)="checkForm.form.valid && addCheck()">
@@ -18,128 +26,6 @@
                 <b class="arrow left b-primary pull-in"></b>
               <i class="fa fa-undo"></i>
               </span> -->
-
-            <div class="check-boundary">
-              <div #checkContainer
-               [ngStyle]="!checkBackgroundPreview && {'background': 'url(' + chequeBackground + ') no-repeat 0 0'} ||
-                          checkBackgroundPreview && {'background': 'url(' + checkBackgroundPreview + ') no-repeat 0 0'}"
-               class="row no-margin">
-
-                <div class="col-sm-12">
-                  <p class="issued-number">
-                    <input [(ngModel)]="checkModel.checkNumber" name="checkNumber" class="l-pd md-input">
-                  </p>
-                </div>
-
-                <div *ngIf="!checkModel.individual" cdkDragBoundary=".check-boundary" cdkDrag class="col-sm-6">
-                  <div class="md-form-group float-label mb-22">
-                    <h6>{{selectedCompany.companyName}}</h6>
-                    <p>{{selectedCompany.address}}</p>
-                  </div>
-                </div>
-
-                <div *ngIf="checkModel.individual" cdkDragBoundary=".check-boundary" cdkDrag class="col-sm-6">
-                  <div class="md-form-group float-label mb-22">
-                    <h6>{{checkModel.senderName}}</h6>
-                    <p>{{checkModel.senderAddress}}</p>
-                  </div>
-                </div>
-
-
-                <div cdkDragBoundary=".check-boundary" cdkDrag class="col-sm-3 offset-sm-3">
-                  <div class="md-form-group float-label">
-                    <label class="check-label">Date</label>
-                    <input [(ngModel)]="checkModel.issuedDate" name="date"
-                    bsDatepicker [bsConfig]="bsConfig"
-                    autocomplete="off"
-                     class="md-input"
-                     #date="ngModel" name="date"
-                     [ngClass]="{'is-invalid': checkForm.submitted && date.invalid}"
-                      required value="">
-                  </div>
-                </div>
-
-                <div cdkDragBoundary=".check-boundary" cdkDrag class="col-sm-4 offset-sm-8">
-                  <div class="md-form-group float-label">
-                    <label class="check-label">Amount</label>
-                    <input [(ngModel)]="checkModel.amount" name="amount" style="width:95%"
-                     class="check-number md-input" (keyup)="convertAmountToWords()"
-                     type="number"
-                     #amount="ngModel" name="amount"
-                     [ngClass]="{'is-invalid': checkForm.submitted && amount.invalid}"
-                      required value="">
-                      <i class="fa fa-usd"></i>
-                  </div>
-                </div>
-
-                <div cdkDragBoundary=".check-boundary" cdkDrag class="col-sm-12">
-                  <div class="md-form-group float-label">
-                    <label class="check-label">Pay to the Order Of</label>
-                    <input class="md-input"  [value]="recieverName">
-                  </div>
-                </div>
-
-                <div cdkDragBoundary=".check-boundary" cdkDrag class="col-sm-12 mt-3">
-                    <div class="md-form-group float-label">
-                      <input style="width: 94%;" class="md-input" required [value]="wordsAmount">
-                      <span class="dollar">Dollars</span>
-                    </div>
-                  </div>
-
-                <div cdkDragBoundary=".check-boundary" cdkDrag class="col-sm-4">
-                  <div class="md-form-group float-label">
-                    <label class="check-label">Memo</label>
-                    <input [(ngModel)]="checkModel.checkMemo" name="memo" class="md-input" required value="">
-                  </div>
-                </div>
-
-                <div cdkDragBoundary=".check-boundary" cdkDrag class="col-sm-8">
-                  <div class="md-form-group float-label">
-                    <label class="check-label">Signature</label>
-                    <span *ngIf="(selectedbankAccount | json) != '{}'" class="check-sign">
-                      <span>1. </span>
-                      <img class="sign-img" [src]="selectedbankAccount.signature" alt="">
-                    </span>
-
-                    <span *ngIf="secondSignImage"   class="check-sign">
-                            <span>2. </span>
-                            <img class="sign-img" [src]="secondSignImage" alt="">
-                    </span>
-
-                  </div>
-                </div>
-
-                <div cdkDragBoundary=".check-boundary" cdkDrag class="col-sm-4">
-                  <div class="md-form-group text-center float-label">
-                    <label class="check-number check-label">
-                      <b>a{{selectedbankAccount.routingNumber}}a</b>
-                    </label>
-                  </div>
-                </div>
-
-                <div cdkDragBoundary=".check-boundary" cdkDrag class="col-sm-4">
-                  <div class="md-form-group text-center float-label">
-                    <label class="check-number check-label">
-                      <b>
-                        c{{selectedbankAccount.accountNumber}}<span *ngIf="selectedbankAccount.isSubAccount">d{{selectedbankAccount.subAccountNumber}}</span>c
-                      </b>
-
-                    </label>
-                  </div>
-                </div>
-
-                <div cdkDragBoundary=".check-boundary" cdkDrag class="col-sm-4">
-                  <div class="md-form-group text-center float-label">
-                    <label class="check-number  check-label"><b>b{{checkModel.checkNumber}}b</b></label>
-                  </div>
-                </div>
-
-              </div>
-
-
-            </div>
-
-
             <div class="mb-2-lg row">
               <div class="col-sm-12 col-sm-offset-2">
 
@@ -147,8 +33,8 @@
                   <div class="col-sm-12 mb-3">
                   </div>
 
-                  <div class="form-group col-md-12">
-                    <label>Bank Account</label>
+                  <div class="form-group col-md-6">
+                    <label>Select Bank Account</label>
 
                     <select name="bankAccount" [(ngModel)]="checkModel.bankAccountId"
                     #bankAccount="ngModel" name="bankAccount"
@@ -162,7 +48,25 @@
                     </select>
                   </div>
 
-                  <div class="col-sm-6">
+
+                  <div class="form-group col-sm-6">
+                      <label>Select Payee </label>
+
+                        <select name="billerId" [(ngModel)]="checkModel.billerId"
+                        #biller="ngModel" name="biller"
+                        [ngClass]="{'is-invalid': checkForm.submitted && biller.invalid}"
+                        (change)="onChangeBiller($event.target.value)"
+                         class="form-control custom-select my-2" required>
+                          <option disabled  [value]="">Choose Payee</option>
+                          <option [value]="biller.recieverId" *ngFor="let biller of recievers">
+                            {{biller.recieverEmail}}
+                          </option>
+                        </select>
+                      </div>
+
+
+
+                  <!-- <div class="col-sm-3 text-center">
                     <label>Individual</label>
                     <br>
                     <p>
@@ -172,57 +76,33 @@
                         <i class="indigo"></i>
                       </label>
                     </p>
-                  </div>
 
-                  <div *ngIf="!checkModel.individual" class="form-group col-md-6">
-                    <label>Attatch Company</label>
-
-                    <select name="company" [(ngModel)]="checkModel.companyId"
-                      (change)="onChangeCompany($event.target.value)" class="form-control custom-select my-2">
-                      <option disabled selected="true" value="">
-                        Choose Company
-                      </option>
-                      <option [value]="comp.Id" *ngFor="let comp of companies">
-                        {{comp.companyName}}
-                      </option>
-                    </select>
                   </div>
 
 
+                  <div class="col-sm-1 text-center">
+                      <span class="text-muted or">OR</span>
+                  </div>
 
 
-
-<!--
-                  <div class="col-md-12">
-                      <div class="box-color dark pos-rlt">
-                        <span class="arrow bottom  b-dark"></span>
-                        <div class="box-body">
-                          Hoose Detail
-                        </div>
-                      </div>
+                  <div class="col-sm-3 text-center">
+                      <label>Company</label>
+                      <br>
+                      <p>
+                        <label class="mt-3 md-check">
+                          <input [(ngModel)]="checkModel.isCompany"  name="isCompany" type="checkbox"
+                            (change)="onClickCompany($event.target.checked)">
+                          <i class="indigo"></i>
+                        </label>
+                      </p>
                     </div> -->
 
-                    <div class="col-md-12 check-sec-head">
-
-                           1- Biller
-
-                      </div>
 
 
-                    <div class="form-group col-md-6">
-                    <label>Choose Biller </label>
 
-                      <select name="billerId" [(ngModel)]="checkModel.billerId"
-                      #biller="ngModel" name="biller"
-                      [ngClass]="{'is-invalid': checkForm.submitted && biller.invalid}"
-                      (change)="onChangeBiller($event.target.value)"
-                       class="form-control custom-select my-2" required>
-                        <option disabled  [value]="">Choose Biller</option>
-                        <option [value]="biller.recieverId" *ngFor="let biller of recievers">
-                          {{biller.recieverEmail}}
-                        </option>
-                      </select>
-                    </div>
+
+
+
                     <!-- <div class="form-group col-md-6">
                       <label for="inputEmail4">Reciever Email</label>
                       <input [(ngModel)]="checkModel.recieverEmail" name="recieverEmail" type="text" class="form-control"
@@ -236,75 +116,6 @@
                     </div> -->
 
 
-                  <div class="col-md-12 check-sec-head mb-3">
-
-                       2- Signatures
-
-                  </div>
-
-
-                  <div class="col-sm-6">
-                    <div class="box sign-part p-3">
-                      <strong class="text-muted">Partner Signature</strong>
-                      <br>
-
-                      <p>
-
-                        <label class="mt-3 md-check">
-                          <input type="checkbox" name="onbehalf"
-                           [(ngModel)]="checkModel.senderOnBhalfSign">
-                          <i class="indigo"></i>
-                          Signature on your behalf
-                        </label>
-
-                      </p>
-
-
-
-                      <div *ngIf="secondSignImage"  class="col-6 col-sm-3 col-md-4">
-                        <div class="box">
-                          <div>
-                            <img class="w-100" alt="" [src]="secondSignImage" />
-                          </div>
-                        </div>
-                      </div>
-
-                      <br />
-                      <input style="display:none" #checkSign type="file"  (change)="onSignImagePicked($event)" />
-
-                      <button type="button" (click)="checkSign.click()" class="btn btn-fw accent">
-                        <i class="fa fa-upload"></i>
-                      </button>
-
-
-                    </div>
-                  </div>
-
-
-
-
-                  <div class="col-sm-6">
-                    <div class="box sign-part p-3">
-                      <strong class="text-muted">Send Email to Partner, For Signature</strong>
-                      <br>
-
-
-
-                      <label>Partner Email</label>
-                      <input type="text" [disabled]="secondSignImage"
-                      [(ngModel)]="checkModel.senderPartnerEmail" name="senderPartnerEmail"
-                       class="form-control" placeholder="Email" />
-
-
-                      <!-- <button [disabled]="secondSignImage || !kycStatus" type="submit" class=" mt-3 btn btn-fw accent">
-                        Send
-                      </button> -->
-
-
-                    </div>
-                  </div>
-
-
 
 
                 </div>
@@ -312,81 +123,10 @@
 
                 <!-- Check BackGround Image -->
 
-
-                <div class="col-md-12 check-sec-head">
-
-                   3- Check Background
-
-              </div>
-                <div class="form-group col-md-12 mt-3">
+                <div *ngIf="backgrounds.length > 0" class="form-group col-md-12 mt-3">
                   <label for="">Choose Check Background </label>
-<!--
-                  <div class="background-history">
-
-
-                      <div drag-scroll drag-scroll-y-disabled="true" scrollbar-hidden="true">
-
-                      <img class="check-image"
-                      (click)="onClickBackgroundImage('../../../../../assets/cheque-background/b2.jpg')"
-                      src="../../../../../assets/cheque-background/b2.jpg">
-
-                    <img class="check-image"
-                      (click)="onClickBackgroundImage('../../../../../assets/cheque-background/bca-slide___Source.jpg')"
-                      src="../../../../../assets/cheque-background/bca-slide___Source.jpg">
-
-
-                      <img class="check-image"
-                        drag-scroll-item
-                        (click)="activeIndex = i; selectedBackground(back.checkBackgroundId)"
-                        [ngClass]="{selected: activeIndex === i &&
-                           isBackSelected == true}"
-                        *ngFor="let back of backgrounds; let i = index"
-                        [src]="back.Image"/>
-
-                    </div>
-                  </div> -->
-
-<!--
-                       <owl-carousel
-                      [options]="{items: 4, dots: false, navigation: false}"
-                      [items]="docs"
-                      [carouselClasses]="['owl-theme', 'row', 'sliding']">
-                      <div class="item">
-                          <div class="check-image">
-                             <img src="../../../../../assets/cheque-background/bca-slide___Source.jpg"/>
-                           </div>
-                      </div>
-                      <div class="item">
-                          <div class="check-image">
-                             <img src="../../../../../assets/cheque-background/b2.jpg"/>
-                           </div>
-                      </div>
-                      <div class="item">
-                          <div class="check-image">
-                             <img src="../../../../../assets/img/a17.jpg"/>
-                           </div>
-                      </div>
-                      <div class="item">
-                          <div class="check-image">
-                             <img src="../../../../../assets/img/a20.jpg"/>
-                           </div>
-                      </div>
-                      <div class="item">
-                          <div class="check-image">
-                             <img src="../../../../../assets/cheque-background/default.jpg"/>
-                           </div>
-                      </div>
-                      </owl-carousel>
-             -->
-
-             <!-- <p-carousel [value]="docs">
-                <ng-template let-item pTemplate="item">
-                    <img class="check-image" [src]="item.documentUrl" alt="">
-                </ng-template>
-            </p-carousel> -->
 
             <div class="background-history">
-
 
               <ngu-carousel #myCarousel [inputs]="docTiles" [dataSource]="backgrounds">
                 <ngu-tile *nguCarouselDef="let item; let i = index">
@@ -416,63 +156,225 @@
 
                 </div>
 
-                <div class="form-group col-md-6">
-                    <label for="inputEmail4">Upload Check Background </label>
 
-                    <div *ngIf="checkBackgroundPreview" class="col-6 col-sm-3 col-md-4">
-                        <div>
-                          <img class="w-100" alt="" [src]="checkBackgroundPreview" />
-                        </div>
-                    </div>
+                <div class="col-md-4">
+                  <div class="box p-3">
+                      <label>Upload Check Background </label>
 
-                    <br />
-                    <input
-                      style="display:none"
-                      #checkBack
-                      type="file"
-                      (change)="onCheckBackgroundPicked($event)"
-                    />
+                      <div *ngIf="checkBackgroundPreview" class="col-6 col-sm-3 col-md-4">
+                          <div>
+                            <img class="w-100" alt="" [src]="checkBackgroundPreview" />
+                          </div>
+                      </div>
 
-                    <button
-                      type="button"
-                      (click)="checkBack.click()"
-                      class="btn btn-fw accent">
-                      <i class="fa fa-upload"></i>
-                    </button>
+                      <br />
+                      <input
+                        style="display:none"
+                        #checkBack
+                        type="file"
+                        (change)="onCheckBackgroundPicked($event)"
+                      />
+
+                      <button
+                        type="button"
+                        (click)="checkBack.click()"
+                        class="btn btn-fw accent">
+                        <i class="fa fa-image"></i>
+                        Upload Image
+                      </button>
+                  </div>
+
                 </div>
 
                 <!-- End Back Ground Image -->
 
+                <div class="form-row">
 
+                  <div class="form-group col-md-12 mt-3">
+                      <p>
+                          <label class="md-check">
+                              <input
+                               name="fileupload"
+                               type="checkbox"
+                               (change)="fileUpload = !fileUpload " >
+                              <i class="blue"></i>
+                            <strong>
+                              Do you want to attach a supporting Documents with this Check ?
+                            </strong>
+                          </label>
+                      </p>
+                </div>
+              </div>
 
-
-                <div class="col-md-12 check-sec-head mb-3">
-
-                    4- Attatch Document
-
-               </div>
-
-               <div class="col-sm-4">
+               <div *ngIf="fileUpload" class="col-sm-4">
 
                   <div class="box p-3">
-                    <strong class="text-muted">File</strong>
-                    <br>
-                   <label class="attatch-label">{{documentName}}</label>
-                   <br>
+                   <label *ngIf="documentName" class="attatch-label">{{documentName}}</label>
 
                     <button type="button" (click)="docModal.open()" class="btn btn-fw accent">
                         <i class="fa fa-paperclip"></i>
+                        Select File
                     </button>
                   </div>
 
                 </div>
 
-                <button [disabled]="!kycStatus" type="submit" class="btn primary">Save</button>
 
               </div>
 
             </div>
+
+
+            <div class="check-boundary">
+                <div  #checkContainer
+                 [ngStyle]="!checkBackgroundPreview &&{'background': 'url(' +chequeBackground+ ') no-repeat 0 0'} ||
+                 checkBackgroundPreview && {'background': 'url(' + checkBackgroundPreview + ') no-repeat 0 0'}
+                 "
+                 class="row no-margin cover">
+
+                  <div class="col-sm-12">
+                    <p class="issued-number">
+                      <input [(ngModel)]="checkModel.checkNumber" name="checkNumber" class="l-pd md-input">
+                    </p>
+                  </div>
+
+                  <!-- <div *ngIf="!checkModel.individual" cdkDragBoundary=".check-boundary" cdkDrag class="col-sm-6">
+                    <div class="md-form-group float-label mb-22">
+                      <h6>{{selectedCompany.companyName}}</h6>
+                      <p>{{selectedCompany.address}}</p>
+                    </div>
+                  </div> -->
+
+                  <div *ngIf="(selectedbankAccount | json) != '{}'"
+                   cdkDragBoundary=".check-boundary" cdkDrag class="col-sm-6 ml-3">
+                    <div class="md-form-group float-label">
+                      <h6>{{selectedbankAccount.senderName}}</h6>
+                      <p>{{selectedbankAccount.senderAddress}}, {{selectedbankAccount.senderzipCode}}</p>
+                    </div>
+                  </div>
+
+
+                  <div *ngIf="(selectedbankAccount | json) != '{}'" cdkDragBoundary=".check-boundary"
+                   cdkDrag class="col-sm-3 mb-2" style="margin-left: 21%;line-height: 50px;">
+                    <div class="md-form-group float-label">
+                      <label class="check-label wc-20">Date</label>
+                      <input [(ngModel)]="checkModel.issuedDate" name="date"
+                      bsDatepicker [bsConfig]="bsConfig"
+                      autocomplete="off"
+                       class="md-input wc-80"
+                       #date="ngModel" name="date"
+                       [ngClass]="{'is-invalid': checkForm.submitted && date.invalid}"
+                        required value="">
+                    </div>
+                  </div>
+
+                  <div cdkDragBoundary=".check-boundary" cdkDrag class="col-sm-4 offset-sm-8 mb-2">
+                    <div class="md-form-group float-label">
+                      <label class="check-label wc-25">Amount</label>
+                      <input [(ngModel)]="checkModel.amount" name="amount"
+                       class="check-number md-input wc-70" (keyup)="convertAmountToWords()"
+                       type="number"
+                       #amount="ngModel" name="amount"
+                       [ngClass]="{'is-invalid': checkForm.submitted && amount.invalid}"
+                        required value="">
+                        <i class="fa fa-usd"></i>
+                    </div>
+                  </div>
+
+                  <div cdkDragBoundary=".check-boundary" cdkDrag
+                   class="col-sm-11 ml-3 mb-2">
+                    <div class="md-form-group float-label">
+                      <label class="check-label wc-20">Pay to the Order Of</label>
+                      <input class="md-input wc-80"  [value]="recieverName">
+                    </div>
+                  </div>
+
+                  <div cdkDragBoundary=".check-boundary" cdkDrag
+                   class="col-sm-12 ml-3 mb-2">
+                      <div class="md-form-group float-label">
+                        <input style="padding-left: 0" class="md-input wc-90"  [value]="wordsAmount">
+                        <span class="dollar wc-10">Dollars</span>
+                      </div>
+                    </div>
+
+                    <div *ngIf="(selectedbankAccount | json) != '{}'" cdkDragBoundary=".check-boundary"
+                     cdkDrag class="col-sm-11 ml-3 mb-2">
+                        <div class="md-form-group float-label">
+                          <div class="bank-logo-img wc-10">
+                              <img class="w-100" [src]="selectedbankAccount.bankLogo" alt="">
+                          </div>
+                          <span class="pl-10 bank-logo-txt">
+                              <span>{{selectedbankAccount.zipCode}}</span>,
+                              <span>{{selectedbankAccount.city}}</span>
+                              <br>
+                              <span class="pl-10">{{selectedbankAccount.address}}</span>
+                          </span>
+
+                        </div>
+                      </div>
+
+                  <div cdkDragBoundary=".check-boundary" cdkDrag
+                   class="col-sm-3 ml-3">
+                    <div class="md-form-group float-label">
+                      <input [(ngModel)]="checkModel.checkMemo"
+                       name="memo" class="md-input" value="" placeholder="Memo">
+                    </div>
+                  </div>
+
+                  <div style="margin-top: -8px;" cdkDragBoundary=".check-boundary" cdkDrag class="col-sm-8">
+                    <div class="md-form-group float-label">
+                      <label class="check-label">Signature</label>
+                      <span *ngIf="(selectedbankAccount | json) != '{}'" class="check-sign">
+                        <span>1. </span>
+                        <div class="sign-img-container">
+                            <img class="w-50" [src]="selectedbankAccount.signature" alt="">
+                        </div>
+                      </span>
+
+                      <span *ngIf="secondSignImage"   class="check-sign">
+                              <span>2. </span>
+                        <div class="sign-img-container">
+                              <img class="w-50" [src]="secondSignImage" alt="">
+                      </div>
+                      </span>
+
+                    </div>
+                  </div>
+
+                  <div cdkDragBoundary=".check-boundary" cdkDrag class="col-4 col-sm-4">
+                    <div class="md-form-group text-center float-label">
+                      <label class="check-number check-label">
+                        <b>a{{selectedbankAccount.routingNumber}}a</b>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div cdkDragBoundary=".check-boundary" cdkDrag class="col-4 col-sm-4">
+                    <div class="md-form-group text-center float-label">
+                      <label class="check-number check-label">
+                        <b>
+                          c{{selectedbankAccount.accountNumber}}<span *ngIf="selectedbankAccount.isSubAccount">d{{selectedbankAccount.subAccountNumber}}</span>c
+                        </b>
+
+                      </label>
+                    </div>
+                  </div>
+
+                  <div cdkDragBoundary=".check-boundary" cdkDrag class="col-4 col-sm-4">
+                    <div class="md-form-group text-center float-label">
+                      <label class="check-number  check-label"><b>b{{checkModel.checkNumber}}b</b></label>
+                    </div>
+                  </div>
+
+                </div>
+
+
+            </div>
+
+
+              <button [disabled]="!user.trustedUser" type="submit" class="btn btn-md primary">Save</button>
           </form>
+
         </div>
       </div>
     </div>
@@ -562,13 +464,14 @@
 
     <!-- Modal -->
 
-    <ngx-smart-modal #personalInfo identifier="personalInfo" customClass="">
+    <ngx-smart-modal #personalInfo identifier="personalInfo"
+     customClass="nsm-dialog-animation-ttb">
       <div class="modal-header">
         <h5 class="modal-title">Name & Address</h5>
       </div>
 
       <div class="modal-body p-lg">
-        <form class="p-x-xs">
+        <form #checkForm="ngForm" class="p-x-xs">
           <div class="mb-2-lg row">
             <div class="col-sm-12">
               <div class="row row-sm">
@@ -594,7 +497,7 @@
           <button type="button" class="btn dark-white p-x-md" (click)="personalInfo.close()">
             Cancel
           </button>
-          <button type="submit" class="btn success p-x-md" (click)="personalInfo.close()">
+          <button type="submit" class="btn primary p-x-md" (click)="personalInfo.close()">
             Submit
           </button>
 
@@ -603,6 +506,48 @@
     </ngx-smart-modal>
 
 
+    <ngx-smart-modal #companyDropDown identifier="companyDropDown"
+     customClass="nsm-dialog-animation-ttb">
+        <div class="modal-header">
+          <h5 class="modal-title">Select Company</h5>
+        </div>
+
+        <div class="modal-body p-lg">
+          <form class="p-x-xs">
+            <div class="mb-2-lg row">
+              <div class="col-sm-12">
+                <div class="row row-sm">
+
+                  <div *ngIf="!checkModel.individual" class="form-group col-md-12">
+                    <label>Select Company</label>
+
+                    <select name="company" [(ngModel)]="checkModel.companyId"
+                      (change)="onChangeCompany($event.target.value)" class="form-control custom-select my-2">
+                      <option disabled selected="true" value="">
+                          Select Company
+                      </option>
+                      <option [value]="comp.Id" *ngFor="let comp of companies">
+                        {{comp.companyName}}
+                      </option>
+                    </select>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+
+
+            <button type="button" class="btn dark-white p-x-md" (click)="companyDropDown.close()">
+              Cancel
+            </button>
+            <button type="submit" class="btn primary p-x-md" (click)="companyDropDown.close()">
+              OK
+            </button>
+
+          </form>
+        </div>
+      </ngx-smart-modal>
 
 <!-- Modal -->
 
@@ -621,7 +566,7 @@ customClass="nsm-dialog-animation-ttb">
   <div class="modal-footer">
       <button class="btn white" type="button"
        (click)="bankAccountModal.close()" >Cancel</button>
-      <button class="btn success" type="button"
+      <button class="btn primary" type="button"
        routerLink="/add/signature">Upload</button>
   </div>
 
@@ -674,23 +619,14 @@ customClass="nsm-dialog-animation-ttb">
         </ngu-carousel>
 
       </div>
-<!--
-      <span  *ngFor="let doc of docs">
 
-        <img *ngIf="(doc.documentUrl.substring(doc.documentUrl.lastIndexOf('.') + 1) === ('PNG'))"
-
-         [src]="doc.documentUrl">
-
-         <i *ngIf="(doc.documentUrl.substring(doc.documentUrl.lastIndexOf('.') + 1) === ('pdf'))" class="fa fa-user"></i>
-    </span>
-     -->
 
   </div>
   <div class="modal-footer">
       <button class="btn white" type="button"
        (click)="docModal.close()" >Cancel</button>
-      <button class="btn success" type="button"
-       (click)="docModal.close()">Save</button>
+      <button class="btn primary" type="button"
+       (click)="docModal.close()">OK</button>
   </div>
 
 

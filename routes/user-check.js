@@ -34,7 +34,12 @@ router.post(
 
 router.get("/check-number",checkAuth, checkController.checkIssuedNumber);
 router.get("/check-background",checkAuth, checkController.getCheckBackgrounds);
-
+router.delete("/check-background",checkAuth, checkController.deleteCheckBackground);
+router.post(
+  "/checkBacground-images",
+  multer({ storage: fileStorage }).any(),
+  checkController.addCheckBackground
+);
 // Save Check into DB
 router.post("/save-check",checkAuth,
 multer({ storage: fileStorage }).fields([

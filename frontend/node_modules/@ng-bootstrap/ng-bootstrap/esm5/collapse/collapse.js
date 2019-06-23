@@ -4,12 +4,12 @@
  */
 import { Directive, Input } from '@angular/core';
 /**
- * The NgbCollapse directive provides a simple way to hide and show an element with animations.
+ * A directive to provide a simple way of hiding and showing elements on the page.
  */
 var NgbCollapse = /** @class */ (function () {
     function NgbCollapse() {
         /**
-         * A flag indicating collapsed (true) or open (false) state.
+         * If `true`, will collapse the element or show it otherwise.
          */
         this.collapsed = false;
     }
@@ -28,9 +28,9 @@ var NgbCollapse = /** @class */ (function () {
 export { NgbCollapse };
 if (false) {
     /**
-     * A flag indicating collapsed (true) or open (false) state.
+     * If `true`, will collapse the element or show it otherwise.
      * @type {?}
      */
     NgbCollapse.prototype.collapsed;
 }
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY29sbGFwc2UuanMiLCJzb3VyY2VSb290Ijoibmc6Ly9AbmctYm9vdHN0cmFwL25nLWJvb3RzdHJhcC8iLCJzb3VyY2VzIjpbImNvbGxhcHNlL2NvbGxhcHNlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7QUFBQSxPQUFPLEVBQUMsU0FBUyxFQUFFLEtBQUssRUFBQyxNQUFNLGVBQWUsQ0FBQzs7OztBQUsvQztJQUFBOzs7O1FBU3dCLGNBQVMsR0FBRyxLQUFLLENBQUM7SUFDMUMsQ0FBQzs7Z0JBVkEsU0FBUyxTQUFDO29CQUNULFFBQVEsRUFBRSxlQUFlO29CQUN6QixRQUFRLEVBQUUsYUFBYTtvQkFDdkIsSUFBSSxFQUFFLEVBQUMsa0JBQWtCLEVBQUUsTUFBTSxFQUFFLGNBQWMsRUFBRSxZQUFZLEVBQUM7aUJBQ2pFOzs7NEJBS0UsS0FBSyxTQUFDLGFBQWE7O0lBQ3RCLGtCQUFDO0NBQUEsQUFWRCxJQVVDO1NBTFksV0FBVzs7Ozs7O0lBSXRCLGdDQUF3QyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7RGlyZWN0aXZlLCBJbnB1dH0gZnJvbSAnQGFuZ3VsYXIvY29yZSc7XG5cbi8qKlxuICogVGhlIE5nYkNvbGxhcHNlIGRpcmVjdGl2ZSBwcm92aWRlcyBhIHNpbXBsZSB3YXkgdG8gaGlkZSBhbmQgc2hvdyBhbiBlbGVtZW50IHdpdGggYW5pbWF0aW9ucy5cbiAqL1xuQERpcmVjdGl2ZSh7XG4gIHNlbGVjdG9yOiAnW25nYkNvbGxhcHNlXScsXG4gIGV4cG9ydEFzOiAnbmdiQ29sbGFwc2UnLFxuICBob3N0OiB7J1tjbGFzcy5jb2xsYXBzZV0nOiAndHJ1ZScsICdbY2xhc3Muc2hvd10nOiAnIWNvbGxhcHNlZCd9XG59KVxuZXhwb3J0IGNsYXNzIE5nYkNvbGxhcHNlIHtcbiAgLyoqXG4gICAqIEEgZmxhZyBpbmRpY2F0aW5nIGNvbGxhcHNlZCAodHJ1ZSkgb3Igb3BlbiAoZmFsc2UpIHN0YXRlLlxuICAgKi9cbiAgQElucHV0KCduZ2JDb2xsYXBzZScpIGNvbGxhcHNlZCA9IGZhbHNlO1xufVxuIl19
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY29sbGFwc2UuanMiLCJzb3VyY2VSb290Ijoibmc6Ly9AbmctYm9vdHN0cmFwL25nLWJvb3RzdHJhcC8iLCJzb3VyY2VzIjpbImNvbGxhcHNlL2NvbGxhcHNlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7QUFBQSxPQUFPLEVBQUMsU0FBUyxFQUFFLEtBQUssRUFBQyxNQUFNLGVBQWUsQ0FBQzs7OztBQUsvQztJQUFBOzs7O1FBU3dCLGNBQVMsR0FBRyxLQUFLLENBQUM7SUFDMUMsQ0FBQzs7Z0JBVkEsU0FBUyxTQUFDO29CQUNULFFBQVEsRUFBRSxlQUFlO29CQUN6QixRQUFRLEVBQUUsYUFBYTtvQkFDdkIsSUFBSSxFQUFFLEVBQUMsa0JBQWtCLEVBQUUsTUFBTSxFQUFFLGNBQWMsRUFBRSxZQUFZLEVBQUM7aUJBQ2pFOzs7NEJBS0UsS0FBSyxTQUFDLGFBQWE7O0lBQ3RCLGtCQUFDO0NBQUEsQUFWRCxJQVVDO1NBTFksV0FBVzs7Ozs7O0lBSXRCLGdDQUF3QyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7RGlyZWN0aXZlLCBJbnB1dH0gZnJvbSAnQGFuZ3VsYXIvY29yZSc7XG5cbi8qKlxuICogQSBkaXJlY3RpdmUgdG8gcHJvdmlkZSBhIHNpbXBsZSB3YXkgb2YgaGlkaW5nIGFuZCBzaG93aW5nIGVsZW1lbnRzIG9uIHRoZSBwYWdlLlxuICovXG5ARGlyZWN0aXZlKHtcbiAgc2VsZWN0b3I6ICdbbmdiQ29sbGFwc2VdJyxcbiAgZXhwb3J0QXM6ICduZ2JDb2xsYXBzZScsXG4gIGhvc3Q6IHsnW2NsYXNzLmNvbGxhcHNlXSc6ICd0cnVlJywgJ1tjbGFzcy5zaG93XSc6ICchY29sbGFwc2VkJ31cbn0pXG5leHBvcnQgY2xhc3MgTmdiQ29sbGFwc2Uge1xuICAvKipcbiAgICogSWYgYHRydWVgLCB3aWxsIGNvbGxhcHNlIHRoZSBlbGVtZW50IG9yIHNob3cgaXQgb3RoZXJ3aXNlLlxuICAgKi9cbiAgQElucHV0KCduZ2JDb2xsYXBzZScpIGNvbGxhcHNlZCA9IGZhbHNlO1xufVxuIl19

@@ -1,0 +1,35 @@
+<!-- Main -->
+<!-- ############ Main START-->
+<div class="padding">
+
+
+    <div class="box">
+      <div class="box-header">
+        <h3>KYC Documents</h3>
+      </div>
+
+      <div *ngFor="let type of kycTypes" class="col-sm-3">
+
+          <span class="badge text-sm primary pos-rlt mr-2">
+            <i class="fa  fa-check-square-o"></i>
+            {{type}}
+          </span>
+      </div>
+
+
+
+
+        <div class="col-sm-6" style="margin: auto;">
+            <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+            <button
+            class="btn primary mb-3"
+            (click)="updateUserKycStatus()">
+            Approve
+          </button>
+         </div>
+
+
+
+
+    </div>
+  </div>

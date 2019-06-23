@@ -1,0 +1,93 @@
+<!-- Main -->
+<!-- ############ Main START-->
+<div class="padding">
+
+
+    <div class="box">
+      <div class="box-header">
+        <h3>KYC Type</h3>
+      </div>
+
+      <div class="col-md-12 table-responsive">
+        <button
+          class="btn warning mb-3"
+          data-toggle="modal"
+          (click)="accModal.open()">
+          Add Kyc Type
+        </button>
+
+        <ngx-table
+          [configuration]="configuration"
+          [data]="kycTypes"
+          [columns]="columns"
+        >
+          <ng-template let-row let-index="index">
+            <td>{{ row.kycType }}</td>
+            <td>{{ row.kycTypeDescription }}</td>
+            <td class="fit">
+
+              <button (click)="onTypeDelete(row.kycTypeId)" class="btn btn-outline b-danger text-danger">
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </ng-template>
+        </ngx-table>
+      </div>
+    </div>
+  </div>
+
+  <!-- .modal Add company -->
+
+  <ngx-smart-modal #accModal identifier="accModal" customClass="">
+    <div class="modal-header">
+      <h5 class="modal-title">Kyc type</h5>
+    </div>
+    <div class="modal-body text-center p-lg">
+      <form #accForm="ngForm" (ngSubmit)="addKycType()" class="p-x-xs">
+        <div class="mb-2-lg row">
+          <div class="col-sm-12">
+            <div class="row row-sm">
+              <div class="col-sm-6">
+                <div class="md-form-group float-label">
+                  <input
+                    [(ngModel)]="kycModel.kycType"
+                    name="name"
+                    class="md-input"
+                  />
+                  <label>Kyc Type</label>
+                </div>
+              </div>
+              <div class="col-sm-12">
+                  <div class="md-form-group float-label">
+                    <input
+                      [(ngModel)]="kycModel.kycTypeDescription"
+                      name="decription"
+                      class="md-input"
+                    />
+                    <label>Description</label>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          class="btn dark-white p-x-md"
+          (click)="accModal.close()"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="btn primary p-x-md"
+          [disabled]="accForm.invalid"
+          (click)="accModal.close()">
+          Submit
+        </button>
+      </form>
+    </div>
+  </ngx-smart-modal>
+
+
+  <!-- ############ Main END-->

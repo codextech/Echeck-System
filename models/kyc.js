@@ -10,8 +10,6 @@ const KYC = sequelize.define('kyc', {
     primaryKey: true
   },
   document: Sequelize.STRING,
-  documentType: Sequelize.STRING,
-
 });
 
 module.exports = KYC;

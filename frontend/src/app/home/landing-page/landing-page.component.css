@@ -1,0 +1,12 @@
+.rate-table {
+  margin-top: 0;
+}
+
+.slider-img {
+  background: #e3f0fe;
+  border-radius: 3px;
+  max-height: 30vw;
+  width: 100%;
+  display: inline-block;
+  padding: 10px
+}

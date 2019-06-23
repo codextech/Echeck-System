@@ -17,16 +17,20 @@ export class GetCompanyComponent implements core.OnInit {
   columns = [
     {
       key: 'company',
-      title: 'Company Name',
+      title: 'Business Name',
     },
 
     {
       key: 'EIN',
-      title: 'EIN'
+      title: 'Tax Id/EIN'
     },
     {
-      key: 'hasPartner',
-      title: 'Partner'
+      key: 'partnerEmail',
+      title: 'Partner Email'
+    },
+    {
+      key: 'city',
+      title: 'City'
     },
 
     {
@@ -61,6 +65,9 @@ export class GetCompanyComponent implements core.OnInit {
       result => {
         console.log(result);
         this.toastr.success(result.message);
+
+
+        this.companyModel.Id = result.data[0].companyId;
         this.companies.push(this.companyModel);
         this.companies = [...this.companies]; // copy of array
         this.companyModel = {};
@@ -69,6 +76,7 @@ export class GetCompanyComponent implements core.OnInit {
         console.log(err);
       }
     );
+    return null;
   }
 
 

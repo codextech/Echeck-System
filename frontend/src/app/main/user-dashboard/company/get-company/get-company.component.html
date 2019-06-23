@@ -1,21 +1,21 @@
 <!-- Main -->
 <!-- ############ Main START-->
 <div class="padding">
-  
+
 
   <div class="box">
     <div class="box-header">
-      <h3>Companies</h3>
+      <h3>Businesses</h3>
     </div>
 
     <div class="col-md-12 table-responsive">
         <button
-        class="btn primary mb-3"
+        class="btn warning mb-3 btn-clr"
         data-toggle="modal"
         (click)="compModal.open()">
-        Add Company 
+        Add Business
       </button>
-      
+
       <ngx-table
         [configuration]="configuration"
         [data]="companies"
@@ -24,10 +24,11 @@
         <ng-template let-row let-index="index">
           <td>{{ row.companyName }}</td>
           <td>{{ row.EIN }}</td>
-          <td>{{ row.hasPartner }}</td>
+          <td>{{ row.partnerEmail }}</td>
+          <td>{{ row.companyCity }}</td>
           <td class="fit">
               <button (click)="onCompanyEdit(row.Id)"  class="btn btn-outline b-accent text-accent">
-                         <i class="fa fa-pencil"></i>                 
+                         <i class="fa fa-pencil"></i>
               </button>
 
             <button (click)="onCompanyDelete(row.Id)" class="btn btn-outline b-danger text-danger">
@@ -44,7 +45,7 @@
 
 <ngx-smart-modal #compModal identifier="compModal" customClass="">
   <div class="modal-header">
-    <h5 class="modal-title">Comapny</h5>
+    <h5 class="modal-title">Add Business</h5>
   </div>
   <div class="modal-body text-center p-lg">
     <form #companyForm="ngForm" (ngSubmit)="addCompany() && companyForm.form.valid" class="p-x-xs">
@@ -61,7 +62,7 @@
                   [ngClass]="{'is-invalid': companyName.touched && companyName.invalid}"
                   required
                 />
-                <label>Company Name</label>
+                <label>Business Name</label>
               </div>
             </div>
             <div class="col-sm-6">
@@ -74,37 +75,67 @@
                   [ngClass]="{'is-invalid': ein.touched && ein.invalid}"
                   required
                 />
-                <label> EIN#</label>
+                <label>Tax Id/EIN(Employer Id Number)</label>
               </div>
+            </div>
+
+            <div class="col-sm-12">
+                <div class="md-form-group float-label">
+                  <input
+                    [(ngModel)]="companyModel.companyAddress"
+                    name="address"
+                    class="md-input"
+                    #address="ngModel"
+                    [ngClass]="{'is-invalid': address.touched && address.invalid}"
+                    required
+                  />
+                  <label>Company Address</label>
+                </div>
+              </div>
+
+            <div class="col-sm-6">
+                <div class="md-form-group float-label">
+                  <input
+                    [(ngModel)]="companyModel.companyCity"
+                    name="companyCity"
+                    class="md-input"
+                    #companyCity="ngModel"
+                    [ngClass]="{'is-invalid': companyCity.touched && companyCity.invalid}"
+                    required
+                  />
+                  <label> Company City</label>
+                </div>
             </div>
 
             <div class="col-sm-6">
                 <div class="md-form-group float-label">
                   <input
-                    [(ngModel)]="companyModel.telephone"
+                    [(ngModel)]="companyModel.companyZipCode"
+                    name="companyZipCode"
+                    class="md-input"
+                    #zipCode="ngModel"
+                    [ngClass]="{'is-invalid': zipCode.touched && zipCode.invalid}"
+                    required
+                  />
+                  <label> Zip Code</label>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="md-form-group float-label">
+                  <input
+                    [(ngModel)]="companyModel.companyTelephone"
                     name="telephone"
                     class="md-input"
                     #telephone="ngModel"
                     [ngClass]="{'is-invalid': telephone.touched && telephone.invalid}"
                     required
                   />
-                  <label> Telephone</label>
+                  <label>Company Telephone</label>
                 </div>
-              </div>
-
-            <div class="col-sm-12">
-              <div class="md-form-group float-label">
-                <input
-                  [(ngModel)]="companyModel.address"
-                  name="address"
-                  class="md-input"
-                  #address="ngModel"
-                  [ngClass]="{'is-invalid': address.touched && address.invalid}"
-                  required
-                />
-                <label> Address</label>
-              </div>
             </div>
+
+
 
             <div class="col-sm-12 text-left">
               <label class="md-check">
@@ -117,20 +148,74 @@
               </label>
             </div>
 
-            <div *ngIf="companyModel.hasPartner" class="col-sm-6 mt-3">
+
+   <div class="row row-sm"  *ngIf="companyModel.hasPartner">
+
+
+            <div  class="col-sm-6 mt-3">
+                <div class="md-form-group float-label">
+                  <input
+                    [(ngModel)]="companyModel.partnerName"
+                    name="partnerEmail"
+                    class="md-input"
+                    required
+                  />
+                  <label>Partner First Name</label>
+                </div>
+          </div>
+
+          <div  class="col-sm-6 mt-3">
               <div class="md-form-group float-label">
                 <input
-                  [(ngModel)]="companyModel.partnerEmail"
-                  name="partnerEmail"
+                  [(ngModel)]="companyModel.partnerMiddleName"
+                  name="partnerMiddleName"
                   class="md-input"
-                  required
                 />
-                <label>Your Partner Email</label>
+                <label>Middle Name</label>
               </div>
+        </div>
+
+        <div  class="col-sm-6 mt-3">
+            <div class="md-form-group float-label">
+              <input
+                [(ngModel)]="companyModel.partnerLastName"
+                name="partnerLastName"
+                class="md-input"
+              />
+              <label>Last Name</label>
             </div>
+      </div>
+
+      <div class="col-sm-6 mt-3">
+          <div class="md-form-group float-label">
+            <input
+              [(ngModel)]="companyModel.partnerEmail"
+              name="partnerEmail"
+              class="md-input"
+              required
+            />
+            <label>Your Partner Email</label>
+          </div>
+      </div>
+
+      <div  class="col-sm-6 mt-3">
+          <div class="md-form-group float-label">
+            <input
+              [(ngModel)]="companyModel.partnerDesignation"
+              name="Designation"
+              class="md-input"
+              required
+            />
+            <label>Partner Designation</label>
+          </div>
+    </div>
+
+  </div>
+</div>
+
+
           </div>
         </div>
-      </div>
 
       <button
         type="button"
@@ -141,7 +226,7 @@
       </button>
       <button
         type="submit"
-        class="btn success p-x-md"
+        class="btn primary p-x-md"
         [disabled]="companyForm.invalid"
         (click)="compModal.close()">
         Submit
@@ -156,7 +241,7 @@
 
 <ngx-smart-modal #updateModal identifier="updateModal" customClass="">
     <div class="modal-header">
-      <h5 class="modal-title">Edit Comapny</h5>
+      <h5 class="modal-title">Edit Business</h5>
     </div>
     <div class="modal-body text-center p-lg">
       <form #updateForm="ngForm" (ngSubmit)="updateCompany()" class="p-x-xs">
@@ -167,7 +252,7 @@
                 <div class="md-form-group float-label">
                   <input
                     [(ngModel)]="companyModel.companyName"
-                    name="name"
+                    name="editname"
                     class="md-input"
                     #companyName="ngModel"
                     [ngClass]="{'is-invalid': updateForm.submitted && companyName.invalid}"
@@ -180,72 +265,162 @@
                 <div class="md-form-group float-label">
                   <input
                     [(ngModel)]="companyModel.EIN"
-                    name="einNumber"
+                    name="editeinNumber"
                     class="md-input"
                     #ein="ngModel"
                     [ngClass]="{'is-invalid': updateForm.submitted && ein.invalid}"
 
                     required
                   />
-                  <label> EIN#</label>
+                  <label> Tax Id/EIN(Employer Id Number)</label>
                 </div>
               </div>
 
-              <div class="col-sm-6">
+
+              <div class="col-sm-12">
                   <div class="md-form-group float-label">
                     <input
-                      [(ngModel)]="companyModel.telephone"
-                      name="telephone"
+                      [(ngModel)]="companyModel.companyAddress"
+                      name="editaddress"
                       class="md-input"
-                      #telephone="ngModel"
-                      [ngClass]="{'is-invalid': updateForm.submitted && telephone.invalid}"
-                      required
+                      #address="ngModel"
+                      [ngClass]="{'is-invalid': updateForm.submitted && address.invalid}"
                     />
-                    <label> Telephone</label>
+                    <label>Company Address</label>
                   </div>
                 </div>
-                
-              <div class="col-sm-12">
-                <div class="md-form-group float-label">
-                  <input
-                    [(ngModel)]="companyModel.address"
-                    name="address"
-                    class="md-input"
-                    #address="ngModel"
-                    [ngClass]="{'is-invalid': updateForm.submitted && address.invalid}"
-                    required
-                  />
-                  <label> Address</label>
+
+
+                <div class="col-sm-6">
+                    <div class="md-form-group float-label">
+                      <input
+                        [(ngModel)]="companyModel.companyCity"
+                        name="editcompanyCity"
+                        class="md-input"
+                        #companyCity="ngModel"
+                        [ngClass]="{'is-invalid': companyCity.touched && companyCity.invalid}"
+                      />
+                      <label> Company City</label>
+                    </div>
                 </div>
-              </div>
-  
+
+                <div class="col-sm-6">
+                    <div class="md-form-group float-label">
+                      <input
+                        [(ngModel)]="companyModel.companyCountry"
+                        name="companyCountry"
+                        class="md-input"
+                        #companyCountry="ngModel"
+                        [ngClass]="{'is-invalid': companyCountry.touched && companyCountry.invalid}"
+                      />
+                      <label> Company Country</label>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="md-form-group float-label">
+                      <input
+                        [(ngModel)]="companyModel.companyZipCode"
+                        name="editzipCode"
+                        class="md-input"
+                        #zipCode="ngModel"
+                        [ngClass]="{'is-invalid': zipCode.touched && zipCode.invalid}"
+                      />
+                      <label> Zip Code</label>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="md-form-group float-label">
+                      <input
+                        [(ngModel)]="companyModel.companyTelephone"
+                        name="edittelephone"
+                        class="md-input"
+                        #telephone="ngModel"
+                        [ngClass]="{'is-invalid': updateForm.submitted && telephone.invalid}"
+                      />
+                      <label>Company Telephone</label>
+                    </div>
+                  </div>
+
+
+
               <div class="col-sm-12 text-left">
                   <label class="md-check">
                     <input
                       type="checkbox"
                       [(ngModel)]="companyModel.hasPartner"
-                      name="hasPartner" value=false
+                      name="edithasPartner" value=false
                     />
                     <i class="indigo"></i>
                     I have a partner/Director
                   </label>
                 </div>
-  
-              <div *ngIf="companyModel.hasPartner" class="col-sm-6 mt-3">
-                <div class="md-form-group float-label">
-                  <input
-                    [(ngModel)]="companyModel.partnerEmail"
-                    name="partnerEmail"
-                    class="md-input"
-                    required
-                  />
-                  <label>Your Partner Email</label>
+
+
+                <div class="row row-sm"  *ngIf="companyModel.hasPartner">
+
+
+                    <div  class="col-sm-6 mt-3">
+                        <div class="md-form-group float-label">
+                          <input
+                            [(ngModel)]="companyModel.partnerName"
+                            name="partnerName"
+                            class="md-input"
+                          />
+                          <label>Partner First Name</label>
+                        </div>
+                  </div>
+
+                  <div  class="col-sm-6 mt-3">
+                      <div class="md-form-group float-label">
+                        <input
+                          [(ngModel)]="companyModel.partnerMiddleName"
+                          name="partnerMiddleName"
+                          class="md-input"
+                        />
+                        <label>Middle Name</label>
+                      </div>
                 </div>
+
+                <div  class="col-sm-6 mt-3">
+                    <div class="md-form-group float-label">
+                      <input
+                        [(ngModel)]="companyModel.partnerLastName"
+                        name="partnerLastName"
+                        class="md-input"
+                      />
+                      <label>Last Name</label>
+                    </div>
               </div>
+
+              <div class="col-sm-6 mt-3">
+                  <div class="md-form-group float-label">
+                    <input
+                      [(ngModel)]="companyModel.partnerEmail"
+                      name="partnerEmail"
+                      class="md-input"
+                    />
+                    <label>Your Partner Email</label>
+                  </div>
+              </div>
+
+              <div  class="col-sm-6 mt-3">
+                  <div class="md-form-group float-label">
+                    <input
+                      [(ngModel)]="companyModel.partnerDesignation"
+                      name="Designation"
+                      class="md-input"
+                    />
+                    <label>Partner Designation</label>
+                  </div>
+            </div>
+
+          </div>
             </div>
           </div>
         </div>
-  
+
         <button
           type="button"
           class="btn dark-white p-x-md"
@@ -255,8 +430,8 @@
         </button>
         <button
           type="submit"
-          class="btn success p-x-md"
-         
+          class="btn primary p-x-md"
+
         >
           Submit
         </button>

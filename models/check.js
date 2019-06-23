@@ -21,18 +21,18 @@ const Check = sequelize.define('check', {
     allowNull: false
   },
   checkMemo: Sequelize.STRING,
-  recieverName: Sequelize.STRING,
-  individual: Sequelize.BOOLEAN,
-  senderName: Sequelize.STRING,
-  senderAddress: Sequelize.STRING,
   isSignCompleted: Sequelize.BOOLEAN,
   isRecieverSignCompleted: Sequelize.BOOLEAN,
   senderOnBhalfSign: Sequelize.BOOLEAN,
   senderPartnerSignDate: Sequelize.DATE,
-  recieverPhone:Sequelize.STRING,
-  recieverEmail: Sequelize.STRING,
   isRecieved: Sequelize.BOOLEAN,
   recieveDate: Sequelize.DATE,
+  checkStatus: {
+    type: Sequelize.ENUM,
+    values: ['pending', 'recieved'],
+    defaultValue: 'pending'
+  },
+  createdDate: Sequelize.DATE,
 
 
 });

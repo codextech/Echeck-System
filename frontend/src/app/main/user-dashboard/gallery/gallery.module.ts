@@ -17,7 +17,6 @@ const routes: Routes = [
 
   {path: '', component: UserDashBoardComponent, canActivate: [AuthGuard],
   children: [
-    { path: 'documents', component: UserDocumentsComponent },
 ]},
 
 ];
@@ -26,7 +25,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     DropzoneModule,
-    RouterModule.forChild(routes),
+    RouterModule,
     FormsModule,
     NgxSmartModalModule.forChild(),
     NgxPaginationModule,

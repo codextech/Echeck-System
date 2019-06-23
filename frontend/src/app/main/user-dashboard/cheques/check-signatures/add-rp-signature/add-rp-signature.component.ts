@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import domtoimage from 'dom-to-image'; // html to Image
+import htmlToImage from 'html-to-image';
+
 import { ActivatedRoute } from '@angular/router';
 import { UserCheckService } from 'src/app/_services/user-check.service';
 
@@ -66,7 +67,7 @@ export class AddRpSignatureComponent implements OnInit {
   }
 
   async convertToImage(fileName) {
-    const blob = await domtoimage.toBlob(this.container.nativeElement);
+    const blob = await htmlToImage.toBlob(this.container.nativeElement);
     this.checkBackImageFile = new File([blob], fileName + '.png', {
       type: 'image/png'
     }); // image File

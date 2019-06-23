@@ -18,6 +18,9 @@ const Reciever = sequelize.define('reciever', {
   },
   telephone: Sequelize.STRING,
   address: Sequelize.STRING,
+  city: Sequelize.STRING,
+  country: Sequelize.STRING,
+  zipCode: Sequelize.STRING,
 });
 
 module.exports = Reciever;

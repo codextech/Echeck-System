@@ -1,0 +1,14 @@
+
+.img-container:hover .delete {
+	display: block;
+}
+
+
+.delete {
+	padding-top: 7px;
+	padding-right: 7px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	display: none;
+}

@@ -1,0 +1,14 @@
+.doc-container {
+  height: auto;
+  width: 100%;
+}
+
+.doc-image {
+ height: 100px;
+ width: 100%;
+ cursor: pointer;
+}
+
+.bank-name{
+  font-size: 10px;
+}

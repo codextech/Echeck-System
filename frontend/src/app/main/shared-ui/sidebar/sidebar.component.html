@@ -7,7 +7,7 @@
     <!-- sidenav top -->
     <div class="navbar dk">
       <!-- brand -->
-      <a href="index.html" class="navbar-brand">
+      <a [routerLink]="['/']"  class="navbar-brand">
         <svg
           viewBox="0 0 24 24"
           height="28"
@@ -22,7 +22,7 @@
           />
         </svg>
         <img src="../assets/images/logo.png" alt="." class="hide" />
-        <span class="hidden-folded d-inline">Apply</span>
+        <span class="hidden-folded d-inline">Check</span>
       </a>
       <!-- / brand -->
     </div>
@@ -40,19 +40,119 @@
                 <span class="nav-text">Dashboard</span>
               </a>
             </li>
-            <li>
-                <a routerLink="/get-companies">
-                  <span class="nav-icon"><i class="fa  fa-building"></i></span>
-                  <span class="nav-text">Company</span>
-                </a>
-            </li>
+
 
             <li>
-                <a routerLink="/get-billers">
-                  <span class="nav-icon"><i class="fa fa-user-plus"></i></span>
-                  <span class="nav-text">Biller</span>
+                <a>
+                  <span class="nav-caret"><i class="fa fa-caret-down"></i></span>
+                  <span class="nav-icon"><i class="fa fa-credit-card"></i></span>
+                  <span class="nav-text">Payer </span>
                 </a>
+                <ul class="nav-sub">
+
+                    <li>
+                        <a routerLink="/get-companies">
+                          <span class="nav-icon"><i class="fa fa-building"></i></span>
+                          <span class="nav-text">Business</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a>
+                          <span class="nav-caret"><i class="fa fa-caret-down"></i></span>
+                          <span class="nav-icon"><i class="fa fa-bank"></i></span>
+                          <span class="nav-text">Bank</span>
+                        </a>
+                        <ul class="nav-sub">
+
+                          <li>
+                            <a routerLink="/add-bank">
+                              <span class="nav-icon"><i class="fa fa-pencil"></i></span>
+                              <span class="nav-text">Add Bank</span>
+                            </a>
+                          </li>
+
+                          <li>
+                              <a routerLink="/add/bank-account" routerLinkActive="active" >
+                                <span class="nav-icon"><i class="fa fa-pencil"></i></span>
+                                <span class="nav-text">Add Bank Account</span>
+                              </a>
+                          </li>
+                          <li>
+                              <a routerLink="/add/signature">
+                                <span class="nav-icon"><i class="fa fa-pencil"></i></span>
+                                <span class="nav-text">Add Signature</span>
+                              </a>
+                            </li>
+                          <li>
+                              <a routerLink="/get/bank-accounts">
+                                <span class="nav-icon"><i class="fa fa-th-list"></i></span>
+                                <span class="nav-text">Summary</span>
+                              </a>
+                            </li>
+
+
+                        </ul>
+                      </li>
+
+
+
+                      <li>
+                          <a>
+                            <span class="nav-caret"><i class="fa fa-caret-down"></i></span>
+                            <span class="nav-icon"><i class="fa fa-credit-card"></i></span>
+                            <span class="nav-text">Payments</span>
+                          </a>
+                          <ul class="nav-sub">
+
+                            <li>
+                              <a routerLink="/make-payment/check">
+                                <span class="nav-icon"><i class="fa fa-pencil-square-o"></i></span>
+                                <span class="nav-text">
+                                   Check Payment
+                                </span>
+                              </a>
+                            </li>
+                            <li>
+                                <a routerLink="/check-history/receieved">
+                                  <span class="nav-icon"><i class="fa fa-envelope-open-o"></i></span>
+                                  <span class="nav-text">
+                                    Recieved Payments
+                                  </span>
+                                </a>
+                            </li>
+                            <li>
+                                  <a routerLink="/check-history/sent">
+                                    <span class="nav-icon"><i class="fa fa-send-o"></i></span>
+                                    <span class="nav-text">
+                                      Sent Payments
+                                    </span>
+                                  </a>
+                            </li>
+                          </ul>
+                      </li>
+
+                </ul>
             </li>
+
+
+            <li>
+                <a>
+                  <span class="nav-caret"><i class="fa fa-caret-down"></i></span>
+                  <span class="nav-icon"><i class="fa  fa-list-alt"></i></span>
+                  <span class="nav-text">Payee</span>
+                </a>
+                <ul class="nav-sub">
+                    <li>
+                        <a routerLink="/get-billers">
+                          <span class="nav-icon"><i class="fa fa-user-plus"></i></span>
+                          <span class="nav-text">Add Payee</span>
+                        </a>
+                    </li>
+</ul>
+            </li>
+
+
             <!-- <li>
               <a>
                 <span class="nav-caret"><i class="fa fa-caret-down"></i></span>
@@ -65,103 +165,18 @@
                     <span class="nav-text">Company</span>
                   </a>
                 </li>
-               
+
               </ul>
             </li> -->
 
             <li>
-                <a>
-                  <span class="nav-caret"><i class="fa fa-caret-down"></i></span>
-                  <span class="nav-icon"><i class="fa fa-image"></i></span>
-                  <span class="nav-text">Gallery</span>
+                <a routerLink="/documents">
+                  <span class="nav-icon"><i class="fa fa-suitcase"></i></span>
+                  <span class="nav-text">Library</span>
                 </a>
-                <ul class="nav-sub">
-  
-                  <li>
-                      <a routerLink="/documents">
-                        <span class="nav-icon"><i class="fa  fa-suitcase"></i></span>
-                        <span class="nav-text">Documents</span>
-                      </a>
-                  </li>
-                   
-  
-                </ul>
-              </li>
- 
-            <li>
-              <a>
-                <span class="nav-caret"><i class="fa fa-caret-down"></i></span>
-                <span class="nav-icon"><i class="fa fa-bank"></i></span>
-                <span class="nav-text">Bank</span>
-              </a>
-              <ul class="nav-sub">
-               
-                <li>
-                  <a routerLink="/add-bank">
-                    <span class="nav-icon"><i class="fa fa-pencil"></i></span>
-                    <span class="nav-text">Bank Details</span>
-                  </a>
-                </li>
-
-                <li>
-                    <a routerLink="/add/bank-account">
-                      <span class="nav-icon"><i class="fa fa-arrow-circle-o-right"></i></span>
-                      <span class="nav-text">Add Account</span>
-                    </a>
-                </li>
-                <li>
-                    <a routerLink="/add/signature">
-                      <span class="nav-icon"><i class="fa fa-pencil"></i></span>
-                      <span class="nav-text">Add Signature</span>
-                    </a>
-                  </li>
-                <li>
-                    <a routerLink="/get/bank-accounts">
-                      <span class="nav-icon"><i class="fa fa-th-list"></i></span>
-                      <span class="nav-text">Bank Accounts</span>
-                    </a>
-                  </li>
-                  
-
-              </ul>
             </li>
 
 
-
-            <li>
-                <a>
-                  <span class="nav-caret"><i class="fa fa-caret-down"></i></span>
-                  <span class="nav-icon"><i class="fa fa-credit-card"></i></span>
-                  <span class="nav-text">Check Book</span>
-                </a>
-                <ul class="nav-sub">
-                 
-                  <li>
-                    <a routerLink="/generate-cheque">
-                      <span class="nav-icon"><i class="fa fa-pencil-square-o"></i></span>
-                      <span class="nav-text">
-                        Generate Check
-                      </span>
-                    </a>
-                  </li>
-                  <li>
-                      <a routerLink="/check-history/receieved">
-                        <span class="nav-icon"><i class="fa fa-envelope-open-o"></i></span>
-                        <span class="nav-text">
-                          Recieved Checks
-                        </span>
-                      </a>
-                  </li>
-                  <li>
-                        <a routerLink="/check-history/sent">
-                          <span class="nav-icon"><i class="fa fa-send-o"></i></span>
-                          <span class="nav-text">
-                            Sent Checks
-                          </span>
-                        </a>
-                  </li>
-                </ul>
-              </li>
 
             <li>
               <a routerLink="/settings">
@@ -170,10 +185,64 @@
               </a>
             </li>
 
-         
+
             <li class="pb-2 hidden-folded"></li>
           </ul>
-        
+
+
+
+          <ul  *ngIf="authService.isAdmin" class="nav">
+              <li class="nav-header">
+                <span class="text-xs hidden-folded">Admin Dashboard</span>
+              </li>
+              <li>
+                <a routerLink="/admin/dashboard">
+                  <span class="nav-icon"><i class="fa fa-dashboard"></i></span>
+                  <span class="nav-text">Admin</span>
+                </a>
+              </li>
+
+              <li>
+                  <a routerLink="/admin/bank-logo">
+                    <span class="nav-icon"><i class="fa fa-plus"></i></span>
+                    <span class="nav-text">Bank Logo</span>
+                  </a>
+              </li>
+
+              <li>
+                  <a routerLink="/admin/account-type">
+                    <span class="nav-icon"><i class="fa fa-pencil"></i></span>
+                    <span class="nav-text">Account Type</span>
+                  </a>
+              </li>
+
+              <li>
+                  <a routerLink="/admin/kyc-type">
+                    <span class="nav-icon"><i class="fa fa-pencil"></i></span>
+                    <span class="nav-text">Kyc Admin</span>
+                  </a>
+              </li>
+
+              <li>
+                <a routerLink="/admin/slider">
+                  <span class="nav-icon"><i class="fa fa-image"></i></span>
+                  <span class="nav-text">Slider</span>
+                </a>
+             </li>
+
+          <li>
+              <a routerLink="/admin/check-background">
+                <span class="nav-icon"><i class="fa fa-image"></i></span>
+                <span class="nav-text">Check Background</span>
+              </a>
+           </li>
+
+
+
+              <li class="pb-2 hidden-folded"></li>
+            </ul>
+
+
         </div>
       </div>
     </div>

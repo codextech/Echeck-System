@@ -4,24 +4,24 @@ const CheckImage = require("../models/check-image");
 const CheckBackground = require("../models/check-background");
 const Token = require("../models/token");
 const Signature = require("../models/user-signature");
+const transporter = require('../nodeMailer');
+var path = require('path');
+const ejs = require('ejs');
+const Sequelize = require('sequelize');
 
-const nodemailer = require('nodemailer');
-const sendgridTransport = require('nodemailer-sendgrid-transport');
+
+const Op = Sequelize.Op;
 
 
-const transporter = nodemailer.createTransport(sendgridTransport({
-  auth: {
-    api_key: ''
-
-  }
-}))
 
 // enum
 const { TokenType } = require('../helpers/token-type');
 
 const CheckHelper = require("../helpers/checkHelper");
 
-const authHelper = require("../helpers/authHelper");
+const userHelper = require("../helpers/userHelper");
+
+const genericHelper = require("../helpers/genericResponse");
 
 
 
@@ -35,7 +35,7 @@ exports.uploadDocuments = async (req, res, next) => {
   try {
 
     req.files.forEach(file => {
-    var docUrl = getImageUrlFromArray(req, file);
+    var docUrl = genericHelper.getImageUrlFromArray(req, file);
 
     docArrays.push({
       userId : userId,
@@ -95,7 +95,7 @@ exports.checkIssuedNumber = async (req, res, next) => {
 
     check = await Check.findOne({
       where: { senderId: userId },
-      order: [['issuedDate', 'DESC']],
+      order: [['createdDate', 'DESC']],
 
     });
 
@@ -125,7 +125,11 @@ exports.getCheckBackgrounds = async (req, res, next) => {
   try {
 
     backgroundImages = await CheckBackground.findAll({
-      where: { userId: userId }
+      where: {
+
+        [Op.or]: [{ uploadedByAdmin: true },
+        { userId: userId }]
+      }
     });
 
 
@@ -137,9 +141,57 @@ exports.getCheckBackgrounds = async (req, res, next) => {
     res.status(500).json({ message: error });
   }
 
-  res.status(200).json({ message: '', data: backgroundImages });
+  res.status(200).json({ message: 'Check Backgrounds', data: backgroundImages });
 
 }
+
+exports.deleteCheckBackground = async (req, res, next) => {
+
+  const checkBackgroundId = req.query.checkBackgroundId;
+  try {
+
+   await CheckBackground.destroy({
+      where: { checkBackgroundId:  checkBackgroundId }
+    });
+
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
+
+  res.status(200).json({ message: 'Deleted', data: {} });
+
+}
+
+
+//ByAdmin
+exports.addCheckBackground= async (req, res, next) => {
+
+  var backgrounds;
+  var imgArrays = [];
+  try {
+
+    req.files.forEach(file => {
+    var url = genericHelper.getImageUrlFromArray(req, file);
+
+    imgArrays.push({
+      Image: url,
+      uploadedByAdmin : true
+    });
+    });
+
+    backgrounds = await CheckHelper.addCheckBackgroundImages(imgArrays);
+
+
+    if (backgrounds.length == 0) {
+      res.status(400).json({messgae: '', data: {}});
+    }
+  } catch (error) {
+    res.status(500).json({messgae: error, data: {}});
+  }
+  res.status(201).json({messgae: 'Uploaded', data :backgrounds});
+
+};
+
 
 
 exports.saveCheck = async (req, res, next) => {
@@ -166,13 +218,13 @@ exports.saveCheck = async (req, res, next) => {
  }
 
     // save check Image in Db
-    var checkFrontImage = getImageUrlFromArray(req, req.files['checkImage'][0]); // url of image
+    var checkFrontImage = genericHelper.getImageUrlFromArray(req, req.files['checkImage'][0]); // url of image
     var savedCheckImage = await CheckImage.create({
       checkFront: checkFrontImage,
     });
 
     if (model.senderOnBhalfSign != 'false' && model.senderOnBhalfSign != 'undefined') {
-      var secondPartnerSign = getImageUrlFromArray(req, req.files['secondSignImage'][0]); // url of image
+      var secondPartnerSign = genericHelper.getImageUrlFromArray(req, req.files['secondSignImage'][0]); // url of image
        savedSecondPartnerSign = await Signature.create({
         signatureImage: secondPartnerSign,
         userId: model.userId
@@ -183,7 +235,7 @@ exports.saveCheck = async (req, res, next) => {
     // save checkbacground Image into Db
 
     if (model.checkBackgroundId == 'null') {
-      var checkBackgroundImage = getImageUrlFromArray(req, req.files['backgroundImage'][0]); // url of image
+      var checkBackgroundImage = genericHelper.getImageUrlFromArray(req, req.files['backgroundImage'][0]); // url of image
       savedCheckBackground = await CheckBackground.create({
         Image: checkBackgroundImage,
         uploadedByAdmin: false,
@@ -201,7 +253,7 @@ exports.saveCheck = async (req, res, next) => {
 
       if (model.senderPartnerEmail) {
         signatureCompleted = false;  // we have to send email to sender Paertner
-        foundSenderPartner = await authHelper.getUserByEmail(model.senderPartnerEmail);
+        foundSenderPartner = await userHelper.getUserByEmail(model.senderPartnerEmail);
       }
 
       /* ------------------ #### user search in Database #### ----------------------- */
@@ -211,7 +263,7 @@ exports.saveCheck = async (req, res, next) => {
 
       // First Find the reciever in Database
       if (biller) {
-      foundReciever = await authHelper.getUserByEmail(biller.recieverEmail);    // this will actual reciever
+      foundReciever = await userHelper.getUserByEmail(biller.recieverEmail);    // this will actual reciever
       }
 
       if (foundReciever) {
@@ -227,16 +279,16 @@ exports.saveCheck = async (req, res, next) => {
       // ----------save check to db ----------------------
       savedCheck = await Check.create({
         checkNumber: model.checkNumber,
+        checkStatus: Check.rawAttributes.checkStatus.values[0], // check Status pending
+        createdDate: Date.now(),
         issuedDate: model.issuedDate,
         isSignCompleted: signatureCompleted, // sender sign process
         amount: model.amount,
         checkMemo: model.checkMemo,
-        individual: model.individual,
         senderAddress: model.senderAddress,
         senderName: model.senderName,
         billerId: model.billerId,  // its biller details for user
         bankAccountId: model.bankAccountId,
-        companyId: model.companyId,
         senderId: model.userId,
         recieverId: recieverId,  // if receiver already present in Db
         isRecieved: false,  //  receiver notiifcation
@@ -267,18 +319,27 @@ exports.saveCheck = async (req, res, next) => {
         checkId: savedCheck.checkId
       });
 
-
-      // send email to Reciver For check
-
-      var sendEmail = await transporter.sendMail({
-        to: biller.recieverEmail,
-        from: 'echeck@gmail.com',
-        subject: 'Check Recieved',
-        html: `<h1>Hi, you have recievd Check For ${model.recieverName} </h1>
- <a href="${apiUrl}/check/check-recieved?checkToken=${checkToken}">
-   View Check
- </a> `
-      });
+      var link = `${apiUrl}/check/check-recieved?checkToken=${checkToken}`;
+      ejs.renderFile(path.join(ROOT ,'/emails/check.ejs'),
+      { message: 'you recievd a check',
+       amount: savedCheck.amount ,
+        token: link
+      },
+       async (err, str) => {
+      try {
+          if (err) { throw err }
+           else {
+              await transporter.sendMail({
+                  to: biller.recieverEmail,
+                  subject: 'Check Received',
+                  html: str,
+                  from: 'echeck@rxcoin.net'
+              })
+          }
+      } catch (error) {
+          console.log(error)
+      }
+  });
 
 
     }
@@ -298,17 +359,27 @@ exports.saveCheck = async (req, res, next) => {
 
       var spCreatedToken = await CheckHelper.createToken(tokenModel);
 
-      // send email to Reciver For check
-
-      var sendEmail = await transporter.sendMail({
-        to: model.senderPartnerEmail,
-        from: 'echeck@gmail.com',
-        subject: 'Signature Request',
-        html: `<h1>Hi, Your Business Partner Need your Sign on Check For </h1>
-  <a href="${apiUrl}/check/sign/sender-partner?checkToken=${spCreatedToken.token}">
-    Click Here
-  </a> `
-      });
+      var link = `${apiUrl}/check/sign/sender-partner?checkToken=${spCreatedToken.token}`;
+      ejs.renderFile(path.join(ROOT ,'/emails/check.ejs'),
+      { message: 'Your Partner needs your signature on a check',
+       amount: savedCheck.amount ,
+        token: link
+      },
+       async (err, str) => {
+      try {
+          if (err) { throw err }
+           else {
+              await transporter.sendMail({
+                  to: model.senderPartnerEmail,
+                  subject: 'Check Signatory Request',
+                  html: str,
+                  from: 'echeck@rxcoin.net'
+              })
+          }
+      } catch (error) {
+          console.log(error)
+      }
+  });
 
     }
 
@@ -342,7 +413,7 @@ exports.saveCheckBack = async (req, res, next) => {
       res.status(400).json({ message: 'Not Found', data: {} });
     }
 
-    var checkBackImage = getImageUrlFromArray(req, req.files['checkBackImage'][0]); // url of image
+    var checkBackImage = genericHelper.getImageUrlFromArray(req, req.files['checkBackImage'][0]); // url of image
 
     var savedCheckBackImage = await checkImage.update({
       checkBack: checkBackImage,
@@ -351,7 +422,7 @@ exports.saveCheckBack = async (req, res, next) => {
     // save checkbacground Image into Db
 
     if (model.signatureId == 'undefined') {
-      var userSignatureImage = getImageUrlFromArray(req, req.files['signImage'][0]); // url of image
+      var userSignatureImage = genericHelper.getImageUrlFromArray(req, req.files['signImage'][0]); // url of image
       saveduserSignature = await Signature.create({
         signatureImage: userSignatureImage,
         userId: model.userId
@@ -368,7 +439,7 @@ exports.saveCheckBack = async (req, res, next) => {
 
       if (model.recieverPartnerEmail !='') {
          recieverSignatureCompleted = false;  // we have to send email to sender Paertner
-        foundRecieverPartner = await authHelper.getUserByEmail(model.recieverPartnerEmail);
+        foundRecieverPartner = await userHelper.getUserByEmail(model.recieverPartnerEmail);
         if (foundRecieverPartner) {
           recieverPartnerId = foundRecieverPartner.Id;
         }
@@ -377,6 +448,7 @@ exports.saveCheckBack = async (req, res, next) => {
       checkDetails = await Check.findOne({ where: { checkId: model.checkId } })
 
       await checkDetails.update({
+        checkStatus: checkDetails.rawAttributes.checkStatus.values[1], // recieved check
         recieverSignId: recieverSignatureId,
         recieverPartnerId: recieverPartnerId,
         isRecieverSignCompleted : recieverSignatureCompleted,
@@ -405,16 +477,42 @@ exports.saveCheckBack = async (req, res, next) => {
 
       // send email to Reciver For check
 
-      var sendEmail = await transporter.sendMail({
-        to: model.recieverPartnerEmail,
-        from: 'echeck@gmail.com',
-        subject: 'Request For Signature',
-        html: `<h1>Hi, Your Business partner recieve Check For ${checkDetails.recieverName} </h1>
-                Please provide your sign in  the check
-              <a href="${apiUrl}/check/sign/reciever-partner?checkToken=${rpCreatedToken.token}">
-              View Check
-            </a> `
-      });
+      // var sendEmail = await transporter.sendMail({
+      //   to: model.recieverPartnerEmail,
+      //   from: 'echeck@gmail.com',
+      //   subject: 'Request For Signature',
+      //   html: `<h1>Hi, Your Business partner recieve Check For ${checkDetails.recieverName} </h1>
+      //           Please provide your sign in  the check
+      //         <a href="${apiUrl}/check/sign/reciever-partner?checkToken=${rpCreatedToken.token}">
+      //         View Check
+      //       </a> `
+      // });
+
+
+
+      var link = `${apiUrl}/check/sign/reciever-partner?checkToken=${rpCreatedToken.token}`;
+      ejs.renderFile(path.join(ROOT ,'/emails/check.ejs'),
+      { message: `Your Business partner recieve Check
+      and Need your signature on the check`,
+       amount: checkDetails.amount ,
+        token: link
+      },
+       async (err, str) => {
+      try {
+          if (err) { throw err }
+           else {
+              await transporter.sendMail({
+                  to: model.recieverPartnerEmail,
+                  subject: 'Check Signatory Request',
+                  html: str,
+                  from: 'echeck@rxcoin.net'
+              })
+          }
+      } catch (error) {
+          console.log(error)
+      }
+  });
+
     }
 
 
@@ -448,7 +546,7 @@ exports.saveCheckSenderPartnerSign = async (req, res, next) => {
       res.status(400).json({ message: 'Not Found', data: {} });
     }
 
-    var checkAllSignImage = getImageUrlFromArray(req, req.files['checkImage'][0]); // url of image
+    var checkAllSignImage = genericHelper.getImageUrlFromArray(req, req.files['checkImage'][0]); // url of image
 
     var savedCheckFrontImage = await checkImage.update({
       checkFront: checkAllSignImage,
@@ -457,7 +555,7 @@ exports.saveCheckSenderPartnerSign = async (req, res, next) => {
     // save checkbacground Image into Db
 
     if (model.signatureId == 'undefined') {
-      var userSignatureImage = getImageUrlFromArray(req, req.files['signImage'][0]); // url of image
+      var userSignatureImage = genericHelper.getImageUrlFromArray(req, req.files['signImage'][0]); // url of image
       saveduserSignature = await Signature.create({
         signatureImage: userSignatureImage,
         userId: model.userId
@@ -475,7 +573,7 @@ exports.saveCheckSenderPartnerSign = async (req, res, next) => {
 
     if (biller) {
       // find reciever
-      foundReciever = await authHelper.getUserByEmail(biller.recieverEmail);
+      foundReciever = await userHelper.getUserByEmail(biller.recieverEmail);
       if (foundReciever) {
         recieverId = foundReciever.Id;
       }
@@ -517,15 +615,39 @@ exports.saveCheckSenderPartnerSign = async (req, res, next) => {
 
         // send email to Reciver For check
 
-        var sendEmail = await transporter.sendMail({
-          to: model.recieverEmail,
-          from: 'echeck@gmail.com',
-          subject: 'Check Recieved',
-          html: `<h1>Hi, you have recievd Check </h1>
-   <a href="${apiUrl}/check/check-recieved?checkToken=${checkCreatedToken}">
-     View Check
-   </a> `
-        });
+  //       var sendEmail = await transporter.sendMail({
+  //         to: model.recieverEmail,
+  //         from: 'echeck@gmail.com',
+  //         subject: 'Check Recieved',
+  //         html: `<h1>Hi, you have recievd Check </h1>
+  //  <a href="${apiUrl}/check/check-recieved?checkToken=${checkCreatedToken}">
+  //    View Check
+  //  </a> `
+  //       });
+
+
+
+        var link = `${apiUrl}/check/check-recieved?checkToken=${checkCreatedToken}`;
+        ejs.renderFile(path.join(ROOT ,'/emails/check.ejs'),
+        { message: 'you recievd a check',
+         amount: savedCheck.amount ,
+          token: link
+        },
+         async (err, str) => {
+        try {
+            if (err) { throw err }
+             else {
+                await transporter.sendMail({
+                    to: model.recieverEmail,
+                    subject: 'Check Received',
+                    html: str,
+                    from: 'echeck@rxcoin.net'
+                })
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    });
 
 
     }
@@ -562,7 +684,7 @@ exports.saveCheckRecieverPartnerSign = async (req, res, next) => {
     }
 
     // with Both Sign
-    var checkBackImage = getImageUrlFromArray(req, req.files['checkBackImage'][0]); // url of image
+    var checkBackImage = genericHelper.getImageUrlFromArray(req, req.files['checkBackImage'][0]); // url of image
 
     var savedCheckFrontImage = await checkImage.update({
       checkBack: checkBackImage,
@@ -571,7 +693,7 @@ exports.saveCheckRecieverPartnerSign = async (req, res, next) => {
     // save checkbacground Image into Db
 
     if (model.signatureId == 'undefined') {
-      var userSignatureImage = getImageUrlFromArray(req, req.files['signImage'][0]); // url of image
+      var userSignatureImage =genericHelper.getImageUrlFromArray(req, req.files['signImage'][0]); // url of image
       saveduserSignature = await Signature.create({
         signatureImage: userSignatureImage,
         userId: model.userId
@@ -629,7 +751,7 @@ exports.checkRecievedVerification = async (req, res, next) => {
     res.status(500).json({ message: error });
   }
 
-  res.redirect(`http://localhost:4200/sign-up?checkToken=${checkToken}`);
+  res.redirect(`${APPURL}/sign-up?checkToken=${checkToken}`);
 
   // res.status(200).json({message: 'You Recieved a Check', data: check});
 }
@@ -654,7 +776,7 @@ exports.checkRecieverPartnerVerify = async (req, res, next) => {
   } catch (error) {
     res.status(500).json({ message: error });
   }
-  res.redirect(`http://localhost:4200/sign-up?checkToken=${checkToken}`);
+  res.redirect(`${APPURL}/sign-up?checkToken=${checkToken}`);
 
 }
 
@@ -676,7 +798,7 @@ exports.checkSenderPartnerVerify = async (req, res, next) => {
     res.status(500).json({ message: error });
   }
 
-  res.redirect(`http://localhost:4200/sign-up?checkToken=${checkToken}`);
+  res.redirect(`${APPURL}/sign-up?checkToken=${checkToken}`);
 
 }
 
@@ -889,9 +1011,9 @@ async function generateCryptoToken() {
 
 // get Uploaded ImagesUrl
 
-function getImageUrlFromArray(req, file) {
+// function getImageUrlFromArray(req, file) {
 
-  const url = req.protocol + '://' + req.get("host");
-  const path = url + '/uploads/' + file.filename;
-  return path;
-}
+//   const url = req.protocol + '://' + req.get("host");
+//   const path = url + '/uploads/' + file.filename;
+//   return path;
+// }

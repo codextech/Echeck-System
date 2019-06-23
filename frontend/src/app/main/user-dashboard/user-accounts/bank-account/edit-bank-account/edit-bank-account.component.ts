@@ -15,6 +15,8 @@ export class EditBankAccountComponent implements OnInit {
   banks: any[] = [];
   companies: any[] = [];
   signatures: any[] = [];
+  bankAccountTypes: any[] = [];
+
   imagePreview: any;
   signature: any;
   isSignSelected = false;
@@ -26,8 +28,9 @@ export class EditBankAccountComponent implements OnInit {
 
   ngOnInit() {
     this.getBankList(); // bank dropdown
-    this.getcompanyList(); // user company drop down
-    this.getUserSignatures(); // user signatureHistory
+    this.getBankAccountType();
+    // this.getcompanyList(); // user company drop down
+    // this.getUserSignatures(); // user signatureHistory
 
     const bankAccountId = this.activatedRoute.snapshot.params.id;
     this.getBankAccountById(bankAccountId);
@@ -44,30 +47,38 @@ export class EditBankAccountComponent implements OnInit {
     }, err => console.log(err));
   }
 
-  getcompanyList() {
-    this.companyService.getUserCompany().subscribe(result => {
-    console.log(result);
-    this.companies = result.data;
+  getBankAccountType() {
+    this.accountService.getBankAccountTypes().subscribe(result => {
+      console.log(result);
+    this.bankAccountTypes = result.data;
 
     }, err => console.log(err));
   }
 
-  getUserSignatures() {
-    this.accountService.getSignatures().subscribe(result => {
-    console.log(result);
-    this.signatures = result.data;
+  // getcompanyList() {
+  //   this.companyService.getUserCompany().subscribe(result => {
+  //   console.log(result);
+  //   this.companies = result.data;
 
-    }, err => console.log(err));
-  }
+  //   }, err => console.log(err));
+  // }
+
+  // getUserSignatures() {
+  //   this.accountService.getSignatures().subscribe(result => {
+  //   console.log(result);
+  //   this.signatures = result.data;
+
+  //   }, err => console.log(err));
+  // }
 
   getBankAccountById(bankAccountId) {
     console.log(bankAccountId);
     this.accountService.getBankAccountById(bankAccountId).subscribe(result => {
       console.log(result);
       this.accountModel = result.data;
-      // get image used by user in bank account
-      this.signature = this.signatures.
-        find(item => item.signatureId === this.accountModel.signatureId).signatureImage;
+      // // get image used by user in bank account
+      // this.signature = this.signatures.
+      //   find(item => item.signatureId === this.accountModel.signatureId).signatureImage;
     });
   }
 
@@ -75,20 +86,19 @@ export class EditBankAccountComponent implements OnInit {
 
   updateBankAccount() {
 
-    const formData = new FormData();
 
-    formData.append('signatureId', this.accountModel.signatureId); // in case if user choose selected sign
-    formData.append('image', this.accountModel.image);
-    formData.append('bankId', this.accountModel.bankId);
-    formData.append('companyId', this.accountModel.companyId); //  companyId
-    formData.append('bankAccountId', this.accountModel.bankAccountId);
-    formData.append('accountName', this.accountModel.accountName);
-    formData.append('accountNumber', this.accountModel.accountNumber);
-    formData.append('userId', this.accountModel.userId);
-    console.log(formData);
+    // formData.append('signatureId', this.accountModel.signatureId); // in case if user choose selected sign
+    // formData.append('image', this.accountModel.image);
+    // formData.append('bankId', this.accountModel.bankId);
+    // formData.append('companyId', this.accountModel.companyId); //  companyId
+    // formData.append('bankAccountId', this.accountModel.bankAccountId);
+    // formData.append('accountName', this.accountModel.accountName);
+    // formData.append('accountNumber', this.accountModel.accountNumber);
+    // formData.append('userId', this.accountModel.userId);
+    // console.log(formData);
 
-    this.accountService.updateBankAccount(formData).subscribe(result => {
-      this.toastr.success('Account Added !');
+    this.accountService.updateBankAccount(this.accountModel).subscribe(result => {
+      this.toastr.success('Account Updated !');
       this.router.navigate(['/get/bank-accounts']);
 
       }, err => {
@@ -96,25 +106,25 @@ export class EditBankAccountComponent implements OnInit {
       });
   }
 
-  onImagePicked(event) {
-    const file =  (event.target as any).files[0];
-    if (file) {
-     this.accountModel.image = file;
-     const reader = new FileReader();
-     reader.onload = () => {
-      this.imagePreview = reader.result;
-     };
-     reader.readAsDataURL(file);
-     this.accountModel.signatureId = null; // user want to upload new sign
-   this.isSignSelected = false;
-    }
-  }
+  // onImagePicked(event) {
+  //   const file =  (event.target as any).files[0];
+  //   if (file) {
+  //    this.accountModel.image = file;
+  //    const reader = new FileReader();
+  //    reader.onload = () => {
+  //     this.imagePreview = reader.result;
+  //    };
+  //    reader.readAsDataURL(file);
+  //    this.accountModel.signatureId = null; // user want to upload new sign
+  //  this.isSignSelected = false;
+  //   }
+  // }
 
-  selectedSign(id) {
-   const sign = this.signatures.find(item => item.signatureId === id);
-   this.accountModel.signatureId = sign.signatureId;
-   this.isSignSelected = true;
-  }
+  // selectedSign(id) {
+  //  const sign = this.signatures.find(item => item.signatureId === id);
+  //  this.accountModel.signatureId = sign.signatureId;
+  //  this.isSignSelected = true;
+  // }
 
 
 }

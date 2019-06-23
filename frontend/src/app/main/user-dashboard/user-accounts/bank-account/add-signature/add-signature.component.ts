@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserAccountService } from 'src/app/_services/user-account.service';
 import { NgxSmartModalService } from 'ngx-smart-modal';
+import { ConfigService } from 'src/app/_services/config-datatable';
 
 @Component({
   selector: 'app-add-signature',
@@ -8,6 +9,31 @@ import { NgxSmartModalService } from 'ngx-smart-modal';
   styleUrls: ['./add-signature.component.css']
 })
 export class AddSignatureComponent implements OnInit {
+
+  configuration = ConfigService.config;
+  columns = [
+
+    {
+      key: 'bank',
+      title: 'Bank'
+    },
+    {
+      key: 'accountNumber',
+      title: 'Account Number'
+    },
+    {
+      key: 'accountName',
+      title: 'Account Holder Name',
+    },
+    {
+      key: 'signature',
+      title: 'Account Signature'
+    },
+    {
+      key: 'actions', title: ''
+    }
+  ];
+
 
   signatureModel: any = {};
   bankAccounts: any[] = [];
@@ -18,14 +44,20 @@ export class AddSignatureComponent implements OnInit {
     private ngxModalService: NgxSmartModalService) { }
 
   ngOnInit() {
-    this.getBankAccounts();
     this.getSignatures();
+    setTimeout(() => {
+    this.getBankAccounts();
+ }, 1000);
   }
 
   getBankAccounts() {
     this.accountService.getBankAccounts().subscribe(
       result => {
         this.bankAccounts = result.data;
+        this.bankAccounts.map(item => {
+          const sign = this.signatures.filter(s => s.signatureId == item.signatureId);
+          item.signatureImage = sign[0].signatureImage;
+        });
         console.log(this.bankAccounts);
       },
       err => {}
@@ -61,7 +93,7 @@ export class AddSignatureComponent implements OnInit {
   }
 
 
-  onSignImagePicked() {
+  onSignImagePicked(event) {
     const file = (event.target as any).files[0];
     if (file) {
       this.signatureModel.signImage = file;
@@ -75,10 +107,15 @@ export class AddSignatureComponent implements OnInit {
   }
 
   onClickAddAnother() {
-    console.log('click anohter');
-
     this.signatureModel.bankAccountId = null;
     this.signImage = null;
+  }
+
+
+  onClickEditSign(id) {
+    this.signatureModel.bankAccountId = id;
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   }
 
 }

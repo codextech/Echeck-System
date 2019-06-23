@@ -11,49 +11,38 @@ export class UserAccountService {
 
 constructor(private http: HttpClient, private auth: UserAuthService) { }
 
-  getUserProfile() {
-   return this.http.get<any>(environment.apiUrl + 'api/account/profile', {
-      params: {Id: this.auth.decodedtoken.Id}
-    });
-
-  }
-
-  updateProfile(model) {
-    model.append('Id', this.auth.decodedtoken.Id);
-    return this.http.post<any>(environment.apiUrl + 'api/account/update-profile', model);
-  }
-
-  // KYC Document
-
-
-  uploadKycDoc(model) {
-    model.append('userId', this.auth.decodedtoken.Id);
-    return this.http.post<any>(environment.apiUrl + 'api/account/kyc-Idverification',
-     model);
-
-  }
-
 
 
 
 
   // Live APi that Gives Bank Details, with creating proxy server check conf.json filr
   getBankByRoutingId(id) {
-    return this.http.get<any>('http://localhost:4200/apiroutenumber', {
+    return this.http.get<any>(`${environment.apiUrl}apiroutenumber`, {
       params: {rn : id}
     });
     }
 
-    findBankByRoutingId(id) {
-      return this.http.get<any>(environment.apiUrl + 'api/bank/', {
-        params: {rn : id}
-      });
-      }
+  findBankByRoutingId(id) {
+    return this.http.get<any>(environment.apiUrl + 'api/bank/', {
+      params: { rn: id }
+    });
+  }
+
+  getBankLogos() {
+    return this.http.get<any>(environment.apiUrl + 'api/bank/logos');
+  }
 
       // add bank if Not Exist
   addBank(model) {
-    return this.http.post<any>(environment.apiUrl + 'api/bank/', model);
+    return this.http.post<any>(environment.apiUrl + 'api/bank/', model,
+    {params: {userId: this.auth.decodedtoken.Id}});
   }
+
+  updateBank(model) {
+    return this.http.put<any>(environment.apiUrl + 'api/bank/', model);
+  }
+
+
 
   addBankAccountSignature(model) {
     model.append('userId', this.auth.decodedtoken.Id);
@@ -68,6 +57,17 @@ constructor(private http: HttpClient, private auth: UserAuthService) { }
 
   getBankAccountTypes() {
     return this.http.get<any>(environment.apiUrl + 'api/bank/bank-account/account-types');
+  }
+
+  addBankAccountType(model) {
+    return this.http.post<any>(environment.apiUrl + 'api/bank/bank-account/account-types', model);
+  }
+
+
+  deleteBankAccountType(id) {
+    return this.http.delete<any>(environment.apiUrl + 'api/bank/bank-account/account-types',{
+      params: {bankAccountTypeId: id}
+    });
   }
 
 

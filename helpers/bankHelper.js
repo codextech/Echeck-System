@@ -3,6 +3,8 @@
 const BankAccountType = require("../models/bankaccount-type");
 const BankAccount = require("../models/bank-account");
 const Signature = require("../models/user-signature");
+const BankLogo = require("../models/bank-logo");
+const Bank = require("../models/bank");
 
 
 exports.bankAccountTypes = async () => {
@@ -18,7 +20,58 @@ exports.bankAccountTypes = async () => {
     }
     return accountTypes;
 
-   
+
+}
+
+
+
+
+exports.addBankAccountType = async (model) => {
+
+  try {
+
+      await BankAccountType.create({
+        bankaccountType: model.bankaccountType
+      });
+  } catch (error) {
+      console.log(error);
+  }
+}
+
+exports.deleteBankAccountType = async (id) => {
+
+  try {
+
+      await BankAccountType.destroy({
+        where : {bankAccountTypeId: id}
+      });
+  } catch (error) {
+      console.log(error);
+  }
+}
+
+
+
+
+// get Bank
+
+exports.getBanks = async (id) => {
+
+    var banks;
+    try {
+
+
+        banks = await Bank.findAll({
+          include: [
+            { model: BankLogo },
+        ]
+        });
+
+    } catch (error) {
+        console.log(error);
+    }
+    return banks;
+
 }
 
 
@@ -38,7 +91,7 @@ exports.findBankAccount = async (id) => {
         console.log(error);
     }
     return bankAccount;
-   
+
 }
 
 // add bank acount sign
@@ -57,7 +110,7 @@ exports.addBankAccountSign = async (signId, accountId) => {
         console.log(error);
     }
     return bankAccount;
-   
+
 }
 
 
@@ -66,30 +119,79 @@ exports.addSignatureImage = async (req,model) => {
     var signature;
     try {
 
-        var signImageUrl =  getImageUrl(req);
+
+        var signImageUrl = exports.getImageUrl(req);
          signature = await Signature.create({
           signatureImage : signImageUrl,
           userId : model.userId
         });
-        
+
 
     } catch (error) {
         console.log(error);
     }
     return signature;
-   
+
+}
+
+
+// get Bnak Logos
+
+exports.bankLogos = async () => {
+  var logos;
+  try {
+
+      // get bank logos
+      logos = await BankLogo.findAll();
+
+  } catch (error) {
+      console.log(error);
+  }
+  return logos;
+}
+
+
+
+exports.addLogos = async (model) => {
+
+  var logos
+  try {
+
+      // creat doc
+      logos = await BankLogo.bulkCreate(model);
+
+  } catch (error) {
+      console.log(error);
+  }
+  return logos;
 }
 
 
 
 
+exports.addBankLogo = async (url) => {
 
+  var logo
+  try {
+
+      logo = await BankLogo.create({
+        bankLogo: url
+      });
+
+  } catch (error) {
+      console.log(error);
+  }
+  return logo;
+}
 
 // get image url after upload in folder
 
-function getImageUrl(req) {
+exports.getImageUrl = (req) => {
 
-    const url = req.protocol + '://' + req.get("host");
-    const path = url + '/uploads/'+ req.file.filename;
+    // const url = req.protocol + '://' + req.get("host");
+    // const url = req.protocol + '://' + req.hostname
+    // const url = 'https://www.rxcoin.net'
+    const url = APPURL;
+    const path = url + 'uploads/'+ req.file.filename;
    return path;
   }

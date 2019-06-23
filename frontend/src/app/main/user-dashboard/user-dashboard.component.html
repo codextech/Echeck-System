@@ -1,36 +1,294 @@
-
- <div style="position: relative"> <!-- the position of the parent container must be set to relative -->
-    <!-- It is really important to set loaderId for non-master loader -->
-    <ngx-ui-loader></ngx-ui-loader>
+<!-- ############ Main START-->
+<div class="">
+  <div class="p-3 light lt box-shadow-0 d-flex">
+    <div class="flex">
+      <h1 class="text-md mb-1 _400">Welcome back, {{authService.decodedtoken.uniqueName}}</h1>
+    </div>
+    <div>
+      <small class="text-muted d-block">Status</small>
+      <div class="mb-1 peity" data-plugin="peity" data-title="Status" data-option="
+'bar',
+{
+height: 20,
+width: 60,
+fill: [app.color.primary]
+}">56,32,21,16,25,23,42,24,6,10,44,27,34,52,54,59,61,68,78
+      </div>
+    </div>
   </div>
 
-<div class="app" id="app">
+  <div class="p-4 p-md-5">
+    <div class="row statistic">
+      <div class="col-sm-6 col-md-2">
+        <div class="box list-item">
+          <span class="avatar w-40 text-center rounded primary">
+            <span class="fa fa-level-up"></span>
+          </span>
+          <div class="list-body">
+            <h4 class="m-0 text-md">
+              <a href="#"> {{sentChecks.length}} <span class="text-sm"></span></a>
+            </h4>
+            <small class="text-muted">Checks Sent</small>
+          </div>
+        </div>
+      </div>
 
-       
-   <!-- ############ LAYOUT START-->
-   <!-- ############ Aside START-->
-   <app-sidebar></app-sidebar>
-   <!-- ############ Aside END-->
-   <!-- ############ Content START-->
-   <div id="content" class="app-content box-shadow-0" role="main">
-       <!-- Header -->
-       <app-header></app-header>
-       <!-- Main -->
-       <div class="content-main " id="content-main">
+      <div class="col-sm-6 col-md-2">
+        <div class="box list-item">
+          <span class="avatar w-40 text-center rounded primary">
+            <span class="fa fa-dollar"></span>
+          </span>
+          <div class="list-body">
+            <h4 class="m-0 text-md">
+              <a href="#"><span class="text-sm">{{amountSent}} $ </span></a>
+            </h4>
+            <small class="text-muted">Amount Sent</small>
 
-           <!-- ############ Main START-->
-           <router-outlet></router-outlet>
-        
-                  <!-- ############ Main END-->
-       </div>
-       <!-- Footer -->
-       <div class="content-footer white " id="content-footer">
-           <div class="d-flex p-3">
-               <span class="text-sm text-muted flex">&copy; Copyright. Flatfull</span>
-               <div class="text-sm text-muted">Version 1.2.0</div>
-           </div>
-       </div>
-   </div>
-   <!-- ############ Content END-->
-   <!-- ############ LAYOUT END-->
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-2">
+        <div class="box list-item">
+          <span class="avatar w-40 text-center rounded warning">
+            <span class="fa fa-level-down"></span>
+          </span>
+          <div class="list-body">
+            <h4 class="m-0 text-md">
+              <a href="#">{{recievedChecks.length}} <span class="text-sm"></span></a>
+            </h4>
+            <small class="text-muted">Checks Recieved</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-2">
+        <div class="box list-item">
+          <span class="avatar w-40 text-center rounded warning">
+            <span class="fa fa-dollar"></span>
+          </span>
+          <div class="list-body">
+            <h4 class="m-0 text-md">
+              <a href="#"><span class="text-sm">{{amountRecieved}} $ </span></a>
+            </h4>
+            <small class="text-muted">Amount Recieved</small>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-2">
+        <div class="box list-item">
+          <span class="avatar w-40 text-center rounded warn">
+            <span class="fa fa-users"></span>
+          </span>
+          <div class="list-body">
+            <h4 class="m-0 text-md">
+              <a href="#">{{recievers.length}}<span class="text-sm"></span></a>
+            </h4>
+            <small class="text-muted">Billers</small>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-2">
+        <div class="box list-item">
+          <span class="avatar w-40 text-center rounded cyan">
+            <span class="fa fa-institution"></span>
+          </span>
+          <div class="list-body">
+            <h4 class="m-0 text-md">
+              <a href="#">{{bankAccounts.length}} <span class="text-sm"></span></a>
+            </h4>
+            <small class="text-muted">Bank Accounts</small>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-active-border b-theme px-4 px-md-5">
+    <ul class="nav">
+      <li class="nav-item">
+        <a class="nav-link active" href="#">
+          Dashboard
+        </a>
+      </li>
+
+    </ul>
+  </div>
 </div>
+<div class="row justify-content-md-center no-gutters white">
+  <div class="col-sm-10 col-xl-10">
+    <div class="padding">
+      <div class="row justify-content-center mb-3 steps-container">
+
+        <div class="col-md-3 col-xs-6 steps-link">
+          <a [routerLink]="['/add-bank']" class="">
+
+            <div class="b-a b-2x r p-3 mb-4">
+              <div class="py-3 text-center text-lg text-primary steps">
+                <span>1</span>
+                <img class="w-100" src="http://iconshow.me/media/images/ui/iOS7-optimized-icon/png/256/04.bank.png">
+              </div>
+              <div class="d-flex">
+                <span class="text">Choose Bank</span>
+              </div>
+
+
+            </div>
+          </a>
+
+        </div>
+
+
+        <div class="col-md-3 col-xs- steps-link">
+          <a [routerLink]="['/add/bank-account']" class="">
+
+            <div class="b-a b-2x r p-3 mb-4">
+              <div class="py-3 text-center text-lg text-primary steps">
+                <span>2</span>
+                <img class="w-100"
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOMbWr3WZK4BHleRF8USIm8LyZG0DiMRTqHk3fKosy17yxcbnO">
+              </div>
+              <div class="d-flex">
+                <span class="text">Add Bank Account</span>
+              </div>
+            </div>
+          </a>
+
+        </div>
+
+
+        <div class="col-md-3 col-xs-6 steps-link">
+          <a [routerLink]="['/make-payment/check']" class="">
+
+            <div class="b-a b-2x r p-3 mb-4">
+              <div class="py-3 text-center text-lg text-primary steps">
+                <span>3</span>
+                <img class="w-100" src="https://img5.androidappsapk.co/300/1/2/6/org.digitalsoft.checkwriter.png">
+              </div>
+              <div class="d-flex">
+                <span class="text">Make Payment </span>
+              </div>
+            </div>
+          </a>
+
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-xl-4">
+          <div class="box">
+            <div class="box-header">
+              <h3> Sent Payments</h3>
+            </div>
+
+
+            <div class="list inset">
+              <a *ngFor="let check of sentChecks" [routerLink]="['/check-history/sent/',check.checkId]">
+
+                <div class="list-item " data-id="item-12">
+                  <span class="w-40 avatar">
+                    <img style="border-radius: 0px" [src]="check.check_Image.checkFront">
+                  </span>
+                  <div class="list-body">
+                    <a *ngIf="check.checkMemo !='undefined'" [routerLink]="['/check-history/sent/',check.checkId]"
+                      class="item-title _500">
+                      {{check.checkMemo}}
+                    </a>
+                    <div class="item-except text-sm text-muted h-1x">
+                      {{check.amount}} $
+                    </div>
+                    <div class="item-tag tag hide">
+                    </div>
+                  </div>
+                  <div>
+                    <span class="item-date text-xs text-muted">
+                      {{check.issuedDate | date:'short'}}
+                    </span>
+                  </div>
+                </div>
+              </a>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4">
+          <div class="box">
+            <div class="box-header">
+              <h3>Recieved Payments</h3>
+            </div>
+            <div class="list inset">
+              <a *ngFor="let check of recievedChecks" [routerLink]="['/check-history/recieved/',check.checkId]">
+
+                <div class="list-item " data-id="item-12">
+                  <span class="w-40 avatar">
+                    <img style="border-radius: 0px" [src]="check.check_Image.checkFront">
+                  </span>
+                  <div class="list-body">
+                    <a *ngIf="check.checkMemo !='undefined'" [routerLink]="['/check-history/recieved/',check.checkId]"
+                      class="item-title _500">
+                      {{check.checkMemo}}
+                    </a>
+                    <div class="item-except text-sm text-muted h-1x">
+                      {{check.amount}} $
+                    </div>
+                    <div class="item-tag tag hide">
+                    </div>
+                  </div>
+                  <div>
+                    <span class="item-date text-xs text-muted">
+                      {{check.recieveDate | date:'short'}}
+                    </span>
+                  </div>
+                </div>
+              </a>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-4">
+          <div class="box">
+            <div class="box-header">
+              <h3> Summary</h3>
+            </div>
+
+
+            <div class="list inset">
+              <a *ngFor="let check of sentChecks" [routerLink]="['/check-history/sent/',check.checkId]">
+
+                <div class="list-item " data-id="item-12">
+                  <span class="w-40 avatar">
+                    <img style="border-radius: 0px" [src]="check.check_Image.checkFront">
+                  </span>
+                  <div class="list-body">
+                    <a *ngIf="check.checkMemo !='undefined'" [routerLink]="['/check-history/sent/',check.checkId]"
+                      class="item-title _500">
+                      {{check.checkMemo}}
+                    </a>
+                    <div class="item-except text-sm text-muted h-1x">
+                      {{check.amount}} $
+                    </div>
+                    <div class="item-tag tag hide">
+                    </div>
+                  </div>
+                  <div>
+                    <span class="item-date text-xs text-muted">
+                      {{check.issuedDate | date:'short'}}
+                    </span>
+                  </div>
+                </div>
+              </a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+<!-- ############ Main END-->

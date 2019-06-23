@@ -3,25 +3,65 @@
     <div class="col-sm-12">
       <div class="box">
         <div class="box-header">
-          <h2>Bank Details</h2>
+          <h2>Select Bank</h2>
 
         </div>
         <div class="box-body">
-          
-            <ngb-alert *ngIf="messageAlert" [dismissible]="false">
-                <strong>Note!</strong> 
-                Found incorrect Bank Details. Please Add Bank Details Manually.
-            </ngb-alert>
 
-          <form #bankForm="ngForm" (ngSubmit)="addBank()">
+
+
+
+
+
+        <form #bankForm="ngForm" (ngSubmit)="addExistingBank()">
+
+          <div class="banks-container">
+
+            <div class="form-row justify-content-center">
+              <div class="form-group col-md-6">
+                <label for="">Select Bank</label>
+
+                <select [(ngModel)]="bankModel.bankId" name="bank"
+                (change)="SelectExisitingBank($event.target.value)"
+                 class="form-control custom-select my-2">
+                  <option  selected="true" value="0">Choose Bank</option>
+                  <option *ngFor="let bank of banks" [value]="bank.bankId">
+                    {{ bank.bankName }}
+                  </option>
+                </select>
+              </div>
+              <br>
+            </div>
+            <button
+             type="submit" class="btn primary mb-3">Add</button>
+          </div>
+
+        </form>
+
+
+
+
+          <form *ngIf="newBank" #bankForm="ngForm" (ngSubmit)="addNewBank()">
+
+              <div class="diamond mt-3">
+                  <div class="inner-diamond">OR</div>
+              </div>
+
+              <div class="box-header">
+                  <ngb-alert *ngIf="messageAlert" [dismissible]="false">
+                      <strong>Note!</strong>
+                      If the following Bank details are incorrect, please correct them
+                  </ngb-alert>
+                  <h2>Add New Bank</h2>
+              </div>
             <div class="form-row">
               <div class="col-sm-12 mb-3">
                 <button
                   (click)="routNumber.open()"
                   type="button"
-                  class="btn primary"
-                >
-                  <i class="fa fa-plus"></i> Add Routing Number
+                  class="btn accent">
+                  <i class="fa fa-plus-circle"></i>
+                  Search By Routing Number
                 </button>
               </div>
               <div class="form-group col-md-6">
@@ -45,42 +85,126 @@
                   placeholder="Bank Name"
                 />
               </div>
-            </div>
 
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="inputCity">City</label>
-                <input
-                  [(ngModel)]="bankModel.city"
-                  name="city"
-                  type="text"
-                  class="form-control"
-                />
-              </div>
-
-              <div class="form-group col-md-6">
-                <label>Telephone</label>
-                <input
-                  [(ngModel)]="bankModel.telephone"
-                  name="telephone"
-                  type="text"
-                  class="form-control"
-                />
-              </div>
             </div>
 
             <div class="form-group">
-              <label for="inputAddress">Address</label>
-              <input
-                [(ngModel)]="bankModel.address"
-                name="address"
-                type="text"
-                class="form-control"
-                id="inputAddress"
-                placeholder="1234 Main St"
-              />
+                <label for="inputAddress">Bank Address</label>
+                <input
+                  [(ngModel)]="bankModel.address"
+                  name="address"
+                  type="text"
+                  class="form-control"
+                  id="inputAddress"
+                  placeholder="1234 Main St"
+                />
+              </div>
+
+            <div class="form-row">
+
+                <div class="form-group col-md-2">
+                    <label for="inputCity">Bank City</label>
+                    <input
+
+                      [(ngModel)]="bankModel.city"
+                      name="city"
+                      type="text"
+                      class="form-control"
+                      placeholder="city"
+                    />
+                  </div>
+
+                  <div class="form-group col-md-2">
+                      <label>Bank Zip Code</label>
+                      <input
+                        [(ngModel)]="bankModel.zipCode"
+                        name="zipcode"
+                        type="text"
+                        class="form-control"
+                        placeholder="zip code"
+                      />
+                  </div>
+
+
+              <div class="form-group col-md-6">
+                  <label>Bank Telephone</label>
+<br>
+                  <ngx-intl-tel-input
+                  [cssClass]="'form-control'"
+                  [preferredCountries]="['us', 'gb']"
+                  [enablePlaceholder]="true"
+                  [enableAutoCountrySelect]="true"
+                  name="phone"
+                  #phone="ngModel"
+                  [(ngModel)]="bankModel.phoneObject"
+                  [ngClass]="{'is-invalid': !phone.invalid}"
+                  required
+                  >
+                </ngx-intl-tel-input>
+                  <!-- <input
+                    [(ngModel)]="bankModel.telephone"
+                    name="telephone"
+                    type="text"
+                    class="form-control"
+                    placeholder="telephone"
+                  /> -->
+                </div>
+
+
             </div>
-            <button type="submit" class="btn success">Submit</button>
+
+
+
+
+            <label class="mb-0" for="">Choose Bank Logo</label>
+
+
+            <div class="slider-container">
+
+
+                <ngu-carousel #myCarousel [inputs]="logoTiles" [dataSource]="bankLogos">
+                  <ngu-tile *nguCarouselDef="let item; let i = index">
+
+
+                        <img class="w-100 bank-logo"
+                         [src]="item.bankLogo"
+                        (click)="activeIndex = i; selectLogo(item.bankLogoId)"
+                        [ngClass]="{selected: activeIndex === i}">
+
+                  </ngu-tile>
+
+                  <button type="button" NguCarouselPrev class="leftRs md-btn md-fab primary">
+                      <i class="fa fa-angle-double-left"></i>
+                  </button>
+
+                  <button type="button" NguCarouselNext class="rightRs md-btn md-fab primary">
+                      <i class="fa fa-angle-double-right"></i>
+
+                  </button>
+
+
+                </ngu-carousel>
+
+              </div>
+
+              <div class="form-row">
+
+                  <div class="form-group col-md-4">
+
+            <label for=""><b>OR</b>  Add New Logo</label>
+
+
+              <dropzone class="dropzone-container" [config]="config"
+              [message]="'click here to upload Bank Logo'"
+             (sending)="onSending($event)"
+             (success)="onUploadSuccess($event)"
+             (error)="onUploadError($event)"
+             (change)="onClickNewLogoUpload($event)"
+             ></dropzone>
+</div>
+</div>
+
+            <button type="submit" class="btn primary">Submit</button>
           </form>
         </div>
       </div>
@@ -106,7 +230,7 @@
     <button
       (click)="getBankDetails(rn.value)"
       type="button"
-      class="btn success p-x-md"
+      class="btn primary p-x-md"
       (click)="routNumber.close()"
     >
       submit
@@ -136,7 +260,7 @@
     <button
       (click)="onClickAddAnother()"
       type="button"
-      class="btn success p-x-md"
+      class="btn primary p-x-md"
       (click)="bankaddModal.close()">
       Yes
     </button>

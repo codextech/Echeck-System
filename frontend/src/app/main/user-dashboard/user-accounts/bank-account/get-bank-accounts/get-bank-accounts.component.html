@@ -11,18 +11,19 @@
         [columns]="columns"
       >
         <ng-template let-row let-index="index">
+            <td>{{ row.bank.bankName }}</td>
             <td>{{ row.accountNumber }}</td>
           <td>{{ row.accountName }}</td>
-          <td>{{ row.bank.isSubAccount }}</td>
-          <td>{{ row.bank.bankName }}</td>
+          <td *ngIf="row.isSubAccount">{{row.subAccountNumber}}</td>
+          <td *ngIf="!row.isSubAccount">No</td>
           <td class="fit">
               <button [routerLink]="['/edit/bank-account', row.bankAccountId]" class="btn btn-outline b-accent text-accent">
-                <i class="fa fa-pencil"></i> 
+                <i class="fa fa-pencil"></i>
               </button>
             <button (click)="onDeleteAccount(row.bankAccountId)" class="btn btn-outline b-danger text-danger">
               <i class="fa fa-trash"></i>
             </button>
-            
+
           </td>
         </ng-template>
       </ngx-table>

@@ -31,10 +31,54 @@ router.post(
 
 
 router.post(
-  "/kyc-Idverification",
-  checkAuth,
-  multer({ storage: fileStorage }).single("kycDocument"),
-  accountController.kycIdVerification
+  "/kyc",
+  multer({ storage: fileStorage }).any(),
+  accountController.userKyc
 );
+
+
+
+router.get(
+  "/kyc-types",
+  accountController.kycTypes
+);
+
+router.delete(
+  "/kyc-types",
+  accountController.deletekycTypes
+);
+
+router.post(
+  "/kyc-types",
+  accountController.addKycType
+);
+
+
+router.get(
+  "/kyc-docs",
+  accountController.getkycDocs
+);
+
+
+router.delete(
+  "/document",
+  accountController.deleteDocument
+);
+
+
+
+// router.post(
+//   "/kyc-requests",
+//   accountController.postkycRequest
+// );
+
+
+
+router.get(
+  "/update-kycStatus",
+  accountController.updateKycStatus
+);
+
+
 
 module.exports = router;

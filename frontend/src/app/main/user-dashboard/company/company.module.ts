@@ -9,19 +9,12 @@ import { UserDashBoardComponent } from '../user-dashboard.component';
 import { AuthGuard } from 'src/app/_guards/auth.guard';
 
 
-const routes: Routes = [
 
-  {path: '', component: UserDashBoardComponent, canActivate: [AuthGuard],
-  children: [
-    { path: 'get-companies', component: GetCompanyComponent },
-]},
-
-];
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(routes),
+    RouterModule,
     FormsModule,
     NgxSmartModalModule.forChild(),
     TableModule

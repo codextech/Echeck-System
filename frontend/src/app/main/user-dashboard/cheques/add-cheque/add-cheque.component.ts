@@ -3,15 +3,17 @@ import { UserAccountService } from 'src/app/_services/user-account.service';
 import { UserCompanyService } from 'src/app/_services/user-company.service';
 import { UserCheckService } from 'src/app/_services/user-check.service';
 import { NgxSmartModalService } from 'ngx-smart-modal';
-import domtoimage from 'dom-to-image'; // html to Image
-import numbo from 'numbo'; // html to Image
+// import * as domtoimage from 'dom-to-image'; // html to Image
+// import domtoimage from 'dom-to-image-more';
+import htmlToImage from 'html-to-image';
+import numbo from 'numbo'; // number to letters
 import { RecieverService } from 'src/app/_services/reciever.service';
-import { UserAuthService } from 'src/app/_services/user-auth.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import 'hammerjs';
 import { NguCarouselConfig } from '@ngu/carousel';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker/ngx-bootstrap-datepicker';
+import { UserService } from 'src/app/_services/user.service';
 
 @Component({
   selector: 'app-add-cheque',
@@ -23,6 +25,7 @@ export class AddChequeComponent implements OnInit {
   bankAccounts: any[] = [];
   companies: any[] = [];
   signatures: any[] = [];
+  bankLogos: any[] = [];
   recievers: any[] = [];
   backgrounds: any[] = [];
   docs: any[] = [];
@@ -31,8 +34,9 @@ export class AddChequeComponent implements OnInit {
   selectedbankAccount: any = {};
   wordsAmount = '';
   recieverName = '';
-
-  kycStatus: any;
+  isCompany: boolean;
+  fileUpload: boolean;
+  user: any = {};
   messageAlert = false;
 
   documentName: any;
@@ -60,6 +64,8 @@ export class AddChequeComponent implements OnInit {
   checkBackgroundPreview: any; // check baground Image
   flipCheck = false;
   @ViewChild('checkContainer') container;
+  @ViewChild('canvas') canvasBody;
+
   checkImageFile: any;
 
   chequeBackground = '../../../../../assets/cheque-background/default.jpg';
@@ -67,6 +73,7 @@ export class AddChequeComponent implements OnInit {
   constructor(
     private recieverService: RecieverService,
     private accountService: UserAccountService,
+    private userService: UserService,
     private companyService: UserCompanyService,
     private checkService: UserCheckService,
     private ngxModalService: NgxSmartModalService,
@@ -83,6 +90,7 @@ export class AddChequeComponent implements OnInit {
     this.getReceivers();
     this.getCheckBackgrounds();
     this.getDocumnets();
+    this.getBankLogos();
 
     // date picker
 
@@ -102,9 +110,10 @@ export class AddChequeComponent implements OnInit {
 
 
   getCurrentUserById() {
-    this.accountService.getUserProfile().subscribe(
+    this.userService.getUserProfile().subscribe(
       result => {
-        this.kycStatus = result.profile.kycStatus;
+        this.user = result.profile;
+        console.log(result.profile);
         this.messageAlert = true;
       },
       err => console.log(err)
@@ -163,20 +172,33 @@ export class AddChequeComponent implements OnInit {
     );
   }
 
+
+  getBankLogos() {
+    this.accountService.getBankLogos().subscribe(result => {
+      console.log(result);
+      this.bankLogos =  result.data;
+    }, err => {
+      this.toastr.error(err.message);
+    });
+  }
+
   getCheckBackgrounds() {
     this.checkService.getBackgrounds().subscribe(
       result => {
-        console.log(result);
         this.backgrounds = result.data;
+         this.selectedBackground(this.backgrounds[0].checkBackgroundId);
       },
-      err => console.log(err)
+      err => console.log(err.error)
     );
   }
   // Add Check into Database
 
   async addCheck() {
+
     const fileName = this.checkModel.checkNumber;
     await this.convertToImage(fileName);
+    if (this.checkImageFile) {
+
     console.log(this.checkImageFile);
     this.checkModel.checkImageFile = this.checkImageFile;
 
@@ -206,13 +228,16 @@ export class AddChequeComponent implements OnInit {
     formData.append('senderName', this.checkModel.senderName);
     formData.append('senderAddress', this.checkModel.senderAddress);
     // comapny
+    if (this.checkModel.companyId) {
     formData.append('companyId', this.checkModel.companyId);
+    }
     // reciever
     formData.append('billerId', this.checkModel.billerId);
     // document
+    if (this.checkModel.documentId) {
     formData.append('documentId', this.checkModel.documentId);
-    // formData.append('recieverEmail', this.checkModel.recieverEmail);
-    // formData.append('recieverPhone', this.checkModel.recieverPhone);
+    }
+
     // sneder Partner
     if (this.checkModel.senderPartnerEmail) {
     formData.append('senderPartnerEmail', this.checkModel.senderPartnerEmail);
@@ -232,6 +257,11 @@ export class AddChequeComponent implements OnInit {
         this.toastr.error(err.error.message);
       }
     );
+
+  } else {
+    console.log('dom to image is not working properly');
+  }
+
   }
 
   onChangeCompany(id) {
@@ -246,25 +276,76 @@ export class AddChequeComponent implements OnInit {
   onChangeBankAccount(id) {
     // tslint:disable-next-line:triple-equals
     const account = this.bankAccounts.find(x => x.bankAccountId == id);
+
     console.log(account);
+
     if (account.signatureId) {
+
+      // sign image
       const sign = this.signatures.find(
-        item => item.signatureId === account.signatureId
-      );
-      console.log(sign);
+        item => item.signatureId === account.signatureId);
+
+
+        // bank image
+        const bank = this.bankLogos.find(
+          item => item.bankLogoId === account.bank.bankLogoId);
+
+          let companyPartner; // check if company has co-signer
+          let senderName;
+          let senderAddress;
+          let senderzipCode;
+          if (account.companyId) {
+            companyPartner = account.company.hasPartner;
+            senderName = account.company.companyName;
+            senderAddress = account.company.companyAddress;
+            senderzipCode = account.company.zipCode;
+          }
+          if (account.individualAccount) {
+            senderName = this.user.firstName ;
+            senderAddress = this.user.address;
+            senderzipCode = this.user.zipCode;
+
+          }
+
       this.selectedbankAccount = {
+        isIndividual : account.individualAccount,
+        individualPartner : account.isIndividualCoPartner,
+        companyPartner : companyPartner,
+        senderName: senderName,
+        senderAddress: senderAddress,
+        senderzipCode: senderzipCode,
         routingNumber: account.bank.routingNumber,
+        bankLogo: bank.bankLogo,
+        address: account.bank.address,
+        city: account.bank.city,
+        zipCode: account.bank.zipCode,
         accountNumber: account.accountNumber,
         isSubAccount: account.isSubAccount,
         subAccountNumber: account.subAccountNumber,
         signature: sign.signatureImage
       };
+
+      // if company partner is present then get partner email
+      if (companyPartner) {
+        this.checkModel.senderPartnerEmail =  account.company.partnerEmail;
+      }
+
+      // if individual has co-partner then get partner email
+      if (account.isIndividualCoPartner) {
+        this.checkModel.senderPartnerEmail =  account.individual_copartner.partnerEmail;
+      }
+
+      console.log(this.selectedbankAccount);
+
     } else {
       this.ngxModalService.open('bankAccountModal');
     }
 
   }
 
+  onSelfPartnerSignatureChange() {
+    this.checkModel.senderPartnerEmail = null;
+  }
 
 
   onChangeBiller(id) {
@@ -287,10 +368,11 @@ export class AddChequeComponent implements OnInit {
       reader.readAsDataURL(file);
          this.checkModel.checkBackgroundId = null; // user want to upload new background
        this.isBackSelected = false;
+       this.chequeBackground = null;
     }
   }
 
-  onSignImagePicked() {
+  onSignImagePicked(event) {
     const file = (event.target as any).files[0];
     if (file) {
       this.checkModel.secondSignImage = file;
@@ -303,24 +385,40 @@ export class AddChequeComponent implements OnInit {
     }
   }
 
-  onClickBackgroundImage(path) {
-    this.chequeBackground = path;
-  }
+  // onClickBackgroundImage(path) {
+  //   this.chequeBackground = path;
+  // }
 
   onClickPersonalInfo(isPersonal) {
-    console.log(isPersonal);
-
+    console.log('indiv ' + this.checkModel.individual);
+    this.checkModel.isCompany = false;
     if (isPersonal) {
       this.ngxModalService.open('personalInfo');
     }
   }
 
-  async convertToImage(fileName) {
-    const blob = await domtoimage.toBlob(this.container.nativeElement);
-    this.checkImageFile = new File([blob], fileName + '.png', {
-      type: 'image/png'
-    }); // image File
 
+  onClickCompany(isCompany) {
+    console.log('comp ' + this.checkModel.isCompany);
+    this.checkModel.individual = false;
+    if (isCompany) {
+      this.ngxModalService.open('companyDropDown');
+    }
+  }
+
+  async convertToImage(fileName) {
+    try {
+      // const dataUrl = await domtoimage.toPng(this.container.nativeElement);
+      // this.checkImageFile = dataUrl;
+
+      const blob = await htmlToImage.toBlob(this.container.nativeElement);
+      this.checkImageFile = new File([blob], fileName + '.png', {
+        type: 'image/png'
+      }); // image File
+
+    } catch (error) {
+      console.log('ops error', error);
+    }
   }
 
   onClickFlip() {
@@ -330,7 +428,7 @@ export class AddChequeComponent implements OnInit {
 
 
   selectedBackground(id) {
-      const back = this.backgrounds.find(item => item.checkBackgroundId === id);
+      const back = this.backgrounds.find(item => item.checkBackgroundId == id);
       this.checkModel.checkBackgroundId = back.checkBackgroundId;
       // change background of Check
         this.chequeBackground = back.Image;

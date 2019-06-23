@@ -7,8 +7,9 @@ export class FileExtentionPipe implements PipeTransform {
 
   transform(url: any, args?: any): any {
 
-let extension = url.split('.').pop();
-if (extension === 'PNG' || extension === 'png' || extension === 'JPG' || extension === 'jpg') {
+const extension = url.split('.').pop();
+// tslint:disable-next-line:max-line-length
+if  (extension === 'BMP' || extension === 'jpeg' || extension === 'JPEG' || extension === 'PNG' || extension === 'png' || extension === 'JPG' || extension === 'jpg') {
     return true;
 }
 return false;  // if not an image

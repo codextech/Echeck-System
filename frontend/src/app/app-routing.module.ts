@@ -1,21 +1,26 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './auth/login/login.component';
-import { SignupComponent } from './auth/signup/signup.component';
-import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
-import { NewPasswordComponent } from './auth/new-password/new-password.component';
-import { EmailVerifyComponent } from './auth/email-verify/email-verify.component';
-import { LandingPageComponent } from './home/landing-page/landing-page.component';
+import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
+import { AuthGuard } from './_guards/auth.guard';
+import { ADMIN_LAYOUTS_ROUTES } from './layout/admin-layout/adminLayout.routes';
+import { LANDING_LAYOUTS_ROUTES } from './layout/landing-layout/landingLayout.routes';
+import { LandingLayoutComponent } from './layout/landing-layout/landing-layout.component';
+import { NoLayoutComponent } from './layout/admin-layout/no-layout/no-layout.component';
+import { NO_LAYOUTS_ROUTES } from './layout/admin-layout/no-layout/noLayout.routes';
 
 const routes: Routes = [
 
-  {path: 'login', component: LoginComponent},
-  {path: 'sign-up', component: SignupComponent},
-  {path: 'reset-request', component: ResetPasswordComponent},
-  {path: 'reset-password/:token', component: NewPasswordComponent},
-  {path: 'email-Verification', component: EmailVerifyComponent},
-  {path: '', component: LandingPageComponent},
+  {path: '', component: LandingLayoutComponent,
+  children: LANDING_LAYOUTS_ROUTES
+  },
 
+ {path: '', component: AdminLayoutComponent, canActivate: [AuthGuard],
+  children: ADMIN_LAYOUTS_ROUTES
+ },
+
+ {path: '', component: NoLayoutComponent,
+ children: NO_LAYOUTS_ROUTES
+ }
 
 ];
 

@@ -21,11 +21,19 @@ import { AuthInterceptor } from './auth/auth-interceptor';
 import { LandingPageComponent } from './home/landing-page/landing-page.component';
 import { HomeFooterComponent } from './home/home-ui/home-footer/home-footer.component';
 import { HomeHeaderComponent } from './home/home-ui/home-header/home-header.component';
+import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
+import { LandingLayoutComponent } from './layout/landing-layout/landing-layout.component';
+import { AdminLayoutModule } from './layout/admin-layout/admin-layout.module';
+import { SharedUIModule } from './main/shared-ui/shared-ui.module';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { HomeModule } from './home/home.module';
+import { LandingLayoutModule } from './layout/landing-layout/landing-layout.module';
+import { NgxUiLoaderConfig, SPINNER, NgxUiLoaderModule } from 'ngx-ui-loader';
+import { AuthorizationGuard } from './_guards/authorization.guard';
 
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
-  // Change this to your upload POST address:
-   maxFilesize: 50,
+   maxFilesize: 25,
    acceptedFiles: 'image/*,application/pdf,.psd'
  };
 
@@ -34,23 +42,32 @@ export function tokenGetter() {
   return localStorage.getItem('access_token');
 }
 
+const ngxUiLoaderConfig: NgxUiLoaderConfig = {
+  fgsColor: '#ffff',
+  fgsSize: 50,
+  overlayColor: '#285f94e6',
+  fgsType: SPINNER.doubleBounce,
+};
+
 @NgModule({
   declarations: [
     AppComponent,
-    LandingPageComponent,
-    HomeFooterComponent,
-    HomeHeaderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    UserDashBoardModule,
+    AdminLayoutModule,
+    LandingLayoutModule,
+    SharedUIModule,
+    HomeModule,
     MainModule,
     AuthdModule,
+    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
     NgxSmartModalModule.forRoot(), // for Modal
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
+    BsDatepickerModule.forRoot(),
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
@@ -63,7 +80,8 @@ export function tokenGetter() {
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: DROPZONE_CONFIG, useValue: DEFAULT_DROPZONE_CONFIG},
      UserAuthService,
-      AuthGuard
+      AuthGuard,
+      AuthorizationGuard
     ],
   bootstrap: [AppComponent]
 })

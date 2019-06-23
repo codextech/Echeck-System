@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserAccountService } from 'src/app/_services/user-account.service';
 
-import {  FileUploader } from 'ng2-file-upload/ng2-file-upload';
-import { DropzoneConfigInterface, DropzoneComponent } from 'ngx-dropzone-wrapper';
+import { DropzoneConfigInterface, DropzoneComponent, DropzoneDirective } from 'ngx-dropzone-wrapper';
 import { UserAuthService } from 'src/app/_services/user-auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
-// define the constant url we would be uploading to.
+import { environment } from 'src/environments/environment';
+import { UserService } from 'src/app/_services/user.service';
+
 
 @Component({
   selector: 'app-account-settings',
@@ -15,50 +16,98 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class AccountSettingsComponent implements OnInit {
 
- URL = 'http://localhost:3000/';
 
-  @ViewChild(DropzoneComponent) drpzoneRef?: DropzoneComponent;
 
-  // public config: DropzoneConfigInterface = {
-  //   url: this.URL + 'api/account/update-profile',
-  //   clickable: true,
-  //   maxFiles: 1,
-  //   autoReset: null,
-  //   errorReset: null,
-  //   cancelReset: 1,
-  //   resizeWidth: 1024,
-  //   resizeQuality: 0.8,
-  // };
+  constructor(private userService: UserService,
+    private authService: UserAuthService,
+    private toastr: ToastrService,
+    private router: Router) { }
 
   profileModel: any = {};
   imagePreview: any;
+  accountVerification = false;
 
 
   // kyc
 
+  kycTypes: any[] = [];
+  kycDescription: any = null;
+
+  public config: DropzoneConfigInterface = {
+    url: `${environment.apiUrl}api/account/kyc?userId=${this.authService.decodedtoken.Id}`,
+     clickable: true,
+     uploadMultiple: true,
+     autoProcessQueue: false,
+     parallelUploads: 100,
+     createImageThumbnails: true,
+     autoReset: 5000,
+     errorReset: null,
+     cancelReset: null,
+
+   };
+
+   @ViewChild(DropzoneComponent) drpzone?: DropzoneComponent;
+   @ViewChild(DropzoneDirective) directiveRef?: DropzoneDirective;
+
+
   kycPreview: any;
   kycModel: any = {};
   messageAlert = false;
+
   // change password
   changePassModel: any = {};
 
-  public uploader: FileUploader = new FileUploader({url: 'URL', itemAlias: 'image'});
-
-  constructor(private accountService: UserAccountService,
-              private authService: UserAuthService,
-              private toastr: ToastrService,
-              private router: Router) { }
 
   ngOnInit() {
 
+    this.getKycTypes();
+
+    this.getProfile();
+    // DropZone on Sending
+  //   this.drpzone.directiveRef.dropzone().on('sending', function(file, xhr, formData){
+
+
+  // });
+  }
+
+
+  getProfile(){
 
      // user profile
-    this.accountService.getUserProfile().subscribe(res => {
-      console.log(res.profile);
+     this.userService.getUserProfile().subscribe(res => {
+      console.log(res.profile.trustedUser);
+      console.log(res.profile.Id);
      this.profileModel = res.profile; // populate our Form
+     if (res.profile.trustedUser) {
+      this.accountVerification = false;
+    } else {
+      this.accountVerification = true;
+    }
     }, err => {
       console.log(err);
     });
+  }
+
+  getKycTypes() {
+    this.userService.getKycTypes().subscribe(res => {
+      this.kycTypes = res.data;
+      console.log(this.kycTypes);
+    }, err => {
+      this.toastr.error(err.message);
+    });
+  }
+
+  onkycTypeChange(id) {
+    const kycType = this.kycTypes.find(item => item.kycTypeId === id);
+    this.kycDescription = kycType.kycTypeDescription;
+  }
+
+  onSending(_filesEvent): any {
+    if (_filesEvent) {
+       const formData = _filesEvent[2];
+       formData.append('kycTypeId', this.kycModel.kycTypeId);
+       console.log(this.kycModel.kycTypeId);
+    }
   }
 
   updateProfile() {
@@ -66,16 +115,18 @@ export class AccountSettingsComponent implements OnInit {
   //   this.drpzoneRef.directiveRef.dropzone().processQueue();
   //  console.log(this.drpzoneRef.directiveRef.dropzone());
 
-    const formData = new FormData();
-    formData.append('image', this.profileModel.image);
-    formData.append('email', this.profileModel.email);
-    formData.append('firstName', this.profileModel.firstName);
-    formData.append('lastName', this.profileModel.lastName);
-    this.accountService.updateProfile(formData).subscribe(res => {
-        console.log(res);
+    // const formData = new FormData();
+    // formData.append('image', this.profileModel.image);
+    // formData.append('email', this.profileModel.email);
+    // formData.append('firstName', this.profileModel.firstName);
+    // formData.append('lastName', this.profileModel.lastName);
+    this.userService.updateProfile(this.profileModel).subscribe(res => {
+       this.toastr.success('Profile Updated');
+        this.router.navigate(['/dashboard']);
 
     }, err => {
       console.log(err);
+      this.toastr.error(err.error.message);
 
     });
   }
@@ -92,9 +143,9 @@ export class AccountSettingsComponent implements OnInit {
      }
   }
 
-  // uploads pic
+  // uploads kyc images success
   public onUploadSuccess(args: any): void {
-    // console.log('onUploadSuccess:', args);
+    this.messageAlert = true;
   }
 
   public onUploadError(args: any): void {
@@ -116,11 +167,17 @@ export class AccountSettingsComponent implements OnInit {
     }
  }
 
+
+
+ uploadFiles() {
+  this.drpzone.directiveRef.dropzone().processQueue();
+}
+
   uploadKYCDoc() {
 
     const formData = new FormData();
     formData.append('kycDocument', this.kycModel.kycDocument);
-    this.accountService.uploadKycDoc(formData).subscribe(res => {
+    this.userService.uploadKycDoc(formData).subscribe(res => {
       this.messageAlert = true;
         console.log(res);
 
@@ -140,7 +197,7 @@ export class AccountSettingsComponent implements OnInit {
 
 
       }, err => {
-        this.toastr.error(err.message);
+        this.toastr.error(err.error.message);
       });
     }
 

@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserCheckService } from 'src/app/_services/user-check.service';
 import { ActivatedRoute } from '@angular/router';
-import domtoimage from 'dom-to-image'; // html to Image
+import htmlToImage from 'html-to-image';
+
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -64,7 +66,7 @@ export class AddRecieverSignatureComponent implements OnInit {
 
     this.checkService.addCheckBack(formData).subscribe(
       result => {
-        console.log(result.data);
+        window.location.href = `${environment.apiUrl}/dashboard`;
       },
       err => {
         console.log(err);
@@ -73,7 +75,7 @@ export class AddRecieverSignatureComponent implements OnInit {
   }
 
   async convertToImage(fileName) {
-    const blob = await domtoimage.toBlob(this.container.nativeElement);
+    const blob = await htmlToImage.toBlob(this.container.nativeElement);
     this.checkBackImageFile = new File([blob], fileName + '.png', {
       type: 'image/png'
     }); // image File

@@ -15,20 +15,28 @@ exports.creatCompany = (req,res,next) => {
         companyName : model.companyName,
         EIN : model.EIN,
         hasPartner: model.hasPartner,
-        companyAddress: model.address
-
+        companyAddress: model.companyAddress,
+        partnerEmail: model.partnerEmail,
+        companyCity: model.companyCity,
+        companyCountry: model.companyCountry,
+        companyTelephone: model.companyTelephone,
+        companyZipCode: model.companyZipCode,
+        partnerName: model.partnerName,
+        partnerMiddleName: model.partnerMiddleName,
+        partnerLastName: model.partnerLastName,
+        partnerDesignation: model.partnerDesignation,
       }).then(company => {
        return company.addUser(id);
       })
       .then(result => {
-        res.status(201).json({message: 'Succefully Added', data: result})        
-}).catch(err=> res.status(500).json({message: err})) 
+        res.status(201).json({message: 'Succefully Added', data: result})
+}).catch(err=> res.status(500).json({message: err}))
 }
 
 
 
 
-// get all companies > accept userId as param 
+// get all companies > accept userId as param
 exports.getAllCompany = (req,res,next) => {
     const id = req.query.Id;
     // many to many relationship
@@ -45,13 +53,13 @@ exports.getAllCompany = (req,res,next) => {
     }).then(company =>{
         console.log(company);
         return res.status(200).json({data: company});
-        
+
        }).catch(err => {
         res.status(500).json({error: err});
-        
+
     })
 
-    
+
 }
 
 
@@ -65,11 +73,11 @@ exports.getSingleCompany = async (req, res, next) => {
     company = await Company.findOne({
       where : {Id: companyId}
     });
-    
+
   } catch (error) {
     res.status(500).json({ message: error });
   }
-  res.status(200).json({ message: "Succefull",  data: company});  
+  res.status(200).json({ message: "Succefull",  data: company});
 
 }
 
@@ -81,17 +89,26 @@ exports.updateCompany = async (req,res,next) => {
 try {
 
   company = await Company.update({
-    companyName: model.companyName,
-    EIN: model.EIN,
+    companyName : model.companyName,
+    EIN : model.EIN,
     hasPartner: model.hasPartner,
-    companyAddress: model.address
+    companyAddress: model.companyAddress,
+    partnerEmail: model.partnerEmail,
+    companyCity: model.companyCity,
+    companyCountry: model.companyCountry,
+    companyTelephone: model.companyTelephone,
+    companyZipCode: model.companyZipCode,
+    partnerName: model.partnerName,
+    partnerMiddleName: model.partnerMiddleName,
+    partnerLastName: model.partnerLastName,
+    partnerDesignation: model.partnerDesignation,
   }, {where: { Id: model.Id }})
-  
+
 } catch (error) {
   res.status(500).json({message: error})
 }
 
-res.status(201).json({message: 'Succefully Updated', data: company})        
+res.status(201).json({message: 'Succefully Updated', data: company})
 
 }
 
@@ -102,10 +119,10 @@ exports.deleteCompany = async (req, res, next) => {
     await Company.destroy({
       where : {Id: companyId}
     });
-    
+
   } catch (error) {
     res.status(500).json({ message: error });
   }
-  res.status(200).json({ message: "Succefull",  data: null});  
+  res.status(200).json({ message: "Succefull",  data: null});
 
 };

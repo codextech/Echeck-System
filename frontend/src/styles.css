@@ -13,6 +13,7 @@
 
 
 
+
 /* bootstrap modal chenges  -> creating problem in mobile view */
 .modal-open {
     overflow: auto;
@@ -33,10 +34,12 @@
 
 
 
+
 /* For Box shadow */
 
 
-.box-shadow-0 .box {
+
+ .box {
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
@@ -44,3 +47,50 @@
 .app-content{
     overflow: hidden;
 }
+
+
+
+
+/* Lofin sign up form styling */
+
+
+
+.form-content {
+  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+}
+
+
+.fadeIn {
+  opacity:0;
+  -webkit-animation:fadeIn ease-in 1;
+  -moz-animation:fadeIn ease-in 1;
+  animation:fadeIn ease-in 1;
+
+  -webkit-animation-fill-mode:forwards;
+  -moz-animation-fill-mode:forwards;
+  animation-fill-mode:forwards;
+
+  -webkit-animation-duration:1s;
+  -moz-animation-duration:1s;
+  animation-duration:1s;
+}
+
+.fadeIn.first {
+  -webkit-animation-delay: 0.4s;
+  -moz-animation-delay: 0.4s;
+  animation-delay: 0.4s;
+}
+
+
+#icon {
+  width: 50%;
+
+}
+
+.form-area {
+  background: white;
+  padding: 20px;
+}
+
+
+

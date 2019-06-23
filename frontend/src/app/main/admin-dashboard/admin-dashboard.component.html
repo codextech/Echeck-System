@@ -1,0 +1,508 @@
+<div class="padding">
+  <div class="row">
+    <div class="col-sm-6 col-lg-3">
+      <div class="box list-item">
+        <span class="avatar w-40 text-center circle grey">
+          <span class="fa fa-newspaper-o"></span>
+        </span>
+        <div class="list-body">
+          <h4 class="m-0 text-md">
+            75
+          </h4>
+          <small class="text-muted">waiting Checks</small>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <a [routerLink]="['/admin/unverified-users']">
+
+      <div class="box list-item">
+        <span class="avatar w-40 text-center circle danger">
+          <span class="fa fa-warning"></span>
+        </span>
+        <div class="list-body">
+          <h4 class="m-0 text-md">
+            {{unVerifiedUsers.length}}
+          </h4>
+          <small class="text-muted">Unverified users</small>
+        </div>
+      </div>
+      </a>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+
+        <a [routerLink]="['/admin/total-users']">
+
+      <div class="box list-item">
+        <span class="avatar w-40 text-center circle theme">
+          <span class="fa fa-users"></span>
+        </span>
+        <div class="list-body">
+          <h4 class="m-0 text-md">
+            {{users.length}}
+          </h4>
+          <small class="text-muted">Total Users</small>
+        </div>
+      </div>
+    </a>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <a [routerLink]="['/admin/kyc-requests']">
+
+      <div class="box list-item">
+        <span class="avatar w-40 text-center circle warning">
+          <span class="fa fa-info"></span>
+        </span>
+        <div class="list-body">
+          <h4 class="m-0 text-md">
+            {{kycRequests.length}}
+          </h4>
+          <small class="text-muted">KYC Request</small>
+        </div>
+      </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="box">
+        <div class="box-header">
+          <h3>Recent Kyc Request</h3>
+        </div>
+
+        <div *ngFor="let user of kycRequests.slice(0,10)" class="list-item">
+          <span class="w-40 avatar red">
+            {{user.uniqueName[0] | uppercase}}
+          </span>
+          <div class="list-body">
+            <a href="" class="item-title _500">{{user.uniqueName}}</a>
+            <div class="item-except text-sm text-muted h-1x">
+              {{user.email}}
+            </div>
+            <div class="item-tag tag hide">
+            </div>
+          </div>
+          <div>
+            <div class="item-action dropdown">
+              <a href="#" data-toggle="dropdown" class="text-muted">
+                <i class="fa fa-fw fa-ellipsis-v"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right text-color" role="menu">
+                <a class="dropdown-item">
+                  <i class="fa fa-tag"></i>
+                  Action
+                </a>
+                <a class="dropdown-item">
+                  <i class="fa fa-pencil"></i>
+                  Another action
+                </a>
+                <a class="dropdown-item">
+                  <i class="fa fa-reply"></i>
+                  Something else here
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item">
+                  <i class="fa fa-ellipsis-h"></i>
+                  Separated link
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="box">
+        <div class="box-header">
+          <h3>Recent Users</h3>
+        </div>
+        <div class="list inset">
+
+          <div *ngFor="let user of users.slice(0,10)" class="list-item">
+            <span class="w-40 avatar primary"
+            [ngClass]="{'red':!user.isVerified}"
+            >
+              {{user.uniqueName[0] | uppercase}}
+            </span>
+            <div class="list-body">
+              <a href="" class="item-title _500">{{user.uniqueName}}</a>
+              <div class="item-except text-sm text-muted h-1x">
+                {{user.email}}
+              </div>
+              <div class="item-tag tag hide">
+              </div>
+            </div>
+            <div>
+              <div class="item-action dropdown">
+                <a href="#" data-toggle="dropdown" class="text-muted">
+                  <i class="fa fa-fw fa-ellipsis-v"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right text-color" role="menu">
+                  <a class="dropdown-item">
+                    <i class="fa fa-tag"></i>
+                    Action
+                  </a>
+                  <a class="dropdown-item">
+                    <i class="fa fa-pencil"></i>
+                    Another action
+                  </a>
+                  <a class="dropdown-item">
+                    <i class="fa fa-reply"></i>
+                    Something else here
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item">
+                    <i class="fa fa-ellipsis-h"></i>
+                    Separated link
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+<!--
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="padding box">
+        <span class="badge success float-right">5</span>
+        <h6 class="mb-3">Activity</h6>
+        <div class="streamline ">
+          <div class="sl-item  b- ">
+            <div class="sl-left">
+              <img src="../assets/images/a5.jpg" class="circle" alt=".">
+            </div>
+            <div class="sl-content">
+              <span class="sl-date text-muted">09:50</span>
+              <div>
+                <a href="#" class="text-primary">Radionomy</a>
+                Was added to Repo
+              </div>
+            </div>
+          </div>
+          <div class="sl-item  b- ">
+            <div class="sl-left">
+              <img src="../assets/images/a7.jpg" class="circle" alt=".">
+            </div>
+            <div class="sl-content">
+              <span class="sl-date text-muted">05:35</span>
+              <div>
+                <a href="#" class="text-primary">Fifth Harmony</a>
+                Bug fixes
+              </div>
+            </div>
+          </div>
+          <div class="sl-item  b- ">
+            <div class="sl-left">
+              <img src="../assets/images/a3.jpg" class="circle" alt=".">
+            </div>
+            <div class="sl-content">
+              <span class="sl-date text-muted">09:05</span>
+              <div>
+                <a href="#" class="text-primary">Jeremy Scott</a>
+                Assign you a task
+              </div>
+            </div>
+          </div>
+          <div class="sl-item  b- ">
+            <div class="sl-content">
+              <span class="sl-date text-muted">13:00</span>
+              <div>
+                <a href="#" class="text-primary">Garrett Winters</a>
+                Followed by Jessic
+              </div>
+            </div>
+          </div>
+          <div class="sl-item  b- ">
+            <div class="sl-content">
+              <span class="sl-date text-muted">11:30</span>
+              <div>
+                <a href="#" class="text-primary">Ashton Cox</a>
+                New feedback from John
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="padding box">
+        <h6 class="mb-3">Tasks</h6>
+        <div class="streamline streamline-xs">
+          <div class="sl-item  b- ">
+            <div class="sl-content">
+              <span class="sl-date text-muted">July 21</span>
+              <div>
+                <a href="#" class="text-primary">Summerella</a>
+                Submit a support ticket
+              </div>
+            </div>
+          </div>
+          <div class="sl-item  b- ">
+            <div class="sl-content">
+              <span class="sl-date text-muted">09:05</span>
+              <div>
+                <a href="#" class="text-primary">Jeremy Scott</a>
+                Assign you a task
+              </div>
+            </div>
+          </div>
+          <div class="sl-item  b-primary ">
+            <div class="sl-content">
+              <span class="sl-date text-muted">12:05</span>
+              <div>
+                <a href="#" class="text-primary">Judith Garcia</a>
+                Follow up to close deal
+              </div>
+            </div>
+          </div>
+          <div class="sl-item  b-primary ">
+            <div class="sl-content">
+              <span class="sl-date text-muted">08:05</span>
+              <div>
+                <a href="#" class="text-primary">Kygo</a>
+                Added you to repo
+              </div>
+            </div>
+          </div>
+          <div class="sl-item  b- ">
+            <div class="sl-content">
+              <span class="sl-date text-muted">15:00</span>
+              <div>
+                <a href="#" class="text-primary">Pablo Nouvelle</a>
+                Added API call to update track element
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="padding box">
+        <h6>Friends</h6>
+        <div class="list inset">
+          <div class="list-item " data-id="item-11">
+            <span class="w-24 avatar circle blue">
+              TN
+            </span>
+            <div class="list-body">
+              <a href="" class="item-title _500">Tiger Nixon</a>
+              <div class="item-tag tag hide">
+              </div>
+            </div>
+            <div>
+              <div class="item-action dropdown">
+                <a href="#" data-toggle="dropdown" class="text-muted">
+                  <i class="fa fa-fw fa-ellipsis-v"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right text-color" role="menu">
+                  <a class="dropdown-item">
+                    <i class="fa fa-tag"></i>
+                    Action
+                  </a>
+                  <a class="dropdown-item">
+                    <i class="fa fa-pencil"></i>
+                    Another action
+                  </a>
+                  <a class="dropdown-item">
+                    <i class="fa fa-reply"></i>
+                    Something else here
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item">
+                    <i class="fa fa-ellipsis-h"></i>
+                    Separated link
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="list-item " data-id="item-4">
+            <span class="w-24 avatar circle pink">
+              JG
+            </span>
+            <div class="list-body">
+              <a href="" class="item-title _500">Judith Garcia</a>
+              <div class="item-tag tag hide">
+              </div>
+            </div>
+            <div>
+              <div class="item-action dropdown">
+                <a href="#" data-toggle="dropdown" class="text-muted">
+                  <i class="fa fa-fw fa-ellipsis-v"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right text-color" role="menu">
+                  <a class="dropdown-item">
+                    <i class="fa fa-tag"></i>
+                    Action
+                  </a>
+                  <a class="dropdown-item">
+                    <i class="fa fa-pencil"></i>
+                    Another action
+                  </a>
+                  <a class="dropdown-item">
+                    <i class="fa fa-reply"></i>
+                    Something else here
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item">
+                    <i class="fa fa-ellipsis-h"></i>
+                    Separated link
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="list-item " data-id="item-12">
+            <span class="w-24 avatar circle green">
+              AC
+            </span>
+            <div class="list-body">
+              <a href="" class="item-title _500">Ashton Cox</a>
+              <div class="item-tag tag hide">
+              </div>
+            </div>
+            <div>
+              <div class="item-action dropdown">
+                <a href="#" data-toggle="dropdown" class="text-muted">
+                  <i class="fa fa-fw fa-ellipsis-v"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right text-color" role="menu">
+                  <a class="dropdown-item">
+                    <i class="fa fa-tag"></i>
+                    Action
+                  </a>
+                  <a class="dropdown-item">
+                    <i class="fa fa-pencil"></i>
+                    Another action
+                  </a>
+                  <a class="dropdown-item">
+                    <i class="fa fa-reply"></i>
+                    Something else here
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item">
+                    <i class="fa fa-ellipsis-h"></i>
+                    Separated link
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="list-item " data-id="item-8">
+            <span class="w-24 avatar circle teal">
+              R
+            </span>
+            <div class="list-body">
+              <a href="" class="item-title _500">RYD</a>
+              <div class="item-tag tag hide">
+              </div>
+            </div>
+            <div>
+              <div class="item-action dropdown">
+                <a href="#" data-toggle="dropdown" class="text-muted">
+                  <i class="fa fa-fw fa-ellipsis-v"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right text-color" role="menu">
+                  <a class="dropdown-item">
+                    <i class="fa fa-tag"></i>
+                    Action
+                  </a>
+                  <a class="dropdown-item">
+                    <i class="fa fa-pencil"></i>
+                    Another action
+                  </a>
+                  <a class="dropdown-item">
+                    <i class="fa fa-reply"></i>
+                    Something else here
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item">
+                    <i class="fa fa-ellipsis-h"></i>
+                    Separated link
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="list-item " data-id="item-15">
+            <span class="w-24 avatar circle indigo">
+              GW
+            </span>
+            <div class="list-body">
+              <a href="" class="item-title _500">Garrett Winters</a>
+              <div class="item-tag tag hide">
+              </div>
+            </div>
+            <div>
+              <div class="item-action dropdown">
+                <a href="#" data-toggle="dropdown" class="text-muted">
+                  <i class="fa fa-fw fa-ellipsis-v"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right text-color" role="menu">
+                  <a class="dropdown-item">
+                    <i class="fa fa-tag"></i>
+                    Action
+                  </a>
+                  <a class="dropdown-item">
+                    <i class="fa fa-pencil"></i>
+                    Another action
+                  </a>
+                  <a class="dropdown-item">
+                    <i class="fa fa-reply"></i>
+                    Something else here
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item">
+                    <i class="fa fa-ellipsis-h"></i>
+                    Separated link
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="list-item " data-id="item-13">
+            <span class="w-24 avatar circle pink">
+              AS
+            </span>
+            <div class="list-body">
+              <a href="" class="item-title _500">Airi Satou</a>
+              <div class="item-tag tag hide">
+              </div>
+            </div>
+            <div>
+              <div class="item-action dropdown">
+                <a href="#" data-toggle="dropdown" class="text-muted">
+                  <i class="fa fa-fw fa-ellipsis-v"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right text-color" role="menu">
+                  <a class="dropdown-item">
+                    <i class="fa fa-tag"></i>
+                    Action
+                  </a>
+                  <a class="dropdown-item">
+                    <i class="fa fa-pencil"></i>
+                    Another action
+                  </a>
+                  <a class="dropdown-item">
+                    <i class="fa fa-reply"></i>
+                    Something else here
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item">
+                    <i class="fa fa-ellipsis-h"></i>
+                    Separated link
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+</div>

@@ -20,40 +20,29 @@ import { ChequedModule } from './cheques/cheque.module';
 import { MatNativeDateModule } from '@angular/material/core';
 import { BillerModule } from './biller/biller.module';
 import { GalleryModule } from './gallery/gallery.module';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker/public_api';
 
-const routes: Routes = [
+// const routes: Routes = [
 
-  {path: '', component: UserDashBoardComponent, canActivate: [AuthGuard],
-  children: [
-    { path: 'dashboard', component: DashboardHomeComponent }
+//   {path: '', component: UserDashBoardComponent, canActivate: [AuthGuard],
+//   children: [
+//     { path: 'dashboard', component: DashboardHomeComponent }
 
-]},
-
-
-];
+// ]},
 
 
-const ngxUiLoaderConfig: NgxUiLoaderConfig = {
-    fgsColor: '#3b92ba',
-    fgsSize: 50,
-    overlayColor: 'rgba(250,247,247,0.45)',
-    fgsType: SPINNER.threeStrings,
-  };
+// ];
 
 @NgModule({
     imports: [
         CommonModule,
-        RouterModule.forChild(routes),
+        RouterModule,
         AccountModule,
         BillerModule,
         CompanyModule,
         GalleryModule,
         ChequedModule,
-        SharedUIModule,
         MatNativeDateModule,
-
-        NgxUiLoaderModule.forRoot(ngxUiLoaderConfig)
-
     ],
     declarations: [
         UserDashBoardComponent,

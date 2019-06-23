@@ -2,11 +2,11 @@
   "name": "echeck",
   "version": "1.0.0",
   "description": "for digital cheque deposit",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
-    "debug": "nodemon --inspect server.js"
+    "start": "nodemon app.js",
+    "debug": "nodemon --inspect app.js"
   },
   "repository": {
     "type": "git",
@@ -19,8 +19,9 @@
   },
   "homepage": "https://github.com/codextech/Echeck-System#readme",
   "dependencies": {
-    "bcrypt": "^3.0.5",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.1",

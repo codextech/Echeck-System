@@ -14,24 +14,23 @@ export class GetBankAccountsComponent implements OnInit {
   columns = [
 
     {
+      key: 'bank',
+      title: 'Bank'
+    },
+    {
       key: 'accountNumber',
       title: 'Account Number'
     },
     {
       key: 'accountName',
-      title: 'Account Name',
+      title: 'Account Holder Name',
     },
     {
       key: 'subAccount',
       title: 'Sub Account'
     },
     {
-      key: 'bank',
-      title: 'Bank'
-    },
-
-    {
-      key: 'actions', title: 'Actions'
+      key: 'actions', title: ''
     }
   ];
 
@@ -47,6 +46,7 @@ export class GetBankAccountsComponent implements OnInit {
 getBankAccounts() {
  this.accountService.getBankAccounts().subscribe(result => {
    this.accounts = result.data;
+console.log(this.accounts);
 
  }, err => {
 
