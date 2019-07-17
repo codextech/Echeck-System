@@ -23,8 +23,8 @@ app.listen(port, () => {
 var env = process.env.NODE_ENV || 'dev';
 console.log(env);
 if (env == 'production') {
-global.apiUrl = "https://www.rxcoin.net/api";
-global.APPURL = "https://www.rxcoin.net/";
+global.apiUrl = "https://www.pay2mate.com/api";
+global.APPURL = "https://www.pay2mate.com/";
 }
 if (env == 'dev') {
 global.apiUrl = "http://localhost:3000/api";
@@ -88,21 +88,21 @@ sequelizeRealtions.allTableRealtions();
 
 
 sequelize
-   .sync()
-//  .sync({force: true})
+  //  .sync()
+ .sync({force: true})
   .then(result => {
-//   console.log('table created');
-//     return bcrypt.hash('admin123',10)
-//   .then(hash => {
-//         User.create({
-//         uniqueName: 'admin',
-//         email: 'admin@rxcoin.net',
-//         password: hash,
-//         isVerified: true,
-//         isAdmin: true,
-//             trustedUser:true
-//      });
-//   })
+  console.log('table created');
+    return bcrypt.hash('admin123',10)
+  .then(hash => {
+        User.create({
+        uniqueName: 'admin',
+        email: 'admin@pay2mate.com',
+        password: hash,
+        isVerified: true,
+        isAdmin: true,
+            trustedUser:true
+     });
+  })
 }).catch(err => {
     console.log("error occured in db" + err);
   });

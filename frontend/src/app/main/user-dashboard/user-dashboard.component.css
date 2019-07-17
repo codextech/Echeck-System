@@ -17,7 +17,7 @@
 
 .steps-container {
   background: #f4f4f44a;
-  padding: 20px;
+  /* padding: 20px; */
 }
 
 .steps {
@@ -32,9 +32,43 @@
     margin: auto;
 }
 
+.history-header{
+  background: #285f94;
+    color: white;
+}
 
+.step-content{
+  margin-top: 7px;
+}
 
 
 .steps-link:hover {
-  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: inset -1px 2px 20px 0px rgba(40, 95, 148, 0.41);
 }
+
+.inset{
+  overflow-y: scroll;
+  height: 300px;
+}
+
+
+
+/* Scroll bar custom */
+
+.scroll::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+.scroll::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: #F5F5F5;
+}
+
+.scroll::-webkit-scrollbar-thumb
+{
+	background-color: #285f94c7;;
+}
+

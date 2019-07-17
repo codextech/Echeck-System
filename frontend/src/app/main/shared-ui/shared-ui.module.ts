@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HeaderComponent } from './header/header.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from '../../../../../../../ECheck-App/Echeck-App/frontend/src/app/main/shared-ui/header/header.component';
+import { FooterComponent } from '../../../../../../../ECheck-App/Echeck-App/frontend/src/app/main/shared-ui/footer/footer.component';
 import { CommonModule } from '@angular/common';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 const routes: Routes = [];
 
@@ -14,15 +14,15 @@ const routes: Routes = [];
 
     ],
     declarations: [
-      SidebarComponent,
         HeaderComponent,
-        FooterComponent
+        FooterComponent,
+        SidebarComponent
     ],
     exports: [
         CommonModule,
         FooterComponent,
-        SidebarComponent,
         HeaderComponent,
+        SidebarComponent
     ],
 
 })

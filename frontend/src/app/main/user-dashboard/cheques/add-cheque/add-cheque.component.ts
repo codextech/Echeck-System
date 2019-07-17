@@ -14,6 +14,7 @@ import 'hammerjs';
 import { NguCarouselConfig } from '@ngu/carousel';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker/ngx-bootstrap-datepicker';
 import { UserService } from 'src/app/_services/user.service';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-add-cheque',
@@ -79,6 +80,7 @@ export class AddChequeComponent implements OnInit {
     private ngxModalService: NgxSmartModalService,
     private router: Router,
     private toastr: ToastrService,
+    private ngxUiLoaderService: NgxUiLoaderService
   ) {}
 
   ngOnInit() {
@@ -195,8 +197,10 @@ export class AddChequeComponent implements OnInit {
 
   async addCheck() {
 
+    this.ngxUiLoaderService.startBackgroundLoader('master'); // Loader Start
     const fileName = this.checkModel.checkNumber;
     await this.convertToImage(fileName);
+    this.ngxUiLoaderService.stopBackground(); //    Loader stop
     if (this.checkImageFile) {
 
     console.log(this.checkImageFile);
@@ -260,6 +264,7 @@ export class AddChequeComponent implements OnInit {
 
   } else {
     console.log('dom to image is not working properly');
+    this.toastr.error('Please Try Again !');
   }
 
   }

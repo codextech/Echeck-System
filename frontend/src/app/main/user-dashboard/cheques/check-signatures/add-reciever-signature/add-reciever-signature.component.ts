@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import htmlToImage from 'html-to-image';
 
 import { environment } from 'src/environments/environment';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -23,6 +25,8 @@ export class AddRecieverSignatureComponent implements OnInit {
   @ViewChild('checkBackContainer') container;
   checkBackImageFile: any;
   constructor(private checkService: UserCheckService,
+    private ngxUiLoaderService: NgxUiLoaderService,
+    private toastr: ToastrService,
               private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
@@ -47,9 +51,10 @@ export class AddRecieverSignatureComponent implements OnInit {
   async addCheckBack() {
 
 
+    this.ngxUiLoaderService.startBackgroundLoader('master'); // Loader Start
     const fileName = Date.now();
     await this.convertToImage(fileName);
-    console.log(this.checkBackImageFile);
+    this.ngxUiLoaderService.stopBackground(); // stop loader
     this.checkModel.checkBackImage = this.checkBackImageFile;
     const formData = new FormData();
 
@@ -70,6 +75,7 @@ export class AddRecieverSignatureComponent implements OnInit {
       },
       err => {
         console.log(err);
+        this.toastr.error(err.error.message);
       });
 
   }

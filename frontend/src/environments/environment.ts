@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://www.rxcoin.net/'
+  apiUrl: 'https://www.pay2mate.com/'
   // apiUrl: 'http://localhost:3000/'
 };
 

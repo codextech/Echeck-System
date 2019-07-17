@@ -45,8 +45,13 @@ export function tokenGetter() {
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   fgsColor: '#ffff',
   fgsSize: 50,
-  overlayColor: '#285f94e6',
+  overlayColor: '#285f94',
   fgsType: SPINNER.doubleBounce,
+  bgsColor: '#002950', // background
+  bgsPosition: 'center-center',
+  bgsSize: 50,
+  bgsType: SPINNER.circle,
+  text: 'Loading...'
 };
 
 @NgModule({

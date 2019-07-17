@@ -3,6 +3,7 @@ import htmlToImage from 'html-to-image';
 
 import { ActivatedRoute } from '@angular/router';
 import { UserCheckService } from 'src/app/_services/user-check.service';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-add-rp-signature',
@@ -21,6 +22,7 @@ export class AddRpSignatureComponent implements OnInit {
   @ViewChild('checkBackContainer') container;
   checkBackImageFile: any;
   constructor(private checkService: UserCheckService,
+    private ngxUiLoaderService: NgxUiLoaderService,
               private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
@@ -45,8 +47,10 @@ export class AddRpSignatureComponent implements OnInit {
   async completeReciverCheckSign() {
 
 
+    this.ngxUiLoaderService.startBackgroundLoader('master'); // Loader Start
     const fileName = Date.now();
     await this.convertToImage(fileName);
+    this.ngxUiLoaderService.stopBackground();
     this.checkModel.checkBackImage = this.checkBackImageFile;
     const formData = new FormData();
 

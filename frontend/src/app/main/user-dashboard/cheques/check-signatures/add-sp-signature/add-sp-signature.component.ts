@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import htmlToImage from 'html-to-image';
 import { ActivatedRoute } from '@angular/router';
 import { UserCheckService } from 'src/app/_services/user-check.service';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-add-sp-signature',
@@ -19,6 +20,7 @@ export class AddSpSignatureComponent implements OnInit {
   signImage: any;
 
   constructor(private activatedRoute: ActivatedRoute,
+    private ngxUiLoaderService: NgxUiLoaderService,
               private checkService: UserCheckService) { }
 
   ngOnInit() {
@@ -42,9 +44,11 @@ export class AddSpSignatureComponent implements OnInit {
 
   async completeCheckSign() {
 
+    this.ngxUiLoaderService.startBackgroundLoader('master'); // Loader Start
+
     const fileName = Date.now();
     await this.convertToImage(fileName);
-    console.log(this.checkImage);
+    this.ngxUiLoaderService.stopBackground();
     this.checkModel.checkImage = this.checkImage;
     const formData = new FormData();
 

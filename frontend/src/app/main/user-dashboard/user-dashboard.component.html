@@ -123,10 +123,10 @@ fill: [app.color.primary]
     <div class="padding">
       <div class="row justify-content-center mb-3 steps-container">
 
-        <div class="col-md-3 col-xs-6 steps-link">
+        <div class="col-md-4 col-xs-6 steps-link">
           <a [routerLink]="['/add-bank']" class="">
 
-            <div class="b-a b-2x r p-3 mb-4">
+            <div class="b-a b-2x r p-3 mb-2 step-content">
               <div class="py-3 text-center text-lg text-primary steps">
                 <span>1</span>
                 <img class="w-100" src="http://iconshow.me/media/images/ui/iOS7-optimized-icon/png/256/04.bank.png">
@@ -142,10 +142,10 @@ fill: [app.color.primary]
         </div>
 
 
-        <div class="col-md-3 col-xs- steps-link">
+        <div class="col-md-4 col-xs-6 steps-link">
           <a [routerLink]="['/add/bank-account']" class="">
 
-            <div class="b-a b-2x r p-3 mb-4">
+            <div class="b-a b-2x r p-3 mb-2 step-content">
               <div class="py-3 text-center text-lg text-primary steps">
                 <span>2</span>
                 <img class="w-100"
@@ -160,10 +160,10 @@ fill: [app.color.primary]
         </div>
 
 
-        <div class="col-md-3 col-xs-6 steps-link">
+        <div class="col-md-4 col-xs-6 steps-link">
           <a [routerLink]="['/make-payment/check']" class="">
 
-            <div class="b-a b-2x r p-3 mb-4">
+            <div class="b-a b-2x r p-3 mb-2 step-content">
               <div class="py-3 text-center text-lg text-primary steps">
                 <span>3</span>
                 <img class="w-100" src="https://img5.androidappsapk.co/300/1/2/6/org.digitalsoft.checkwriter.png">
@@ -180,34 +180,18 @@ fill: [app.color.primary]
       <div class="row">
         <div class="col-xl-4">
           <div class="box">
-            <div class="box-header">
+            <div class="box-header history-header">
               <h3> Sent Payments</h3>
             </div>
 
 
-            <div class="list inset">
+            <div class="list inset scroll">
               <a *ngFor="let check of sentChecks" [routerLink]="['/check-history/sent/',check.checkId]">
 
-                <div class="list-item " data-id="item-12">
-                  <span class="w-40 avatar">
+                <div class="list-item" >
+                  <span class="avatar">
                     <img style="border-radius: 0px" [src]="check.check_Image.checkFront">
                   </span>
-                  <div class="list-body">
-                    <a *ngIf="check.checkMemo !='undefined'" [routerLink]="['/check-history/sent/',check.checkId]"
-                      class="item-title _500">
-                      {{check.checkMemo}}
-                    </a>
-                    <div class="item-except text-sm text-muted h-1x">
-                      {{check.amount}} $
-                    </div>
-                    <div class="item-tag tag hide">
-                    </div>
-                  </div>
-                  <div>
-                    <span class="item-date text-xs text-muted">
-                      {{check.issuedDate | date:'short'}}
-                    </span>
-                  </div>
                 </div>
               </a>
 
@@ -216,17 +200,20 @@ fill: [app.color.primary]
         </div>
         <div class="col-xl-4">
           <div class="box">
-            <div class="box-header">
+            <div class="box-header history-header">
               <h3>Recieved Payments</h3>
             </div>
-            <div class="list inset">
-              <a *ngFor="let check of recievedChecks" [routerLink]="['/check-history/recieved/',check.checkId]">
+            <div class="list inset scroll">
+              <a *ngFor="let check of recievedChecks" [routerLink]="['/check-history/receieved',check.checkId]">
 
-                <div class="list-item " data-id="item-12">
-                  <span class="w-40 avatar">
+                <div class="list-item mb-2">
+                  <span class="avatar">
                     <img style="border-radius: 0px" [src]="check.check_Image.checkFront">
                   </span>
-                  <div class="list-body">
+                  <!-- <span style="line-height: 5em;" class="item-except text-sm">
+                    {{check.recieveDate | date:'mediumDate'}}
+                  </span> -->
+                  <!-- <div class="list-body">
                     <a *ngIf="check.checkMemo !='undefined'" [routerLink]="['/check-history/recieved/',check.checkId]"
                       class="item-title _500">
                       {{check.checkMemo}}
@@ -236,12 +223,8 @@ fill: [app.color.primary]
                     </div>
                     <div class="item-tag tag hide">
                     </div>
-                  </div>
-                  <div>
-                    <span class="item-date text-xs text-muted">
-                      {{check.recieveDate | date:'short'}}
-                    </span>
-                  </div>
+                  </div> -->
+
                 </div>
               </a>
 
@@ -251,34 +234,28 @@ fill: [app.color.primary]
 
         <div class="col-xl-4">
           <div class="box">
-            <div class="box-header">
+            <div class="box-header history-header">
               <h3> Summary</h3>
             </div>
 
 
-            <div class="list inset">
+            <div class="list inset scroll">
               <a *ngFor="let check of sentChecks" [routerLink]="['/check-history/sent/',check.checkId]">
 
-                <div class="list-item " data-id="item-12">
-                  <span class="w-40 avatar">
+                <div class="list-item">
+                  <span class="avatar">
                     <img style="border-radius: 0px" [src]="check.check_Image.checkFront">
                   </span>
-                  <div class="list-body">
-                    <a *ngIf="check.checkMemo !='undefined'" [routerLink]="['/check-history/sent/',check.checkId]"
-                      class="item-title _500">
-                      {{check.checkMemo}}
-                    </a>
-                    <div class="item-except text-sm text-muted h-1x">
-                      {{check.amount}} $
-                    </div>
+                  <!-- <div class="list-body">
+
                     <div class="item-tag tag hide">
                     </div>
-                  </div>
-                  <div>
+                  </div> -->
+                  <!-- <div>
                     <span class="item-date text-xs text-muted">
                       {{check.issuedDate | date:'short'}}
                     </span>
-                  </div>
+                  </div> -->
                 </div>
               </a>
 

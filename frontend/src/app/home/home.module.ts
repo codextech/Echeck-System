@@ -14,8 +14,6 @@ import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
         CommonModule,
         RouterModule,
         NgbCarouselModule
-
-
     ],
     declarations: [
         LandingPageComponent,

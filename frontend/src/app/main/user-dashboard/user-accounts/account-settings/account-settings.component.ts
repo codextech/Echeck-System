@@ -191,7 +191,11 @@ export class AccountSettingsComponent implements OnInit {
   changePassword() {
 
       console.log(this.changePassModel);
-      this.authService.changePassword(this.changePassModel).subscribe(res => {
+      if (this.changePassModel.newPassword != this.changePassModel.confirmPass) {
+        this.toastr.error('password and confirm Password not matched');
+      } else {
+
+        this.authService.changePassword(this.changePassModel).subscribe(res => {
           this.toastr.success(res.message);
           this.router.navigate(['/dashboard']);
 
@@ -199,6 +203,7 @@ export class AccountSettingsComponent implements OnInit {
       }, err => {
         this.toastr.error(err.error.message);
       });
+      }
     }
 
 }

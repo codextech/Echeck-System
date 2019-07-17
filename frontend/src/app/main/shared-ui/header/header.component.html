@@ -130,16 +130,14 @@
                     <li class="dropdown d-flex align-items-center">
                         <a class="d-flex align-items-center" href="#" data-toggle="dropdown">
                             <span class="avatar w-32">
-  <img alt="..." src="https://img.icons8.com/bubbles/2x/administrator-male.png">
+  <img alt="..." src="../../../../assets/profilejpg.jpg">
 </span>
                             <span class=" mx-2 d-none l-h-1x d-lg-block">
   <span>{{authService.decodedtoken.uniqueName}}</span>
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right w pt-0 mt-2 animate fadeIn">
-                            <a class="dropdown-item" href="settings.html">
-                                <span>Profile</span>
-                            </a>
+
                             <a class="dropdown-item" [routerLink]="['/settings']">
                                 <span>Settings</span>
                             </a>
