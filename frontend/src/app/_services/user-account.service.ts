@@ -17,7 +17,7 @@ constructor(private http: HttpClient, private auth: UserAuthService) { }
 
   // Live APi that Gives Bank Details, with creating proxy server check conf.json file
   getBankByRoutingId(id) {
-    return this.http.get<any>(`${environment.apiUrl}apiroutenumber`, {
+    return this.http.get<any>(`${environment.apiUrl}routenumber`, {
       params: {rn : id}
     });
     }

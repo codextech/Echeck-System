@@ -457,4 +457,11 @@ export class AddChequeComponent implements OnInit {
   }
 
 
+  // checkBackImagePath(){
+  //   if (!this.checkBackgroundPreview) {
+  //     return {'background-size': '100%'}
+  //   } else{
+  //     return {'background': 'url(' +this.checkBackgroundPreview+ ') no-repeat 0 0', 'background-size': '100%' }
+  //   }
+  // }
 }

@@ -40,6 +40,8 @@ export class AddSignatureComponent implements OnInit {
   signatures: any[] = [];
   signImage: any;
 
+  isAccountSelected = false;
+  edit = false;
   constructor(private accountService: UserAccountService,
     private ngxModalService: NgxSmartModalService) { }
 
@@ -116,6 +118,17 @@ export class AddSignatureComponent implements OnInit {
     this.signatureModel.bankAccountId = id;
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    this.onChangeAcccount(id);
+  }
+
+  onChangeAcccount(id) {
+    console.log(id);
+    if (id != 0) {
+    this.isAccountSelected = true;
+    } else {
+      this.isAccountSelected = false;
+    }
+
   }
 
 }

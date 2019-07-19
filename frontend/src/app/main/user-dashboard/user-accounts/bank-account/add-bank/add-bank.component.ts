@@ -102,7 +102,6 @@ newLogo = true;
         } else {
           this.getBankByLiveApi(routingNumber); // look by Live api.
         }
-        this.messageAlert = true;
       });
 
   }
@@ -121,8 +120,12 @@ newLogo = true;
          bankName: data.customer_name,
          routingNumber : data.routing_number
        };
+       this.messageAlert = true;
 
-     }, err => console.log(err));
+     }, err => {
+       console.log(err);
+       this.toastr.info('Something wrong with search ! Please give details manually.')
+      });
 
   }
 

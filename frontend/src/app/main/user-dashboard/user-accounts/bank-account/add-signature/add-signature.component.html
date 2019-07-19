@@ -1,7 +1,7 @@
 <div class="padding">
   <div class="row">
     <div class="col-sm-12">
-      <div class="box">
+      <div class="box" style="transition: background-color 800ms linear" [style.background]="edit==true?'#285f941a':'white'">
         <div class="box-header">
           <h2>Account Signature</h2>
 
@@ -29,7 +29,8 @@
 
               <div class="form-group col-md-12">
                 <label>Choose Bank Account</label>
-                <select #editBank [(ngModel)]="signatureModel.bankAccountId" name="bankAccountId" class="form-control">
+                <select (change)="onChangeAcccount($event.target.value)"
+                 #editBank [(ngModel)]="signatureModel.bankAccountId" name="bankAccountId" class="form-control">
                   <option value="0">Select Account</option>
                   <option *ngFor="let account of bankAccounts" [value]="account.bankAccountId">
                     {{account.accountName}} | {{account.accountNumber}}
@@ -39,10 +40,6 @@
 
               <div class="col-sm-6">
                 <div class="box p-3">
-                  <strong class="text-muted">Upload Signature</strong>
-                  <br>
-
-
 
                   <div *ngIf="signImage" class="col-6 col-sm-3 col-md-4">
                     <div class="box">
@@ -55,9 +52,9 @@
                   <br />
                   <input style="display:none" #signFile type="file" (change)="onSignImagePicked($event)" />
 
-                  <button type="button" (click)="signFile.click()" class="btn btn-fw accent">
+                  <button [disabled]="!isAccountSelected" type="button" (click)="signFile.click()" class="btn  btn-outline b-accent text-accent">
                     <i class="fa fa-image"></i>
-                    Select Signature
+                    Upload Signature
                   </button>
 
 
@@ -90,7 +87,7 @@
             </td>
 
             <td class="fit">
-              <button (click)="onClickEditSign(row.bankAccountId); editBank.click"
+              <button (click)="onClickEditSign(row.bankAccountId); edit=true; editBank.click"
                 class="btn btn-outline b-accent text-accent">
                 Edit Sign
                 <i class="fa fa-pencil"></i>

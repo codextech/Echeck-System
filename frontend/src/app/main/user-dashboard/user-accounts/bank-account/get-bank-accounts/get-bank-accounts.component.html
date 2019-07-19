@@ -14,6 +14,7 @@
             <td>{{ row.bank.bankName }}</td>
             <td>{{ row.accountNumber }}</td>
           <td>{{ row.accountName }}</td>
+          <td>{{ row.bankaccount_type.bankaccountType }}</td>
           <td *ngIf="row.isSubAccount">{{row.subAccountNumber}}</td>
           <td *ngIf="!row.isSubAccount">No</td>
           <td class="fit">

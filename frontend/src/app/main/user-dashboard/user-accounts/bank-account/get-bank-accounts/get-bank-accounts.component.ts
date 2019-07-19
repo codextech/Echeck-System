@@ -26,6 +26,10 @@ export class GetBankAccountsComponent implements OnInit {
       title: 'Account Holder Name',
     },
     {
+      key: 'accountType',
+      title: 'Account Type',
+    },
+    {
       key: 'subAccount',
       title: 'Sub Account'
     },

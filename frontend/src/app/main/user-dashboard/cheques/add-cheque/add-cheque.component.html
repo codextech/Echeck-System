@@ -227,9 +227,8 @@
 
             <div class="check-boundary">
                 <div  #checkContainer
-                 [ngStyle]="!checkBackgroundPreview &&{'background': 'url(' +chequeBackground+ ') no-repeat 0 0'} ||
-                 checkBackgroundPreview && {'background': 'url(' + checkBackgroundPreview + ') no-repeat 0 0'}
-                 "
+                [ngStyle]="!checkBackgroundPreview &&{'background-image': 'url(' +chequeBackground+ ')','background-size':'100%'} ||
+                checkBackgroundPreview && {'background-image': 'url(' + checkBackgroundPreview + ') no-repeat 0 0','background-size':'100%'}"
                  class="row no-margin cover">
 
                   <div class="col-sm-12">
@@ -584,13 +583,15 @@ customClass="nsm-dialog-animation-ttb">
           <i class="fa fa-paperclip text-primary fa-4x"></i>
       </p>
 
-      <!-- <object *ngFor="let doc of docs"  width="400" height="500" data="{{doc.documentUrl}}">
-        <p>Insert your error message here, if the PDF cannot be displayed.</p>
-    </object> -->
     <div class="background-history">
 
 
-        <ngu-carousel #myCarousel [inputs]="docTiles" [dataSource]="docs">
+      <div style="padding: 10px" *ngIf="docs.length ==0">
+        <p>Please upload your documents first</p>
+        <button [routerLink]="['/documents']" class="btn warning">click here</button>
+      </div>
+
+        <ngu-carousel *ngIf="docs.length !=0" #myCarousel [inputs]="docTiles" [dataSource]="docs">
           <ngu-tile *nguCarouselDef="let item; let i = index">
 
                 <img class="attach-image"
