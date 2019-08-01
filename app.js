@@ -10,7 +10,7 @@ const bcrypt = require("bcryptjs");
 // start server
 
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 30800;
 http.createServer(app);
 
 app.listen(port, () => {
@@ -18,6 +18,8 @@ app.listen(port, () => {
 
 });
 
+
+// end
 
 
 var env = process.env.NODE_ENV || 'dev';
@@ -86,23 +88,23 @@ app.use((req,res) => {
 // add tables realtion
 sequelizeRealtions.allTableRealtions();
 
-
 sequelize
-   .sync()
-//  .sync({force: true})
+  //  .sync()
+  .sync({force: true})
   .then(result => {
   console.log('table created');
-  //   return bcrypt.hash('admin123',10)
-  // .then(hash => {
-  //       User.create({
-  //       uniqueName: 'admin',
-  //       email: 'admin@pay2mate.com',
-  //       password: hash,
-  //       isVerified: true,
-  //       isAdmin: true,
-  //           trustedUser:true
-  //    });
-  // })
+sequelizeRealtions.seedDatabase();
+    return bcrypt.hash('admin123',10)
+  .then(hash => {
+        User.create({
+        uniqueName: 'admin',
+        email: 'admin@pay2mate.com',
+        password: hash,
+        isVerified: true,
+        isAdmin: true,
+            trustedUser:true
+     });
+  })
 }).catch(err => {
     console.log("error occured in db" + err);
   });

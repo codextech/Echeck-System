@@ -43,7 +43,7 @@
                        class="form-control custom-select my-2" required>
                       <option disabled selected="true" [value]="">Choose Account</option>
                       <option [value]="account.bankAccountId" *ngFor="let account of bankAccounts">
-                        {{account.accountName}}, {{account.accountNumber}}
+                        {{account.accountName}} <b>-</b> {{account.accountNumber}}
                       </option>
                     </select>
                   </div>
@@ -59,7 +59,7 @@
                          class="form-control custom-select my-2" required>
                           <option disabled  [value]="">Choose Payee</option>
                           <option [value]="biller.recieverId" *ngFor="let biller of recievers">
-                            {{biller.recieverEmail}}
+                          {{biller.recieverName}} - {{biller.recieverEmail}}
                           </option>
                         </select>
                       </div>
@@ -135,7 +135,11 @@
                       (click)="activeIndex = i; selectedBackground(item.checkBackgroundId)"
                         [ngClass]="{selected: activeIndex === i &&
                            isBackSelected == true}">
-
+                           <div [ngClass]="{select: isBackSelected == true && selctedCheckBackgroundId  == item.checkBackgroundId,
+                             'unselect': !(isBackSelected == true && selctedCheckBackgroundId  == item.checkBackgroundId)}">
+                            <button class="btn" type="button" ><i class="fa fa-check-square-o"></i>
+                          </button>
+                        </div>
                 </ngu-tile>
 
                 <button type="button" NguCarouselPrev class="leftRs md-btn md-fab primary">
@@ -158,10 +162,10 @@
 
 
                 <div class="col-md-4">
-                  <div class="box p-3">
+                  <div class="p-3 file-upload-container">
                       <label>Upload Check Background </label>
 
-                      <div *ngIf="checkBackgroundPreview" class="col-6 col-sm-3 col-md-4">
+                      <div *ngIf="checkBackgroundPreview" style="margin: auto" class="col-6 col-sm-3 col-md-4">
                           <div>
                             <img class="w-100" alt="" [src]="checkBackgroundPreview" />
                           </div>
@@ -180,8 +184,15 @@
                         (click)="checkBack.click()"
                         class="btn btn-fw accent">
                         <i class="fa fa-image"></i>
-                        Upload Image
+                        Upload New Image
                       </button>
+
+                      <button *ngIf="checkBackgroundPreview"
+                      type="button"
+                      (click)="cancelCheckBackgroundPreview()"
+                      class="btn default ml-2">
+                      Cancel
+                    </button>
                   </div>
 
                 </div>
@@ -208,13 +219,20 @@
 
                <div *ngIf="fileUpload" class="col-sm-4">
 
-                  <div class="box p-3">
+                  <div class="p-3 file-upload-container">
                    <label *ngIf="documentName" class="attatch-label">{{documentName}}</label>
 
-                    <button type="button" (click)="docModal.open()" class="btn btn-fw accent">
+                    <button *ngIf="!documentName" type="button" (click)="docModal.open()" class="btn btn-fw accent">
                         <i class="fa fa-paperclip"></i>
                         Select File
                     </button>
+
+                    <button *ngIf="documentName"
+                    type="button"
+                    (click)="cancelAttacthDocument()"
+                    class="btn white ml-2">
+                    Cancel
+                </button>
                   </div>
 
                 </div>
@@ -227,8 +245,8 @@
 
             <div class="check-boundary">
                 <div  #checkContainer
-                [ngStyle]="!checkBackgroundPreview &&{'background-image': 'url(' +chequeBackground+ ')','background-size':'100%'} ||
-                checkBackgroundPreview && {'background-image': 'url(' + checkBackgroundPreview + ') no-repeat 0 0','background-size':'100%'}"
+                [ngStyle]="!checkBackgroundPreview &&{'background-image': 'url(' +chequeBackground+ ')','background-size':'cover'} ||
+                checkBackgroundPreview && {'background-image': 'url(' + checkBackgroundPreview + ')','background-size':'cover'}"
                  class="row no-margin cover">
 
                   <div class="col-sm-12">
@@ -244,7 +262,7 @@
                     </div>
                   </div> -->
 
-                  <div *ngIf="(selectedbankAccount | json) != '{}'"
+                  <div id="payer-info" *ngIf="(selectedbankAccount | json) != '{}'"
                    cdkDragBoundary=".check-boundary" cdkDrag class="col-sm-6 ml-3">
                     <div class="md-form-group float-label">
                       <h6>{{selectedbankAccount.senderName}}</h6>
@@ -303,10 +321,12 @@
                               <img class="w-100" [src]="selectedbankAccount.bankLogo" alt="">
                           </div>
                           <span class="pl-10 bank-logo-txt">
-                              <span>{{selectedbankAccount.zipCode}}</span>,
-                              <span>{{selectedbankAccount.city}}</span>
+
+                              <span class="">{{selectedbankAccount.address}}</span>
                               <br>
-                              <span class="pl-10">{{selectedbankAccount.address}}</span>
+                                  <span class="pl-10">{{selectedbankAccount.city}}</span>,
+                                  <span>{{selectedbankAccount.zipCode}}</span>
+
                           </span>
 
                         </div>

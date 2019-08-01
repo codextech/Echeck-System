@@ -1,4 +1,16 @@
 
+
+
+
+.file-upload-container{
+  text-align: center;
+  box-shadow: none;
+  border: 1px solid #6284f369;
+  background: #2196f30d;
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
 :host  /deep/ .ngx-table__header{
   background-color: #3f86ca !important;
   color: #ffffff;

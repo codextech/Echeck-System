@@ -333,7 +333,7 @@ exports.saveCheck = async (req, res, next) => {
                   to: biller.recieverEmail,
                   subject: 'Check Received',
                   html: str,
-                  from: 'echeck@rxcoin.net'
+                  from: 'support@pay2mate.com'
               })
           }
       } catch (error) {
@@ -373,7 +373,7 @@ exports.saveCheck = async (req, res, next) => {
                   to: model.senderPartnerEmail,
                   subject: 'Check Signatory Request',
                   html: str,
-                  from: 'echeck@rxcoin.net'
+                  from: 'support@pay2mate.com'
               })
           }
       } catch (error) {
@@ -505,7 +505,7 @@ exports.saveCheckBack = async (req, res, next) => {
                   to: model.recieverPartnerEmail,
                   subject: 'Check Signatory Request',
                   html: str,
-                  from: 'echeck@rxcoin.net'
+                  from: 'support@pay2mate.com'
               })
           }
       } catch (error) {
@@ -641,7 +641,7 @@ exports.saveCheckSenderPartnerSign = async (req, res, next) => {
                     to: model.recieverEmail,
                     subject: 'Check Received',
                     html: str,
-                    from: 'echeck@rxcoin.net'
+                    from: 'support@pay2mate.com'
                 })
             }
         } catch (error) {

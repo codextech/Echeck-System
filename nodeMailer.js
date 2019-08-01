@@ -1,12 +1,21 @@
 const nodemailer = require('nodemailer');
-const sendgridTransport = require('nodemailer-sendgrid-transport');
+// const sendgridTransport = require('nodemailer-sendgrid-transport');
 
 
-const transporter = nodemailer.createTransport(sendgridTransport({
-  auth:{
-    api_key : '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'
-
-  }
-}));
+const transporter = nodemailer.createTransport(
+{
+  host: "mail.pay2mate.com",
+  port: 465,
+  secure: true,
+  auth: {
+    user: "support@pay2mate.com",
+    pass: "Pay2Mate9477#"
+  },
+  requireTLS: true,
+  tls: {
+    rejectUnauthorized: false
+  },
+}
+);
 
 module.exports = transporter;

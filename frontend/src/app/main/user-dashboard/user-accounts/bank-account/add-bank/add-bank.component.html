@@ -32,8 +32,20 @@
               </div>
               <br>
             </div>
-            <button
-             type="submit" class="btn primary mb-3">Add</button>
+            <div class="form-row justify-content-center">
+              <div class="form-group col-sm-6 text-center">
+                <button
+                type="submit" class="btn primary mb-3">Add
+               </button>
+               <button *ngIf="newBank == false" (click)="newBank =true;bankModel={}"
+              type="button" class="btn danger mb-3 ml-2">Cancel
+             </button>
+              </div>
+            </div>
+
+
+
+
           </div>
 
         </form>
@@ -60,7 +72,7 @@
                   (click)="routNumber.open()"
                   type="button"
                   class="btn accent">
-                  <i class="fa fa-plus-circle"></i>
+                  <i class="fa fa-search"></i>
                   Search By Routing Number
                 </button>
               </div>
@@ -166,11 +178,27 @@
                   <ngu-tile *nguCarouselDef="let item; let i = index">
 
 
+
                         <img class="w-100 bank-logo"
                          [src]="item.bankLogo"
                         (click)="activeIndex = i; selectLogo(item.bankLogoId)"
                         [ngClass]="{selected: activeIndex === i}">
 
+                        <div [ngClass]="{select:selctedBankLogoId  == item.bankLogoId,
+                          'unselect': !(selctedBankLogoId  == item.bankLogoId)}">
+                         <button class="btn" type="button" >
+                           <i class="fa fa-check-square-o"></i>
+                       </button>
+                     </div>
+
+               <div *ngIf="selctedBankLogoId  == item.bankLogoId"
+                     [ngClass]="{remove:selctedBankLogoId  == item.bankLogoId}">
+
+                    <a (click)="unselectedLogo()" class="btn btn-icon btn-social red" type="button" >
+                      <i class="fa fa-times"></i>
+                      <i class="fa fa-times"></i>
+                    </a>
+                </div>
                   </ngu-tile>
 
                   <button type="button" NguCarouselPrev class="leftRs md-btn md-fab primary">
@@ -187,22 +215,41 @@
 
               </div>
 
+
               <div class="form-row">
+
+                <div class="form-group col-md-12 mt-3">
+                    <p>
+                        <label class="md-check">
+                            <input
+                             name="bankLogoUploadContainer"
+                             type="checkbox"
+                             (change)="bankLogoUploadContainer = !bankLogoUploadContainer" >
+                            <i class="blue"></i>
+                          <strong>
+                            Do you want to upload a new logo for your bank?
+                          </strong>
+                        </label>
+                    </p>
+              </div>
+            </div>
+
+              <div *ngIf="bankLogoUploadContainer" class="form-row">
 
                   <div class="form-group col-md-4">
 
-            <label for=""><b>OR</b>  Add New Logo</label>
-
+            <label for=""> Add New Logo</label>
 
               <dropzone class="dropzone-container" [config]="config"
               [message]="'click here to upload Bank Logo'"
              (sending)="onSending($event)"
              (success)="onUploadSuccess($event)"
              (error)="onUploadError($event)"
-             (change)="onClickNewLogoUpload($event)"
+             (addedFile)="addedImageInDropZone($event)"
+             (removedFile)="removeImageFromZone($event)"
              ></dropzone>
 </div>
-</div>
+              </div>
 
             <button type="submit" class="btn primary">Submit</button>
           </form>

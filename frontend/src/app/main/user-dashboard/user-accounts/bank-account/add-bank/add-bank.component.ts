@@ -14,7 +14,6 @@ import { UserAuthService } from 'src/app/_services/user-auth.service';
 })
 export class AddBankComponent implements OnInit {
 
-
   constructor(private accountService: UserAccountService,
     private toastr: ToastrService,
     private authService: UserAuthService,
@@ -50,11 +49,17 @@ newLogo = true;
      cancelReset: null,
      acceptedFiles: 'image/*',
      maxFiles: 1,
+     addRemoveLinks: true
    };
 
    @ViewChild(DropzoneComponent) drpzone?: DropzoneComponent;
    @ViewChild(DropzoneDirective) directiveRef?: DropzoneDirective;
 
+   selctedBankLogoId: any;
+
+   // new Logo
+   bankLogoUploadContainer = false;
+   isNewBankLogoUpload = false;
 
 
 
@@ -145,9 +150,15 @@ newLogo = true;
 
   addNewBank() {
 
-    if (this.newLogo) {
+    if (this.isNewBankLogoUpload && this.selctedBankLogoId == null) {
   this.drpzone.directiveRef.dropzone().processQueue();
-    } else {
+  console.log('1');
+
+    } else if (this.isNewBankLogoUpload == false && this.selctedBankLogoId != null) {
+  console.log('else if');
+  console.log(this.isNewBankLogoUpload);
+  console.log(this.selctedBankLogoId);
+
       this.accountService.addBank(this.bankModel).subscribe(result => {
         this.ngxModalService.open('bankaddModal');
       }, err => {
@@ -155,11 +166,14 @@ newLogo = true;
 
         this.toastr.error(err.error.message);
       });
+    } else if(this.isNewBankLogoUpload == false && this.selctedBankLogoId == null) {
+      this.toastr.error('Please Choose Logo Image');
+    } else {
+       this.toastr.error('You can not "Select Logo image" or "upload new Logo"  at a time');
     }
   }
 
   onSending(_filesEvent): any {
-    console.log(this.authService.getUserId);
 
     if (_filesEvent) {
        const formData = _filesEvent[2];
@@ -187,14 +201,19 @@ newLogo = true;
 
 
   selectLogo(id) {
-    const bankLogo = this.bankLogos.find(item => item.bankLogoId === id);
+
+      const bankLogo = this.bankLogos.find(item => item.bankLogoId === id);
     this.bankModel.bankLogoId = bankLogo.bankLogoId;
-    this.newLogo = false;
+   this.selctedBankLogoId = id;
+      // this.toastr.error('You can not "Select Logo image" or "upload new Logo"  at a time');
+
+}
+
+unselectedLogo() {
+  this.selctedBankLogoId = null;
 }
 
 SelectExisitingBank(value) {
-
-  console.log(value);
 
   if (value == 0) {
     this.newBank = true;
@@ -205,15 +224,32 @@ SelectExisitingBank(value) {
 
 }
 
-onClickNewLogoUpload(_filesEvent) {
-  if (_filesEvent) {
-  this.newLogo = true;
-  } else {
-  this.newLogo = false;
-  }
-}
+// onClickNewLogoUpload(_filesEvent) {
+//   if (_filesEvent) {
+//   this.newLogo = true;
+//   } else {
+//   this.newLogo = false;
+//   }
+// }
 
   onClickAddAnother() {
     this.bankModel = {};
+  }
+
+  addedImageInDropZone(_filesEvent) {
+    // console.log(_filesEvent);
+    // this.LogoImageObject = _filesEvent.dataURL;
+    this.newLogo = true;
+    this.isNewBankLogoUpload = true;
+  // this.selctedBankLogoId = null;
+    // this.toastr.show('Logo Re');
+  }
+
+  removeImageFromZone(_filesEvent) {
+    // this.LogoImageObject = null;
+  // this.toastr.show('image removed');
+  this.newLogo = false;
+  this.isNewBankLogoUpload = false;
+
   }
 }

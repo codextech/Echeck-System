@@ -3,7 +3,7 @@
     <div class="col-sm-12">
       <div class="box" style="transition: background-color 800ms linear" [style.background]="edit==true?'#285f941a':'white'">
         <div class="box-header">
-          <h2>Account Signature</h2>
+          <h2>Bank Account Signature</h2>
 
         </div>
         <div class="box-body">
@@ -38,10 +38,10 @@
                 </select>
               </div>
 
-              <div class="col-sm-6">
-                <div class="box p-3">
+              <div class="col-sm-4">
+                <div class="file-upload-container p-3">
 
-                  <div *ngIf="signImage" class="col-6 col-sm-3 col-md-4">
+                  <div *ngIf="signImage" style="margin: auto" class="col-6 col-sm-3 col-md-4">
                     <div class="box">
                       <div>
                         <img class="w-100" alt="" [src]="signImage" />
@@ -49,14 +49,21 @@
                     </div>
                   </div>
 
-                  <br />
                   <input style="display:none" #signFile type="file" (change)="onSignImagePicked($event)" />
 
-                  <button [disabled]="!isAccountSelected" type="button" (click)="signFile.click()" class="btn  btn-outline b-accent text-accent">
+                  <button *ngIf="!signImage" [disabled]="!isAccountSelected"
+                   type="button" (click)="signFile.click()"
+                   class="btn btn-fw accent">
                     <i class="fa fa-image"></i>
                     Upload Signature
                   </button>
 
+                  <button *ngIf="signImage"
+                      type="button"
+                      (click)="cancelsignImage()"
+                      class="btn default ml-2">
+                      Cancel
+                  </button>
 
                 </div>
               </div>
@@ -82,8 +89,11 @@
             <td>{{ row.bank.bankName }}</td>
             <td>{{ row.accountNumber }}</td>
             <td>{{ row.accountName }}</td>
-            <td>
+            <td *ngIf="row.signatureImage">
               <img [src]="row.signatureImage" height=60 width=80>
+            </td>
+            <td *ngIf="!row.signatureImage">
+              -
             </td>
 
             <td class="fit">

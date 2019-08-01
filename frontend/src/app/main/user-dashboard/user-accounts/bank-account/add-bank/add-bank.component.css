@@ -45,7 +45,8 @@
 }
 
 .bank-logo {
-  height: 70px;
+  /* height: 70px; */
+  cursor: pointer;
 }
 
 .rightRs {
@@ -125,3 +126,46 @@
   border: 2px dashed #5aa9fa;
   background-color: #fff;
 }
+
+
+
+   /* bank logo image selection */
+
+   .unselect {
+    padding-top: 2px;
+    padding-right: 2px;
+    position: absolute;
+    right: -10px;
+    top: -5px;
+    display: none;
+  }
+
+  .select {
+    padding-top: 2px;
+    padding-right: 2px;
+    position: absolute;
+    right: -10px;
+    top: -5px;
+    display: block;
+  }
+
+  .theme-primary {
+    color: rgba(255, 255, 255, 0.85);
+    background-color: #285f94;
+  }
+
+
+  .remove {
+    padding-top: 2px;
+    padding-right: 2px;
+    position: absolute;
+    right: 100px;
+    top: -5px;
+    display: block;
+    cursor: pointer;
+  }
+
+  .btn-icon {
+    width: 2rem;
+    height: 2rem;
+  }

@@ -69,8 +69,9 @@ export class AddChequeComponent implements OnInit {
 
   checkImageFile: any;
 
-  chequeBackground = '../../../../../assets/cheque-background/default.jpg';
+   chequeBackground: string;
   isBackSelected = false;
+  selctedCheckBackgroundId: any;
   constructor(
     private recieverService: RecieverService,
     private accountService: UserAccountService,
@@ -306,9 +307,11 @@ export class AddChequeComponent implements OnInit {
             senderzipCode = account.company.zipCode;
           }
           if (account.individualAccount) {
-            senderName = this.user.firstName ;
-            senderAddress = this.user.address;
-            senderzipCode = this.user.zipCode;
+            // senderName = this.user.firstName ;
+            // senderAddress = this.user.address;
+            // senderzipCode = this.user.zipCode;
+            senderName = account.accountName ;
+            senderAddress = account.address;
 
           }
 
@@ -364,6 +367,8 @@ export class AddChequeComponent implements OnInit {
 
   onCheckBackgroundPicked(event) {
     const file = (event.target as any).files[0];
+    console.log(file);
+
     if (file) {
       this.checkModel.checkBackgroundimage = file;
       const reader = new FileReader();
@@ -371,9 +376,12 @@ export class AddChequeComponent implements OnInit {
         this.checkBackgroundPreview = reader.result; // preview of image & change Check background Image
       };
       reader.readAsDataURL(file);
-         this.checkModel.checkBackgroundId = null; // user want to upload new background
+      // user want to upload new background
+         this.checkModel.checkBackgroundId = null;
        this.isBackSelected = false;
        this.chequeBackground = null;
+    // show selected button on selected pic
+      this.selctedCheckBackgroundId = null ;
     }
   }
 
@@ -433,13 +441,32 @@ export class AddChequeComponent implements OnInit {
 
 
   selectedBackground(id) {
+
       const back = this.backgrounds.find(item => item.checkBackgroundId == id);
       this.checkModel.checkBackgroundId = back.checkBackgroundId;
       // change background of Check
         this.chequeBackground = back.Image;
       // css style
       this.isBackSelected = true;
+      // show selected button on selected pic
+      this.selctedCheckBackgroundId = id ;
+      // remove  upload image instances
+      this.checkBackgroundPreview = null;
+      this.checkModel.checkBackgroundimage = null;
+
+
+      // remove image upload instances
+      //  this.checkBackgroundPreview = null;
+
+
   }
+
+  // public get isCrossedShow() {
+  //   if (isBackSelected == true && item.checkBackgroundId == selctedCheckBackgroundId) {
+
+  //   }
+  // }
+
 
 
   selectDocument(id) {
@@ -449,11 +476,25 @@ export class AddChequeComponent implements OnInit {
       this.documentName = document.documentName;
 
       this.ngxModalService.close('docModal');
+      this.toastr.success('Document is attatched');
 
+}
+
+cancelAttacthDocument() {
+  this.checkModel.documentId = null; //for model
+  this.documentName = null; // for view
 }
 
   convertAmountToWords() {
     this.wordsAmount = numbo.convert(this.checkModel.amount, 'check');
+  }
+
+
+  cancelCheckBackgroundPreview() {
+    // this.checkBackgroundPreview = null;
+    // this.checkModel.checkBackgroundimage = null;
+    // user cancel the new image and show by default
+    this.selectedBackground(this.backgrounds[0].checkBackgroundId);
   }
 
 

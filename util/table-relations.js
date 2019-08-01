@@ -16,7 +16,61 @@ const Document = require("../models/user-document");
 const BankLogo = require("../models/bank-logo");
 const UserBank = require("../models/user-bank");
 const IndividualCoPartner = require("../models/individual-copartner");
+const Slider = require("../models/slider");
 
+
+// Data
+
+const kycTypes = [
+  {
+    'kycType': 'Proof of Identity',
+    'kycTypeDescription': 'Passport, Drivers License, Adhar, Voter ID',
+  },
+  {
+    'kycType': 'Proof of Address',
+    'kycTypeDescription': 'Utility Bill, Cable Bill, Rental Bill, Traffic Tickets, Statement Copies',
+  },
+];
+
+
+const sliders = [
+  {
+    'sliderImage': 'https://www.pay2mate.com/uploads/pay2mate1.jpg'
+  },
+  {
+    'sliderImage': 'https://www.pay2mate.com/uploads/pay2mate2.jpg'
+  },
+];
+
+
+
+
+
+
+
+
+
+const accountTypes = [
+  {
+    'bankaccountType' : 'Personal Checking',
+  },  {
+    'bankaccountType' : 'Personal Savings ',
+  },  {
+    'bankaccountType' : 'Line of Credit',
+  },  {
+    'bankaccountType' : 'Money Market',
+  },  {
+    'bankaccountType' : 'Business Checking',
+  },  {
+    'bankaccountType' : 'Business Savings',
+  },  {
+    'bankaccountType' : 'Home Equity Loan',
+  },  {
+    'bankaccountType' : 'Business Loan',
+  },  {
+    'bankaccountType' : 'Personal Loan',
+  }
+];
 
 
 exports.allTableRealtions = () => {
@@ -168,6 +222,25 @@ Document.belongsTo(User,{foreignKey: 'userId'});
 Document.hasMany(Check,{foreignKey: 'documentId'});
 Check.belongsTo(Document,{foreignKey: 'documentId'});
 
+
+
+}
+
+
+
+exports.seedDatabase = async () =>  {
+
+  try {
+    await KycType.bulkCreate(kycTypes);
+
+    await BankAccountType.bulkCreate(accountTypes);
+
+    await Slider.bulkCreate(sliders);
+
+
+  } catch (error) {
+
+  }
 
 
 }

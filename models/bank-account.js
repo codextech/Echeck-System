@@ -15,6 +15,7 @@ const BankAccount = sequelize.define('bank_account', {
   },
   isSubAccount: Sequelize.BOOLEAN,
   subAccountNumber: Sequelize.STRING,
+  address: Sequelize.STRING,
   accountName: {
     type: Sequelize.STRING,
     allowNull: false

@@ -1,5 +1,15 @@
 
 
+
+.file-upload-container{
+  text-align: center;
+  box-shadow: none;
+  border: 1px solid #6284f369;
+  background: #2196f30d;
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
   .cheque-div > span{
   cursor: move;
   font-size: 18px;
@@ -120,9 +130,15 @@ margin-bottom: 0;
   height: 20px;
     padding: 2px;
     padding-left: 10px;
-    border-bottom: 1px solid rgba(105, 105, 105, 0.77);
+    /* border-bottom: 1px solid rgba(105, 105, 105, 0.77); */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.77);
     width: 100%;
     color: black;
+}
+
+#payer-info {
+  color: #272121;
+  font-weight: 600;
 }
 
 .md-form-group {
@@ -366,3 +382,31 @@ width: 25%;
    .cover:after {
      width: auto;
    }
+
+
+   /* check background image selection */
+
+   .unselect {
+    padding-top: 7px;
+    padding-right: 7px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: none;
+  }
+
+  .select {
+    padding-top: 7px;
+    padding-right: 7px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: block;
+  }
+
+
+
+  .theme-primary {
+    color: rgba(255, 255, 255, 0.85);
+    background-color: #285f94;
+  }

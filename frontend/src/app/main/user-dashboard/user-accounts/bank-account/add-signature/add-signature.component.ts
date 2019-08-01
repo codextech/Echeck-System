@@ -85,8 +85,14 @@ export class AddSignatureComponent implements OnInit {
     formData.append('signImage', this.signatureModel.signImage);
     formData.append('bankAccountId', this.signatureModel.bankAccountId);
     this.accountService.addBankAccountSignature(formData).subscribe(result => {
-      this.ngxModalService.open('signModal');
 
+      // temporay show image
+    const bankAccount = this.bankAccounts.find(i => i.bankAccountId == this.signatureModel.bankAccountId);
+    bankAccount.signatureImage = this.signImage;
+    // clear model
+    this.signatureModel = {};
+    this.isAccountSelected = false; // disabled button
+      this.ngxModalService.open('signModal');
 
       }, err => {
         console.log(err);
@@ -106,6 +112,10 @@ export class AddSignatureComponent implements OnInit {
       reader.readAsDataURL(file);
 
     }
+  }
+
+  cancelsignImage() {
+    this.signImage = null;
   }
 
   onClickAddAnother() {

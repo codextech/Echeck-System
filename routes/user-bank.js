@@ -47,7 +47,6 @@ router.post("/bank-account",checkAuth,
   bankController.creatBankAccount);
 
 router.put("/bank-account",checkAuth,
-  multer({ storage: fileStorage }).single("image"),
    bankController.updateBankAccount);
 router.delete("/bank-account",checkAuth, bankController.deleteBankAccount);
 

@@ -67,7 +67,6 @@ exports.signUp = async (req, res, next) => {
   try {
 
 
-    // if no token is present in Request
 
 
     // check  email
@@ -126,7 +125,7 @@ exports.signUp = async (req, res, next) => {
                     to: createdUser.email,
                     subject: 'Email Verification',
                     html: str,
-                    from: 'echeck@rxcoin.net'
+                    from: 'support@pay2mate.com'
                 })
             }
         } catch (error) {
@@ -273,7 +272,7 @@ exports.resetPasswordRequest = async (req, res, next) => {
                   to: req.body.email,
                   subject: 'Reset Password Request',
                   html: str,
-                  from: 'echeck@rxcoin.net'
+                  from: 'support@pay2mate.com'
               })
           }
       } catch (error) {

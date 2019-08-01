@@ -30,6 +30,7 @@ import { HomeModule } from './home/home.module';
 import { LandingLayoutModule } from './layout/landing-layout/landing-layout.module';
 import { NgxUiLoaderConfig, SPINNER, NgxUiLoaderModule } from 'ngx-ui-loader';
 import { AuthorizationGuard } from './_guards/authorization.guard';
+import { PaginationService } from 'ngx-pagination';
 
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
@@ -51,7 +52,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsPosition: 'center-center',
   bgsSize: 50,
   bgsType: SPINNER.circle,
-  text: 'Loading...'
+  text: 'Loading...',
 };
 
 @NgModule({
@@ -71,7 +72,11 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
     NgxSmartModalModule.forRoot(), // for Modal
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot(), // ToastrModule added
+    ToastrModule.forRoot({
+      positionClass : 'toast-top-center',
+      progressBar: true,
+      progressAnimation:	'increasing'
+    }), // ToastrModule added
     BsDatepickerModule.forRoot(),
     JwtModule.forRoot({
       config: {
@@ -86,7 +91,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     {provide: DROPZONE_CONFIG, useValue: DEFAULT_DROPZONE_CONFIG},
      UserAuthService,
       AuthGuard,
-      AuthorizationGuard
+      AuthorizationGuard,
     ],
   bootstrap: [AppComponent]
 })

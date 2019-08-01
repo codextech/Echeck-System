@@ -235,6 +235,7 @@ exports.creatBankAccount = async (req, res, next) => {
       {
         accountName: model.accountName,
         accountNumber: model.accountNumber,
+        address: model.address,
         isSubAccount: model.isSubAccount,
         subAccountNumber: model.subAccountNumber,
         userId: model.userId,
@@ -311,18 +312,12 @@ exports.getBankAccountById = async (req, res, next) => {
 exports.updateBankAccount = async (req,res,next) => {
   const model = req.body;
   var bankAccount;
-  var signId;
+  var coPartnerId;
 try {
 
 
 
   bankAccount = await BankAccount.findOne({where: {bankAccountId: model.bankAccountId}});
-
-  // bankAccount = await BankAccount.findOne({where: {companyId: model.companyId, bankId: model.bankId}});
-
-  // if (bankAccount) {
-  //   return res.status(400).json({ message: "Bank is already attached to company" });
-  // }
 
 
   if (!bankAccount) {
@@ -332,12 +327,17 @@ try {
 
       bankAccount = await BankAccount.update(
         {
-          accountTypeId: model.bankaccountTypeId,
           accountName: model.accountName,
           accountNumber: model.accountNumber,
+          address: model.address,
           isSubAccount: model.isSubAccount,
           subAccountNumber: model.subAccountNumber,
           userId: model.userId,
+          individualAccount: model.individualAccount,
+          isIndividualCoPartner: model.isIndividualCoPartner,
+          accountTypeId: model.accountTypeId,
+          coPartnerId: coPartnerId,
+          companyId: model.companyId,
           bankId: model.bankId,
         },{where: { bankAccountId: model.bankAccountId }});
 

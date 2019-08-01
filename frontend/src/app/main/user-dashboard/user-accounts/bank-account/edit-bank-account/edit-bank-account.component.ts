@@ -3,6 +3,7 @@ import { UserAccountService } from 'src/app/_services/user-account.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserCompanyService } from 'src/app/_services/user-company.service';
+import { NgxSmartModalService } from 'ngx-smart-modal';
 
 @Component({
   selector: 'app-edit-bank-account',
@@ -20,11 +21,17 @@ export class EditBankAccountComponent implements OnInit {
   imagePreview: any;
   signature: any;
   isSignSelected = false;
+
+
+  // edit
+
+  coSignatory: boolean;
   constructor(private accountService: UserAccountService,
               private activatedRoute: ActivatedRoute,
               private toastr: ToastrService,
               private router: Router,
-              private companyService: UserCompanyService) { }
+              private companyService: UserCompanyService,
+              private ngxModalService: NgxSmartModalService) { }
 
   ngOnInit() {
     this.getBankList(); // bank dropdown
@@ -74,11 +81,9 @@ export class EditBankAccountComponent implements OnInit {
   getBankAccountById(bankAccountId) {
     console.log(bankAccountId);
     this.accountService.getBankAccountById(bankAccountId).subscribe(result => {
-      console.log(result);
       this.accountModel = result.data;
-      // // get image used by user in bank account
-      // this.signature = this.signatures.
-      //   find(item => item.signatureId === this.accountModel.signatureId).signatureImage;
+      const accountType = this.bankAccountTypes.find( i => i.bankAccountTypeId === this.accountModel.accountTypeId);
+      this.accountModel.accountTypeId  = accountType.bankAccountTypeId;
     });
   }
 
@@ -127,4 +132,29 @@ export class EditBankAccountComponent implements OnInit {
   // }
 
 
+  onClickIndividualAccount(indiv) {
+    this.accountModel.businessAccount = false;
+    if (indiv) {
+      this.coSignatory = true;
+      // this.ngxModalService.open('coPartnerMsg');
+    } else{
+      this.coSignatory = false;
+    }
+  }
+
+  onClickBusinessAccount(business) {
+    this.accountModel.individualAccount = false;
+    if (business) {
+      this.ngxModalService.open('businessDropDown');
+    }
+  }
+
+  onClickCoPartnerInfo(option: boolean) {
+    this.accountModel.isIndividualCoPartner = option;
+  }
+
+  onClickAddAnother() {
+    this.accountModel = {};
+    return null;
+  }
 }
