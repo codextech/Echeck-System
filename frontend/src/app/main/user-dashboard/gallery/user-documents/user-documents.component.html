@@ -21,21 +21,24 @@
 
 
 
- <div class="col-md-12 mt-3">
+ <div *ngIf="docs.length > 0" class="col-md-12 mt-3">
+
+    <h4 class="text-muted">Documents</h4>
 
 
-  <div *ngIf="docs.length > 0" class="row row-xs">
+  <div class="row row-xs">
+
 
       <div  *ngFor="let doc of docs | filterBy: docFilter | paginate: { itemsPerPage: 12, currentPage: p }"
        class="col-6 col-sm-4 col-md-2">
           <div class="box p-1 doc-container">
 
             <!-- Only For Images -->
-                  <img *ngIf="(doc.documentUrl | extention) == true"
+                  <img *ngIf="(doc.documentUrl | extention) == true" title="Image"
                   class="doc-image" [src]="doc.documentUrl" alt="">
                   <!-- Another Document -->
-                  <img *ngIf="(doc.documentUrl | extention) == false"
-                  class="doc-image" src="http://www.imperialtools.in/wp-content/uploads/2017/04/58304-page-icon-blue-rwd.png.rendition.intel_.web_.225.225.png" alt="">
+                  <img title="File" *ngIf="(doc.documentUrl | extention) == false"
+                  class="doc-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxXpfgfkMNDW_ob3dAHNcsCkPVvJrpRJA_E6BGEyk7M15wBBgL" alt="">
 
                   <div class="delete">
                     <button (click)="deleteDocument(doc.documentId)" class="btn danger" type="button" ><i class="fa fa-trash"></i>

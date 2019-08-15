@@ -47,9 +47,6 @@ export class AddSignatureComponent implements OnInit {
 
   ngOnInit() {
     this.getSignatures();
-    setTimeout(() => {
-    this.getBankAccounts();
- }, 1000);
   }
 
   getBankAccounts() {
@@ -57,12 +54,18 @@ export class AddSignatureComponent implements OnInit {
       result => {
         this.bankAccounts = result.data;
         this.bankAccounts.map(item => {
-          const sign = this.signatures.filter(s => s.signatureId == item.signatureId);
+          const sign = this.signatures.filter(s => s.signatureId === item.signatureId);
+          console.log(sign);
+          if (sign.length != 0) {
           item.signatureImage = sign[0].signatureImage;
+          }
         });
-        console.log(this.bankAccounts);
+
       },
-      err => {}
+      err => {
+        console.log('error in getBankAccounts');
+        console.log(err);
+      }
     );
   }
 
@@ -71,6 +74,7 @@ export class AddSignatureComponent implements OnInit {
       result => {
         console.log(result);
         this.signatures = result.data;
+        this.getBankAccounts();
       },
       err => console.log(err)
     );

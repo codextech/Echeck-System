@@ -248,7 +248,7 @@ margin-bottom: 0;
 
 
 
-:host /deep/  .tile[_ngcontent-c7] {
+:host /deep/ .tile[_ngcontent-c7] {
   box-shadow: none;
 }
 
@@ -325,6 +325,14 @@ margin-bottom: 0;
 
 .bank-logo-img {
   float: left;
+
+  /* /new */
+
+  width: 50px;
+    height: 50px;
+    position: relative;
+    display: block;
+    z-index: 10;
 }
 
 .bank-logo-txt {
@@ -336,8 +344,8 @@ margin-bottom: 0;
 }
 
 .sign-img-container {
-  height: 50px;
-    width: 25%;
+  /* height: 50px; */
+    width: 100px;
     display: inline-block;
 }
 /*  check Text fileds and labels width */
@@ -410,3 +418,72 @@ width: 25%;
     color: rgba(255, 255, 255, 0.85);
     background-color: #285f94;
   }
+
+
+
+  /* Attach Files */
+
+  .doc-container {
+  /*   height: 100%;
+    max-height: 150px; */
+
+    border-radius: 5px;
+    /* overflow: hidden; */
+    /* width: 100%; */
+    width: 130px;
+    height: 130px;
+    position: relative;
+    display: block;
+    z-index: 10;
+   }
+
+   .doc-image {
+     width: 100%;
+     height: 100%;
+     cursor: pointer;
+   }
+
+
+   :host /deep/ .document-modal {
+    max-width: 1024px;
+   }
+
+
+   .document-text{
+    word-break: break-word;
+    margin-top: .5em;
+   }
+
+
+   .hr-text {
+    font-size: 17px;
+    position: relative;
+    border: 0;
+    height: 1.5em;
+   }
+
+
+ .hr-text:before {
+    content: '';
+   background: linear-gradient(to right, transparent, #000000, transparent);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+}
+
+ .hr-text:after {
+  content: attr(data-content);
+  position: relative;
+  display: inline-block;
+  padding: 0 .5em;
+  line-height: 1.5em;
+  color: #f4fafe;
+  background-color: #79bcff;
+}
+
+
+.signle-sign{
+float: right;
+}

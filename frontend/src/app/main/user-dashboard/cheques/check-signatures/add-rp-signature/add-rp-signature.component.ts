@@ -4,6 +4,7 @@ import htmlToImage from 'html-to-image';
 import { ActivatedRoute } from '@angular/router';
 import { UserCheckService } from 'src/app/_services/user-check.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-rp-signature',
@@ -23,6 +24,7 @@ export class AddRpSignatureComponent implements OnInit {
   checkBackImageFile: any;
   constructor(private checkService: UserCheckService,
     private ngxUiLoaderService: NgxUiLoaderService,
+    private toastr: ToastrService,
               private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
@@ -63,6 +65,11 @@ export class AddRpSignatureComponent implements OnInit {
     this.checkService.addCheckBackSecondSign(formData).subscribe(
       result => {
         console.log(result.data);
+        this.toastr.success('Successfully Signed on Check ');
+        setTimeout(() => {
+        window.location.href = `http://localhost:4200/dashboard`;
+        }, 1500);
+        // ${environment.apiUrl}
       },
       err => {
         console.log(err);
@@ -88,11 +95,17 @@ export class AddRpSignatureComponent implements OnInit {
       this.imagePreview = reader.result;
      };
      reader.readAsDataURL(file);
+     this.onClickFlip();
 
     }
   }
 
   onClickFlip() {
     this.flipCheck = !this.flipCheck;
+  }
+
+  cancelImagePreview() {
+    this.imagePreview = null;
+    this.onClickFlip();
   }
 }

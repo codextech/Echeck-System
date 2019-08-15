@@ -84,6 +84,19 @@ export class EditBankAccountComponent implements OnInit {
       this.accountModel = result.data;
       const accountType = this.bankAccountTypes.find( i => i.bankAccountTypeId === this.accountModel.accountTypeId);
       this.accountModel.accountTypeId  = accountType.bankAccountTypeId;
+
+      console.log(this.accountModel);
+      const partnerDetails = this.accountModel.individual_copartner;
+      // if personal co partner
+      if (this.accountModel.isIndividualCoPartner) {
+        this.accountModel.coPartnerName = partnerDetails.coPartnerName;
+        this.accountModel.middleName = partnerDetails.middleName;
+        this.accountModel.lastName = partnerDetails.lastName;
+        this.accountModel.partnerEmail = partnerDetails.partnerEmail;
+        this.accountModel.telephone = partnerDetails.telephone;
+        this.accountModel.partnerAddress = partnerDetails.partnerAddress;
+      }
+
     });
   }
 

@@ -19,8 +19,9 @@
             <div class="col-xl-2 col-lg-2 col-md-12 col-sm-6 col-6">
                 <!-- logo -->
                 <div class="logo">
-                    <a [routerLink]="['/']" routerLinkActive="router-link-active">
-                      <img src="../../../assets/logo.png" alt="pay 2 mate Logo"></a>
+                    <a [routerLink]="['/']">
+                      <img  style=" max-height: 4.5rem; width: 5.5rem;" src="../../../assets/logo.png"
+                       alt="Logo"></a>
                 </div>
             </div>
             <!-- logo -->
@@ -28,7 +29,7 @@
                   <div id="navigation">
                     <!-- navigation start-->
                     <ul>
-                        <li class="active"><a href="/" class="animsition-link">Home</a>
+                        <li class="active"><a [routerLink]="['/']" class="animsition-link">Home</a>
                             <!-- <ul>
                                 <li><a href="index.html" title="Home page 1" class="animsition-link">Home page 1</a></li>
                                 <li><a href="index-1.html" title="Home page 2" class="animsition-link">Home page 2</a></li>
@@ -42,10 +43,10 @@
                             </ul> -->
                         </li>
 
-                        <li><a href="compare-loan.html" class="animsition-link">Contact</a>
+                        <li><a [routerLink]="['/contact']" routerLinkActive="active" class="animsition-link">Contact</a>
                         </li>
 
-                        <li><a href="compare-loan.html" class="animsition-link">About</a>
+                        <li><a [routerLink]="['/about']" routerLinkActive="active" class="animsition-link">About</a>
                         </li>
 
                         <ng-template [ngIf]="!authService.loggedIn" [ngIfElse]="loggedOut">
@@ -63,6 +64,7 @@
 
                             <li *ngIf="authService.isAdmin">
                                 <a href="/admin/dashboard" routerLinkActive="active"
+                                style="color:#ffff"
 
                                  class="animsition-link dashboard-link">Dashboard</a>
                             </li>

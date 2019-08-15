@@ -26,7 +26,7 @@ fill: [app.color.primary]
           </span>
           <div class="list-body">
             <h4 class="m-0 text-md">
-              <a href="#"> {{sentChecks.length}} <span class="text-sm"></span></a>
+              <a [routerLink]="['/dashboard']"> {{sentChecks.length}} <span class="text-sm"></span></a>
             </h4>
             <small class="text-muted">Checks Sent</small>
           </div>
@@ -40,7 +40,7 @@ fill: [app.color.primary]
           </span>
           <div class="list-body">
             <h4 class="m-0 text-md">
-              <a href="#"><span class="text-sm">{{amountSent}} $ </span></a>
+              <a [routerLink]="['/dashboard']"><span class="text-sm">{{amountSent}} $ </span></a>
             </h4>
             <small class="text-muted">Amount Sent</small>
 
@@ -55,7 +55,7 @@ fill: [app.color.primary]
           </span>
           <div class="list-body">
             <h4 class="m-0 text-md">
-              <a href="#">{{recievedChecks.length}} <span class="text-sm"></span></a>
+              <a [routerLink]="['/dashboard']">{{recievedChecks.length}} <span class="text-sm"></span></a>
             </h4>
             <small class="text-muted">Checks Recieved</small>
           </div>
@@ -69,7 +69,7 @@ fill: [app.color.primary]
           </span>
           <div class="list-body">
             <h4 class="m-0 text-md">
-              <a href="#"><span class="text-sm">{{amountRecieved}} $ </span></a>
+              <a [routerLink]="['/dashboard']"><span class="text-sm">{{amountRecieved}} $ </span></a>
             </h4>
             <small class="text-muted">Amount Recieved</small>
 
@@ -84,7 +84,7 @@ fill: [app.color.primary]
           </span>
           <div class="list-body">
             <h4 class="m-0 text-md">
-              <a href="#">{{recievers.length}}<span class="text-sm"></span></a>
+              <a [routerLink]="['/dashboard']">{{recievers.length}}<span class="text-sm"></span></a>
             </h4>
             <small class="text-muted">Billers</small>
 
@@ -98,7 +98,7 @@ fill: [app.color.primary]
           </span>
           <div class="list-body">
             <h4 class="m-0 text-md">
-              <a href="#">{{bankAccounts.length}} <span class="text-sm"></span></a>
+              <a [routerLink]="['/dashboard']">{{bankAccounts.length}} <span class="text-sm"></span></a>
             </h4>
             <small class="text-muted">Bank Accounts</small>
 
@@ -129,7 +129,7 @@ fill: [app.color.primary]
             <div class="b-a b-2x r p-3 mb-2 step-content">
               <div class="py-3 text-center text-lg text-primary steps">
                 <span>1</span>
-                <img class="w-100" src="http://iconshow.me/media/images/ui/iOS7-optimized-icon/png/256/04.bank.png">
+                <img class="w-100" src="../../../assets/steps/bank.png">
               </div>
               <div class="d-flex">
                 <span class="text">Choose Bank</span>
@@ -149,7 +149,7 @@ fill: [app.color.primary]
               <div class="py-3 text-center text-lg text-primary steps">
                 <span>2</span>
                 <img class="w-100"
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOMbWr3WZK4BHleRF8USIm8LyZG0DiMRTqHk3fKosy17yxcbnO">
+                  src="../../../assets/steps/bank-account.png">
               </div>
               <div class="d-flex">
                 <span class="text">Add Bank Account</span>
@@ -166,7 +166,7 @@ fill: [app.color.primary]
             <div class="b-a b-2x r p-3 mb-2 step-content">
               <div class="py-3 text-center text-lg text-primary steps">
                 <span>3</span>
-                <img class="w-100" src="https://img5.androidappsapk.co/300/1/2/6/org.digitalsoft.checkwriter.png">
+                <img class="w-100" src="../../../assets/steps/checked.png">
               </div>
               <div class="d-flex">
                 <span class="text">Make Payment </span>

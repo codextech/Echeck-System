@@ -23,6 +23,8 @@ const userHelper = require("../helpers/userHelper");
 
 const genericHelper = require("../helpers/genericResponse");
 
+const globalHelper = require("../helpers/globalHelper");
+
 
 
 
@@ -223,7 +225,8 @@ exports.saveCheck = async (req, res, next) => {
       checkFront: checkFrontImage,
     });
 
-    if (model.senderOnBhalfSign != 'false' && model.senderOnBhalfSign != 'undefined') {
+    // uploaded second partner sign by First Partner
+    if (model.uploadPartnerSignature != 'false' && model.uploadPartnerSignature != 'undefined') {
       var secondPartnerSign = genericHelper.getImageUrlFromArray(req, req.files['secondSignImage'][0]); // url of image
        savedSecondPartnerSign = await Signature.create({
         signatureImage: secondPartnerSign,
@@ -250,8 +253,8 @@ exports.saveCheck = async (req, res, next) => {
     if (checkBackgroundId) {
 
       // second Sender Partner
-
-      if (model.senderPartnerEmail) {
+      // --->>> if (model.senderPartnerEmail)
+        if (model.uploadPartnerSignature != 'true' && model.senderPartnerEmail != undefined) {
         signatureCompleted = false;  // we have to send email to sender Paertner
         foundSenderPartner = await userHelper.getUserByEmail(model.senderPartnerEmail);
       }
@@ -300,10 +303,12 @@ exports.saveCheck = async (req, res, next) => {
 
       });
 
+
     }
 
 /* ------------------  ##### ------------------------- ##### --------------- */
     // if reciever email not present in Db & isSignCompleted true then send token
+    // --->>>> foundReciever !=null & sign = true
 
     if (!foundReciever && signatureCompleted) {
       // generate Token against checkId
@@ -321,7 +326,7 @@ exports.saveCheck = async (req, res, next) => {
 
       var link = `${apiUrl}/check/check-recieved?checkToken=${checkToken}`;
       ejs.renderFile(path.join(ROOT ,'/emails/check.ejs'),
-      { message: 'you recievd a check',
+      { message: 'you recieved a check',
        amount: savedCheck.amount ,
         token: link
       },
@@ -343,11 +348,23 @@ exports.saveCheck = async (req, res, next) => {
 
 
     }
+    else if(foundReciever && signatureCompleted) {
+        // reciever email present in Db , send email
+
+        const emailObj = {
+          msg: 'You recieved a check Please click the button to view your check',
+          amount: savedCheck.amount,
+          link: `${APPURL}recieved-checks`,
+          userEmail: biller.recieverEmail,
+          subject: 'Check Received'
+        }
+       await globalHelper.checkEmailNotification(emailObj); // send email to inform user
+    }
 
 
 /* ------------------  ##### sender Partner Email  ##### --------------- */
-// if senderPartner is not in db and email false then send email
-    if (senderPartnerId == undefined && model.senderPartnerEmail) {
+// if senderPartner is not in db and sign is not done on behalf  then send email
+    if (senderPartnerId == undefined && model.uploadPartnerSignature != 'true' && model.senderPartnerEmail != undefined) {
       var senderPartnerToken = await generateCryptoToken();
 
       const tokenModel = {
@@ -380,6 +397,19 @@ exports.saveCheck = async (req, res, next) => {
           console.log(error)
       }
   });
+
+    } else if (senderPartnerId != undefined && model.senderPartnerEmail != undefined) {
+       // sender email present in Db , send email if sign on behalf not done
+       if (model.uploadPartnerSignature != 'true') {
+        const emailObj = {
+          msg: 'Your Partner requires your signature on check. Please click the button to view check',
+          amount: savedCheck.amount,
+          link: `${APPURL}sender/signature-requests`,
+          userEmail: foundSenderPartner.email,
+          subject: 'Check Signatory Request'
+        }
+       await globalHelper.checkEmailNotification(emailObj); // send email to inform user
+       }
 
     }
 
@@ -461,61 +491,40 @@ exports.saveCheckBack = async (req, res, next) => {
     if (!foundRecieverPartner) {
 
       // generate Token against checkId
-
       var checkToken = await generateCryptoToken();
-
       // save token into db
-
       const tokenModel = {
         token: checkToken,
         tokenType: TokenType.recPartnerSign,
         userId: model.userId,
         checkId: checkDetails.checkId
       }
-
       var rpCreatedToken = await CheckHelper.createToken(tokenModel);
-
-      // send email to Reciver For check
-
-      // var sendEmail = await transporter.sendMail({
-      //   to: model.recieverPartnerEmail,
-      //   from: 'echeck@gmail.com',
-      //   subject: 'Request For Signature',
-      //   html: `<h1>Hi, Your Business partner recieve Check For ${checkDetails.recieverName} </h1>
-      //           Please provide your sign in  the check
-      //         <a href="${apiUrl}/check/sign/reciever-partner?checkToken=${rpCreatedToken.token}">
-      //         View Check
-      //       </a> `
-      // });
-
-
-
-      var link = `${apiUrl}/check/sign/reciever-partner?checkToken=${rpCreatedToken.token}`;
-      ejs.renderFile(path.join(ROOT ,'/emails/check.ejs'),
-      { message: `Your Business partner recieve Check
-      and Need your signature on the check`,
-       amount: checkDetails.amount ,
-        token: link
-      },
-       async (err, str) => {
-      try {
-          if (err) { throw err }
-           else {
-              await transporter.sendMail({
-                  to: model.recieverPartnerEmail,
-                  subject: 'Check Signatory Request',
-                  html: str,
-                  from: 'support@pay2mate.com'
-              })
-          }
-      } catch (error) {
-          console.log(error)
+      const emailObj = {
+        msg: `Your Business partner recieve Check
+        and Need your signature on the check`,
+        amount: checkDetails.amount,
+        link: `${apiUrl}/check/sign/reciever-partner?checkToken=${rpCreatedToken.token}`,
+        userEmail: model.recieverPartnerEmail,
+        subject: 'Check Signatory Request'
       }
-  });
+     await globalHelper.checkEmailNotification(emailObj); // send email
+
+
+    } else { // if reciever ind Db just inform him via email
+
+      const emailObj = {
+        msg: `Your Business partner recieve Check
+        and Need your signature on the check`,
+        amount: checkDetails.amount,
+        // link: `${APPURL}reciever/signature-requests`,
+        link: `${APPURL}dashboard`,
+        userEmail: foundRecieverPartner.email,
+        subject: 'Check Signatory Request'
+      }
+     await globalHelper.checkEmailNotification(emailObj); // send email to inform user
 
     }
-
-
 
 
   } catch (error) {
@@ -715,6 +724,8 @@ exports.saveCheckRecieverPartnerSign = async (req, res, next) => {
         isRecieverSignCompleted: true,
       });
     }
+
+
 
 
   } catch (error) {

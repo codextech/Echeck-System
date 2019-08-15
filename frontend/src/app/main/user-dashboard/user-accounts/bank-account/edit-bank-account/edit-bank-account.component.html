@@ -136,11 +136,11 @@
 
                     <div *ngIf="coSignatory || accountModel.isIndividualCoPartner" class="form-group col-md-12">
                         <label>Do you also want to Keep this account Co-Signatory/Signatory ?  </label>
-                        <button class="btn white ml-3" type="button"
+                        <button class="btn btn-sm white ml-3" type="button"
                         (click)="coSignatory = false;  onClickCoPartnerInfo(false)" >No</button>
-                       <button class="btn primary ml-3"
+                       <button class="btn btn-sm primary ml-3"
                        (click)="coSignatory = false;coPartnerModal.open(); onClickCoPartnerInfo(true)"
-                        type="button">Yes</button>
+                        type="button">View Co-Signatory </button>
                     </div>
 
                   <div class="form-group col-md-6">
@@ -363,7 +363,7 @@
                   <div class="col-sm-12">
                       <div class="md-form-group float-label">
                         <input
-                          [(ngModel)]="accountModel.address"
+                          [(ngModel)]="accountModel.partnerAddress"
                           name="partnerAddress"
                           class="md-input"
                         />

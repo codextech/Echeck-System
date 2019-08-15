@@ -167,7 +167,7 @@ newLogo = true;
         this.toastr.error(err.error.message);
       });
     } else if(this.isNewBankLogoUpload == false && this.selctedBankLogoId == null) {
-      this.toastr.error('Please Choose Logo Image');
+      this.toastr.error('Please Choose Bank Logo');
     } else {
        this.toastr.error('You can not "Select Logo image" or "upload new Logo"  at a time');
     }

@@ -1,9 +1,13 @@
 
 
 .dashboard-link {
-  background: #83bceb54;
-    border-radius: 5px;
-    color: #15549a;
+  background: #285f94;
+    color: #ffffff;
+    border-radius: 0px;
+}
+
+.dashboard-link:hover {
+  background: #4283c0;
 }
 
 #logout {

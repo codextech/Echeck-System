@@ -39,19 +39,22 @@ export class RecievedCheckComponent implements OnInit {
 
 
   downLoadCheck() {
-    this.ngxUiLoaderService.start();
+    this.ngxUiLoaderService.startBackgroundLoader('master'); // Loader Start
+
     saveAs(this.checkModel.check_Image.checkFront, 'Check Front' + this.checkModel.billerId + '.png');
-    saveAs(this.checkModel.check_Image.checkBack, 'Check back' + this.checkModel.billerId +  '.png');
-    this.ngxUiLoaderService.stop();
+    if (this.checkModel.check_Image.checkBack) {
+      saveAs(this.checkModel.check_Image.checkBack, 'Check back' + this.checkModel.billerId +  '.png');
+    }
+    this.ngxUiLoaderService.stopBackground(); // Loader Start
+
   }
 
 
   downloadFile() {
     const file = this.checkModel.document;
-    this.ngxUiLoaderService.start();
+    this.ngxUiLoaderService.startBackgroundLoader('master'); // Loader Start
     saveAs(file.documentUrl , file.documentName);
-    this.ngxUiLoaderService.stop();
-
+    this.ngxUiLoaderService.stopBackground(); // Loader Start
   }
 
   onClickFlip() {

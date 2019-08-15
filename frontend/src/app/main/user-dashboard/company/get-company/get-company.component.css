@@ -30,3 +30,17 @@
 .btn{
     margin-right: 5px;
 }
+
+
+/* Add business Form */
+
+.float-label .md-input:not([value=""]) ~ label, .float-label .md-input:valid ~ label {
+  top: 0;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+:host /deep/ .business-modal {
+  max-width: 1024px;
+ }
+

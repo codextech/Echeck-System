@@ -7,14 +7,26 @@
           </div>
           <div class="box-body">
 
-              <p (click)="onClickFlip()" class="inline py-3 mt-3">
-                  <i class="fa fa-undo text-primary fa-2x"></i>
-              </p>
+
+              <button type="button" (click)="onClickFlip()" class="btn default inline mr-3 mt-3">
+                  <i class="fa fa-undo text-grey
+                   fa-1x"></i>
+                  Rotate
+              </button>
 
 
-              <p (click)="downLoadCheck()" class="inline py-3 mt-3">
-                  <i class="fa fa-cloud-download text-warning fa-2x"></i>
-              </p>
+              <button  type="button"  (click)="downLoadCheck()" class="btn white inline  mr-3 mt-3">
+                  <i class="fa fa-download text-black fa-1x"></i>
+                  Save Check
+              </button>
+
+              <button *ngIf="checkModel.documentId" type="button"
+              [title]="checkModel?.document.documentName"
+               (click)="downloadFile()" class="btn primary inline mr-3 mt-3">
+                  <i class="fa fa-cloud-download text-white fa-1x">
+                  </i>
+                  Download Attatchment
+              </button>
 
               <div  *ngIf="checkModel.check_BackGround"  class="check-boundary">
                   <ngx-flip [flip]="flipCheck">
@@ -33,7 +45,7 @@
               </div>
 
 
-              <div class="col-xs-12 col-md-6" *ngIf="checkModel.documentId">
+<!--               <div class="col-xs-12 col-md-6" *ngIf="checkModel.documentId">
 
                   <div class="box p-3">
                     <strong class="text-muted"><i class="fa fa-paperclip"></i> Attctached File</strong>
@@ -49,7 +61,7 @@
 
                 </div>
 
-
+ -->
           </div>
         </div>
       </div>

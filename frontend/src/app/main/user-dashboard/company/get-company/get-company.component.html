@@ -10,7 +10,7 @@
 
     <div class="col-md-12 table-responsive">
         <button
-        class="btn warning mb-3 btn-clr"
+        class="btn warning mt-3 mb-3 btn-clr"
         data-toggle="modal"
         (click)="compModal.open()">
         Add Business
@@ -43,7 +43,8 @@
 
 <!-- .modal Add company -->
 
-<ngx-smart-modal #compModal identifier="compModal" customClass="">
+<ngx-smart-modal [closable]='false' [dismissable]='false'
+ #compModal identifier="compModal" customClass="nsm-dialog-animation-ttb business-modal">
   <div class="modal-header">
     <h5 class="modal-title">Add Business</h5>
   </div>
@@ -52,7 +53,7 @@
       <div class="mb-2-lg row">
         <div class="col-sm-12">
           <div class="row row-sm">
-            <div class="col-sm-6">
+            <div class="col-sm-3">
               <div class="md-form-group float-label">
                 <input
                   [(ngModel)]="companyModel.companyName"
@@ -65,7 +66,7 @@
                 <label>Business Name</label>
               </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-3">
               <div class="md-form-group float-label">
                 <input
                   [(ngModel)]="companyModel.EIN"
@@ -79,7 +80,7 @@
               </div>
             </div>
 
-            <div class="col-sm-12">
+            <div class="col-sm-6">
                 <div class="md-form-group float-label">
                   <input
                     [(ngModel)]="companyModel.companyAddress"
@@ -93,7 +94,7 @@
                 </div>
               </div>
 
-            <div class="col-sm-6">
+            <div class="col-sm-3">
                 <div class="md-form-group float-label">
                   <input
                     [(ngModel)]="companyModel.companyCity"
@@ -107,7 +108,21 @@
                 </div>
             </div>
 
-            <div class="col-sm-6">
+            <div class="col-sm-3">
+                <div class="md-form-group float-label">
+                  <input
+                    [(ngModel)]="companyModel.companyCountry"
+                    name="companyCountry"
+                    class="md-input"
+                    #companyCountry="ngModel"
+                    [ngClass]="{'is-invalid': companyCountry.touched && companyCountry.invalid}"
+                    required
+                  />
+                  <label>Company Country</label>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
                 <div class="md-form-group float-label">
                   <input
                     [(ngModel)]="companyModel.companyZipCode"
@@ -121,7 +136,7 @@
                 </div>
             </div>
 
-            <div class="col-sm-6">
+            <div class="col-sm-3">
                 <div class="md-form-group float-label">
                   <input
                     [(ngModel)]="companyModel.companyTelephone"
@@ -149,10 +164,10 @@
             </div>
 
 
-   <div class="row row-sm"  *ngIf="companyModel.hasPartner">
+   <div class="row row-sm ml-1"  *ngIf="companyModel.hasPartner">
 
 
-            <div  class="col-sm-6 mt-3">
+            <div  class="col-sm-3 mt-3">
                 <div class="md-form-group float-label">
                   <input
                     [(ngModel)]="companyModel.partnerName"
@@ -164,7 +179,7 @@
                 </div>
           </div>
 
-          <div  class="col-sm-6 mt-3">
+          <div  class="col-sm-3 mt-3">
               <div class="md-form-group float-label">
                 <input
                   [(ngModel)]="companyModel.partnerMiddleName"
@@ -175,7 +190,7 @@
               </div>
         </div>
 
-        <div  class="col-sm-6 mt-3">
+        <div  class="col-sm-3 mt-3">
             <div class="md-form-group float-label">
               <input
                 [(ngModel)]="companyModel.partnerLastName"
@@ -186,7 +201,7 @@
             </div>
       </div>
 
-      <div class="col-sm-6 mt-3">
+      <div class="col-sm-3 mt-3">
           <div class="md-form-group float-label">
             <input
               [(ngModel)]="companyModel.partnerEmail"
@@ -198,7 +213,7 @@
           </div>
       </div>
 
-      <div  class="col-sm-6 mt-3">
+      <div  class="col-sm-3 mt-3">
           <div class="md-form-group float-label">
             <input
               [(ngModel)]="companyModel.partnerDesignation"
@@ -239,7 +254,9 @@
 <!-- Update Company -->
 
 
-<ngx-smart-modal #updateModal identifier="updateModal" customClass="">
+<ngx-smart-modal (onCloseFinished)="companyModel = {}"
+  [closable]='false' [dismissable]='false' #updateModal identifier="updateModal"
+  customClass="nsm-dialog-animation-ttb business-modal">
     <div class="modal-header">
       <h5 class="modal-title">Edit Business</h5>
     </div>
@@ -248,7 +265,7 @@
         <div class="mb-2-lg row">
           <div class="col-sm-12">
             <div class="row row-sm">
-              <div class="col-sm-6">
+              <div class="col-sm-3">
                 <div class="md-form-group float-label">
                   <input
                     [(ngModel)]="companyModel.companyName"
@@ -261,7 +278,7 @@
                   <label>Company Name</label>
                 </div>
               </div>
-              <div class="col-sm-6">
+              <div class="col-sm-3">
                 <div class="md-form-group float-label">
                   <input
                     [(ngModel)]="companyModel.EIN"
@@ -277,7 +294,7 @@
               </div>
 
 
-              <div class="col-sm-12">
+              <div class="col-sm-6">
                   <div class="md-form-group float-label">
                     <input
                       [(ngModel)]="companyModel.companyAddress"
@@ -291,7 +308,7 @@
                 </div>
 
 
-                <div class="col-sm-6">
+                <div class="col-sm-3">
                     <div class="md-form-group float-label">
                       <input
                         [(ngModel)]="companyModel.companyCity"
@@ -304,7 +321,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-6">
+                <div class="col-sm-3">
                     <div class="md-form-group float-label">
                       <input
                         [(ngModel)]="companyModel.companyCountry"
@@ -317,7 +334,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-6">
+                <div class="col-sm-3">
                     <div class="md-form-group float-label">
                       <input
                         [(ngModel)]="companyModel.companyZipCode"
@@ -330,7 +347,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-6">
+                <div class="col-sm-3">
                     <div class="md-form-group float-label">
                       <input
                         [(ngModel)]="companyModel.companyTelephone"
@@ -358,10 +375,10 @@
                 </div>
 
 
-                <div class="row row-sm"  *ngIf="companyModel.hasPartner">
+                <div class="row row-sm ml-1"  *ngIf="companyModel.hasPartner">
 
 
-                    <div  class="col-sm-6 mt-3">
+                    <div  class="col-sm-3 mt-3">
                         <div class="md-form-group float-label">
                           <input
                             [(ngModel)]="companyModel.partnerName"
@@ -372,7 +389,7 @@
                         </div>
                   </div>
 
-                  <div  class="col-sm-6 mt-3">
+                  <div  class="col-sm-3 mt-3">
                       <div class="md-form-group float-label">
                         <input
                           [(ngModel)]="companyModel.partnerMiddleName"
@@ -383,7 +400,7 @@
                       </div>
                 </div>
 
-                <div  class="col-sm-6 mt-3">
+                <div  class="col-sm-3 mt-3">
                     <div class="md-form-group float-label">
                       <input
                         [(ngModel)]="companyModel.partnerLastName"
@@ -394,7 +411,7 @@
                     </div>
               </div>
 
-              <div class="col-sm-6 mt-3">
+              <div class="col-sm-3 mt-3">
                   <div class="md-form-group float-label">
                     <input
                       [(ngModel)]="companyModel.partnerEmail"
@@ -405,7 +422,7 @@
                   </div>
               </div>
 
-              <div  class="col-sm-6 mt-3">
+              <div  class="col-sm-3 mt-3">
                   <div class="md-form-group float-label">
                     <input
                       [(ngModel)]="companyModel.partnerDesignation"

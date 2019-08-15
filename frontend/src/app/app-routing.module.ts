@@ -7,6 +7,7 @@ import { LANDING_LAYOUTS_ROUTES } from './layout/landing-layout/landingLayout.ro
 import { LandingLayoutComponent } from './layout/landing-layout/landing-layout.component';
 import { NoLayoutComponent } from './layout/admin-layout/no-layout/no-layout.component';
 import { NO_LAYOUTS_ROUTES } from './layout/admin-layout/no-layout/noLayout.routes';
+import { LandingPageComponent } from './home/landing-page/landing-page.component';
 
 const routes: Routes = [
 
@@ -20,7 +21,9 @@ const routes: Routes = [
 
  {path: '', component: NoLayoutComponent,
  children: NO_LAYOUTS_ROUTES
- }
+ },
+
+//  {path: '**', component: LandingPageComponent}
 
 ];
 

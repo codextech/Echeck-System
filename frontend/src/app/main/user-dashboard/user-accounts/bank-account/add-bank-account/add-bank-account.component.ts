@@ -4,6 +4,7 @@ import { UserCompanyService } from 'src/app/_services/user-company.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { NgxSmartModalService } from 'ngx-smart-modal';
+import { ConfigService } from 'src/app/_services/config-datatable';
 @Component({
   selector: 'app-add-bank-account',
   templateUrl: './add-bank-account.component.html',
@@ -21,23 +22,79 @@ export class AddBankAccountComponent implements OnInit {
   selectedImage: any;
   isSignSelected = false;
   coSignatory = false;
+
+
+  /* Bank Acounts */
+
+  configuration = ConfigService.config;
+  columns = [
+
+    {
+      key: 'bank',
+      title: 'Bank'
+    },
+    {
+      key: 'accountNumber',
+      title: 'Account Number'
+    },
+    {
+      key: 'accountName',
+      title: 'Account Holder Name',
+    },
+    {
+      key: 'accountType',
+      title: 'Account Type',
+    },
+    {
+      key: 'subAccount',
+      title: 'Sub Account'
+    },
+    {
+      key: 'actions', title: ''
+    }
+  ];
+
+  accounts: any[] = [];
+
+
   constructor(private accountService: UserAccountService,
-              private companyService: UserCompanyService,
-              private toastr: ToastrService,
-              private ngxModalService: NgxSmartModalService) { }
+    private companyService: UserCompanyService,
+    private toastr: ToastrService,
+    private ngxModalService: NgxSmartModalService) { }
 
   ngOnInit() {
-     this.getBankList(); // bank dropdown
-     this.getBankAccountType(); // bank account Type dropdown
-     this.getCompanies();
+    this.getBankList(); // bank dropdown
+    this.getBankAccountType(); // bank account Type dropdown
+    this.getCompanies();
+    this.getBankAccounts();
     //  this.getcompanyList(); // user company drop down
     //  this.getUserSignatures(); // user signatureHistory
+  }
+
+  // saved Bank accounts of user
+  getBankAccounts() {
+    this.accountService.getBankAccounts().subscribe(result => {
+      this.accounts = result.data;
+      console.log(this.accounts);
+    }, err => {
+    });
+  }
+
+  onDeleteAccount(id) {
+    this.accountService.deleteBankAccount(id).subscribe(result => {
+      console.log(result);
+      this.accounts = this.accounts.filter(item => item.bankAccountId !== id);
+      this.toastr.success('Deleted SuccesFully');
+
+    }, err => {
+
+    });
   }
 
 
   getBankList() {
     this.accountService.getBanks().subscribe(result => {
-    this.banks = result.data;
+      this.banks = result.data;
 
     }, err => console.log(err));
   }
@@ -46,7 +103,7 @@ export class AddBankAccountComponent implements OnInit {
   getBankAccountType() {
     this.accountService.getBankAccountTypes().subscribe(result => {
       console.log(result);
-    this.bankAccountTypes = result.data;
+      this.bankAccountTypes = result.data;
 
     }, err => console.log(err));
   }
@@ -64,8 +121,8 @@ export class AddBankAccountComponent implements OnInit {
 
   getUserSignatures() {
     this.accountService.getSignatures().subscribe(result => {
-    console.log(result);
-    this.signatures = result.data;
+      console.log(result);
+      this.signatures = result.data;
 
     }, err => console.log(err));
   }
@@ -76,46 +133,32 @@ export class AddBankAccountComponent implements OnInit {
 
   addBankAccount() {
 
-    // const formData = new FormData();
-
-    // formData.append('signatureId', this.accountModel.signatureId); // in case if user choose selected sign
-    // formData.append('image', this.accountModel.image);
-
-    // formData.append('bankId', this.accountModel.bankId);
-    // formData.append('bankaccountTypeId', this.accountModel.bankaccountTypeId); // companyuId
-    // formData.append('accountName', this.accountModel.accountName);
-    // formData.append('accountNumber', this.accountModel.accountNumber);
-    // formData.append('isSubAccount', this.accountModel.isSubAccount);
-    // formData.append('subAccountNumber', this.accountModel.subAccountNumber);
     this.accountService.addBankAccount(this.accountModel).subscribe(result => {
-      this.toastr.success('Account Added !');
       // this.router.navigate(['/get/bank-accounts']);
       this.ngxModalService.open('bankAccountModal');
-
-
-      }, err => {
-         this.toastr.error(err.error.message);
-      });
+    }, err => {
+      this.toastr.error(err.error.message);
+    });
   }
 
   onImagePicked(event) {
-    const file =  (event.target as any).files[0];
+    const file = (event.target as any).files[0];
     if (file) {
-     this.accountModel.image = file;
-     const reader = new FileReader();
-     reader.onload = () => {
-      this.imagePreview = reader.result;
-     };
-     reader.readAsDataURL(file);
-     this.accountModel.signatureId = null; // user want to upload new sign
-   this.isSignSelected = false;
+      this.accountModel.image = file;
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result;
+      };
+      reader.readAsDataURL(file);
+      this.accountModel.signatureId = null; // user want to upload new sign
+      this.isSignSelected = false;
     }
   }
 
   selectedSign(id) {
-   const sign = this.signatures.find(item => item.signatureId === id);
-   this.accountModel.signatureId = sign.signatureId;
-   this.isSignSelected = true;
+    const sign = this.signatures.find(item => item.signatureId === id);
+    this.accountModel.signatureId = sign.signatureId;
+    this.isSignSelected = true;
   }
 
   onClickAddAnother() {
@@ -126,10 +169,12 @@ export class AddBankAccountComponent implements OnInit {
 
   onClickIndividualAccount(indiv) {
     this.accountModel.businessAccount = false;
+    this.accountModel.companyId = null;
+
     if (indiv) {
       this.coSignatory = true;
       // this.ngxModalService.open('coPartnerMsg');
-    } else{
+    } else {
       this.coSignatory = false;
     }
   }

@@ -148,6 +148,8 @@ exports.emailVerification = async (req, res, next) => {
 
   var user;
   var tokenInRequest = req.query.checkToken;
+  var jwtToken;
+  var updatedUser;
   try {
    user = await User.findOne({
       where: { email: req.query.email }
@@ -163,8 +165,10 @@ exports.emailVerification = async (req, res, next) => {
     });
 
     if(foundEmailToken){
-    await  user.update({ isVerified: true });
+      updatedUser = await  user.update({ isVerified: true });
     }
+
+    jwtToken = generateToken(updatedUser);
 
      // if  token is present in Request.
   if(tokenInRequest != "null") {
@@ -201,6 +205,7 @@ exports.emailVerification = async (req, res, next) => {
 
   }
 
+  //
   res.redirect(`${APPURL}`);
 
   // res.status(201).json({message:`User with ${user.email} has been verified`});
@@ -442,7 +447,8 @@ function generateToken(foundUser) {
       email: foundUser.email,
       uniqueName: foundUser.uniqueName,
       Id: foundUser.Id,
-      isAdmin: foundUser.isAdmin
+      isAdmin: foundUser.isAdmin,
+      isVerified: foundUser.isVerified //email verification
     },
     "DevSecretkey",
     { expiresIn: "24h" }

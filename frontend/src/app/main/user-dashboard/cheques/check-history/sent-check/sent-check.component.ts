@@ -37,20 +37,22 @@ export class SentCheckComponent implements OnInit {
   }
 
   downLoadCheck() {
-    this.ngxUiLoaderService.start();
+    this.ngxUiLoaderService.startBackgroundLoader('master'); // Loader Start
+
     saveAs(this.checkModel.check_Image.checkFront, 'Check Front-' + this.checkModel.billerId + '.png');
     if (this.checkModel.check_Image.checkBack) {
     saveAs(this.checkModel.check_Image.checkBack, 'Check Back-' + this.checkModel.billerId +  '.png');
     }
-    this.ngxUiLoaderService.stop();
+    this.ngxUiLoaderService.stopBackground(); // Loader Start
+
   }
 
   downloadFile() {
     if(this.checkModel.document){
       const file = this.checkModel.document;
-      this.ngxUiLoaderService.start();
+      this.ngxUiLoaderService.startBackground();
       saveAs(file.documentUrl , file.documentName);
-      this.ngxUiLoaderService.stop();
+      this.ngxUiLoaderService.stopBackground();
     }
 
   }

@@ -16,7 +16,7 @@
 }
 
 .steps-container {
-  background: #f4f4f44a;
+  background: #f4f4f482;;
   /* padding: 20px; */
 }
 
@@ -43,7 +43,7 @@
 
 
 .steps-link:hover {
-  box-shadow: inset -1px 2px 20px 0px rgba(40, 95, 148, 0.41);
+    background: #ffff;
 }
 
 .inset{

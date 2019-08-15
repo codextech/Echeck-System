@@ -20,3 +20,39 @@
   .selected{
     border: 1px solid;
   }
+
+
+
+
+  /* Bank Accounts Table */
+
+  .btn{
+    margin-right: 5px;
+}
+
+
+
+
+:host  /deep/ .ngx-table__header{
+  background-color: #3f86ca !important;
+  color: #ffffff;
+}
+:host  /deep/ .ngx-table{
+  font-family: inherit;
+}
+
+
+
+
+:host /deep/ .ngx-pagination-steps{
+
+    margin-top: 10px;
+}
+
+
+
+
+
+:host /deep/ .ngx-pagination-range {
+  display: none;
+}

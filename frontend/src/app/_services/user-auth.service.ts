@@ -94,4 +94,11 @@ verifyEmail(token, email) {
   public get isAdmin(): boolean {
     return (this.decodedtoken.isAdmin);
   }
+
+
+  saveTokenAfterEmailVerification(token){
+    localStorage.setItem('access_token', token);
+    this.decodedtoken = this.jwtHelper.decodeToken(token);
+    this.usertoken = token;
+  }
 }

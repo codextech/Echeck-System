@@ -37,12 +37,17 @@ export class AddChequeComponent implements OnInit {
   recieverName = '';
   isCompany: boolean;
   fileUpload: boolean;
+  uploadPartnerSignature: boolean; // for uploading co-partner sign
   user: any = {};
   messageAlert = false;
 
   documentName: any;
 
   secondSignImage: any;
+
+  p = 1;
+  // filter attach files
+  docFilter: any = { documentName: null };
 
   public docTiles: NguCarouselConfig = {
     grid: { xs: 3, sm: 3, md: 3, lg: 4, all: 0 },
@@ -222,7 +227,13 @@ export class AddChequeComponent implements OnInit {
     formData.append('checkImage', this.checkModel.checkImageFile); // check image (dom to png)
     formData.append('backgroundImage', this.checkModel.checkBackgroundimage); // check bacground image
     formData.append('secondSignImage', this.checkModel.secondSignImage); // PartnerSign image
-    formData.append('senderOnBhalfSign', this.checkModel.senderOnBhalfSign);
+    // formData.append('senderOnBhalfSign', this.checkModel.senderOnBhalfSign);
+
+    formData.append('isIndividualCoPartner', this.checkModel.isIndividualCoPartner); // indiv co partner
+    formData.append('isCompanyPartner', this.checkModel.isCompanyPartner); // business co partner
+
+    formData.append('uploadPartnerSignature', this.checkModel.uploadPartnerSignature);
+
     formData.append('checkNumber', this.checkModel.checkNumber);
     formData.append('issuedDate', this.checkModel.issuedDate);
     formData.append('amount', this.checkModel.amount);
@@ -335,12 +346,18 @@ export class AddChequeComponent implements OnInit {
 
       // if company partner is present then get partner email
       if (companyPartner) {
+        this.checkModel.isCompanyPartner =  true; //  for sending email in node,js
         this.checkModel.senderPartnerEmail =  account.company.partnerEmail;
       }
 
       // if individual has co-partner then get partner email
       if (account.isIndividualCoPartner) {
+        this.checkModel.isIndividualCoPartner = account.isIndividualCoPartner;
         this.checkModel.senderPartnerEmail =  account.individual_copartner.partnerEmail;
+      }
+      // if no co-partner sign
+      if (!account.isIndividualCoPartner || !companyPartner) {
+        this.secondSignImage = null; // second sign will be no more on check
       }
 
       console.log(this.selectedbankAccount);
@@ -385,6 +402,7 @@ export class AddChequeComponent implements OnInit {
     }
   }
 
+  /* partner sign image */
   onSignImagePicked(event) {
     const file = (event.target as any).files[0];
     if (file) {
@@ -398,32 +416,33 @@ export class AddChequeComponent implements OnInit {
     }
   }
 
-  // onClickBackgroundImage(path) {
-  //   this.chequeBackground = path;
-  // }
+  cancelPartnerSign() {
+    this.uploadPartnerSignature = false;
+    this.secondSignImage = null;
+    this.checkModel.uploadPartnerSignature = false;
+  }
 
-  onClickPersonalInfo(isPersonal) {
+
+
+/*   onClickPersonalInfo(isPersonal) {
     console.log('indiv ' + this.checkModel.individual);
     this.checkModel.isCompany = false;
     if (isPersonal) {
       this.ngxModalService.open('personalInfo');
     }
-  }
+  } */
 
 
-  onClickCompany(isCompany) {
+/*   onClickCompany(isCompany) {
     console.log('comp ' + this.checkModel.isCompany);
     this.checkModel.individual = false;
     if (isCompany) {
       this.ngxModalService.open('companyDropDown');
     }
-  }
+  } */
 
   async convertToImage(fileName) {
     try {
-      // const dataUrl = await domtoimage.toPng(this.container.nativeElement);
-      // this.checkImageFile = dataUrl;
-
       const blob = await htmlToImage.toBlob(this.container.nativeElement);
       this.checkImageFile = new File([blob], fileName + '.png', {
         type: 'image/png'

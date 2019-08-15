@@ -288,16 +288,32 @@
 <ngx-smart-modal
   #bankaddModal
   identifier="bankaddModal"
-  customClass="nsm-dialog-animation-ttb"
->
-  <div class="modal-header accent">
-    <h6><i class="fa fa-check"></i>Bank is Added !</h6>
-  </div>
-  <div class="modal-body text-center p-lg col-md-12">
+  customClass="nsm-dialog-animation-ttb">
 
-      <h5>Do you want to add another bank ?</h5>
+<div class="modal-body text-center">
+    <p class="py-3 mt-3">
+        <i class="fa fa-check text-primary fa-4x"></i>
+    </p>
 
-    <button
+    <p>
+        <span class="fa-stack fa-1x text-primary">
+            <i class="fa fa-circle-o fa-stack-2x"></i>
+            <strong class="fa-stack-1x">1</strong>
+        </span>
+        Bank is Added !
+    </p>
+    <p>Do you want to add another Bank?</p>
+
+    <div class="modal-footer">
+        <button  class="btn white" type="button"
+         (click)="bankaddModal.close(); bankAccountModal.open()" >No</button>
+
+        <button class="btn primary p-x-md" type="button"
+         (click)="onClickAddAnother(); bankaddModal.close()">Yes</button>
+    </div>
+
+</div>
+    <!-- <button
       routerLink="/add/bank-account"
       type="button"
       class="btn dark-white p-x-md">
@@ -310,33 +326,36 @@
       class="btn primary p-x-md"
       (click)="bankaddModal.close()">
       Yes
-    </button>
-
-  </div>
+    </button> -->
 
 
-  <!-- <div class="modal-content">
-          <div class="row">
-            <div class="card z-depth-0" style="margin: 0;">
-              <div class="card-image">
-                <img src="https://cdn.dribbble.com/users/159981/screenshots/2112264/checkmark.gif">
-                <span class="card-title">Bank<br>Added</span>
-                <a class="btn-floating halfway-fab waves-effect waves-light red" (click)="bankaddModal.close()">
-                  <i class="material-icons">close</i>
-                </a>
-              </div>
-              <div class="card-content">
-                  <span class="badge text-lg primary pos-rlt mr-2">
-                    <b class="arrow left b-primary"></b>
-                    Step 2:
-                  </span>
-                <p>Add Your Bank Accounts Related tot his Bank !</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <span (click)="bankaddModal.close()" class="modal-action modal-close waves-effect waves-green btn-flat"
-                style="float: right; margin: 10px;">Close</span>
-        </div> -->
+
+</ngx-smart-modal>
+
+
+<ngx-smart-modal
+#bankAccountModal
+identifier="bankAccountModal"
+  customClass="nsm-dialog-animation-ttb">
+
+
+    <div class="modal-body text-center">
+        <p class="py-3 mt-3">
+            <i class="fa-credit-card-blank text-primary fa-4x"></i>
+        </p>
+        <p>
+            <span class="fa-stack fa-1x text-primary">
+                <i class="fa fa-circle-o fa-stack-2x"></i>
+                <strong class="fa-stack-1x">2</strong>
+            </span>
+           Do you want to add <b>Bank Account</b> for this bank?</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn white" type="button"
+         (click)="bankAccountModal.close()" >No</button>
+        <button class="btn primary" type="button" routerLink="/add/bank-account">
+          Yes</button>
+    </div>
+
+
 </ngx-smart-modal>

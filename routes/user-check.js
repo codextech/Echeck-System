@@ -87,7 +87,7 @@ router.get("/check-recieved", checkController.checkRecievedVerification);
 router.get("/sign/reciever-partner", checkController.checkRecieverPartnerVerify);
 
 //all Unread Recieve Check
-router.get("/all-unread-recieve", checkController.UnreadRecievedCheck);
+router.get("/all-unread-recieve",checkAuth, checkController.UnreadRecievedCheck);
 
 //Unread Recieve Check @param checkId
 router.get("", checkController.getCheckById);

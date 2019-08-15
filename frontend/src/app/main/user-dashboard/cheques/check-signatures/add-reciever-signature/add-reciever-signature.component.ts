@@ -71,7 +71,10 @@ export class AddRecieverSignatureComponent implements OnInit {
 
     this.checkService.addCheckBack(formData).subscribe(
       result => {
+        this.toastr.success('Successfully Signed on Check ');
+        setTimeout(() => {
         window.location.href = `${environment.apiUrl}/dashboard`;
+        }, 1500);
       },
       err => {
         console.log(err);
@@ -98,11 +101,17 @@ export class AddRecieverSignatureComponent implements OnInit {
       this.imagePreview = reader.result;
      };
      reader.readAsDataURL(file);
+     this.onClickFlip();
 
     }
   }
 
   onClickFlip() {
     this.flipCheck = !this.flipCheck;
+  }
+
+  cancelImagePreview() {
+    this.imagePreview = null;
+    this.onClickFlip();
   }
 }

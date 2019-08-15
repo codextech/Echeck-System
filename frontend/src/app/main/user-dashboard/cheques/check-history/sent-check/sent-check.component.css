@@ -19,3 +19,11 @@
       padding-left: 15px;
       cursor: pointer;
   }
+
+
+
+  @media (max-width: 500px) {
+    .check-image {
+      max-width: 100%;
+    }
+  }

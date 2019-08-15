@@ -3,7 +3,7 @@
     <div class="col-sm-12">
       <div class="box">
         <div class="box-header">
-          <h2>Check</h2>
+          <h2>Create Check</h2>
         </div>
         <div class="box-body">
 
@@ -66,6 +66,70 @@
 
 
 
+                      <!-- if there is co-signatory -->
+                  <section *ngIf="selectedbankAccount.companyPartner || selectedbankAccount.individualPartner">
+
+                      <div class="form-row">
+
+                          <div class="form-group col-md-12 mt-3">
+                              <p>
+                                  <label class="md-check">
+                                      <input [(ngModel)]="checkModel.uploadPartnerSignature"
+                                       name="uploadPartnerSignature"
+                                       type="checkbox"
+                                       (change)="uploadPartnerSignature = !uploadPartnerSignature" >
+                                      <i class="blue"></i>
+                                    <strong>
+                                      Do you want to upload your partner's signature on your behalf ?
+                                    </strong>
+                                  </label>
+                              </p>
+                        </div>
+                      </div>
+
+                      <!-- Sign Image upload  -->
+                       <div *ngIf="uploadPartnerSignature" class="col-sm-12">
+
+                          <div class="p-3 file-upload-container">
+
+                              <label>Upload Signature </label>
+
+                              <div *ngIf="secondSignImage" style="margin: auto" class="col-6 col-sm-3 col-md-4">
+                                  <div>
+                                    <img style="max-width: 100px" class="w-100" alt="" [src]="secondSignImage" />
+                                  </div>
+                              </div>
+
+                              <br />
+                              <input
+                                style="display:none"
+                                #secondSign
+                                type="file"
+                                (change)="onSignImagePicked($event)"
+                              />
+
+                              <button
+                                type="button"
+                                (click)="secondSign.click()"
+                                class="btn btn-fw accent">
+                                <i class="fa fa-image"></i>
+                                Select Image
+                              </button>
+
+                              <button *ngIf="secondSignImage"
+                              type="button"
+                              (click)="cancelPartnerSign()"
+                              class="btn default ml-2">
+                              Cancel
+                            </button>
+
+                          </div>
+
+                        </div>
+
+                  </section>
+
+
                   <!-- <div class="col-sm-3 text-center">
                     <label>Individual</label>
                     <br>
@@ -115,9 +179,12 @@
                         placeholder="Reciever Phone" />
                     </div> -->
 
+                </div>
 
 
 
+                <div class="text-center mt-5 mb-5">
+                    <hr class="hr-text" data-content="Check Background" width="50%" />
                 </div>
 
 
@@ -197,7 +264,15 @@
 
                 </div>
 
+
                 <!-- End Back Ground Image -->
+
+
+
+                <div class="text-center mt-5 mb-5">
+                    <hr class="hr-text" data-content="Attatch Documents" width="50%" />
+                </div>
+
 
                 <div class="form-row">
 
@@ -236,8 +311,6 @@
                   </div>
 
                 </div>
-
-
               </div>
 
             </div>
@@ -245,8 +318,8 @@
 
             <div class="check-boundary">
                 <div  #checkContainer
-                [ngStyle]="!checkBackgroundPreview &&{'background-image': 'url(' +chequeBackground+ ')','background-size':'cover'} ||
-                checkBackgroundPreview && {'background-image': 'url(' + checkBackgroundPreview + ')','background-size':'cover'}"
+                [ngStyle]="!checkBackgroundPreview &&{'background-image': 'url(' +chequeBackground+ ')','background-size':'100% 100%'} ||
+                checkBackgroundPreview && {'background-image': 'url(' + checkBackgroundPreview + ')','background-size':'100% 100%'}"
                  class="row no-margin cover">
 
                   <div class="col-sm-12">
@@ -255,12 +328,6 @@
                     </p>
                   </div>
 
-                  <!-- <div *ngIf="!checkModel.individual" cdkDragBoundary=".check-boundary" cdkDrag class="col-sm-6">
-                    <div class="md-form-group float-label mb-22">
-                      <h6>{{selectedCompany.companyName}}</h6>
-                      <p>{{selectedCompany.address}}</p>
-                    </div>
-                  </div> -->
 
                   <div id="payer-info" *ngIf="(selectedbankAccount | json) != '{}'"
                    cdkDragBoundary=".check-boundary" cdkDrag class="col-sm-6 ml-3">
@@ -317,7 +384,8 @@
                     <div *ngIf="(selectedbankAccount | json) != '{}'" cdkDragBoundary=".check-boundary"
                      cdkDrag class="col-sm-11 ml-3 mb-2">
                         <div class="md-form-group float-label">
-                          <div class="bank-logo-img wc-10">
+                          <!-- wc-10 -->
+                          <div class="bank-logo-img">
                               <img class="w-100" [src]="selectedbankAccount.bankLogo" alt="">
                           </div>
                           <span class="pl-10 bank-logo-txt">
@@ -341,7 +409,9 @@
                   </div>
 
                   <div style="margin-top: -8px;" cdkDragBoundary=".check-boundary" cdkDrag class="col-sm-8">
-                    <div class="md-form-group float-label">
+                    <div class="md-form-group float-label"
+                    [ngClass]="{'signle-sign': !secondSignImage}"
+                    >
                       <label class="check-label">Signature</label>
                       <span *ngIf="(selectedbankAccount | json) != '{}'" class="check-sign">
                         <span>1. </span>
@@ -350,7 +420,7 @@
                         </div>
                       </span>
 
-                      <span *ngIf="secondSignImage"   class="check-sign">
+                      <span *ngIf="secondSignImage"   class="ml-5 check-sign">
                               <span>2. </span>
                         <div class="sign-img-container">
                               <img class="w-100" [src]="secondSignImage" alt="">
@@ -418,66 +488,6 @@
 
 
 
-
-
-
-
-
-    <!-- <div class="row cheque">
-  <div class="col-md-12">
-
-    <div class="example-boundary">
-
-      <div class="cheque-div" cdkDragBoundary=".example-boundary" cdkDrag>
-
-        <span class="control-label"> Your Name:</span>
-        <h4 *ngIf="bankName.dirty && bankName.value">
-          {{chequeModel.bankName}}
-        </h4>
-      </div>
-
-      <div style="width: 250px" cdkDragBoundary=".example-boundary" cdkDrag>
-
-          <div class="form-element">
-              <label for="foo">$ </label>
-              <input  disabled value="{{chequeModel.amount}}" type="text">
-          </div>
-
-      </div>
-
-
-
-          <div style=" width: 50%; float: left;"  cdkDragBoundary=".example-boundary" cdkDrag>
-
-              <div class="form-element" >
-                  <label>Signature:  </label>
-                  <span style="text-decoration: underline"> tanzeel</span>
-              </div>
-
-          </div>
-
-
-
-
-      <div style=" width: 50%; float: right;" cdkDragBoundary=".example-boundary" cdkDrag>
-
-          <div class="form-element" style="float: right;">
-              <label>Date:  </label>
-              <span style="text-decoration: underline"> 2-3-4</span>
-          </div>
-
-      </div>
-
-
-
-
-
-
-
-    </div>
-  </div>
-
-</div> -->
 
 
 
@@ -578,7 +588,7 @@ customClass="nsm-dialog-animation-ttb">
 
   <div class="modal-body text-center">
       <p class="py-3 mt-3">
-          <i class="fa fa-info-circle text-danger fa-4x"></i>
+          <i class="fa fa-info-circle text-warning fa-4x"></i>
       </p>
       <p>Please Upload the Bank Account Signature Before Adding Check</p>
   </div>
@@ -595,7 +605,7 @@ customClass="nsm-dialog-animation-ttb">
 <ngx-smart-modal
 #docModal
 identifier="docModal"
-customClass="nsm-dialog-animation-ttb">
+customClass="nsm-dialog-animation-ttb document-modal">
 
 
   <div class="modal-body text-center">
@@ -603,7 +613,7 @@ customClass="nsm-dialog-animation-ttb">
           <i class="fa fa-paperclip text-primary fa-4x"></i>
       </p>
 
-    <div class="background-history">
+    <div clas="mb-3">
 
 
       <div style="padding: 10px" *ngIf="docs.length ==0">
@@ -611,6 +621,36 @@ customClass="nsm-dialog-animation-ttb">
         <button [routerLink]="['/documents']" class="btn warning">click here</button>
       </div>
 
+
+
+
+      <div *ngIf="docs.length !=0" class="row row-xs">
+
+          <div  *ngFor="let item of docs | filterBy: docFilter | paginate: { itemsPerPage: 12, currentPage: p }"
+           class="col-6 col-sm-4 col-md-2">
+              <div class="box p-1 doc-container">
+
+                <!-- Only For Images -->
+                <img class="doc-image" title="Image"
+                *ngIf="(item.documentUrl | extention) == true"
+                 [src]="item.documentUrl"
+                (click)="selectDocument(item.documentId)">
+
+                      <!-- Another Document -->
+                      <img title="File" *ngIf="(item.documentUrl | extention) == false"
+                      class="doc-image"  (click)="selectDocument(item.documentId)"
+                       src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxXpfgfkMNDW_ob3dAHNcsCkPVvJrpRJA_E6BGEyk7M15wBBgL" alt="">
+                       <p class="document-text">{{item.documentName}}</p>
+                    </div>
+              </div>
+          </div>
+          <!-- if no check found with search -->
+      </div>
+      <div class="mt-5 text-center">
+      <pagination-controls maxSize="9" autoHide="true" (pageChange)="p = $event"></pagination-controls>
+       </div>
+
+<!--
         <ngu-carousel *ngIf="docs.length !=0" #myCarousel [inputs]="docTiles" [dataSource]="docs">
           <ngu-tile *nguCarouselDef="let item; let i = index">
 
@@ -637,10 +677,7 @@ customClass="nsm-dialog-animation-ttb">
           </button>
 
 
-        </ngu-carousel>
-
-      </div>
-
+        </ngu-carousel> -->
 
   </div>
   <div class="modal-footer">

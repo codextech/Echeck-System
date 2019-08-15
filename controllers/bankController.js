@@ -197,7 +197,6 @@ exports.creatBankAccount = async (req, res, next) => {
   const model = req.body;
   var bankAccount;
   var coPartnerId;
-  // var signId;
   try {
     bankAccount = await BankAccount.findOne({where: {accountNumber: model.accountNumber, bankId: model.bankId}});
 
@@ -228,6 +227,20 @@ exports.creatBankAccount = async (req, res, next) => {
 
     // if Account is individual and have Co partner details
 
+    if (model.isIndividualCoPartner) {
+
+    const  individualCoPartner =  await  IndividualCoPartner.create(
+        {
+          coPartnerName: model.coPartnerName,
+          middleName: model.middleName,
+          partnerEmail: model.partnerEmail,
+          lastName: model.lastName,
+          telephone: model.telephone,
+          partnerAddress: model.partnerAddress,
+        }
+      )
+      coPartnerId = individualCoPartner.coPartnerId
+    }
 
 
 
@@ -293,7 +306,14 @@ exports.getBankAccountById = async (req, res, next) => {
   const id = req.query.bankAccountId;
   var bankAccount;
   try {
-    bankAccount = await BankAccount.findOne({where: {bankAccountId: id}});
+    bankAccount = await BankAccount.findOne({where: {bankAccountId: id},
+      include: [
+        { model: Bank },
+        { model: BankAccountType },
+        { model: Company },
+        { model: IndividualCoPartner }
+    ]
+    });
 
     if (!bankAccount) {
       return res.status(400).json({ message: "Accounts not found" });
@@ -324,6 +344,24 @@ try {
     return res.status(400).json({ message: "Bank Account Not Found" });
   }
 
+
+   // if Account is individual and have Co partner details
+
+   if (model.isIndividualCoPartner) {
+
+   const individualCoPartner =  await  IndividualCoPartner.create(
+      {
+        coPartnerName: model.coPartnerName,
+        middleName: model.middleName,
+        partnerEmail: model.partnerEmail,
+        lastName: model.lastName,
+        telephone: model.telephone,
+        partnerAddress: model.partnerAddress,
+      });
+
+      coPartnerId = individualCoPartner.coPartnerId
+
+  }
 
       bankAccount = await BankAccount.update(
         {

@@ -89,8 +89,8 @@
             <td>{{ row.bank.bankName }}</td>
             <td>{{ row.accountNumber }}</td>
             <td>{{ row.accountName }}</td>
-            <td *ngIf="row.signatureImage">
-              <img [src]="row.signatureImage" height=60 width=80>
+            <td *ngIf="row.signatureImage" style="max-width: 50px;">
+              <img [src]="row.signatureImage" class="w-100">
             </td>
             <td *ngIf="!row.signatureImage">
               -
@@ -99,7 +99,7 @@
             <td class="fit">
               <button (click)="onClickEditSign(row.bankAccountId); edit=true; editBank.click"
                 class="btn btn-outline b-accent text-accent">
-                Edit Sign
+                Change Signature
                 <i class="fa fa-pencil"></i>
               </button>
             </td>

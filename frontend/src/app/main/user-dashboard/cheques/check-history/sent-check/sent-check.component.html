@@ -8,26 +8,43 @@
           <div class="box-body">
 
 
+<div class="mb-3">
 
-              <p (click)="onClickFlip()" class="inline py-3 mt-3">
-                  <i class="fa fa-undo text-primary fa-2x"></i>
-              </p>
+              <button type="button" (click)="onClickFlip()" class="btn default inline mr-3 mt-3">
+                  <i class="fa fa-undo text-grey
+                   fa-1x"></i>
+                  Rotate
+              </button>
 
 
-              <p (click)="downLoadCheck()" class="inline py-3 mt-3">
-                  <i class="fa fa-cloud-download text-warning fa-2x"></i>
-              </p>
+              <button  type="button"  (click)="downLoadCheck()" class="btn white inline  mr-3 mt-3">
+                  <i class="fa fa-download text-black fa-1x"></i>
+                  Save Check
+              </button>
+
+              <button *ngIf="checkModel.documentId" type="button"
+               (click)="downloadFile()" class="btn primary inline mr-3 mt-3">
+                  <i class="fa fa-cloud-download text-white fa-1x">
+                  </i>
+                  Download Attatchment
+              </button>
+            </div>
 
 
               <div  *ngIf="checkModel.check_BackGround"  class="check-boundary">
                   <ngx-flip [flip]="flipCheck">
                       <div back class="row no-margin form-area">
+                          <div style="margin: auto;" *ngIf="!checkModel.check_Image.checkBack"
+                            class="alert alert-info text-center">
+                           Back of Check will only show when <b>Payee</b> signature on this....!
+                      </div>
 
                           <img class="check-image" [src]="checkModel.check_Image.checkBack" alt="">
                         </div>
                   <div front class="row no-margin form-area">
 
                     <img class="check-image" [src]="checkModel.check_Image.checkFront" alt="">
+
 
                   </div>
 
@@ -37,7 +54,7 @@
 
 
 
-              <div class="col-xs-1 col-md-6" *ngIf="checkModel.documentId">
+<!--               <div class="col-xs-1 col-md-6" *ngIf="checkModel.documentId">
 
                 <div class="box p-3">
                   <strong class="text-muted"><i class="fa fa-paperclip"></i> Attctached File</strong>
@@ -51,7 +68,7 @@
                   </button>
                 </div>
 
-              </div>
+              </div> -->
 
 
           </div>

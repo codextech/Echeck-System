@@ -23,12 +23,12 @@
 
 
 
-
+/*
   .sign-img {
     height: 75px;
       width: 20%;
   }
-
+ */
 
   .check-image {
     height: 30em;
@@ -45,8 +45,10 @@
   }
 
   .sign-img {
-    max-height: 90px;
-    width: 40%;
+    /* height: auto;
+    width: 50%; */
+    height: 75px;
+    max-width: 50%;
   }
 
 
@@ -62,6 +64,46 @@
 
   .sign-2 {
     position: absolute;
-    top: 18.5em;
+    /* top: 18.5em; */
+    top: 21.5em;
     left: 40em;
   }
+
+
+  .file-upload-container{
+    text-align: center;
+    box-shadow: none;
+    border: 1px solid #6284f369;
+    background: #2196f30d;
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+
+
+  .hr-text {
+    font-size: 17px;
+    position: relative;
+    border: 0;
+    height: 1.5em;
+   }
+
+
+ .hr-text:before {
+    content: '';
+   background: linear-gradient(to right, transparent, #000000, transparent);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+}
+
+ .hr-text:after {
+  content: attr(data-content);
+  position: relative;
+  display: inline-block;
+  padding: 0 .5em;
+  line-height: 1.5em;
+  color: #f4fafe;
+  background-color: #79bcff;
+}

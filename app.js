@@ -6,23 +6,25 @@ const http = require('http');
 const bcrypt = require("bcryptjs");
 
 
+var env = process.env.NODE_ENV || 'dev';
 
-// start server
-
-
-const port = process.env.PORT || 30800;
+// start server in production
+if (env == 'production') {
 http.createServer(app);
+app.listen();
+}
 
+// start server in dev mode
+if (env == 'dev') {
+const port = process.env.PORT || 3000;
+http.createServer(app);
 app.listen(port, () => {
   console.log(`Server Running in ${port}`);
-
 });
+}
 
 
 // end
-
-
-var env = process.env.NODE_ENV || 'dev';
 console.log(env);
 if (env == 'production') {
 global.apiUrl = "https://www.pay2mate.com/api";
@@ -31,7 +33,6 @@ global.APPURL = "https://www.pay2mate.com/";
 if (env == 'dev') {
 global.apiUrl = "http://localhost:3000/api";
 global.APPURL = "http://localhost:3000/";
-
 }
 
 global.ROOT = __dirname;
@@ -89,22 +90,22 @@ app.use((req,res) => {
 sequelizeRealtions.allTableRealtions();
 
 sequelize
-  //  .sync()
-  .sync({force: true})
+   .sync()
+  // .sync({force: true})
   .then(result => {
   console.log('table created');
-sequelizeRealtions.seedDatabase();
+/* sequelizeRealtions.seedDatabase();
     return bcrypt.hash('admin123',10)
   .then(hash => {
         User.create({
         uniqueName: 'admin',
         email: 'admin@pay2mate.com',
         password: hash,
-        isVerified: true,
+        isVerified: true, // email
         isAdmin: true,
-            trustedUser:true
+        trustedUser:true // kyc
      });
-  })
+  }) */
 }).catch(err => {
     console.log("error occured in db" + err);
   });

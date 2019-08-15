@@ -45,14 +45,17 @@ export function tokenGetter() {
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   fgsColor: '#ffff',
-  fgsSize: 50,
-  overlayColor: '#285f94',
-  fgsType: SPINNER.doubleBounce,
-  bgsColor: '#002950', // background
-  bgsPosition: 'center-center',
+  fgsSize: 40,
+  overlayColor: '#285f94d1',
+  fgsType: SPINNER.ballScaleMultiple,
+  blur: 15,
+  bgsColor: '#285f94', // background
+  bgsOpacity: 1,
+  bgsPosition: 'bottom-center',
   bgsSize: 50,
-  bgsType: SPINNER.circle,
-  text: 'Loading...',
+  bgsType: 'three-bounce',
+  // text: 'Loading...',
+  // textColor: '#00000'
 };
 
 @NgModule({

@@ -17,7 +17,7 @@ const IndividualCoPartner = sequelize.define('individual_copartner', {
   lastName: Sequelize.STRING,
   partnerEmail: Sequelize.STRING,
   telephone : Sequelize.STRING,
-  ddress: Sequelize.STRING,
+  partnerAddress: Sequelize.STRING,
 
 });
 

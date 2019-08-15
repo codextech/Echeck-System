@@ -146,6 +146,52 @@
 
 
 
+
+
+
+
+<!-- Bank Accounts -->
+
+<div class="padding">
+    <div class="box">
+      <div class="box-header">
+        <h3>Bank Accounts</h3>
+      </div>
+
+      <div class="col-md-12 table-responsive">
+        <ngx-table
+          [configuration]="configuration"
+          [data]="accounts"
+          [columns]="columns"
+        >
+          <ng-template let-row let-index="index">
+              <td>{{ row.bank.bankName }}</td>
+              <td>{{ row.accountNumber }}</td>
+            <td>{{ row.accountName }}</td>
+            <td>{{ row.bankaccount_type.bankaccountType }}</td>
+            <td *ngIf="row.isSubAccount">{{row.subAccountNumber}}</td>
+            <td *ngIf="!row.isSubAccount">No</td>
+            <td class="fit">
+                <button [routerLink]="['/edit/bank-account', row.bankAccountId]" class="btn btn-outline b-accent text-accent">
+                  <i class="fa fa-pencil"></i>
+                </button>
+              <button (click)="onDeleteAccount(row.bankAccountId)" class="btn btn-outline b-danger text-danger">
+                <i class="fa fa-trash"></i>
+              </button>
+
+            </td>
+          </ng-template>
+        </ngx-table>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
 <!-- Co partner Popover -->
 
 
@@ -167,7 +213,7 @@
     </div>
     <div class="modal-footer">
         <button class="btn white" type="button"
-         (click)="bankAccountModal.close()" >No</button>
+         (click)="bankAccountModal.close(); accountModel = {}" >No</button>
         <button class="btn primary" type="button"
          (click)="onClickAddAnother(); bankAccountModal.close()">Yes</button>
     </div>
@@ -201,7 +247,8 @@ customClass="nsm-dialog-animation-ttb">
 
 </ngx-smart-modal>
 
-<ngx-smart-modal #coPartnerModal identifier="coPartnerModal" customClass="">
+<ngx-smart-modal [closable]='false' [dismissable]='false'
+ #coPartnerModal identifier="coPartnerModal" customClass="">
     <div class="modal-header">
       <h5 class="modal-title">Co Partner Information</h5>
     </div>
@@ -267,7 +314,7 @@ customClass="nsm-dialog-animation-ttb">
               <div class="col-sm-12">
                   <div class="md-form-group float-label">
                     <input
-                      [(ngModel)]="accountModel.address"
+                      [(ngModel)]="accountModel.partnerAddress"
                       name="partnerAddress"
                       class="md-input"
                     />
@@ -298,7 +345,8 @@ customClass="nsm-dialog-animation-ttb">
 
 <!-- Business Modal -->
 
-<ngx-smart-modal #businessDropDown identifier="businessDropDown"
+<ngx-smart-modal [closable]='false' [dismissable]='false'
+#businessDropDown identifier="businessDropDown"
 customClass="nsm-dialog-animation-ttb">
    <div class="modal-header">
      <h5 class="modal-title">Select Company</h5>
@@ -330,7 +378,7 @@ customClass="nsm-dialog-animation-ttb">
 
 
 
-       <button type="button" class="btn dark-white p-x-md" (click)="businessDropDown.close()">
+       <button type="button" class="btn dark-white p-x-md" (click)="businessDropDown.close();accountModel.businessAccount = false">
          Cancel
        </button>
        <button type="submit" class="btn primary p-x-md" (click)="businessDropDown.close()">
