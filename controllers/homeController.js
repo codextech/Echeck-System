@@ -45,7 +45,44 @@ exports.addSliderImages = async (req, res, next) => {
 
 
 
-//admin
+exports.addContactMessage = async (req, res, next) => {
+
+  const model = req.body;
+  try {
+
+    model.isRead= false;
+
+    await homeHelper.addMessage(model);
+
+
+  } catch (error) {
+    res.status(500).json({messgae: error, data: {}});
+  }
+  res.status(201).json({messgae: 'message added', data :null});
+
+};
+
+/*  Subscriber */
+exports.addSubscriber = async (req, res, next) => {
+
+  const model = req.body;
+  try {
+
+    await homeHelper.addSubscriber(model);
+
+
+  } catch (error) {
+    res.status(500).json({messgae: error, data: {}});
+  }
+  res.status(201).json({messgae: '', data :null});
+
+};
+
+
+
+
+
+//------------------admin--------------------
 
 exports.deleteSliderImages = async (req, res, next) => {
 
@@ -63,6 +100,45 @@ exports.deleteSliderImages = async (req, res, next) => {
 }
 
 
+/* User contact Requests */
+
+exports.getContactRequests = async (req, res, next) => {
+  var requests;
+  try {
+    requests =  await  homeHelper.getUserContactRequests();
+  } catch (error) {
+  res.status(500).json({ message: "Bad Request",  data: error});
+
+  }
+  res.status(200).json({ message: "requests",  data: requests});
+
+}
+
+exports.readContactRequests = async (req, res, next) => {
+  const contactId = req.query.contactId;
+  try {
+      await  homeHelper.contactRequestRead(contactId);
+  } catch (error) {
+  res.status(500).json({ message: "Bad Request",  data: error});
+
+  }
+  res.status(200).json({ message: "requests read",  data: null});
+
+}
+
+
+/* Subscribers */
+
+exports.getSubscribers = async (req, res, next) => {
+  var data;
+  try {
+    data =  await  homeHelper.getSubscribers();
+  } catch (error) {
+  res.status(500).json({ message: "Bad Request",  data: error});
+  }
+  res.status(200).json({ message: "subscribers",  data: data});
+
+}
 
 
 

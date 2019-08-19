@@ -76,9 +76,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     NgxSmartModalModule.forRoot(), // for Modal
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot({
-      positionClass : 'toast-top-center',
-      progressBar: true,
-      progressAnimation:	'increasing'
+      positionClass : 'toast-top-right',
     }), // ToastrModule added
     BsDatepickerModule.forRoot(),
     JwtModule.forRoot({

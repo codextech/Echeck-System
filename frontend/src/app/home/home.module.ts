@@ -6,6 +6,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -15,7 +16,8 @@ import { ContactComponent } from './contact/contact.component';
     imports: [
         CommonModule,
         RouterModule,
-        NgbCarouselModule
+        NgbCarouselModule,
+        FormsModule
     ],
     declarations: [
         LandingPageComponent,

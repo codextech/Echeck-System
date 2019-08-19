@@ -13,3 +13,8 @@
   border: 2px dashed #5aa9fa;
   background-color: #fff;
 }
+
+:host /deep/ dropzone > .dropzone.dz-wrapper:hover .dz-message:hover{
+  border: 2px dashed #285f94;
+  background-color: #c8ced475;
+}

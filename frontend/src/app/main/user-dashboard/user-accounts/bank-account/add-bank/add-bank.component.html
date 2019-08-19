@@ -38,7 +38,7 @@
                 type="submit" class="btn primary mb-3">Add
                </button>
                <button *ngIf="newBank == false" (click)="newBank =true;bankModel={}"
-              type="button" class="btn danger mb-3 ml-2">Cancel
+              type="button" class="btn white mb-3 ml-2">Cancel
              </button>
               </div>
             </div>
@@ -64,10 +64,10 @@
                       <strong>Note!</strong>
                       If the following Bank details are incorrect, please correct them
                   </ngb-alert>
-                  <h2>Add New Bank</h2>
+                  <h2 id="new-bank-head">Add New Bank</h2>
               </div>
             <div class="form-row">
-              <div class="col-sm-12 mb-3">
+              <div style="display: none" class="col-sm-12 mb-3">
                 <button
                   (click)="routNumber.open()"
                   type="button"

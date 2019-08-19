@@ -21,6 +21,8 @@ import { UnverifiedUsersComponent } from './users/unverified-users/unverified-us
 import { KycTypeComponent } from './kyc/kyc-type/kyc-type.component';
 import { SliderImageComponent } from './slider-image/slider-image.component';
 import { CheckBackgroundComponent } from './check-background/check-background.component';
+import { SubscriberComponent } from './subscriber/subscriber.component';
+import { ContactRequestComponent } from './contact-request/contact-request.component';
 
 @NgModule({
     imports: [
@@ -46,7 +48,9 @@ import { CheckBackgroundComponent } from './check-background/check-background.co
         TotalUsersComponent,
         UnverifiedUsersComponent,
         SliderImageComponent,
-        CheckBackgroundComponent
+        CheckBackgroundComponent,
+        SubscriberComponent,
+        ContactRequestComponent
 
     ],
 

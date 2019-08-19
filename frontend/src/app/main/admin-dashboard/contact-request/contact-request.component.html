@@ -1,0 +1,37 @@
+<!-- Main -->
+<!-- ############ Main START-->
+<div class="padding">
+
+
+    <div class="box">
+      <div class="box-header">
+        <h3>Contact Requests</h3>
+      </div>
+
+
+      <div class="col-md-12 table-responsive">
+
+
+        <ngx-table
+          [configuration]="configuration"
+          [data]="contacts"
+          [columns]="columns">
+          <ng-template let-row let-index="index">
+              <td *ngIf="row.isRead == false">
+                  <span style="background: yellow;color: #ff392a;font-family: cursive"> new </span>
+                </td>
+              <td>{{ row.name }}</td>
+              <td>{{ row.email }}</td>
+              <td>{{ row.phone }}</td>
+              <td>{{ row.message }}</td>
+              <td class="fit">
+                <button *ngIf="row.isRead == false" type="button" (click)="markAsRead(row.contactId)"
+                  class="btn btn-outline b-warning text-warning">
+                  <i class="fa fa-check">Mark Read</i>
+                </button>
+              </td>
+            </ng-template>
+        </ngx-table>
+      </div>
+    </div>
+  </div>

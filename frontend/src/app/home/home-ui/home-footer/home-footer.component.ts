@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { HomeService } from 'src/app/_services/home.service';
 
 @Component({
   selector: 'app-home-footer',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeFooterComponent implements OnInit {
 
-  constructor() { }
+  subscriberModel: any = {}
+  constructor(private toastr: ToastrService, private homeService: HomeService) { }
 
   ngOnInit() {
   }
 
+  addSubscribe() {
+    this.homeService.addsubscriber(this.subscriberModel).subscribe(
+      result => {
+        this.toastr.info('Thank you for Subscribe !');
+        this.subscriberModel = {};
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
 }

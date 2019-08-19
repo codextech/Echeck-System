@@ -10,7 +10,7 @@
 .btn.b-theme:focus,
 .pace .pace-progress,
 .theme {
-  color: rgba(255, 255, 255, 0.85) !important;
+  color: #ffff !important;
   background-color: #285f94 !important;}
   /* background-color: #53a6fa !important; } */
 

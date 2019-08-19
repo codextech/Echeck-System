@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule  } from '@angular/router';
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { ADMIN_LAYOUTS_ROUTES } from './layout/admin-layout/adminLayout.routes';

@@ -2,9 +2,15 @@
 
 
 :host /deep/ dropzone > .dropzone.dz-wrapper .dz-message {
-    min-height: 100px;
+    min-height: 150px;
     border: 2px dashed #5aa9fa;
     background-color: #fff;
+}
+
+:host /deep/ dropzone > .dropzone.dz-wrapper:hover .dz-message:hover{
+
+  border: 2px dashed #285f94;
+  background-color: #c8ced475;
 }
 
 
@@ -46,4 +52,10 @@
 	right: 0;
 	top: 0;
 	display: none;
+}
+
+
+.text-documents {
+  background: white;
+  padding: 10px;
 }

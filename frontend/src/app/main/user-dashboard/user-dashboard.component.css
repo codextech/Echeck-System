@@ -72,3 +72,10 @@
 	background-color: #285f94c7;
 }
 
+.no-record {
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+

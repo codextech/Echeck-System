@@ -1,21 +1,27 @@
 <div class="padding">
 
 
-    <div class=" mb-3 form-row justify-content-end">
+    <div class="mb-3 form-row justify-content-end">
         <div class="form-group col-6 col-sm-3">
             <input class="form-control" type="text" [(ngModel)]="docFilter.documentName" placeholder="Search Document">
         </div>
-</div>
-    <h3 class="text-muted">Upload your files</h3>
+    </div>
+    <div class="m-3 form-row justify-content-center" >
 
-    <dropzone class="dropzone-container" [config]="config"
-        [message]="'click here or drag images'"
-      (init)="onUploadInit($event)" (error)="onUploadError($event)"  (successMultiple)="onUploadSuccess($event)"></dropzone>
-<!--
-    <div #drpZone class="dropzone" [dropzone]="config"
-     (error)="onUploadError($event)" (success)="onUploadSuccess($event)"></div> -->
 
-     <button (click)="uploadFiles()" class="btn primary upload">Upload</button>
+        <div class="col-md-10">
+        <h5 class="text-muted">Upload your files</h5>
+
+            <dropzone class="dropzone-container" [config]="config"
+            [message]="'Click here or drag images'"
+          (init)="onUploadInit($event)" (error)="onUploadError($event)"  (successMultiple)="onUploadSuccess($event)"></dropzone>
+         <button (click)="uploadFiles()" class="btn primary btn-md upload">
+           <i class="fa fa-cloud-upload"></i>
+           Upload</button>
+
+        </div>
+
+    </div>
 
 
 
@@ -23,7 +29,7 @@
 
  <div *ngIf="docs.length > 0" class="col-md-12 mt-3">
 
-    <h4 class="text-muted">Documents</h4>
+    <h5 class="text-documents">Documents</h5>
 
 
   <div class="row row-xs">
@@ -68,7 +74,7 @@
    <div *ngIf="checkBackgrounds.length > 0" class="col-md-12 mt-5">
 
 
-      <h4 class="text-muted">Your Check Backgrounds</h4>
+      <h4 class="text-documents">Your Check Backgrounds</h4>
 
       <div  class="row row-xs">
 
@@ -100,7 +106,7 @@
        <div *ngIf="kycDocs.length > 0" class="col-md-12 mt-5">
 
 
-          <h4 class="text-muted">Kyc Documents</h4>
+          <h4 class="text-documents">Kyc Documents</h4>
 
           <div  class="row row-xs">
 

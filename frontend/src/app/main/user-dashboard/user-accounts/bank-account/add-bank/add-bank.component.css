@@ -9,6 +9,13 @@
   margin-top: 2em;
 }
 
+#new-bank-head {
+  text-align: center;
+  margin: 15px;
+  background: #f3f6f9;
+  padding: 15px;
+}
+
 .accent {
   margin-top: 1.5em;
   color: rgba(255, 255, 255, 0.85);
@@ -127,6 +134,16 @@
   background-color: #fff;
 }
 
+:host /deep/ dropzone > .dropzone.dz-wrapper:hover .dz-message:hover{
+
+  border: 2px dashed #285f94;
+  background-color: #c8ced475;
+}
+
+
+:host /deep/ dropzone > .dropzone.dz-wrapper.dz-single .dz-preview {
+  width: calc(45% - 16px);
+}
 
 
    /* bank logo image selection */

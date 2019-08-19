@@ -19,6 +19,20 @@ const fileStorage = multer.diskStorage({
 // -------------------------------------------------------
 
 
+router.post(
+  "/contact",
+  homeController.addContactMessage
+);
+
+router.post(
+  "/subscriber",
+  homeController.addSubscriber
+);
+
+router.get("/contact", homeController.getContactRequests);
+router.get("/contact-read", homeController.readContactRequests);
+router.get("/subscribers", homeController.getSubscribers);
+
 
 router.post(
   "/slider",
@@ -36,6 +50,9 @@ router.delete(
   "/slider",
   homeController.deleteSliderImages
 );
+
+
+
 
 
 

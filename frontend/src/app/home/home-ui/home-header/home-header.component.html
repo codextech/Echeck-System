@@ -63,7 +63,7 @@
                         <ng-template #loggedOut>
 
                             <li *ngIf="authService.isAdmin">
-                                <a href="/admin/dashboard" routerLinkActive="active"
+                                <a [routerLink]="['/admin/dashboard']" routerLinkActive="active"
                                 style="color:#ffff"
 
                                  class="animsition-link dashboard-link">Dashboard</a>
@@ -71,7 +71,7 @@
 
 
                         <li *ngIf="!authService.isAdmin">
-                            <a href="/dashboard" routerLinkActive="active"
+                            <a [routerLink]="['/dashboard']" routerLinkActive="active"
 
                              class="animsition-link dashboard-link">Dashboard</a>
                           </li>

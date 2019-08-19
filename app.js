@@ -74,7 +74,7 @@ app.use((req, res, next) => {
 
 app.use('/uploads',express.static(path.join(__dirname, './uploads')));
 // access frontend folder
-app.use('/',express.static(path.join(__dirname, './angular')));
+app.use('/',express.static(path.join(__dirname, '/angular')));
 
 app.use('/api', apiRoutes);
 

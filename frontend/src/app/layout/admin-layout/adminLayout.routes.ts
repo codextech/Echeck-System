@@ -37,6 +37,8 @@ import { AuthGuard } from 'src/app/_guards/auth.guard';
 import { AuthorizationGuard } from 'src/app/_guards/authorization.guard';
 import { SliderImageComponent } from 'src/app/main/admin-dashboard/slider-image/slider-image.component';
 import { CheckBackgroundComponent } from 'src/app/main/admin-dashboard/check-background/check-background.component';
+import { ContactRequestComponent } from 'src/app/main/admin-dashboard/contact-request/contact-request.component';
+import { SubscriberComponent } from 'src/app/main/admin-dashboard/subscriber/subscriber.component';
 
 export const ADMIN_LAYOUTS_ROUTES: Routes = [
 
@@ -140,6 +142,15 @@ export const ADMIN_LAYOUTS_ROUTES: Routes = [
   component: CheckBackgroundComponent
 },
 
+{
+  path: 'requests',
+  component: ContactRequestComponent
+},
+
+{
+  path: 'subscribers',
+  component: SubscriberComponent
+},
 
 
 

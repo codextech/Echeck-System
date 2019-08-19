@@ -9,10 +9,15 @@ const config = {
   },
 
   "production":{
-    "host":"ftp.youseva.com",
+    /* "host":"ftp.youseva.com",
     "user":"yousevac_echeck",
     "password":"Echeck9477#",
-    "database":"yousevac_echeck"
+    "database":"yousevac_echeck" */
+
+    "host":"remotemysql.com",
+     "user":"mjvGxZ7rjt",
+     "password":"okgimqTwtQ",
+     "database":"mjvGxZ7rjt"
 }
 
 }
