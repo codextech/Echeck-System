@@ -25,5 +25,6 @@ export class HomeFooterComponent implements OnInit {
         console.log(err);
       }
     );
+  return null;
   }
 }

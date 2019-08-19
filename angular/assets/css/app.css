@@ -1878,7 +1878,7 @@ Nav
           clear: both;
           content: ""; }
         .sidenav .nav li > a:hover, .sidenav .nav li > a:focus {
-          background-color: rgba(255, 255, 255, 0.065); }
+          background-color: rgba(63, 134, 202, 0.23); }
       .sidenav .nav li.active > a {
         background-color: transparent;
         color: #285f94
@@ -2169,7 +2169,8 @@ Nav plus
   .nav-dropup .nav > li:hover > ul, .nav-dropup .nav > li:focus > ul,
   .folded.nav-dropdown .nav > li:hover > ul,
   .folded.nav-dropdown .nav > li:focus > ul {
-    display: block; }
+    display: block;
+   }
   .nav-dropup .nav > li > ul,
   .folded.nav-dropdown .nav > li > ul {
     display: none;

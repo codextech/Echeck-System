@@ -30,6 +30,7 @@ export class ContactComponent implements OnInit {
         console.log(err);
       }
     );
+  return null;
   }
 
 
