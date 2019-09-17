@@ -13,7 +13,7 @@
 
 
 
-        <form #bankForm="ngForm" (ngSubmit)="addExistingBank()">
+        <form #existingBankForm="ngForm" (ngSubmit)="addExistingBank()">
 
           <div class="banks-container">
 
@@ -22,6 +22,9 @@
                 <label for="">Select Bank</label>
 
                 <select [(ngModel)]="bankModel.bankId" name="bank"
+                #existingBank="ngModel"
+                    [ngClass]="{'is-invalid': existingBankForm.submitted && existingBank.invalid}"
+                    required
                 (change)="SelectExisitingBank($event.target.value)"
                  class="form-control custom-select my-2">
                   <option  selected="true" value="0">Choose Bank</option>
@@ -85,6 +88,10 @@
                   class="form-control"
                   id="rn"
                   placeholder="Routing Number"
+
+                  #routingNumber="ngModel"
+                  [ngClass]="{'is-invalid': bankForm.submitted && routingNumber.invalid}"
+                  required
                 />
               </div>
               <div class="form-group col-md-6">
@@ -95,6 +102,10 @@
                   type="text"
                   class="form-control"
                   placeholder="Bank Name"
+
+                  #bankName="ngModel"
+                  [ngClass]="{'is-invalid': bankForm.submitted && bankName.invalid}"
+                  required
                 />
               </div>
 

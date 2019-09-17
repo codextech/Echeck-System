@@ -208,19 +208,8 @@ export class AddChequeComponent implements OnInit {
     await this.convertToImage(fileName);
     this.ngxUiLoaderService.stopBackground(); //    Loader stop
     if (this.checkImageFile) {
-
     console.log(this.checkImageFile);
     this.checkModel.checkImageFile = this.checkImageFile;
-
-    /* Check is FOr Company or individual */
-
-    // if (this.checkModel.individual) {
-    //   this.checkModel.companyId = null;
-    // } else {
-    //   this.checkModel.individual = false;
-    //   this.checkModel.senderName = null;
-    //   this.checkModel.senderAddress = null;
-    // }
 
     const formData = new FormData();
 
@@ -265,9 +254,10 @@ export class AddChequeComponent implements OnInit {
     this.checkService.saveCheck(formData).subscribe(
       result => {
 
-        this.router.navigate(['/check-history/sent']);
-        this.toastr.success('Check Sent');
-        console.log(result.data);
+        // this.router.navigate(['/check-history/sent']);
+        // this.toastr.success('Check Sent');
+        this.ngxModalService.open('checkCompleteModal');
+
       },
       err => {
         this.toastr.error(err.error.message);
@@ -277,6 +267,7 @@ export class AddChequeComponent implements OnInit {
   } else {
     console.log('dom to image is not working properly');
     this.toastr.error('Please Try Again !');
+
   }
 
   }
@@ -423,24 +414,6 @@ export class AddChequeComponent implements OnInit {
   }
 
 
-
-/*   onClickPersonalInfo(isPersonal) {
-    console.log('indiv ' + this.checkModel.individual);
-    this.checkModel.isCompany = false;
-    if (isPersonal) {
-      this.ngxModalService.open('personalInfo');
-    }
-  } */
-
-
-/*   onClickCompany(isCompany) {
-    console.log('comp ' + this.checkModel.isCompany);
-    this.checkModel.individual = false;
-    if (isCompany) {
-      this.ngxModalService.open('companyDropDown');
-    }
-  } */
-
   async convertToImage(fileName) {
     try {
       const blob = await htmlToImage.toBlob(this.container.nativeElement);
@@ -479,13 +452,6 @@ export class AddChequeComponent implements OnInit {
 
 
   }
-
-  // public get isCrossedShow() {
-  //   if (isBackSelected == true && item.checkBackgroundId == selctedCheckBackgroundId) {
-
-  //   }
-  // }
-
 
 
   selectDocument(id) {

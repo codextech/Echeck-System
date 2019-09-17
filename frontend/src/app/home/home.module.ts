@@ -7,6 +7,10 @@ import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { FormsModule } from '@angular/forms';
+import { TermsComponent } from './terms/terms.component';
+import { PolicyComponent } from './policy/policy.component';
+import { FaqsComponent } from './faqs/faqs.component';
+import { SaveUrlPipe } from '../_pipe/saveUrl.pipe';
 
 
 
@@ -22,10 +26,15 @@ import { FormsModule } from '@angular/forms';
     declarations: [
         LandingPageComponent,
         AboutComponent,
-        ContactComponent
+        ContactComponent,
+        PolicyComponent,
+        TermsComponent,
+        FaqsComponent,
+        SaveUrlPipe
     ],
     providers: [
 
-      ]
+      ],
+      exports: [SaveUrlPipe]
 })
 export class HomeModule { }

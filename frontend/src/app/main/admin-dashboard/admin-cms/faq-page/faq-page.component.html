@@ -1,0 +1,115 @@
+<div class="padding">
+
+
+    <div class="box">
+
+      <div class="box-body p-3">
+        <h5 class="text-muted"> FAQ</h5>
+        <button (click)="faqModal.open()" type="button" class="btn danger md">
+          <i class="fa fa-plus"></i>
+          Add Faq
+        </button>
+
+
+        <hr>
+
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab_1">
+                <div class="box p-md-4">
+                    <ul class="list">
+                        <li *ngFor="let item of faqs" class="list-item mt-1">
+                            <div class="clear">
+                                <h5 class="text-md">
+                                    <a href="#">{{item.question}} </a>
+                                </h5>
+                                <p class="text-muted">{{item.answer}}</p>
+                            </div>
+                        </li>
+                    </ul>
+                  <!--   <div class="p-3">
+                        <ul class="pagination">
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-chevron-left"></i>
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a href="#">1</a>
+                            </li>
+                            <li>
+                                <a href="#">2</a>
+                            </li>
+                            <li>
+                                <a href="#">3</a>
+                            </li>
+                            <li>
+                                <a href="#">4</a>
+                            </li>
+                            <li>
+                                <a href="#">5</a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-chevron-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+
+
+
+      </div>
+
+    </div>
+
+
+
+
+
+    </div>
+
+
+    <ngx-smart-modal [closable]='false' [dismissable]='false' #faqModal identifier="faqModal"
+  customClass="nsm-dialog-animation-ttb">
+  <div class="modal-header">
+    <h5 class="modal-title">Faq</h5>
+  </div>
+  <div class="modal-body text-center p-lg">
+    <form #faqForm="ngForm" (ngSubmit)="addFaq()" class="p-x-xs">
+      <div class="mb-2-lg row">
+        <div class="col-sm-12">
+          <div class="row row-sm">
+            <div class="col-sm-12">
+              <div class="md-form-group float-label">
+                <input [(ngModel)]="faqModel.question" name="question" class="md-input" />
+                <label>Question</label>
+              </div>
+            </div>
+
+            <div class="col-sm-12">
+                <div class="md-form-group float-label">
+                    <input [(ngModel)]="faqModel.answer" name="answer" class="md-input" />
+                    <label>Answer</label>
+                  </div>
+
+            </div>
+
+          </div>
+
+
+        </div>
+      </div>
+
+      <button type="button" class="btn dark-white p-x-md" (click)="faqModal.close()">
+        Cancel
+      </button>
+      <button type="submit" class="btn primary p-x-md" (click)="faqModal.close()">
+        Submit
+      </button>
+    </form>
+  </div>
+</ngx-smart-modal>

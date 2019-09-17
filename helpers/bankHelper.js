@@ -188,9 +188,7 @@ exports.addBankLogo = async (url) => {
 
 exports.getImageUrl = (req) => {
 
-    // const url = req.protocol + '://' + req.get("host");
-    // const url = req.protocol + '://' + req.hostname
-    // const url = 'https://www.rxcoin.net'
+
     const url = APPURL;
     const path = url + 'uploads/'+ req.file.filename;
    return path;

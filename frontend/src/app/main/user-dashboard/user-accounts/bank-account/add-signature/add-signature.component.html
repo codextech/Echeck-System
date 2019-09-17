@@ -11,28 +11,19 @@
           <form #bankForm="ngForm" (ngSubmit)="addSignature()">
             <div class="form-row">
 
-              <!-- <div class="form-group col-sm-12">
-                    <label for="inputAddress">Choose Bank Account</label>
 
-
-                <select
-                [(ngModel)]="signatureModel.bankAccountId"
-                name="bank"
-                class="form-control custom-select my-2">
-                <option disabled selected="true" value="">Choose Bank</option>
-                <option>
-                  Account Name
-                </option>
-              </select>
-
-                </div> -->
 
               <div class="form-group col-md-12">
                 <label>Choose Bank Account</label>
                 <select (change)="onChangeAcccount($event.target.value)"
-                 #editBank [(ngModel)]="signatureModel.bankAccountId" name="bankAccountId" class="form-control">
+                 #editBank [(ngModel)]="signatureModel.bankAccountId"
+                 #bankName="ngModel"
+                    [ngClass]="{'is-invalid': bankForm.submitted && bankName.invalid}"
+                    required
+                  name="bankAccountId" class="form-control">
                   <option value="0">Select Account</option>
-                  <option *ngFor="let account of bankAccounts" [value]="account.bankAccountId">
+                  <option *ngFor="let account of bankAccounts"
+                   [value]="account.bankAccountId">
                     {{account.accountName}} | {{account.accountNumber}}
                   </option>
                 </select>
@@ -72,7 +63,7 @@
             </div>
 
 
-            <button type="submit" class="btn primary">Submit</button>
+            <button [disabled]="!isAccountSelected" type="submit" class="btn primary">Submit</button>
           </form>
         </div>
       </div>

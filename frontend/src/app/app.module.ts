@@ -31,6 +31,8 @@ import { LandingLayoutModule } from './layout/landing-layout/landing-layout.modu
 import { NgxUiLoaderConfig, SPINNER, NgxUiLoaderModule } from 'ngx-ui-loader';
 import { AuthorizationGuard } from './_guards/authorization.guard';
 import { PaginationService } from 'ngx-pagination';
+import { ErrorLayoutModule } from './layout/error-layout/error-layout.module';
+import { ErrorModule } from './error/error.module';
 
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
@@ -68,9 +70,11 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     HttpClientModule,
     AdminLayoutModule,
     LandingLayoutModule,
+    ErrorLayoutModule,
     SharedUIModule,
     HomeModule,
     MainModule,
+    ErrorModule,
     AuthdModule,
     NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
     NgxSmartModalModule.forRoot(), // for Modal

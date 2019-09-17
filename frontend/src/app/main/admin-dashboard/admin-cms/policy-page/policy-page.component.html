@@ -1,0 +1,19 @@
+
+
+
+<div class="padding">
+
+
+    <h5 class="text-muted">Add Privacy Poliocy </h5>
+
+    <form #policyForm="ngForm" (ngSubmit)="addPolicy()">
+
+    <ejs-richtexteditor [toolbarSettings]='tools' [showCharCount]='true'
+    [(ngModel)]="model.policyText" name="policyText"></ejs-richtexteditor>
+
+
+    <button type="submit" class="mt-3 btn primary p-x-md">
+        Submit
+      </button>
+    </form>
+    </div>

@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
+    "start": "nodemon app.js",
     "debug": "nodemon --inspect app.js"
   },
   "repository": {
@@ -14,7 +14,7 @@
   },
   "engines": {
     "node": "v8.11.4"
-   },
+  },
   "author": "",
   "license": "ISC",
   "bugs": {
@@ -32,5 +32,8 @@
     "nodemailer": "^6.1.0",
     "nodemailer-sendgrid-transport": "^0.2.0",
     "sequelize": "^5.2.7"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.2"
   }
 }

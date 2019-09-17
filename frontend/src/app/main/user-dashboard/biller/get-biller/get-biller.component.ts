@@ -68,6 +68,7 @@ export class GetBillerComponent implements OnInit {
         this.recievers.push(this.recieverModel);
         this.recievers = [...this.recievers]; // copy of array
         this.recieverModel = {};
+        this.ngxModalService.close('billerModal');
       },
       err => {
         console.log(err);

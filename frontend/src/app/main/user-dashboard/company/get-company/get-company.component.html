@@ -173,6 +173,8 @@
                     [(ngModel)]="companyModel.partnerName"
                     name="partnerEmail"
                     class="md-input"
+                    #pName="ngModel"
+                    [ngClass]="{'is-invalid': companyForm.submitted && pName.invalid}"
                     required
                   />
                   <label>Partner First Name</label>
@@ -207,6 +209,8 @@
               [(ngModel)]="companyModel.partnerEmail"
               name="partnerEmail"
               class="md-input"
+              #pEmail="ngModel"
+              [ngClass]="{'is-invalid': companyForm.submitted && pEmail.invalid}"
               required
             />
             <label>Your Partner Email</label>
@@ -219,7 +223,6 @@
               [(ngModel)]="companyModel.partnerDesignation"
               name="Designation"
               class="md-input"
-              required
             />
             <label>Partner Designation</label>
           </div>
@@ -242,8 +245,7 @@
       <button
         type="submit"
         class="btn primary p-x-md"
-        [disabled]="companyForm.invalid"
-        (click)="compModal.close()">
+        [disabled]="companyForm.invalid">
         Submit
       </button>
     </form>
@@ -384,6 +386,9 @@
                             [(ngModel)]="companyModel.partnerName"
                             name="partnerName"
                             class="md-input"
+                            #ePName="ngModel"
+                            [ngClass]="{'is-invalid': companyForm.submitted && ePName.invalid}"
+                            required
                           />
                           <label>Partner First Name</label>
                         </div>
@@ -417,6 +422,9 @@
                       [(ngModel)]="companyModel.partnerEmail"
                       name="partnerEmail"
                       class="md-input"
+                      #ePEmail="ngModel"
+                      [ngClass]="{'is-invalid': companyForm.submitted && ePEmail.invalid}"
+                      required
                     />
                     <label>Your Partner Email</label>
                   </div>
@@ -426,7 +434,7 @@
                   <div class="md-form-group float-label">
                     <input
                       [(ngModel)]="companyModel.partnerDesignation"
-                      name="Designation"
+                      name="pDesignation"
                       class="md-input"
                     />
                     <label>Partner Designation</label>

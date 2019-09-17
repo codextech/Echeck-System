@@ -12,6 +12,8 @@ import { ConfigService } from 'src/app/_services/config-datatable';
 })
 export class AddBankAccountComponent implements OnInit {
 
+  @ViewChild('accountForm') accountForm; // form reference
+
 
   accountModel: any = {};
   banks: any[] = [];
@@ -69,6 +71,9 @@ export class AddBankAccountComponent implements OnInit {
     this.getBankAccounts();
     //  this.getcompanyList(); // user company drop down
     //  this.getUserSignatures(); // user signatureHistory
+
+    this.accountModel.individualAccount = false;
+     this.accountModel.businessAccount = false;
   }
 
   // saved Bank accounts of user
@@ -133,12 +138,23 @@ export class AddBankAccountComponent implements OnInit {
 
   addBankAccount() {
 
-    this.accountService.addBankAccount(this.accountModel).subscribe(result => {
-      // this.router.navigate(['/get/bank-accounts']);
-      this.ngxModalService.open('bankAccountModal');
-    }, err => {
-      this.toastr.error(err.error.message);
-    });
+    const indiv = this.accountModel.individualAccount;
+    const busi = this.accountModel.businessAccount;
+
+    if (indiv != false || busi != false && this.accountForm.valid) {
+
+      this.accountService.addBankAccount(this.accountModel).subscribe(result => {
+        // this.router.navigate(['/get/bank-accounts']);
+        this.ngxModalService.open('bankAccountModal');
+        this.accountForm.resetForm();
+      }, err => {
+        this.toastr.error(err.error.message);
+      });
+    } else {
+      this.toastr.error("Please Select 'Individual' OR 'Business'")
+    }
+
+
   }
 
   onImagePicked(event) {

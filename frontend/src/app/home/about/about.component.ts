@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { HomeService } from 'src/app/_services/home.service';
+import { ToastrService } from 'ngx-toastr';
+import { CmsService } from 'src/app/_services/cms.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-about',
@@ -7,9 +11,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AboutComponent implements OnInit {
 
-  constructor() { }
+  about: any;
+  stories: any[] = [];
+  contacts: any[] = [];
+  constructor(private homeService: HomeService, private toastr: ToastrService,
+    private cmsService: CmsService,
+    ) { }
 
   ngOnInit() {
+    this.getPageContent();
+  }
+
+  getPageContent() {
+    this.cmsService.getAll()
+      .subscribe(res => {
+        const data = res.data;
+        this.stories = data.stories;
+        this.contacts = data.contacts;
+        this.about = data.about;
+
+      },
+        err => {
+          console.log(err);
+        });
   }
 
 }

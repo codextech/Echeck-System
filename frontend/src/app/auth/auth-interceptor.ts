@@ -37,8 +37,12 @@ import { finalize } from 'rxjs/operators';
           if (err instanceof HttpErrorResponse && err.status === 401) {
             localStorage.removeItem('access_token');
             this.router.navigate(['login']);
-            this.toastr.error('Session Expired');
+            // this.toastr.error('Session Expired');
             return of(err as any);
+
+          }
+          if (err instanceof HttpErrorResponse && err.status === 505) {
+            this.router.navigate(['error-505']);
 
           }
           throw err;

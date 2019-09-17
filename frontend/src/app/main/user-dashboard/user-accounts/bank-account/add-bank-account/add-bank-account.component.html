@@ -53,6 +53,9 @@
                 <select
                   [(ngModel)]="accountModel.bankId"
                   name="bank"
+                  #bankName="ngModel"
+                  [ngClass]="{'is-invalid': accountForm.submitted && bankName.invalid}"
+                  required
                   class="form-control custom-select my-2">
                   <option disabled selected="true" value="">Choose Bank</option>
                   <option *ngFor="let bank of banks" [value]="bank.bankId">
@@ -67,6 +70,9 @@
                 <select
                   [(ngModel)]="accountModel.bankaccountTypeId"
                   name="company"
+                  #type="ngModel"
+                  [ngClass]="{'is-invalid': accountForm.submitted && type.invalid}"
+                  required
                   class="form-control custom-select my-2">
                   <option disabled selected="true" value="">Choose Account Type
                   </option>
@@ -85,6 +91,9 @@
                   type="text"
                   class="form-control"
                   placeholder="account number"
+                  #accountNumber="ngModel"
+                  [ngClass]="{'is-invalid': accountForm.submitted && accountNumber.invalid}"
+                  required
                 />
               </div>
 
@@ -97,6 +106,9 @@
                     class="form-control"
                     placeholder="Enter on who's name this account is
                     "
+                    #accountName="ngModel"
+                    [ngClass]="{'is-invalid': accountForm.submitted && accountName.invalid}"
+                    required
                   />
                 </div>
 
@@ -131,6 +143,10 @@
                     type="text"
                     class="form-control"
                     placeholder="sub account number"
+
+                    #subAccountNumber="ngModel"
+                    [ngClass]="{'is-invalid': accountForm.submitted && subAccountNumber.invalid}"
+                    required
                   />
               </div>
 

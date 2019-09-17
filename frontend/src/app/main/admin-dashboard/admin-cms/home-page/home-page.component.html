@@ -1,0 +1,214 @@
+<div class="padding">
+
+
+  <div class="box">
+
+    <div class="box-body p-3">
+
+
+      <h5 class="text-muted">Add Home Icons <span class="text-danger">(Only 4)</span> (After Slider Section)
+
+      </h5>
+
+      <button disabled="homeIcon.lenght == 4" (click)="homeIconModal.open()" type="button" class="btn danger md">
+        <i class="fa fa-plus"></i>
+        Add Home Icon
+      </button>
+
+
+      <div class="row mt-5">
+          <div *ngFor="let item of homeIcon" class="col-6 col-sm-3 col-md-3">
+              <div style="max-height: 200px;border: 1px solid #285f94;" class="box p-1">
+                      <img style="margin: auto; display: block;" class="w-50 h-50" alt="" [src]="item.icon">
+                  <div class="p-1">
+                      <div class="text-ellipsis text-center">{{item.text}}</div>
+                      <div (click)="editHomeIcon(item.id)" class="text-ellipsis text-danger btn">Edit</div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+
+
+
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="box">
+
+    <div class="box-body p-3">
+
+
+      <h5 class="text-muted">Add App Process  <span class="text-danger">(Only 3)</span> (How our app works)</h5>
+      <button disabled="appProcess.lenght == 3" (click)="appProcessModal.open()" type="button" class="btn danger md">
+        <i class="fa fa-plus"></i>
+        Add
+      </button>
+
+
+
+
+      <div class="row mt-5">
+          <div *ngFor="let item of appProcess" class="col-sm-4">
+              <div style="border: 1px solid #285f94;" class="box-color text-color">
+                  <div class="box-header">
+                      <h3>{{item.title}}</h3>
+                      <div class="box-tool">
+                          <ul class="nav nav-xs">
+                              <li (click)="editAppProcess(item.id)" class="nav-item">
+                                  <a class="nav-link">
+                                      <i class="fa fa-edit"></i>
+                                  </a>
+                              </li>
+                          </ul>
+                      </div>
+                  </div>
+                  <div class="box-body">
+                      <p class="m-0 text-muted">{{item.text}}</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+
+
+
+    </div>
+
+
+
+  </div>
+
+
+
+</div>
+
+
+
+
+<ngx-smart-modal [closable]='false' [dismissable]='false' #homeIconModal identifier="homeIconModal"
+  customClass="nsm-dialog-animation-ttb">
+  <div class="modal-header">
+    <h5 class="modal-title">Add Home Icons</h5>
+  </div>
+  <div class="modal-body text-center p-lg">
+    <form #homeIconForm="ngForm" (ngSubmit)="addHomeIcon()" class="p-x-xs">
+      <div class="mb-2-lg row">
+        <div class="col-sm-12">
+          <div class="row row-sm">
+            <div class="col-sm-6">
+              <div class="md-form-group float-label">
+                <input [(ngModel)]="homeIconModel.text" name="text" class="md-input" />
+                <label>Title</label>
+              </div>
+            </div>
+
+            <div class="col-sm-12">
+
+              <div class="p-3 file-upload-container">
+
+                <label>Icon Image </label>
+
+                <div class="m-auto" *ngIf="iconImage" class="col-6 col-sm-3 col-md-4">
+                  <div>
+                    <img style="max-width: 100px" class="w-100" alt="" [src]="iconImage" />
+                  </div>
+                </div>
+
+                <br />
+                <input style="display:none" #iconImageFile type="file" (change)="onIconImagePicked($event)" />
+
+                <button type="button" (click)="iconImageFile.click()" class="btn btn-fw accent">
+                  <i class="fa fa-image"></i>
+                  Select Image
+                </button>
+
+                <button *ngIf="iconImage" type="button" (click)="cancelIconImage()" class="btn default ml-2">
+                  Cancel
+                </button>
+
+              </div>
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+          </div>
+
+
+        </div>
+      </div>
+
+      <button type="button" class="btn dark-white p-x-md" (click)="homeIconModal.close()">
+        Cancel
+      </button>
+      <button type="submit" class="btn primary p-x-md" (click)="homeIconModal.close()">
+        Submit
+      </button>
+
+    </form>
+  </div>
+</ngx-smart-modal>
+
+
+<ngx-smart-modal [closable]='false' [dismissable]='false' #appProcessModal identifier="appProcessModal"
+  customClass="nsm-dialog-animation-ttb">
+  <div class="modal-header">
+    <h5 class="modal-title">Add Step</h5>
+  </div>
+  <div class="modal-body text-center p-lg">
+    <form #companyForm="ngForm" (ngSubmit)="addAppProcess()" class="p-x-xs">
+      <div class="mb-2-lg row">
+        <div class="col-sm-12">
+          <div class="row row-sm">
+            <div class="col-sm-12">
+              <div class="md-form-group float-label">
+                <input [(ngModel)]="appProcessModel.title" name="title" class="md-input" />
+                <label>Title</label>
+              </div>
+            </div>
+
+            <div class="col-sm-12">
+              <div class="md-form-group float-label">
+                <input [(ngModel)]="appProcessModel.text" name="text" class="md-input" />
+                <label>Description</label>
+              </div>
+            </div>
+
+          </div>
+
+
+        </div>
+      </div>
+
+      <button type="button" class="btn dark-white p-x-md" (click)="appProcessModal.close()">
+        Cancel
+      </button>
+      <button type="submit" class="btn primary p-x-md" (click)="appProcessModal.close()">
+        Submit
+      </button>
+    </form>
+  </div>
+</ngx-smart-modal>
+
+
+
+
+
+
+
+

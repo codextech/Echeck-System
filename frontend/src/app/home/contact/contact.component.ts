@@ -3,6 +3,7 @@ import { HomeService } from 'src/app/_services/home.service';
 import { UserAuthService } from 'src/app/_services/user-auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { CmsService } from 'src/app/_services/cms.service';
 
 @Component({
   selector: 'app-contact',
@@ -12,11 +13,14 @@ import { Router } from '@angular/router';
 export class ContactComponent implements OnInit {
 
   contactModel: any = {};
+  contacts: any[] = [];
   constructor(private homeService: HomeService, private toastr: ToastrService,
+    private cmsService: CmsService,
     private router: Router
     ) { }
 
   ngOnInit() {
+    this.getPageContent();
   }
 
   addMessage() {
@@ -31,6 +35,18 @@ export class ContactComponent implements OnInit {
       }
     );
   return null;
+  }
+
+
+  getPageContent() {
+    this.cmsService.getAll()
+      .subscribe(res => {
+        const data = res.data;
+        this.contacts = data.contacts;
+      },
+        err => {
+          console.log(err);
+        });
   }
 
 

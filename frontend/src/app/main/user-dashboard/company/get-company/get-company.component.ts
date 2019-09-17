@@ -71,6 +71,7 @@ export class GetCompanyComponent implements core.OnInit {
         this.companies.push(this.companyModel);
         this.companies = [...this.companies]; // copy of array
         this.companyModel = {};
+        this.ngxModalService.close('compModal');
       },
       err => {
         console.log(err);

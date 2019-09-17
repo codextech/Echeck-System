@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { HomeService } from 'src/app/_services/home.service';
+import { CmsService } from 'src/app/_services/cms.service';
 
 @Component({
   selector: 'app-home-footer',
@@ -10,9 +11,23 @@ import { HomeService } from 'src/app/_services/home.service';
 export class HomeFooterComponent implements OnInit {
 
   subscriberModel: any = {}
-  constructor(private toastr: ToastrService, private homeService: HomeService) { }
+  links: any[] = [];
+  constructor(private cmsService: CmsService, private toastr: ToastrService, private homeService: HomeService) { }
+
 
   ngOnInit() {
+    this.getPageContent();
+  }
+
+  getPageContent() {
+    this.cmsService.getAll()
+      .subscribe(res => {
+        const data = res.data;
+        this.links = data.footerLinks;
+      },
+        err => {
+          console.log(err);
+        });
   }
 
   addSubscribe() {

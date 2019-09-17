@@ -14,6 +14,9 @@ import { UserAuthService } from 'src/app/_services/user-auth.service';
 })
 export class AddBankComponent implements OnInit {
 
+  @ViewChild('existingBankForm') existingBankForm; // form reference
+  @ViewChild('bankForm') bankForm; // form reference
+
   constructor(private accountService: UserAccountService,
     private toastr: ToastrService,
     private authService: UserAuthService,
@@ -137,39 +140,43 @@ newLogo = true;
 
 
   addExistingBank() {
-    this.accountService.addBank(this.bankModel).subscribe(result => {
-      this.ngxModalService.open('bankaddModal');
 
+    if (this.bankModel == null || this.bankModel === {}) {
+
+      this.accountService.addBank(this.bankModel).subscribe(result => {
+        this.ngxModalService.open('bankaddModal');
+        this.existingBankForm.resetForm();
     }, err => {
       console.log(err);
-
       this.toastr.error(err.error.message);
     });
+    } else {
+      this.toastr.error('Please Select Bank');
+    }
+
 
   }
 
   addNewBank() {
-
-    if (this.isNewBankLogoUpload && this.selctedBankLogoId == null) {
-  this.drpzone.directiveRef.dropzone().processQueue();
-  console.log('1');
-
-    } else if (this.isNewBankLogoUpload == false && this.selctedBankLogoId != null) {
-  console.log('else if');
-  console.log(this.isNewBankLogoUpload);
-  console.log(this.selctedBankLogoId);
+   console.log(this.bankForm.valid);
+    
+    if (this.isNewBankLogoUpload && this.selctedBankLogoId == null && this.bankForm.valid) {
+        this.drpzone.directiveRef.dropzone().processQueue();
+    } else if (this.isNewBankLogoUpload == false && this.selctedBankLogoId != null && this.bankForm.valid) {
+/*   console.log(this.isNewBankLogoUpload);
+  console.log(this.selctedBankLogoId); */
 
       this.accountService.addBank(this.bankModel).subscribe(result => {
         this.ngxModalService.open('bankaddModal');
+        this.bankForm.resetForm();
       }, err => {
         console.log(err);
-
         this.toastr.error(err.error.message);
       });
     } else if(this.isNewBankLogoUpload == false && this.selctedBankLogoId == null) {
       this.toastr.error('Please Choose Bank Logo');
-    } else {
-       this.toastr.error('You can not "Select Logo image" or "upload new Logo"  at a time');
+    } else if(this.isNewBankLogoUpload == true && this.selctedBankLogoId != null ) {
+       this.toastr.error('Invalid: Adding more than one bank logo is not allowed');
     }
   }
 

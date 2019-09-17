@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserAccountService } from 'src/app/_services/user-account.service';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { ConfigService } from 'src/app/_services/config-datatable';
@@ -42,6 +42,8 @@ export class AddSignatureComponent implements OnInit {
 
   isAccountSelected = false;
   edit = false;
+
+  @ViewChild('bankForm') form; // form reference
   constructor(private accountService: UserAccountService,
     private ngxModalService: NgxSmartModalService) { }
 
@@ -84,7 +86,6 @@ export class AddSignatureComponent implements OnInit {
 
     const formData = new FormData();
 
-    this.signatureModel.signatureId = null; // temp
     formData.append('signatureId', this.signatureModel.signatureId); // in case if user choose selected sign
     formData.append('signImage', this.signatureModel.signImage);
     formData.append('bankAccountId', this.signatureModel.bankAccountId);
@@ -95,6 +96,7 @@ export class AddSignatureComponent implements OnInit {
     bankAccount.signatureImage = this.signImage;
     // clear model
     this.signatureModel = {};
+      this.form.resetForm();
     this.isAccountSelected = false; // disabled button
       this.ngxModalService.open('signModal');
 
@@ -136,7 +138,6 @@ export class AddSignatureComponent implements OnInit {
   }
 
   onChangeAcccount(id) {
-    console.log(id);
     if (id != 0) {
     this.isAccountSelected = true;
     } else {

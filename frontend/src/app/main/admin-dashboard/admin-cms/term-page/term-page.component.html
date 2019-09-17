@@ -1,0 +1,21 @@
+
+
+
+<div class="padding">
+
+
+    <h5 class="text-muted">Terms Page Content </h5>
+
+
+    <form #termForm="ngForm" (ngSubmit)="addTerm()">
+
+
+    <ejs-richtexteditor [toolbarSettings]='tools' [showCharCount]='true'
+    [(ngModel)]="model.termText" name="termText"></ejs-richtexteditor>
+
+    <button type="submit" class="mt-3 btn primary p-x-md">
+        Submit
+    </button>
+
+    </form>
+    </div>

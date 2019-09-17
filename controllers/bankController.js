@@ -477,7 +477,7 @@ exports.addSignature = async (req, res, next) => {
   try {
 
       // add signature to signature table for maintaing history
-      if (model.signatureId != 'null') {
+      if (model.signatureId != 'null' && model.signatureId != 'undefined') {
         signId = model.signatureId; // user choosed existing sign
       }
       else{
@@ -491,7 +491,6 @@ exports.addSignature = async (req, res, next) => {
           return res.status(400).json({ message: "Bank Account not Updated" });
         }
 
-        // update Bank Account Sign
 
 
 

@@ -1,0 +1,70 @@
+<div class="page-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-breadcrumb">
+          <ol class="breadcrumb">
+            <li><a [routerLink]="['/']">Home</a></li>
+            <li class="active">FAQ</li>
+          </ol>
+        </div>
+      </div>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="bg-white pinside30">
+          <div class="row">
+            <div class="col-xl-4 col-lg-4 col-md-9 col-sm-12 col-12">
+              <h1 class="page-title">FAQ</h1>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class=" ">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="wrapper-content bg-white pinside40">
+          <div class="">
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="section-title mb30">
+                  <h1>General Questions</h1>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 st-accordion">
+
+                <div class="panel-group" id="accordion" role="tablist"
+                  aria-multiselectable="true">
+                  <div *ngFor="let item of faqs"  class="panel panel-default">
+                    <div class="panel-heading" role="tab">
+                      <h4 class="panel-title">
+
+                        <i class="fa fa-question-circle"></i>
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#{{item.id}}"
+                          aria-expanded="true">
+                          {{item.question}}
+                        </a> </h4>
+                    </div>
+                    <div [id]="item.id" class="panel-collapse collapse show" role="tabpanel">
+                      <div class="panel-body">
+                        {{item.answer}}
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

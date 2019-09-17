@@ -39,6 +39,14 @@ import { SliderImageComponent } from 'src/app/main/admin-dashboard/slider-image/
 import { CheckBackgroundComponent } from 'src/app/main/admin-dashboard/check-background/check-background.component';
 import { ContactRequestComponent } from 'src/app/main/admin-dashboard/contact-request/contact-request.component';
 import { SubscriberComponent } from 'src/app/main/admin-dashboard/subscriber/subscriber.component';
+import { ContactPageComponent } from 'src/app/main/admin-dashboard/admin-cms/contact-page/contact-page.component';
+import { AboutPageComponent } from 'src/app/main/admin-dashboard/admin-cms/about-page/about-page.component';
+import { FaqPageComponent } from 'src/app/main/admin-dashboard/admin-cms/faq-page/faq-page.component';
+import { HomePageComponent } from 'src/app/main/admin-dashboard/admin-cms/home-page/home-page.component';
+import { MakeCheckPageComponent } from 'src/app/main/admin-dashboard/admin-cms/make-check-page/make-check-page.component';
+import { FooterPageComponent } from 'src/app/main/admin-dashboard/admin-cms/footer-page/footer-page.component';
+import { PolicyPageComponent } from 'src/app/main/admin-dashboard/admin-cms/policy-page/policy-page.component';
+import { TermPageComponent } from 'src/app/main/admin-dashboard/admin-cms/term-page/term-page.component';
 
 export const ADMIN_LAYOUTS_ROUTES: Routes = [
 
@@ -152,6 +160,53 @@ export const ADMIN_LAYOUTS_ROUTES: Routes = [
   component: SubscriberComponent
 },
 
+
+/* -------------- CMS Routes ------------------ */
+
+{
+  path: 'cms',
+children: [
+{
+  path: 'home',
+  component: HomePageComponent
+},
+
+{
+  path: 'about',
+  component: AboutPageComponent
+},
+
+{
+  path: 'contact',
+  component: ContactPageComponent
+},
+
+{
+  path: 'payment',
+  component: MakeCheckPageComponent
+},
+
+{
+  path: 'faq',
+  component: FaqPageComponent
+},
+
+{
+  path: 'footer',
+  component: FooterPageComponent
+},
+
+{
+  path: 'policy',
+  component: PolicyPageComponent
+},
+
+{
+  path: 'term',
+  component: TermPageComponent
+},
+]
+}
 
 
     ]

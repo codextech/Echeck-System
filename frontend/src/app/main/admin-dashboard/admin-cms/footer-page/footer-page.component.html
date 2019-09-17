@@ -1,0 +1,102 @@
+<div class="padding">
+
+
+    <div class="box">
+
+      <div class="box-body p-3">
+
+
+        <h5 class="text-muted">Footer Link</h5>
+        <button (click)="FooterLinkModal.open()" type="button" class="btn danger md">
+          <i class="fa fa-plus"></i>
+          Add
+        </button>
+
+
+
+
+        <div class="row mt-5">
+            <div *ngFor="let item of links" class="col-6 col-sm-6 col-md-3">
+                <div style="max-height: 100px;border: 1px solid #285f94;" class="box p-1">
+                    <p class="text-center py-1 mt-1">
+                        <i class="fa fa-{{item.icon}} text-primary fa-2x"></i>
+                    </p>
+                  <div class="p-1">
+                        <div class="mb-1 text-ellipsis text-center"> {{item.name}}</div>
+                        <div (click)="deleteLink(item.id)" class="text-ellipsis text-danger btn">Delete</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    </div>
+
+
+    <ngx-smart-modal [closable]='false' [dismissable]='false' #FooterLinkModal identifier="FooterLinkModal"
+  customClass="nsm-dialog-animation-ttb">
+  <div class="modal-header">
+    <h5 class="modal-title">Footer Icons</h5>
+  </div>
+  <div class="modal-body text-center p-lg">
+    <form #companyForm="ngForm" (ngSubmit)="addFooterLink()" class="p-x-xs">
+      <div class="mb-2-lg row">
+        <div class="col-sm-12">
+          <div class="row row-sm">
+            <div class="col-sm-6">
+              <div class="md-form-group float-label">
+                <input [(ngModel)]="footerLinkModel.name"
+                placeholder="Name That will show"
+                 name="name" class="md-input" />
+                <label>Name</label>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="md-form-group float-label">
+                    <input [(ngModel)]="footerLinkModel.icon"
+                placeholder="youtube, facebook etc.."
+                    name="icon" class="md-input" />
+                    <label>Icon</label>
+                  </div>
+
+            </div>
+
+
+
+            <div class="col-sm-6">
+                <div class="md-form-group float-label">
+                    <input [(ngModel)]="footerLinkModel.link"
+                placeholder="link to be redirect after click"
+                    name="link" class="md-input" />
+                    <label>Link</label>
+                  </div>
+
+            </div>
+
+
+
+
+
+
+
+
+          </div>
+
+
+        </div>
+      </div>
+
+      <button type="button" class="btn dark-white p-x-md" (click)="FooterLinkModal.close()">
+        Cancel
+      </button>
+      <button type="submit" class="btn primary p-x-md" (click)="FooterLinkModal.close()">
+        Submit
+      </button>
+    </form>
+  </div>
+</ngx-smart-modal>

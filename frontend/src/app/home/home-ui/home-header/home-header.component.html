@@ -1,17 +1,4 @@
 
-<div class="top-bar">
-    <!-- top-bar -->
-    <div class="container">
-        <div class="row">
-            <!-- <div class="col-xl-4 col-lg-5 col-md-4 col-sm-6 col-6 d-none d-xl-block d-lg-block">
-                <p class="mail-text">Welcome to our Borrow Loan Website Templates</p>
-            </div> -->
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-right">
-                <div class="top-nav"> <span class="top-text"><a href="#">View Locations</a> </span> <span class="top-text"><a href="#">+1800-123-4567</a></span> <span class="top-text"><a href="#">EMI calculator</a></span> </div>
-            </div>
-        </div>
-    </div>
-</div>
 <!-- /.top-bar -->
 <div class="header">
     <div class="container">
@@ -65,14 +52,13 @@
                             <li *ngIf="authService.isAdmin">
                                 <a [routerLink]="['/admin/dashboard']" routerLinkActive="active"
                                 style="color:#ffff"
-
                                  class="animsition-link dashboard-link">Dashboard</a>
                             </li>
 
 
                         <li *ngIf="!authService.isAdmin">
                             <a [routerLink]="['/dashboard']" routerLinkActive="active"
-
+                            style="color:#ffff"
                              class="animsition-link dashboard-link">Dashboard</a>
                           </li>
 

@@ -18,6 +18,12 @@ const UserBank = require("../models/user-bank");
 const IndividualCoPartner = require("../models/individual-copartner");
 const Slider = require("../models/slider");
 
+const Story = require("../models/content-story");
+const FooterLink = require("../models/content-footer-link");
+const HomeIcon = require("../models/content-home-icon");
+const ContactContent = require("../models/content-contact");
+const FAQ = require("../models/content-faq");
+
 
 // Data
 
@@ -35,27 +41,15 @@ const kycTypes = [
 
 const sliders = [
   {
-    'sliderImage': 'https://www.pay2mate.com/uploads/pay2mate1.jpg'
+    'sliderImage': 'https://www.pay2mate.com/uploads/slider1.jpg'
   },
   {
-    'sliderImage': 'https://www.pay2mate.com/uploads/pay2mate2.jpg'
+    'sliderImage': 'https://www.pay2mate.com/uploads/slider2.jpg'
+  },
+  {
+    'sliderImage': 'https://www.pay2mate.com/uploads/slider3.jpg'
   },
 ];
-
-/* const users = [
-  {
-
-  },
-  {
-
-  },
-]; */
-
-
-
-
-
-
 
 
 
@@ -79,6 +73,103 @@ const accountTypes = [
   },  {
     'bankaccountType' : 'Personal Loan',
   }
+];
+
+
+// stories
+
+const stories = [
+  {
+    'name': '',
+    'designation': '',
+    'text': '',
+  },
+
+  {
+    'name': '',
+    'designation': '',
+    'text': '',
+  },
+  
+];
+
+
+//footer icons 
+
+const footerIcons = [
+  {
+    'name': '',
+    'icon': '',
+    'link': '',
+  },
+
+  {
+    'name': '',
+    'icon': '',
+    'link': '',
+  },
+  
+];
+
+//faqs
+
+const faqs = [
+  {
+    'question': '',
+    'answer': '',
+  },
+
+  {
+    'question': '',
+    'answer': '',
+  },
+  
+];
+
+// contact section
+const contacts = [
+  {
+    'title': '',
+    'text': '', // description
+    'icon': '', // icon to show
+    'linkText': '',
+    'link': '',
+
+  },
+
+];
+
+
+// bank logo
+
+const bankLogos = [
+  {
+    'bankLogo': 'https://www.pay2mate.com/uploads/banklogo1.jpg',
+  },
+
+  {
+    'bankLogo': 'https://www.pay2mate.com/uploads/banklogo2.jpg',
+  },
+
+  {
+    'bankLogo': 'https://www.pay2mate.com/uploads/banklogo3.jpg',
+  },
+
+  {
+    'bankLogo': 'https://www.pay2mate.com/uploads/banklogo4.jpg',
+  },
+
+];
+
+
+// home icons
+
+const homeIcons = [
+  {
+    'icon': '',
+    'text': '',
+  },
+
 ];
 
 
@@ -245,6 +336,23 @@ exports.seedDatabase = async () =>  {
     await BankAccountType.bulkCreate(accountTypes);
 
     await Slider.bulkCreate(sliders);
+
+    await BankLogo.bulkCreate(bankLogos);
+
+    
+
+  // cms
+
+  await Story.bulkCreate(stories);
+
+  await FAQ.bulkCreate(faqs);
+
+  await ContactContent.bulkCreate(contacts);
+
+  await HomeIcon.bulkCreate(homeIcons);
+
+  await FooterLink.bulkCreate(footerIcons);
+
 
 
   } catch (error) {

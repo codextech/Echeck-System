@@ -324,7 +324,10 @@
 
                   <div class="col-sm-12">
                     <p class="issued-number">
-                      <input [(ngModel)]="checkModel.checkNumber" name="checkNumber" class="l-pd md-input">
+                      <input [(ngModel)]="checkModel.checkNumber"
+                       name="checkNumber" #checkNumber="ngModel"
+                       [ngClass]="{'is-invalid': checkForm.submitted && checkNumber.invalid}"
+                        class="l-pd md-input" required>
                     </p>
                   </div>
 
@@ -348,7 +351,7 @@
                        class="md-input wc-80"
                        #date="ngModel" name="date"
                        [ngClass]="{'is-invalid': checkForm.submitted && date.invalid}"
-                        required value="">
+                        required>
                     </div>
                   </div>
 
@@ -360,7 +363,7 @@
                        type="number"
                        #amount="ngModel" name="amount"
                        [ngClass]="{'is-invalid': checkForm.submitted && amount.invalid}"
-                        required value="">
+                        required value=0>
                         <i class="fa fa-usd"></i>
                     </div>
                   </div>
@@ -456,9 +459,23 @@
                   </div>
 
                 </div>
-
-
             </div>
+
+            <ul *ngIf="!checkForm.form.valid && checkForm.submitted"
+              [ngClass]="{'alert alert-danger': !checkForm.form.valid && checkForm.submitted }"
+              class="list-unstyled mt-2 filled" id="parsley-id-39">
+                <li *ngIf="checkNumber.invalid" class="text-danger">
+                 <i class="fa fa-times"></i> Check Number is Required
+                </li>
+                <li *ngIf="checkNumber.invalid" class="text-danger">
+                    <i class="fa fa-times"></i> Date is Required</li>
+                <li *ngIf="amount.invalid" class="text-danger">
+                    <i class="fa fa-times"></i> Amount is Required</li>
+                <li *ngIf="bankAccount.invalid" class="text-danger">
+                    <i class="fa fa-times"></i> Bank Account is Required</li>
+                <li *ngIf="biller.invalid" class="text-danger">
+                    <i class="fa fa-times"></i> Payee is Required</li>
+            </ul>
 
 
               <button [disabled]="!user.trustedUser" type="submit" class="btn btn-md primary">Save</button>
@@ -493,90 +510,7 @@
 
     <!-- Modal -->
 
-    <ngx-smart-modal #personalInfo identifier="personalInfo"
-     customClass="nsm-dialog-animation-ttb">
-      <div class="modal-header">
-        <h5 class="modal-title">Name & Address</h5>
-      </div>
 
-      <div class="modal-body p-lg">
-        <form #checkForm="ngForm" class="p-x-xs">
-          <div class="mb-2-lg row">
-            <div class="col-sm-12">
-              <div class="row row-sm">
-
-                <div class="form-group col-md-6">
-                  <label for="inputEmail4">Your Name</label>
-                  <input [(ngModel)]="checkModel.senderName" name="senderName" type="text" class="form-control"
-                    placeholder="Name" />
-                </div>
-
-                <div class="form-group col-md-12">
-                  <label>Address</label>
-                  <input [(ngModel)]="checkModel.senderAddress" name="senderAddress" type="text" class="form-control"
-                    placeholder="Address" />
-                </div>
-
-              </div>
-            </div>
-          </div>
-
-
-
-          <button type="button" class="btn dark-white p-x-md" (click)="personalInfo.close()">
-            Cancel
-          </button>
-          <button type="submit" class="btn primary p-x-md" (click)="personalInfo.close()">
-            Submit
-          </button>
-
-        </form>
-      </div>
-    </ngx-smart-modal>
-
-
-    <ngx-smart-modal #companyDropDown identifier="companyDropDown"
-     customClass="nsm-dialog-animation-ttb">
-        <div class="modal-header">
-          <h5 class="modal-title">Select Company</h5>
-        </div>
-
-        <div class="modal-body p-lg">
-          <form class="p-x-xs">
-            <div class="mb-2-lg row">
-              <div class="col-sm-12">
-                <div class="row row-sm">
-
-                  <div *ngIf="!checkModel.individual" class="form-group col-md-12">
-                    <label>Select Company</label>
-
-                    <select name="company" [(ngModel)]="checkModel.companyId"
-                      (change)="onChangeCompany($event.target.value)" class="form-control custom-select my-2">
-                      <option disabled selected="true" value="">
-                          Select Company
-                      </option>
-                      <option [value]="comp.Id" *ngFor="let comp of companies">
-                        {{comp.companyName}}
-                      </option>
-                    </select>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-
-
-            <button type="button" class="btn dark-white p-x-md" (click)="companyDropDown.close()">
-              Cancel
-            </button>
-            <button type="submit" class="btn primary p-x-md" (click)="companyDropDown.close()">
-              OK
-            </button>
-
-          </form>
-        </div>
-      </ngx-smart-modal>
 
 <!-- Modal -->
 
@@ -618,7 +552,7 @@ customClass="nsm-dialog-animation-ttb document-modal">
 
       <div style="padding: 10px" *ngIf="docs.length ==0">
         <p>Please upload your documents first</p>
-        <button [routerLink]="['/documents']" class="btn warning">click here</button>
+        <button [routerLink]="['/documents']" class="btn warning">Click here</button>
       </div>
 
 
@@ -704,3 +638,48 @@ customClass="nsm-dialog-animation-ttb document-modal">
 
 
     </ngx-smart-modal> -->
+
+
+    <!-- On check Completed -->
+
+
+<ngx-smart-modal
+#checkCompleteModal
+identifier="checkCompleteModal"
+customClass="nsm-dialog-animation-ttb">
+
+
+  <div class="modal-body text-center">
+
+
+          <div class="checkmark">
+              <svg version="1.1" id="Layer_1"
+                   xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xl
+                                                                   ink" x="0px" y="0px"
+               viewBox="0 0 161.2 161.2" enable-background="new 0 0 161.2 161.2" xml:space="preserve">
+            <path class="path" fill="none" stroke="#7DB0D5" stroke-miterlimit="10" d="M425.9,52.1L425.9,52.1c-2.2-2.6-6-2.6-8.3-0.1l-42.7,46.2l-14.3-16.4
+              c-2.3-2.7-6.2-2.7-8.6-0.1c-1.9,2.1-2,5.6-0.1,7.7l17.6,20.3c0.2,0.3,0.4,0.6,0.6,0.9c1.8,2,4.4,2.5,6.6,1.4c0.7-0.3,1.4-0.8,2-1.5
+              c0.3-0.3,0.5-0.6,0.7-0.9l46.3-50.1C427.7,57.5,427.7,54.2,425.9,52.1z"/>
+            <circle class="path" fill="none" stroke="#7DB0D5" stroke-width="4" stroke-miterlimit="10" cx="80.6" cy="80.6" r="62.1"/>
+            <polyline class="path" fill="none" stroke="#7DB0D5" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="113,52.8
+              74.1,108.4 48.2,86.4 "/>
+
+            <!-- <circle class="spin" fill="none" stroke="#7DB0D5" stroke-width="4" stroke-miterlimit="10" stroke-dasharray="12.2175,12.2175" cx="80.6" cy="80.6" r="73.9"/> -->
+
+            </svg>
+            <p>Check Sent</p>
+            </div>
+
+
+
+
+  </div>
+  <div class="modal-footer">
+      <button class="btn white" type="button"
+       (click)="checkCompleteModal.close(); checkModel = {}" >OK</button>
+      <button class="btn primary" type="button"
+       routerLink="/check-history/sent">View Check History </button>
+  </div>
+
+
+</ngx-smart-modal>

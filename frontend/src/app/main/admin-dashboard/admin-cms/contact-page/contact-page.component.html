@@ -1,0 +1,140 @@
+<div class="padding">
+
+
+    <div class="box">
+
+      <div class="box-body p-3">
+
+
+        <h5 class="text-muted">Add Contact Info <span class="text-danger">Only 3 Blocks</span></h5>
+
+        <button disabled="contacts.lenght == 3" (click)="contactModal.open()" type="button" class="btn danger md">
+          <i class="fa fa-plus"></i>
+          Add  Contact
+        </button>
+
+
+        <div class="row mt-5">
+            <div *ngFor="let item of contacts" class="col-6 col-sm-6 col-md-4">
+                <div style="max-height: 200px;border: 1px solid #285f94;" class="box p-1">
+                    <p class="text-center py-1 mt-1">
+                        <i class="{{item.icon}} text-primary fa-2x"></i>
+                    </p>
+                  <div class="p-1">
+                        <div class="mb-1 text-ellipsis text-center">{{item.title}}</div>
+                        <div class="mb-1 text-ellipsis text-center">{{item.text}} </div>
+                        <div class="mb-1 text-danger text-center">
+                          <a href="{{item.link}}" target="_blank">
+                              {{item.linkText}}
+                          </a>
+                        </div>
+                        <div (click)="editContact(item.id)" class="text-ellipsis text-danger btn">Edit</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+      </div>
+
+    </div>
+
+
+    </div>
+
+
+    <ngx-smart-modal [closable]='false' [dismissable]='false' #contactModal identifier="contactModal"
+  customClass="nsm-dialog-animation-ttb">
+  <div class="modal-header">
+    <h5 class="modal-title">Contact Block</h5>
+  </div>
+  <div class="modal-body text-center p-lg">
+    <form #companyForm="ngForm" (ngSubmit)="addContact()" class="p-x-xs">
+      <div class="mb-2-lg row">
+        <div class="col-sm-12">
+          <div class="row row-sm">
+            <div class="col-sm-6">
+              <div class="md-form-group float-label">
+                <input [(ngModel)]="contactModel.title" name="title" class="md-input" />
+                <label>Title</label>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="md-form-group float-label">
+
+                    <input [(ngModel)]="contactModel.icon"
+                     name="icon" class="md-input"
+                     placeholder="paste icon name"
+                      />
+                    <label>Icon</label>
+
+                  </div>
+
+            </div>
+
+
+            <div class="col-sm-12">
+                <div class="md-form-group float-label">
+                    <input [(ngModel)]="contactModel.text" name="text" 
+                    placeholder="1 to 2 lines description"
+                    class="md-input" />
+                    <label>Description</label>
+                  </div>
+            </div>
+
+
+
+
+            <div class="col-sm-6">
+                <div class="md-form-group float-label">
+                    <input [(ngModel)]="contactModel.linkText" name="linkText"
+                    placeholder="text will show"                    
+                    class="md-input" />
+                    <label>Link Text</label>
+                  </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="md-form-group float-label">
+                    <input [(ngModel)]="contactModel.link" name="link"
+                    placeholder="paste link..."                    
+                     class="md-input" />
+                    <label>Link</label>
+                  </div>
+
+            </div>
+
+            <hr>
+            <!-- <h6>Additional Info</h6>
+
+            <div class="col-sm-6">
+                <div class="md-form-group float-label">
+                    <input [(ngModel)]="contactModel.phone" name="phone" class="md-input" />
+                    <label>Phone</label>
+                  </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="md-form-group float-label">
+                    <input [(ngModel)]="contactModel.email" name="email" class="md-input" />
+                    <label>Email</label>
+                  </div>
+            </div> -->
+          </div>
+
+
+        </div>
+      </div>
+
+      <button type="button" class="btn dark-white p-x-md" (click)="contactModal.close()">
+        Cancel
+      </button>
+      <button type="submit" class="btn primary p-x-md" (click)="contactModal.close()">
+        Submit
+      </button>
+    </form>
+  </div>
+</ngx-smart-modal>

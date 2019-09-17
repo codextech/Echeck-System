@@ -15,7 +15,7 @@ app.listen();
 } */
 
 // start server in dev mode
-const port = process.env.PORT || 30800;
+const port = process.env.PORT || 3000;
 http.createServer(app);
 app.listen(port, () => {
   console.log(`Server Running in ${port}`);
@@ -25,11 +25,11 @@ app.listen(port, () => {
 // end
 console.log(env);
 if (env == 'production') {
-/* global.apiUrl = "https://www.pay2mate.com/api";
-global.APPURL = "https://www.pay2mate.com/"; */
+global.apiUrl = "https://www.pay2mate.com/api";
+global.APPURL = "https://www.pay2mate.com/";
 
-global.apiUrl = "https://pay2mate.herokuapp.com/api";
-global.APPURL = "https://pay2mate.herokuapp.com/";
+/* global.apiUrl = "https://pay2mate.herokuapp.com/api";
+global.APPURL = "https://pay2mate.herokuapp.com/"; */
 
 }
 if (env == 'dev') {
@@ -92,11 +92,10 @@ app.use((req,res) => {
 sequelizeRealtions.allTableRealtions();
 
 sequelize
-  //  .sync()
-  .sync({force: true})
+   .sync({alter: true, force: false})
   .then(result => {
   console.log('table created');
-sequelizeRealtions.seedDatabase();
+/* sequelizeRealtions.seedDatabase();
     return bcrypt.hash('admin123',10)
   .then(hash => {
         User.create({
@@ -107,7 +106,7 @@ sequelizeRealtions.seedDatabase();
         isAdmin: true,
         trustedUser:true // kyc
      });
-  })
+  }) */
 }).catch(err => {
     console.log("error occured in db" + err);
   });

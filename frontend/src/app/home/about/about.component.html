@@ -38,11 +38,15 @@
                     <div class="about-section pinside40">
                         <div class="row">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                                <h2 class="mb30">Who We Are?</h2>
+
+                              <div [innerHTML]="about?.aboutText | saveUrl">
+
+                              </div>
+                                <!-- <h2 class="mb30">Who We Are?</h2>
                                 <p class="lead mb30">Insight loan advisors is completely independent loan advising service and our directory of lenders gives you all the information lorem ipsums sitamets.</p>
                                 <p>Vestibulum condimentum neque at interdum dignissim. Integer colutpat vel lorem ac fringilla. Vestibulum porttitor euismod udiam viverra euismod non hendrerit eros. </p>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+ -->                            </div>
+<!--                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                 <div class="mb60">
                                     <h2 class="mb30">What We Offer?</h2>
                                     <p class="lead mb30">Our loan sanction is one of the quicke with eas documentation and doorstep lorem ipsum serviceullam dolor sitisi.</p>
@@ -54,37 +58,10 @@
                                     <h2>Our Vision &amp; Mission</h2>
                                     <p>Our goal at Insight Loan Advisors is to provide access to personal loans, car loan, at insight competitive interest raa timely mannerlorem ipsums deconse resonescon.</p>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
-                    <div class="section-space120 pinside60 bg-primary">
-                        <div class="row">
-                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 mb-4">
-                                <div class="text-center">
-                                    <div class="icon"> <i class="icon-4x icon-users icon-default"></i>
-                                        <h1 class="big-title">150,000+</h1>
-                                        <div class="small-title">Customers Empowered</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 mb-4">
-                                <div class="text-center">
-                                    <div class="icon"> <i class="icon-4x icon-money icon-default"></i>
-                                        <h1 class="big-title">$5 billion+</h1>
-                                        <div class="small-title">Borrowed</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
-                                <div class="text-center">
-                                    <div class="icon"> <i class="icon-4x icon-dialog icon-default"></i>
-                                        <div class="icon icon-1x icon-primary"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
-                                        <div class="small-title">Customer Rating</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                   <!--
                     <div class="section-space120 pinside60 bg-white">
                         <div class="">
                             <div class="row">
@@ -117,6 +94,7 @@
                             </div>
                         </div>
                     </div>
+                     -->
                     <div class="bg-default pinside60 testimonial-section section-space120">
                         <div class=" ">
                             <div class="row">
@@ -130,32 +108,19 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 clearfix">
-                                    <div class="testimonial-block mb30">
+                                <div *ngFor="let item of stories" class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 clearfix">
+                                    <div  class="testimonial-block mb30">
                                         <div class="bg-white pinside30 mb20">
-                                            <p class="testimonial-text text-center">“I loved the customer service you guys provided me. That was very nice and patient with questions I had. I would really like definitely come back here”</p>
+                                            <p class="testimonial-text text-center">“{{item.text}}”</p>
                                         </div>
                                         <div class="testimonial-autor-box">
-                                            <div class="testimonial-img pull-left"> <img src="images/testimonial-img.jpg" alt="Borrow - Loan Company Website Template"> </div>
                                             <div class="testimonial-autor pull-left">
-                                                <h4 class="testimonial-name">Donny J. Griffin</h4>
-                                                <span class="testimonial-meta">Personal Loan</span> </div>
+                                                <h4 class="testimonial-name">{{item.name}}</h4>
+                                                <span class="testimonial-meta">{{item.designation}}</span> </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 clearfix">
-                                    <div class="testimonial-block mb30">
-                                        <div class="bg-white pinside30 mb20">
-                                            <p class="testimonial-text text-center"> “I had a good experience with Insight Loan Services. I am thankful to insight for the help you guys gave me. My loan was easy and fast. thank you Insigtht”</p>
-                                        </div>
-                                        <div class="testimonial-autor-box">
-                                            <div class="testimonial-img pull-left"> <img src="images/testimonial-img-1.jpg" alt="Borrow - Loan Company Website Template"> </div>
-                                            <div class="testimonial-autor pull-left">
-                                                <h4 class="testimonial-name">Mary O. Randle</h4>
-                                                <span class="testimonial-meta">Education Loan</span> </div>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -171,30 +136,16 @@
                                     <!-- /.section title start-->
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
-                                    <div class="bg-white bg-boxshadow pinside40 outline text-center mb30">
-                                        <div class="mb40"><i class="icon-calendar-3 icon-2x icon-default"></i></div>
-                                        <h2 class="capital-title">Apply For Loan</h2>
-                                        <p>Looking to buy a car or home loan? then apply for loan now.</p>
-                                        <a href="#" class="btn-link">Get Appointment</a> </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
-                                    <div class="bg-white bg-boxshadow pinside40 outline text-center mb30">
-                                        <div class="mb40"><i class="icon-phone-call icon-2x icon-default"></i></div>
-                                        <h2 class="capital-title">Call us at </h2>
-                                        <h1 class="text-big">800-123-456 / 789 </h1>
-                                        <p>lnfo@loanadvisor.com</p>
-                                        <a href="#" class="btn-link">Contact us</a> </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
-                                    <div class="bg-white bg-boxshadow pinside40 outline text-center mb30">
-                                        <div class="mb40"> <i class="icon-users icon-2x icon-default"></i></div>
-                                        <h2 class="capital-title">Talk to Advisor</h2>
-                                        <p>Need to loan advise? Talk to our Loan advisors.</p>
-                                        <a href="#" class="btn-link">Meet The Advisor</a> </div>
-                                </div>
+                        <div class="row">
+
+                          <div *ngFor="let item of contacts" class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                            <div style="min-height: 250px" class="bg-boxshadow pinside60 outline text-center mb30">
+                              <div class="mb40"> <i class="{{item.icon}} fa-4x text-primary"></i></div>
+                              <h2 class="capital-title">{{item.title}}</h2>
+                              <p>{{item.text}}</p>
                             </div>
+                          </div>
+                        </div>
                         </div>
                     </div>
                 </div>

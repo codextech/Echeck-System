@@ -62,7 +62,6 @@ console.log(this.accounts);
 /* @Param bankAccountId */
 onDeleteAccount(id) {
   this.accountService.deleteBankAccount(id).subscribe(result => {
-    console.log(result);
     this.accounts =  this.accounts.filter(item => item.bankAccountId !== id);
     this.toastr.success('Deleted SuccesFully');
 

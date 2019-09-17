@@ -7,7 +7,7 @@
     <!-- sidenav top -->
     <div class="navbar dk">
       <!-- brand -->
-      <a [routerLink]="['/']" style="margin: auto" class="navbar-brand fadeIn first">
+      <a href="/" style="margin: auto" class="navbar-brand fadeIn first">
         <img style=" max-height: 4.5rem; width: 5.5rem;"
          src="../../../../assets/logo.png" alt="." />
       </a>
@@ -178,63 +178,158 @@
 
           <ul  *ngIf="authService.isAdmin" class="nav">
               <li class="nav-header">
-                <span class="text-xs hidden-folded">Admin Dashboard</span>
+                <span class="text-xs hidden-folded">
+                  <b>
+
+                Admin Dashboard
+                </b>
+                </span>
               </li>
               <li>
                 <a routerLink="/admin/dashboard">
                   <span class="nav-icon"><i class="fa fa-dashboard"></i></span>
-                  <span class="nav-text">Admin</span>
+                  <span class="nav-text">Stats</span>
                 </a>
               </li>
 
-              <li>
-                  <a routerLink="/admin/bank-logo">
-                    <span class="nav-icon"><i class="fa fa-plus"></i></span>
-                    <span class="nav-text">Bank Logo</span>
-                  </a>
-              </li>
 
               <li>
-                  <a routerLink="/admin/account-type">
-                    <span class="nav-icon"><i class="fa fa-pencil"></i></span>
-                    <span class="nav-text">Account Type</span>
+                  <a>
+                    <span class="nav-caret"><i class="fa fa-caret-down"></i></span>
+                    <span class="nav-icon"><i class="fa fa-shield"></i></span>
+                    <span class="nav-text">User Verification</span>
                   </a>
+                  <ul class="nav-sub">
+
+                      <li>
+                          <a routerLink="/admin/account-type">
+                            <span class="nav-icon"><i class="fa fa-pencil"></i></span>
+                            <span class="nav-text">Account Type</span>
+                          </a>
+                      </li>
+
+                      <li>
+                          <a routerLink="/admin/kyc-type">
+                            <span class="nav-icon"><i class="fa fa-pencil"></i></span>
+                            <span class="nav-text">Kyc Admin</span>
+                          </a>
+                      </li>
+
+                    </ul>
               </li>
 
-              <li>
-                  <a routerLink="/admin/kyc-type">
-                    <span class="nav-icon"><i class="fa fa-pencil"></i></span>
-                    <span class="nav-text">Kyc Admin</span>
-                  </a>
-              </li>
 
               <li>
-                <a routerLink="/admin/slider">
+                  <a>
+                    <span class="nav-caret"><i class="fa fa-caret-down"></i></span>
+                    <span class="nav-icon"><i class="fa fa-upload"></i></span>
+                    <span class="nav-text">Upload Images</span>
+                  </a>
+                  <ul class="nav-sub">
+
+                      <li>
+                          <a routerLink="/admin/bank-logo">
+                            <span class="nav-icon"><i class="fa fa-image"></i></span>
+                            <span class="nav-text">Bank Logo</span>
+                          </a>
+                      </li>
+
+              <li>
+                  <a routerLink="/admin/slider">
+                    <span class="nav-icon"><i class="fa fa-image"></i></span>
+                    <span class="nav-text">Slider</span>
+                  </a>
+               </li>
+
+            <li>
+                <a routerLink="/admin/check-background">
                   <span class="nav-icon"><i class="fa fa-image"></i></span>
-                  <span class="nav-text">Slider</span>
+                  <span class="nav-text">Check Background</span>
                 </a>
              </li>
 
-          <li>
-              <a routerLink="/admin/check-background">
-                <span class="nav-icon"><i class="fa fa-image"></i></span>
-                <span class="nav-text">Check Background</span>
-              </a>
-           </li>
 
-           <li>
-              <a routerLink="/admin/requests">
-                <span class="nav-icon"><i class="fa fa-comment"></i></span>
-                <span class="nav-text">Contact Requests</span>
-              </a>
-           </li>
+                  </ul>
+                </li>
 
-           <li>
-              <a routerLink="/admin/subscribers">
-                <span class="nav-icon"><i class="fa fa-group"></i></span>
-                <span class="nav-text">Subscribers</span>
-              </a>
-           </li>
+
+                <li>
+                    <a>
+                      <span class="nav-caret"><i class="fa fa-caret-down"></i></span>
+                      <span class="nav-icon"><i class="fa fa-align-left"></i></span>
+                      <span class="nav-text">CMS</span>
+                    </a>
+                    <ul class="nav-sub">
+                      <li>
+                        <a routerLink="/admin/cms/home">
+                          <span class="nav-text">Home</span>
+                        </a>
+                      </li>
+
+                      <li>
+                          <a routerLink="/admin/cms/contact">
+                            <span class="nav-text">Contact</span>
+                          </a>
+                      </li>
+
+                        <li>
+                            <a routerLink="/admin/cms/about">
+                              <span class="nav-text">About</span>
+                            </a>
+                        </li>
+
+
+                        <li>
+                            <a routerLink="/admin/cms/faq">
+                              <span class="nav-text">FAQ</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a routerLink="/admin/cms/footer">
+                              <span class="nav-text">Footer </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a routerLink="/admin/cms/policy">
+                              <span class="nav-text">Policy</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a routerLink="/admin/cms/term">
+                              <span class="nav-text">Term</span>
+                            </a>
+                        </li>
+                    </ul>
+                  </li>
+
+                  <li>
+                      <a>
+                        <span class="nav-caret"><i class="fa fa-caret-down"></i></span>
+                        <span class="nav-icon"><i class="fa fa-info-circle"></i></span>
+                        <span class="nav-text">General Activity</span>
+                      </a>
+                      <ul class="nav-sub">
+                          <li>
+                              <a routerLink="/admin/requests">
+                                <span class="nav-icon"><i class="fa fa-comment"></i></span>
+                                <span class="nav-text">Contact Requests</span>
+                              </a>
+                           </li>
+
+                           <li>
+                              <a routerLink="/admin/subscribers">
+                                <span class="nav-icon"><i class="fa fa-group"></i></span>
+                                <span class="nav-text">Subscribers</span>
+                              </a>
+                           </li>
+                    </ul>
+                  </li>
+
+
+
 
 
               <li class="pb-2 hidden-folded"></li>

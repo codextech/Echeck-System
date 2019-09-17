@@ -23,6 +23,7 @@ import { SliderImageComponent } from './slider-image/slider-image.component';
 import { CheckBackgroundComponent } from './check-background/check-background.component';
 import { SubscriberComponent } from './subscriber/subscriber.component';
 import { ContactRequestComponent } from './contact-request/contact-request.component';
+import { AdminCmsModule } from './admin-cms/admin-cms.module';
 
 @NgModule({
     imports: [
@@ -35,7 +36,8 @@ import { ContactRequestComponent } from './contact-request/contact-request.compo
         NgxPaginationModule,
         FilterPipeModule,
         DropzoneModule,
-        NgxGalleryModule
+        NgxGalleryModule,
+        AdminCmsModule // for CMS
 
     ],
     declarations: [

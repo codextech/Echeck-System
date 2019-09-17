@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { MainComponent } from './main.component';
 import { UserDashBoardModule } from './user-dashboard/user-dashboard.module';
 import { AdminDashBoardModule } from './admin-dashboard/admin-dashboard..module';
+import { FileExtentionPipe } from '../_pipe/file-extention.pipe';
+import { SaveUrlPipe } from '../_pipe/saveUrl.pipe';
 
 
 
@@ -20,10 +22,10 @@ import { AdminDashBoardModule } from './admin-dashboard/admin-dashboard..module'
   ],
     declarations: [
         MainComponent,
-
     ],
     providers: [
 
-      ]
+      ],
+
 })
 export class MainModule { }

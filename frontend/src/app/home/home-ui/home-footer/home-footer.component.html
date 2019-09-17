@@ -44,7 +44,7 @@
 
             strive to innovate and bring state of the art solutions to you.
           </p>
-          <div class="row">
+        <!--   <div class="row">
             <div class="col-xl-6 col-lg-6 col-md-4 col-sm-6 col-6">
               <p class="address-text">
                 <span>
@@ -56,7 +56,7 @@
             <div class="col-md-6 col-sm-6 col-6">
               <p class="call-text"><span><i class="icon-phone-call icon-1x"></i></span>848-219-1009</p>
             </div>
-          </div>
+          </div> -->
         </div>
         <!-- /.widget text -->
       </div>
@@ -64,12 +64,13 @@
         <div class="widget-footer mt40">
           <!-- widget footer -->
           <ul class="listnone">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">News</a></li>
-            <li><a href="#">Faq</a></li>
-            <li><a href="#">Contact Us</a></li>
+            <li><a [routerLink]="['/']">Home</a></li>
+            <li><a [routerLink]="['/about']">About Us</a></li>
+            <li><a [routerLink]="['/contact']">Contact Us</a></li>
+            <li><a [routerLink]="['/faq']">Faq</a></li>
+            <li><a [routerLink]="['/terms']">Terms</a></li>
+            <li><a [routerLink]="['/policy']">Policy</a></li>
+
           </ul>
         </div>
         <!-- /.widget footer -->
@@ -79,10 +80,7 @@
         <div class="widget-social mt40">
           <!-- widget footer -->
           <ul class="listnone">
-            <li><a href="#"><i class="fa fa-facebook"></i>Facebook</a></li>
-            <li><a href="#"><i class="fa fa-instagram"></i>instagram</a></li>
-            <li><a href="#"><i class="fa fa-twitter"></i>Twitter</a></li>
-            <li><a href="#"><i class="fa fa-youtube"></i>Youtube</a></li>
+            <li *ngFor="let item of links"><a target="_blank" [href]="item.link"><i class="fa fa-{{item.icon}}"></i>{{item.name}}</a></li>
           </ul>
         </div>
         <!-- /.widget footer -->
@@ -103,7 +101,7 @@
           under the Laws of Delaware State.</p>
       </div>
       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 text-right">
-        <p>Terms of use | Privacy Policy</p>
+        <p> <a [routerLink]="['/terms']">Terms of use </a> | <a [routerLink]="['/policy']"> Privacy Policy</a></p>
 
       </div>
     </div>

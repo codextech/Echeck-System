@@ -13,13 +13,6 @@ import { UserDocumentsComponent } from './user-documents/user-documents.componen
 import { SharedModule } from 'src/app/shared/shared.module';
 
 
-const routes: Routes = [
-
-  {path: '', component: UserDashBoardComponent, canActivate: [AuthGuard],
-  children: [
-]},
-
-];
 
 @NgModule({
   imports: [

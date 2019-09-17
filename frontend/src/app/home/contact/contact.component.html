@@ -94,37 +94,23 @@
                     <div class="contact-us mb60">
                         <div class="row">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <div class="mb60  section-title">
+                                <div class="mb40 text-center section-title">
                                     <!-- section title start-->
                                     <h1>We are here to help you </h1>
-                                    <p class="lead">Various versions have evolved over the years sometimes by accident sometimes on purpose injected humour and the like.</p>
-                                </div>
+                                  </div>
                                 <!-- /.section title start-->
                             </div>
                         </div>
                         <div class="row">
-                           <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-                                <div class="bg-boxshadow pinside60 outline text-center mb30">
-                                    <div class="mb40"><i class="icon-briefcase icon-2x icon-default"></i></div>
-                                    <h2 class="capital-title">Office</h2>
-                                    <p> 2502 Babcock Rd, Suite #1911
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-                                <div class="bg-boxshadow pinside60 outline text-center mb30">
-                                    <div class="mb40"><i class="icon-phone-call icon-2x icon-default"></i></div>
-                                    <h2 class="capital-title">Call us at </h2>
-                                    <h1 class="text-big">848-219-1009 </h1>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-                                <div class="bg-boxshadow pinside60 outline text-center mb30">
-                                    <div class="mb40"> <i class="icon-letter icon-2x icon-default"></i></div>
-                                    <h2 class="capital-title">Email Address</h2>
-                                    <p>support@pay2mate.com</p>
+
+                            <div *ngFor="let item of contacts" class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                                <div style="min-height: 250px" class="bg-boxshadow pinside60 outline text-center mb30">
+                                    <div class="mb40"> <i class="{{item.icon}} fa-4x text-primary"></i></div>
+                                    <h2 class="capital-title">{{item.title}}</h2>
+                                    <p>{{item.text}}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="map" id="googleMap"></div>
+
+                    <!-- <div class="map" id="googleMap"></div> -->

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserAuthService } from 'src/app/_services/user-auth.service';
 import { UserService } from 'src/app/_services/user.service';
-import { map } from 'rxjs/operators';
-import { pipe } from '@angular/core/src/render3';
-import { forEach } from '@angular/router/src/utils/collection';
+import { CmsService } from 'src/app/_services/cms.service';
+
 
 @Component({
   selector: 'app-userdashboard',
@@ -14,7 +13,7 @@ export class AdminDashBoardComponent implements OnInit  {
   users: any[] = [];
   unVerifiedUsers: any[] = [];
   kycRequests: any[] = [];
-  constructor(public userService: UserService) {}
+  constructor(public userService: UserService, private cmsService : CmsService) {}
 
   ngOnInit(): void {
     this.getUsers();
@@ -40,5 +39,6 @@ export class AdminDashBoardComponent implements OnInit  {
       }
     );
   }
+
 
 }

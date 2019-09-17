@@ -1062,6 +1062,33 @@ SOFTWARE.
 
 ngx-bootstrap/dropdown
 
+@syncfusion/ej2-base
+SEE LICENSE IN license
+
+@syncfusion/ej2-angular-base
+SEE LICENSE IN license
+
+@syncfusion/ej2-popups
+SEE LICENSE IN license
+
+@syncfusion/ej2-richtexteditor
+SEE LICENSE IN license
+
+@syncfusion/ej2-buttons
+SEE LICENSE IN license
+
+@syncfusion/ej2-navigations
+SEE LICENSE IN license
+
+@syncfusion/ej2-splitbuttons
+SEE LICENSE IN license
+
+@syncfusion/ej2-inputs
+SEE LICENSE IN license
+
+@syncfusion/ej2-angular-richtexteditor
+SEE LICENSE IN license
+
 @angular/animations
 MIT
 
