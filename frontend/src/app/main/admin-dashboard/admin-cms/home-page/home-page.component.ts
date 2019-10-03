@@ -12,6 +12,7 @@ export class HomePageComponent implements OnInit {
 
   homeIconModel: any = {};
   iconImage: any;
+  processImage: any;
 
   appProcessModel: any = {};
   homeIcon: any[] = [];
@@ -82,29 +83,60 @@ export class HomePageComponent implements OnInit {
     this.homeIconModel.icon = null;
   }
 
+
   /* ----------------Home Icon End------------- */
 
   /* ----------------Add App Process Steps------------- */
 
+  onProcessImagePicked(event) {
+    const file = (event.target as any).files[0];
+    if (file) {
+      this.appProcessModel.image = file;
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.processImage = reader.result; // preview of image
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+
+  cancelProcessImage() {
+    this.processImage = null;
+    this.appProcessModel.image = null;
+  }
+
   addAppProcess() {
 
+    const formData = new FormData();
+    formData.append('image', this.appProcessModel.image);
+    formData.append('text', this.appProcessModel.text);
+    formData.append('title', this.appProcessModel.title);
+
     if (this.isAppProcessEdit == false) { // add new
-    this.cmsService.save(this.appProcessModel, 'process').subscribe(result => {
+    this.cmsService.save(formData, 'process').subscribe(result => {
       // clear model
       this.appProcessModel = {};
         this.ngxModalService.close('appProcessModal');
       this.toastr.success('Added');
 
+      setTimeout(() => {
+        location.reload();
+      }, 1500);
+
         }, err => {
           console.log(err);
         });
     } else if (this.isAppProcessEdit == true) { // update
-      this.cmsService.edit(this.appProcessModel, 'process').subscribe(result => {
+    formData.append('id', this.appProcessModel.id);
+      this.cmsService.edit(formData, 'process').subscribe(result => {
         // clear model
         this.appProcessModel = {};
           this.ngxModalService.close('appProcessModal');
         this.toastr.success('Updated');
-        location.reload();
+        setTimeout(() => {
+          location.reload();
+        }, 1500);
 
           }, err => {
             console.log(err);
@@ -131,7 +163,6 @@ export class HomePageComponent implements OnInit {
           console.log(err);
         });
   }
-
 
 
 

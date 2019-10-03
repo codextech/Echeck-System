@@ -7,7 +7,7 @@
                 <!-- logo -->
                 <div class="logo">
                     <a [routerLink]="['/']">
-                      <img  style=" max-height: 4.5rem; width: 5.5rem;" src="../../../assets/logo.png"
+                      <img  style=" max-height: 4.5rem;" src="../../../assets/logo.png"
                        alt="Logo"></a>
                 </div>
             </div>
@@ -50,15 +50,21 @@
                         <ng-template #loggedOut>
 
                             <li *ngIf="authService.isAdmin">
-                                <a [routerLink]="['/admin/dashboard']" routerLinkActive="active"
-                                style="color:#ffff"
+                                <a href="/admin/dashboard" routerLinkActive="active"
+                                style="color:#ffff; border-radius: 5px;
+                                padding: 10px;
+                                margin-top: 5px;
+                                background: #285f94;"
                                  class="animsition-link dashboard-link">Dashboard</a>
                             </li>
 
 
                         <li *ngIf="!authService.isAdmin">
-                            <a [routerLink]="['/dashboard']" routerLinkActive="active"
-                            style="color:#ffff"
+                            <a href="/dashboard" routerLinkActive="active"
+                            style="color:#ffff;  border-radius: 5px;
+                            padding: 10px;
+                            margin-top: 5px;
+                            background: #285f94;"
                              class="animsition-link dashboard-link">Dashboard</a>
                           </li>
 

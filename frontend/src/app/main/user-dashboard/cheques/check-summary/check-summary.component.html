@@ -1,0 +1,78 @@
+<div class="padding">
+
+
+  <div class="box">
+    <div class="box-header">
+      <h3>Check Payments Summary</h3>
+    </div>
+
+    <div class="col-md-12 table-responsive">
+
+
+      <ngx-table
+        [configuration]="configuration"
+        [data]="checkSummary"
+        [columns]="columns"
+      >
+        <ng-template let-row let-index="index">
+          <td>
+
+
+              <span *ngIf="row.checkStatus == 'pending' && row.type != 'recieved'" placement="right" ngbTooltip="payee not signatured yet" class="float-right text-danger"><i class="fa fa-circle text-xs"></i></span>
+              <span *ngIf="row.checkStatus != 'pending' && row.type != 'recieved'" placement="right" ngbTooltip="payee Signatured" class="float-right text-success"><i class="fa fa-circle text-xs"></i></span>
+          </td>
+          <td>{{ row.checkNumber }}</td>
+          <td>{{ row.amount | currency }}</td>
+          <td>{{ row.issuedDate | date:'short' }}</td>
+          <td [ngClass]="{'text-danger': row.checkStatus == 'pending'}">{{ row.checkStatus | titlecase }}</td>
+          <td>{{ row.type | titlecase}}</td>
+
+          <td class="fit">
+              <button (click)="viewCheckDetails(row.checkId)"  class="btn btn-outline b-accent text-accent">
+                         <i class="fa fa-eye"></i>
+              </button>
+          </td>
+        </ng-template>
+      </ngx-table>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+<ngx-smart-modal #checkModal identifier="checkModal" customClass="nsm-dialog-animation-ttb business-modal">
+    <div class="modal-header">
+      <h5 class="modal-title">Check Details</h5>
+    </div>
+    <div class="modal-body text-center p-lg">
+        <div class="mb-2-lg row">
+          <div class="col-sm-12">
+            <div class="row row-sm">
+              <div class="col-sm-12">
+                  <img class="w-100" [src]="checkDetails.check_Image?.checkFront" alt="">
+
+              </div>
+
+
+
+
+            </div>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          class="btn dark-white p-x-md"
+          (click)="checkModal.close()"
+        >
+          Close
+        </button>
+
+    </div>
+  </ngx-smart-modal>

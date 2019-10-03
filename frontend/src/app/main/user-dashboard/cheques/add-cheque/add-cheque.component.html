@@ -30,8 +30,6 @@
               <div class="col-sm-12 col-sm-offset-2">
 
                 <div class="form-row">
-                  <div class="col-sm-12 mb-3">
-                  </div>
 
                   <div class="form-group col-md-6">
                     <label>Select Bank Account</label>
@@ -129,68 +127,19 @@
 
                   </section>
 
-
-                  <!-- <div class="col-sm-3 text-center">
-                    <label>Individual</label>
-                    <br>
-                    <p>
-                      <label class="mt-3 md-check">
-                        <input [(ngModel)]="checkModel.individual" name="isIndividual" type="checkbox"
-                          (change)="onClickPersonalInfo($event.target.checked)">
-                        <i class="indigo"></i>
-                      </label>
-                    </p>
-
-                  </div>
-
-
-                  <div class="col-sm-1 text-center">
-                      <span class="text-muted or">OR</span>
-                  </div>
-
-
-                  <div class="col-sm-3 text-center">
-                      <label>Company</label>
-                      <br>
-                      <p>
-                        <label class="mt-3 md-check">
-                          <input [(ngModel)]="checkModel.isCompany"  name="isCompany" type="checkbox"
-                            (change)="onClickCompany($event.target.checked)">
-                          <i class="indigo"></i>
-                        </label>
-                      </p>
-                    </div> -->
-
-
-
-
-
-
-
-                    <!-- <div class="form-group col-md-6">
-                      <label for="inputEmail4">Reciever Email</label>
-                      <input [(ngModel)]="checkModel.recieverEmail" name="recieverEmail" type="text" class="form-control"
-                        placeholder="Receiver Email" />
-                    </div> -->
-
-                    <!-- <div class="form-group col-md-6">
-                      <label for="inputEmail4">Phone#</label>
-                      <input [(ngModel)]="checkModel.recieverPhone" name="recieverPhone" type="text" class="form-control"
-                        placeholder="Reciever Phone" />
-                    </div> -->
-
                 </div>
 
 
-
+<!-- 
                 <div class="text-center mt-5 mb-5">
                     <hr class="hr-text" data-content="Check Background" width="50%" />
                 </div>
-
+ -->
 
                 <!-- Check BackGround Image -->
 
-                <div *ngIf="backgrounds.length > 0" class="form-group col-md-12 mt-3">
+                <div class="form-row">
+                <div *ngIf="backgrounds.length > 0" class="col-md-6">
                   <label for="">Choose Check Background </label>
 
             <div class="background-history">
@@ -228,17 +177,16 @@
                 </div>
 
 
-                <div class="col-md-4">
-                  <div class="p-3 file-upload-container">
-                      <label>Upload Check Background </label>
+                <div class="col-md-6">
+                    <label>Upload New Check Background </label>
 
-                      <div *ngIf="checkBackgroundPreview" style="margin: auto" class="col-6 col-sm-3 col-md-4">
+                  <div class="p-4 file-upload-container">
+
+                      <div *ngIf="checkBackgroundPreview" style="margin: auto" class="col-6 col-sm-3 col-md-3 pb-1">
                           <div>
                             <img class="w-100" alt="" [src]="checkBackgroundPreview" />
                           </div>
                       </div>
-
-                      <br />
                       <input
                         style="display:none"
                         #checkBack
@@ -263,16 +211,17 @@
                   </div>
 
                 </div>
+              </div>
 
 
                 <!-- End Back Ground Image -->
 
 
 
-                <div class="text-center mt-5 mb-5">
+              <!--   <div class="text-center mt-5 mb-5">
                     <hr class="hr-text" data-content="Attatch Documents" width="50%" />
                 </div>
-
+ -->
 
                 <div class="form-row">
 
@@ -345,12 +294,12 @@
                    cdkDrag class="col-sm-3 mb-2" style="margin-left: 21%;line-height: 50px;">
                     <div class="md-form-group float-label">
                       <label class="check-label wc-20">Date</label>
-                      <input [(ngModel)]="checkModel.issuedDate" name="date"
+                      <input [(ngModel)]="checkModel.issuedDate"
                       bsDatepicker [bsConfig]="bsConfig"
                       autocomplete="off"
                        class="md-input wc-80"
-                       #date="ngModel" name="date"
-                       [ngClass]="{'is-invalid': checkForm.submitted && date.invalid}"
+                       #checkDate="ngModel" name="date"
+                       [ngClass]="{'is-invalid': checkForm.submitted && checkDate.invalid}"
                         required>
                     </div>
                   </div>
@@ -411,11 +360,11 @@
                     </div>
                   </div>
 
-                  <div style="margin-top: -8px;" cdkDragBoundary=".check-boundary" cdkDrag class="col-sm-8">
+                  <div [ngClass]="{'mtop-8': (selectedbankAccount | json) != '{}'}" cdkDragBoundary=".check-boundary" cdkDrag class="col-sm-8">
                     <div class="md-form-group float-label"
                     [ngClass]="{'signle-sign': !secondSignImage}"
                     >
-                      <label class="check-label">Signature</label>
+                      <!-- <label class="check-label">Signature</label> -->
                       <span *ngIf="(selectedbankAccount | json) != '{}'" class="check-sign">
                         <span>1. </span>
                         <div class="sign-img-container">
@@ -467,8 +416,8 @@
                 <li *ngIf="checkNumber.invalid" class="text-danger">
                  <i class="fa fa-times"></i> Check Number is Required
                 </li>
-                <li *ngIf="checkNumber.invalid" class="text-danger">
-                    <i class="fa fa-times"></i> Date is Required</li>
+               <!--  <li *ngIf="checkDate.invalid" class="text-danger">
+                    <i class="fa fa-times"></i> Date is Required</li> -->
                 <li *ngIf="amount.invalid" class="text-danger">
                     <i class="fa fa-times"></i> Amount is Required</li>
                 <li *ngIf="bankAccount.invalid" class="text-danger">
@@ -478,7 +427,7 @@
             </ul>
 
 
-              <button [disabled]="!user.trustedUser" type="submit" class="btn btn-md primary">Save</button>
+              <button [disabled]="!user.trustedUser" type="submit" class="btn btn-md mt-3 primary">Save</button>
           </form>
 
         </div>

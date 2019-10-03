@@ -8,7 +8,7 @@
 
         <h5 class="text-muted">Add Contact Info <span class="text-danger">Only 3 Blocks</span></h5>
 
-        <button disabled="contacts.lenght == 3" (click)="contactModal.open()" type="button" class="btn danger md">
+        <button [disabled]="contacts.length == 3" (click)="contactModal.open()" type="button" class="btn danger md">
           <i class="fa fa-plus"></i>
           Add  Contact
         </button>

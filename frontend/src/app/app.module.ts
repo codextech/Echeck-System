@@ -19,7 +19,6 @@ import { UserAuthService } from './_services/user-auth.service';
 import { AuthGuard } from './_guards/auth.guard';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { LandingPageComponent } from './home/landing-page/landing-page.component';
-import { HomeFooterComponent } from './home/home-ui/home-footer/home-footer.component';
 import { HomeHeaderComponent } from './home/home-ui/home-header/home-header.component';
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 import { LandingLayoutComponent } from './layout/landing-layout/landing-layout.component';

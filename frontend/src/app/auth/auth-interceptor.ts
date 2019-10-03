@@ -13,6 +13,7 @@ import { catchError } from 'rxjs/internal/operators/catchError';
 import { Observable, of } from 'rxjs';
 import { NgxUiLoaderConfig, NgxUiLoaderService } from 'ngx-ui-loader';
 import { finalize } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -41,9 +42,9 @@ import { finalize } from 'rxjs/operators';
             return of(err as any);
 
           }
-          if (err instanceof HttpErrorResponse && err.status === 505) {
-            this.router.navigate(['error-505']);
-
+          if (err instanceof HttpErrorResponse && err.status === 500) {
+          // window.location.href = `${environment.apiUrl}/error-505`;
+            // this.router.navigate(['error-505']);
           }
           throw err;
         }), finalize(() => this.ngxUiLoaderService.stop())

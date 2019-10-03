@@ -282,7 +282,7 @@ exports.saveCheck = async (req, res, next) => {
       // ----------save check to db ----------------------
       savedCheck = await Check.create({
         checkNumber: model.checkNumber,
-        checkStatus: Check.rawAttributes.checkStatus.values[0], // check Status pending
+        // checkStatus: Check.rawAttributes.checkStatus.values[0], // check Status pending
         createdDate: Date.now(),
         issuedDate: model.issuedDate,
         isSignCompleted: signatureCompleted, // sender sign process
@@ -300,6 +300,7 @@ exports.saveCheck = async (req, res, next) => {
         senderPartnerId: senderPartnerId,
         senderPartnerSignId: senderPartnerSignatureId, // first save sign into signature table and get Id
         documentId: model.documentId,
+        checkStaus: Check.rawAttributes.checkStatus.defaultValue
 
       });
 
@@ -483,7 +484,7 @@ exports.saveCheckBack = async (req, res, next) => {
         recieverPartnerId: recieverPartnerId,
         isRecieverSignCompleted : recieverSignatureCompleted,
         isRecieved: true,
-        recieveDate: Date.now()
+        recieveDate: Date.now(),
       });
     }
 

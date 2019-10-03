@@ -28,6 +28,14 @@
                   Download Attatchment
               </button>
 
+
+              <button style="float: right"  type="button" [ngClass]="{'danger': checkModel.checkStatus == 'pending',
+               'success':checkModel.checkStatus != 'pending'}" class="btn white inline  mr-3 mt-3">
+                  <i style="color: #ffffff" [ngClass]="{'fa-exclamation': checkModel.checkStatus == 'pending',
+                  'fa-check':checkModel.checkStatus != 'pending'}" class="fa text-black fa-1x"></i>
+                  Status: {{checkModel.checkStatus | titlecase}}
+              </button>
+
               <div  *ngIf="checkModel.check_BackGround"  class="check-boundary">
                   <ngx-flip [flip]="flipCheck">
                       <div back class="row no-margin form-area">

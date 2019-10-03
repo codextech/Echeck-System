@@ -10,6 +10,7 @@ const AppProcess = sequelize.define('app-process', {
   },
   title: Sequelize.STRING,
   text: Sequelize.STRING,
+  image: Sequelize.STRING,
 });
 
 module.exports = AppProcess;

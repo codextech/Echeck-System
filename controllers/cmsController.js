@@ -183,7 +183,13 @@ exports.addAppProcess = async (req, res, next) => {
 
   const model = req.body;
   try {
-    await AppProcess.create(model);
+    var imgUrl = genericHelper.getImageUrlFromArray(req, req.files[0]);
+
+    await AppProcess.create({
+      image:imgUrl,
+      title: model.title,
+      text: model.text,
+    });
   } catch (error) {
     res.status(500).json({messgae: error, data: {}});
   }
@@ -194,7 +200,13 @@ exports.editAppProcess = async (req, res, next) => {
 
   const model = req.body;
   try {
-    await AppProcess.update(model,{where: { id: model.id }});
+    var imgUrl = genericHelper.getImageUrlFromArray(req, req.files[0]);
+    await AppProcess.update({
+      image:imgUrl,
+      title: model.title,
+      text: model.text,
+    },{where: { id: model.id }});
+    // await AppProcess.update(model,{where: { id: model.id }});
   } catch (error) {
     res.status(500).json({messgae: error, data: {}});
   }

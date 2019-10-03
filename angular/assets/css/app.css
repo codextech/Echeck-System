@@ -852,7 +852,7 @@ Navbar
     font-weight: 600; }
   .navbar-brand img,
   .navbar-brand svg {
-    max-height: 2.5rem;
+    max-height: 4rem;
     vertical-align: middle;
     font-weight: 600; }
 
@@ -1878,10 +1878,12 @@ Nav
           clear: both;
           content: ""; }
         .sidenav .nav li > a:hover, .sidenav .nav li > a:focus {
-          background-color: rgba(63, 134, 202, 0.23); }
+          color: white;
+          background-color: rgb(251, 119, 29);
+         }
       .sidenav .nav li.active > a {
         background-color: transparent;
-        color: #285f94
+    color: rgb(251, 119, 29);
       }
 
         .sidenav .nav li.active > a .nav-caret i {

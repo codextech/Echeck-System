@@ -141,7 +141,7 @@ export class AddBankAccountComponent implements OnInit {
     const indiv = this.accountModel.individualAccount;
     const busi = this.accountModel.businessAccount;
 
-    if (indiv != false || busi != false && this.accountForm.valid) {
+    if ((indiv != false || busi != false) && this.accountForm.valid) {
 
       this.accountService.addBankAccount(this.accountModel).subscribe(result => {
         // this.router.navigate(['/get/bank-accounts']);

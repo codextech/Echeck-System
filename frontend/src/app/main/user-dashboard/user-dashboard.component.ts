@@ -16,6 +16,8 @@ export class UserDashBoardComponent implements OnInit {
   sentChecks: any[] = [];
   recievedChecks: any[] = [];
   bankAccounts: any[] = [];
+  checkSummary: any[] = [];
+
   amountSent: number;
   amountRecieved: number;
 
@@ -34,7 +36,21 @@ export class UserDashBoardComponent implements OnInit {
     this.getRecieveChecks();
     this.getBankAccounts();
 
+    setTimeout(() => {
+    this.getTotalSummary(); // check sent recieve , local method
+    }, 1500);
+
   }
+  getTotalSummary() {
+
+
+    this.checkSummary = this.checkSummary.concat(this.sentChecks, this.recievedChecks);
+        this.checkSummary.sort( (a, b) => {
+      return Number(new Date(b.createdDate)) - Number(new Date(a.createdDate));
+    }).slice(0, 11);
+
+  }
+
   getRecieveChecks() {
     let amount = 0;
     this.checkService.getAllRecievedChecks().subscribe(

@@ -141,7 +141,8 @@ newLogo = true;
 
   addExistingBank() {
 
-    if (this.bankModel == null || this.bankModel === {}) {
+    console.log(this.bankModel)
+    if (this.bankModel && this.bankModel.bankId != 0  && this.bankModel.bankId != undefined) {
 
       this.accountService.addBank(this.bankModel).subscribe(result => {
         this.ngxModalService.open('bankaddModal');

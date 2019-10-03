@@ -28,8 +28,9 @@
 
 
 .text {
-  font-weight: 700;
+  font-weight: 600;
     margin: auto;
+    color: #ffffff;
 }
 
 .history-header{
@@ -39,9 +40,21 @@
 
 .step-content{
   margin-top: 7px;
+  background: #fb751ae8;
+  border: 1px solid;
 }
 
+.step-nmbr {
+  color:  #285f94;
+}
 
+.step-content:hover{ 
+  background: #ffff;
+}
+
+.step-content:hover .text{ 
+  color:  #285f94;
+}
 .steps-link:hover {
     background: #ffff;
 }

@@ -71,6 +71,7 @@ export class AddChequeComponent implements OnInit {
   flipCheck = false;
   @ViewChild('checkContainer') container;
   @ViewChild('canvas') canvasBody;
+  @ViewChild('checkForm') checkForm;
 
   checkImageFile: any;
 
@@ -208,7 +209,6 @@ export class AddChequeComponent implements OnInit {
     await this.convertToImage(fileName);
     this.ngxUiLoaderService.stopBackground(); //    Loader stop
     if (this.checkImageFile) {
-    console.log(this.checkImageFile);
     this.checkModel.checkImageFile = this.checkImageFile;
 
     const formData = new FormData();
@@ -257,6 +257,8 @@ export class AddChequeComponent implements OnInit {
         // this.router.navigate(['/check-history/sent']);
         // this.toastr.success('Check Sent');
         this.ngxModalService.open('checkCompleteModal');
+        this.checkForm.resetForm();
+
 
       },
       err => {
@@ -266,7 +268,7 @@ export class AddChequeComponent implements OnInit {
 
   } else {
     console.log('dom to image is not working properly');
-    this.toastr.error('Please Try Again !');
+    this.toastr.error('Something Worng,Please Try Again OR "Contact Us"!');
 
   }
 

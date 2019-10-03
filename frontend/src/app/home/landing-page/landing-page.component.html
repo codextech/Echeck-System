@@ -1,3 +1,4 @@
+
 <div class="slider" id="slider">
 
 
@@ -8,31 +9,15 @@
         [ngStyle]="{'background': 'url(' + img.sliderImage + ') no-repeat', 'background-size': '100% 100%' }">
 
       </div>
-      <!-- <img class="slider-img" [src]="img.sliderImage" alt=""> -->
+
     </ng-template>
 
   </ngb-carousel>
 
 </div>
-<!-- <div class="rate-table">
-    <div class="container">
-        <div class="row">
-            <div *ngFor="let item of homeIcon" class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6">
-                <div class="rate-counter-block">
-                    <div class="icon rate-icon  ">
-                       <img [src]="item.icon" alt="" class="icon-svg-1x">
-                       <small class="rate-title pl-3">{{item.text}}</small>
-                      </div>
-                    
-                </div>
-            </div>
-         
-        </div>
-    </div>
-</div> -->
 
 
-<div *ngIf="homeIcon" class="section-space80">
+<!-- <div *ngIf="homeIcon" class="section-space80">
   <div class="container">
       <div class="" id="service">
     <div class="row">
@@ -49,37 +34,71 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
-<div class="bg-white section-space80">
+<div class="bg-white section-space80 process-section">
   <div class="container">
-    <div class="row">
-      <div class="offset-xl-2 col-xl-8 offset-md-2 col-md-8 offset-md-2 col-md-8 col-sm-12 col-12">
-        <div class="mb100 text-center section-title">
-          <!-- section title start-->
-          <h1>Fast &amp; Easy Application Process.</h1>
-          <p>Suspendisse aliquet varius nunc atcibus lacus sit amet coed portaeri sque mami luctus viveed congue
-            lobortis faucibus.</p>
-        </div>
-        <!-- /.section title start-->
+    <div class="">
+      <div class="offset-xl-2 col-xl-8 offset-lg-2 col-lg-8 col-md-12 col-sm-12 col-12">
+          <div class="section-title text-center mb60">
+              <h1>Fast &amp; Easy Payment Process.</h1>
+              <p>Create &amp; Send online check in just minutes</p>
+          </div>
       </div>
-    </div>
-    <div class="row">
+      <div class="row">
       <div *ngFor="let item of appProcess;let i = index" class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
-        <div style="min-height: 250px;" class="bg-white pinside40 number-block outline mb60 bg-boxshadow">
-          <div class="circle"><span class="number">{{i+1}}</span></div>
-          <h3 class="number-title">{{item.title}}</h3>
+        <div class="bg-white number-block mb30 ">
+          <div class="process-img"><img [src]="item.image" alt="" class="process-image">
+              <div class="circle"><span class="number">{{i+1}}</span></div>
+          </div>
+          <div class="pinside20">
+          <h3 class="service-title">{{item.title}}</h3>
           <p>{{item.text}}</p>
-        </div>
+          </div>
       </div>
- 
-    </div>
+      </div>
+
+
+      </div>
+  </div>
+
     <div class="row">
       <div class="offset-xl-2 col-xl-8 offset-md-2 col-md-8 offset-md-2 col-md-8 col-sm-12 col-12 text-center"> <a
-          href="/dashboard" class="btn btn-default">Make Payment</a> </div>
+          href="/dashboard" class="btn btn-default">Get Started</a> </div>
     </div>
   </div>
 </div>
+
+
+
+  <div class="cta">
+    <div class="container">
+      <div class="row">
+        <div class=" offset-xl-2 col-xl-8 offset-lg-2 col-lg-8 offset-md-2 col-md-8 col-sm-12 col-12 ">
+          <div class="mb60 text-center section-title text-white">
+            <!-- section title start-->
+            <h1 class="text-white">Our Services</h1>
+            <p>We understand your needs. </p>
+          </div>
+          <!-- /.section title start-->
+        </div>
+      </div>
+      <div class="row">
+        <div *ngFor="let item of homeIcon" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+          <div class="service-block-v3">
+            <div class="icon mb10">
+              <a href="#"> <img [src]="item.icon" alt="{{item.title}}" class="h-100p"></a>
+            </div>
+            <div class="pinside20">
+              <p class="title-white">{{item.text}}</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
 <div class="section-space80">
   <div class="container">
     <div class="row">
@@ -99,7 +118,7 @@
           <div class="row">
             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 nopadding">
               <div class="bg-white pinside60 number-block outline h-100">
-                <div class="mb20"><i class="icon-command  icon-4x icon-primary"></i></div>
+                <div class="mb20"><i class="icon-command  icon-4x icon-orange"></i></div>
                 <h3>Dedicated Specialists</h3>
                 <p>Dedicated team of Wealth
 
@@ -111,7 +130,7 @@
             </div>
             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 nopadding">
               <div class="bg-white pinside60 number-block outline h-100">
-                <div class="mb20"><i class="icon-cup  icon-4x icon-primary"></i></div>
+                <div class="mb20"><i class="icon-cup  icon-4x icon-orange"></i></div>
                 <h3>Customer Success Stories</h3>
                 <p>The Proof is in the Pudding
 
@@ -125,7 +144,7 @@
             </div>
             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 nopadding">
               <div class="bg-white pinside60 number-block outline h-100">
-                <div class="mb20"><i class="icon-calculator  icon-4x icon-primary"></i></div>
+                <div class="mb20"><i class="icon-calculator  icon-4x icon-orange"></i></div>
                 <h3>No or neglible processing fee!</h3>
                 <p> Our servivces are mostly free and where
 
@@ -142,6 +161,21 @@
   </div>
 </div>
 
+<div class="section-space100 cta-section-second">
+  <div class="container">
+      <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <div class="text-center">
+                  <!-- section title start-->
+                  <h1 class="text-white">Wealth Management Solutions For Your Needs.</h1>
+                  <p class="text-white">Our solution provide exponential value to price.</p>
+                  <a href="/dashboard" class="btn btn-default">Make Payement</a>
+              </div>
+              <!-- /.section title start-->
+          </div>
+      </div>
+  </div>
+</div>
 
 <div class="section-space80 bg-white">
   <div class="container">
@@ -150,7 +184,7 @@
         <div class="mb60 text-center section-title">
           <!-- section title-->
           <h1>We are Here to Help You</h1>
-          <p>Our mission is to deliver reliable, latest news and opinions.</p>
+          <p>Our mission is to deliver reliable, and simple answers to problems.</p>
         </div>
         <!-- /.section title-->
       </div>
@@ -158,7 +192,7 @@
     <div class="row">
       <div *ngFor="let item of contacts" class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
         <div style="min-height: 350px;" class="bg-white bg-boxshadow pinside40 outline text-center mb30">
-          <div class="mb40"><i class="{{item.icon}} fa-4x text-primary"></i></div>
+          <div class="mb40"><i class="{{item.icon}} fa-4x text-orange"></i></div>
           <h2 class="capital-title">{{item.title}}</h2>
           <!-- <h1 *ngIf="item.phone" class="text-big">800-123-456 / 789 </h1>
                     <p *ngIf="item.email"></p> -->

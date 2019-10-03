@@ -33,8 +33,10 @@ exports.logIn = async (req, res, next) => {
       // user password match ,return promis,
       return bcrypt.compareSync(req.body.password, user.password);
     })
-    .then(result => {
-      if (!result) {
+    .then(matched => {
+      console.log('========', matched);
+      
+      if (!matched) {
         return res.status(400).json({
           message: "Wrong Password"
         });
@@ -265,7 +267,7 @@ exports.resetPasswordRequest = async (req, res, next) => {
 
 
 
-     var link =  `${apiUrl}/reset-password/${token}`;
+     var link =  `${APPURL}/reset-password/${token}`;
 
      ejs.renderFile(path.join(ROOT ,'/emails/resetPassword.ejs'),
       {token: link },

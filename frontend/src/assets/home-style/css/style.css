@@ -68,7 +68,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0px 0px 10px 0px;
   color: #3c4d6b;
   font-weight: 500;
@@ -109,9 +114,11 @@ p {
   font-weight: 400;
 }
 
-ul, ol {}
+ul,
+ol {}
 
-ul li, ol li {
+ul li,
+ol li {
   line-height: 1.8
 }
 
@@ -123,7 +130,8 @@ a {
   transition: all 0.3s ease-in-out;
 }
 
-a:focus, a:hover {
+a:focus,
+a:hover {
   text-decoration: none;
   color: #15549a;
 }
@@ -161,7 +169,9 @@ p:last-child {
   color: #333;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   transition: all .3s ease-in-out;
 }
 
@@ -692,23 +702,23 @@ Buttons
 }
 
 .btn-default {
-  background-color: #285f94;
-  ;
+ 
+  background-color: #fb6b0a;
   color: #fff;
-  border-color: #285f94;
-  ;
+  border-color: #fb6b0a;
 }
 
 .btn-default:hover {
   color: #fff;
-  background-color: #2e93f9;
-  border-color: 285f94;
+  background-color: #285f94
 }
 
-.btn-default.focus, .btn-default:focus {
+
+.btn-default.focus,
+.btn-default:focus {
   color: #fff;
-  background-color: #2a7ed4;
-  border-color: #2a7ed4;
+  background-color: #285f94;
+   border-color: #285f94
 }
 
 .btn-primary {
@@ -721,7 +731,8 @@ Buttons
   background-color: #2573cb;
 }
 
-.btn-primary.focus, .btn-primary:focus {}
+.btn-primary.focus,
+.btn-primary:focus {}
 
 .btn-secondary {
   background-color: #778191;
@@ -741,9 +752,16 @@ Buttons
 }
 
 .btn-outline:hover {
-  border: 2px solid #dee4ee;
-  color: #6a7a94;
-  background-color: #dee4ee;
+  border: 2px solid #476584;
+  color: #ffffff;
+  background-color: #fb6b0a;
+}
+
+.text-orange {
+  color: #fb6b0a;
+}
+.icon-orange {
+  color: #fb6b0a;
 }
 
 .btn-lg {
@@ -780,7 +798,8 @@ Buttons
   text-decoration: none;
 }
 
-.btn-link.focus, .btn-link:focus {
+.btn-link.focus,
+.btn-link:focus {
   text-decoration: none;
   border-color: #285f94;
   box-shadow: none;
@@ -844,7 +863,9 @@ label {}
   border: 2px solid #e6ecef;
 }
 
-.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
   background-color: #fff;
 }
 
@@ -1085,9 +1106,10 @@ top bar
 }
 
 .header {
-  background-color: #fff;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  background-color: #ffffff;
+  ;
+  padding-top: 10px;
+  padding-bottom: 10px;
   position: relative;
   z-index: 99;
   -webkit-box-shadow: 0px 5px 9px 1px rgba(144, 161, 180, 0.2);
@@ -1102,12 +1124,16 @@ top bar
 }
 
 .navigation-wide #navigation {
-  margin-top: 0px;
+  margin-top: 15px;
   float: left;
   background-color: #15549a;
 }
 
-#navigation, #navigation ul, #navigation ul li, #navigation ul li a, #navigation #menu-button {
+#navigation,
+#navigation ul,
+#navigation ul li,
+#navigation ul li a,
+#navigation #menu-button {
   margin: 0;
   padding: 0;
   border: 0;
@@ -1120,7 +1146,8 @@ top bar
   box-sizing: border-box;
 }
 
-#navigation:after, #navigation>ul:after {
+#navigation:after,
+#navigation>ul:after {
   content: ".";
   display: block;
   clear: both;
@@ -1135,7 +1162,7 @@ top bar
 
 #navigation {
   float: right;
-  margin-top: 8px;
+  margin-top: 15px;
   position: relative;
   z-index: 99;
 }
@@ -1166,13 +1193,39 @@ top bar
   padding: 16px 10px;
   font-size: 13px;
   text-decoration: none;
-  color: #66707f;
+  color: #fb6b0a;
   font-weight: 600;
   text-transform: uppercase;
 }
 
-#navigation>ul>li:hover>a {
-  color: #285f94;
+/* #navigation>ul>li>a:hover {
+  padding: 16px 10px;
+  font-size: 13px;
+  text-decoration: none;
+  color:#fb6b0a;
+  background: #285f94;
+  margin-right: 5px;
+  font-weight: 600;
+  text-transform: uppercase;
+} */
+
+#navigation>ul>li:hover>a:after {
+  background: none repeat scroll 0 0 transparent;
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 2px;
+  left: 50%;
+  position: absolute;
+  background: #285f94;
+  ;
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  width: 0;
+}
+
+#navigation>ul>li:hover>a:hover:after {
+  width: 100%;
+  left: 0;
 }
 
 #navigation>ul>li.has-sub>a {
@@ -1255,11 +1308,13 @@ display: block; background: #dddddd; content: '';}*/
   background: #fff;
 }
 
-#navigation ul ul li:last-child>a, .navigation ul ul li.last-item>a {
+#navigation ul ul li:last-child>a,
+.navigation ul ul li.last-item>a {
   border-bottom: 0;
 }
 
-#navigation ul ul li:hover>a, #navigation ul ul li a:hover {
+#navigation ul ul li:hover>a,
+#navigation ul ul li a:hover {
   color: #285f94;
   background-color: #f4f6f8;
 }
@@ -1324,11 +1379,13 @@ display: block; background: #dddddd; content: '';}*/
   border-top: 1px solid rgba(223, 229, 237, 0.9);
 }
 
-#navigation.small-screen ul ul li, #navigation.small-screen li:hover>ul>li {
+#navigation.small-screen ul ul li,
+#navigation.small-screen li:hover>ul>li {
   height: auto;
 }
 
-#navigation.small-screen ul li a, #navigation.small-screen ul ul li a {
+#navigation.small-screen ul li a,
+#navigation.small-screen ul ul li a {
   width: 100%;
   border-bottom: 0;
 }
@@ -1350,11 +1407,14 @@ display: block; background: #dddddd; content: '';}*/
   background: none;
 }
 
-#navigation.small-screen ul ul li:hover>a, #navigation.small-screen ul ul li.active>a {
+#navigation.small-screen ul ul li:hover>a,
+#navigation.small-screen ul ul li.active>a {
   color: #285f94;
 }
 
-#navigation.small-screen ul ul, #navigation.small-screen ul ul ul, #navigation.small-screen.align-right ul ul {
+#navigation.small-screen ul ul,
+#navigation.small-screen ul ul ul,
+#navigation.small-screen.align-right ul ul {
   position: relative;
   left: 0;
   width: 100%;
@@ -1362,7 +1422,10 @@ display: block; background: #dddddd; content: '';}*/
   text-align: left;
 }
 
-#navigation.small-screen>ul>li.has-sub>a:after, #navigation.small-screen>ul>li.has-sub>a:before, #navigation.small-screen ul ul>li.has-sub>a:after, #navigation.small-screen ul ul>li.has-sub>a:before {
+#navigation.small-screen>ul>li.has-sub>a:after,
+#navigation.small-screen>ul>li.has-sub>a:before,
+#navigation.small-screen ul ul>li.has-sub>a:after,
+#navigation.small-screen ul ul>li.has-sub>a:before {
   display: none;
 }
 
@@ -1609,7 +1672,8 @@ display: block; background: #dddddd; content: '';}*/
   right: 20px;
 }
 
-#slider .owl-next, #slider .owl-prev {
+#slider .owl-next,
+#slider .owl-prev {
   background-color: transparent !important;
   border: 2px solid #fff;
   color: #fff;
@@ -1618,7 +1682,8 @@ display: block; background: #dddddd; content: '';}*/
   transition: all 0.3s;
 }
 
-#slider .owl-next:hover, #slider .owl-prev:hover {
+#slider .owl-next:hover,
+#slider .owl-prev:hover {
   background-color: #fff !important;
   border: 2px solid #fff;
   color: #15549a;
@@ -1769,7 +1834,7 @@ index-1
 }
 
 .service-block-v3 {
-  background-color: #fff;
+  background-color: #ffffff75;
   padding: 40px 0px 0px 0px;
   text-align: center;
   margin-bottom: 30px;
@@ -2182,7 +2247,8 @@ index-1
   text-transform: capitalize;
 }
 
-.hero-tab-block .st-tabs .nav-tabs .nav-item.show .nav-link, .hero-tab-block .nav-tabs .nav-link.active {
+.hero-tab-block .st-tabs .nav-tabs .nav-item.show .nav-link,
+.hero-tab-block .nav-tabs .nav-link.active {
   color: #285f94;
   background-color: white;
   border-color: #ffffff #ffffff #ffffff #ffffff;
@@ -2245,7 +2311,9 @@ index-1
   border-color: #dbdbdb;
 }
 
-.nice-select:active, .nice-select.open, .nice-select:focus {
+.nice-select:active,
+.nice-select.open,
+.nice-select:focus {
   border-color: #15549a;
 }
 
@@ -2375,7 +2443,9 @@ index-1
   color: #3c4d6b;
 }
 
-.nice-select .option:hover, .nice-select .option.focus, .nice-select .option.selected.focus {
+.nice-select .option:hover,
+.nice-select .option.focus,
+.nice-select .option.selected.focus {
   background-color: #f3f7fa;
 }
 
@@ -2403,7 +2473,7 @@ index-1
 
 .process-section .circle {
   background-color: #fff;
-  border: 3px solid #285f94;
+  border: 3px solid #fb6b0a;
   color: #285f94;
   margin: -32px auto 18px auto;
   position: relative;
@@ -2780,7 +2850,8 @@ compare Student loan table
   color: #7e93ae;
 }
 
-.card-benefit-tabs .st-tabs .nav-tabs .nav-item.show .nav-link, .card-benefit-tabs .st-tabs .nav-tabs .nav-link.active {
+.card-benefit-tabs .st-tabs .nav-tabs .nav-item.show .nav-link,
+.card-benefit-tabs .st-tabs .nav-tabs .nav-link.active {
   color: #ffffff;
   background-color: #15549a;
   border-color: #15549a;
@@ -2928,7 +2999,8 @@ compare Student loan table
   border-color: #eff1f3;
 }
 
-.bank-account-tabs.st-tabs .nav-tabs .nav-item.show .nav-link, .bank-account-tabs.st-tabs .nav-tabs .nav-link.active {
+.bank-account-tabs.st-tabs .nav-tabs .nav-item.show .nav-link,
+.bank-account-tabs.st-tabs .nav-tabs .nav-link.active {
   color: #285f94;
   background-color: #eff1f3;
   border-color: #eff1f3;
@@ -2948,7 +3020,8 @@ Service Page & Block Css
 
 #service {}
 
-#service .owl-next, #service .owl-prev {
+#service .owl-next,
+#service .owl-prev {
   background-color: transparent !important;
   border: 2px solid #a3b1c1;
   color: #a3b1c1;
@@ -2957,7 +3030,8 @@ Service Page & Block Css
   transition: all 0.3s;
 }
 
-#service .owl-next:hover, #service .owl-prev:hover {
+#service .owl-next:hover,
+#service .owl-prev:hover {
   background-color: #285f94 !important;
   border: 2px solid #285f94;
   color: #fff;
@@ -3025,7 +3099,11 @@ Service-img
   padding: 10px;
   text-align: center;
   line-height: 1.7;
+
+
 }
+
+
 
 .number {
   font-size: 24px;
@@ -3390,7 +3468,8 @@ Blog
 
 .nav-previous {}
 
-.prev-link, .next-link {
+.prev-link,
+.next-link {
   color: #778191;
   margin-bottom: 10px;
   display: block;
@@ -3407,7 +3486,8 @@ Blog
 
 .prev-link {}
 
-.prev-link:hover, .next-link:hover {
+.prev-link:hover,
+.next-link:hover {
   color: #285f94
 }
 
@@ -3447,7 +3527,8 @@ Blog-sidebar
 
 .widget-category {}
 
-.widget-category li a, .widget-archives li a {
+.widget-category li a,
+.widget-archives li a {
   padding-top: 10px;
   padding-bottom: 10px;
   display: block;
@@ -3456,7 +3537,8 @@ Blog-sidebar
   font-size: 14px;
 }
 
-.widget-category li a:hover, .widget-archives li a:hover {
+.widget-category li a:hover,
+.widget-archives li a:hover {
   color: #285f94;
 }
 
@@ -3656,7 +3738,8 @@ Pagination
 
 .st-pagination {}
 
-.st-pagination .pagination>li>a, .pagination>li>span {
+.st-pagination .pagination>li>a,
+.pagination>li>span {
   position: relative;
   float: left;
   margin-left: -1px;
@@ -3674,7 +3757,10 @@ Pagination
   padding: 8px 13px;
 }
 
-.st-pagination .pagination>li>a:focus, .st-pagination .pagination>li>a:hover, .st-pagination .pagination>li>span:focus, .st-pagination .pagination>li>span:hover {
+.st-pagination .pagination>li>a:focus,
+.st-pagination .pagination>li>a:hover,
+.st-pagination .pagination>li>span:focus,
+.st-pagination .pagination>li>span:hover {
   z-index: 2;
   color: #fff;
   background-color: #285f94;
@@ -3682,16 +3768,23 @@ Pagination
   border-radius: 4px;
 }
 
-.st-pagination .pagination>li:first-child>a, .st-pagination .pagination>li:first-child>span {
+.st-pagination .pagination>li:first-child>a,
+.st-pagination .pagination>li:first-child>span {
   margin-left: 0;
   border-radius: 4px;
 }
 
-.st-pagination .pagination>li:last-child>a, .st-pagination .pagination>li:last-child>span {
+.st-pagination .pagination>li:last-child>a,
+.st-pagination .pagination>li:last-child>span {
   border-radius: 4px;
 }
 
-.st-pagination .pagination>.active>a, .st-pagination .pagination>.active>a:focus, .st-pagination .pagination>.active>a:hover, .st-pagination .pagination>.active>span, .st-pagination .pagination>.active>span:focus, .st-pagination .pagination>.active>span:hover {
+.st-pagination .pagination>.active>a,
+.st-pagination .pagination>.active>a:focus,
+.st-pagination .pagination>.active>a:hover,
+.st-pagination .pagination>.active>span,
+.st-pagination .pagination>.active>span:focus,
+.st-pagination .pagination>.active>span:hover {
   z-index: 3;
   color: #fff;
   cursor: default;
@@ -3766,13 +3859,15 @@ Pagination
   padding: 10px 0px 10px 30px;
 }
 
-.st-accordion .panel-group .panel-heading+.panel-collapse>.list-group, .st-accordion .panel-group .panel-heading+.panel-collapse>.panel-body {}
+.st-accordion .panel-group .panel-heading+.panel-collapse>.list-group,
+.st-accordion .panel-group .panel-heading+.panel-collapse>.panel-body {}
 
 .st-accordion .panel-body {
   padding: 30px;
 }
 
-.st-accordion .panel-group .panel-heading+.panel-collapse>.list-group, .panel-group .panel-heading+.panel-collapse>.panel-body {
+.st-accordion .panel-group .panel-heading+.panel-collapse>.list-group,
+.panel-group .panel-heading+.panel-collapse>.panel-body {
   border-top: 1px solid transparent;
 }
 
@@ -3799,7 +3894,9 @@ Extra Plugin CSS - Back to top
   transition: opacity .3s 0s, visibility 0s .3s;
 }
 
-.cd-top.cd-is-visible, .cd-top.cd-fade-out, .no-touch .cd-top:hover {
+.cd-top.cd-is-visible,
+.cd-top.cd-fade-out,
+.no-touch .cd-top:hover {
   -webkit-transition: opacity .3s 0s, visibility 0s 0s;
   -moz-transition: opacity .3s 0s, visibility 0s 0s;
   transition: opacity .3s 0s, visibility 0s 0s;
@@ -3832,7 +3929,8 @@ Extra Plugin CSS - Back to top
   z-index: 1;
 }
 
-.isotope, .isotope .isotope-item {
+.isotope,
+.isotope .isotope-item {
   /* change duration value to whatever you like */
   -webkit-transition-duration: 0.8s;
   -moz-transition-duration: 0.8s;
@@ -4032,7 +4130,8 @@ img {
   max-width: 100%;
 }
 
-.imghover::before, .imghover::after {
+.imghover::before,
+.imghover::after {
   display: block;
   position: absolute;
   content: "";
@@ -4060,7 +4159,8 @@ img {
   font-size: 36px;
 }
 
-.imghover:hover::before, .imghover:hover::after {
+.imghover:hover::before,
+.imghover:hover::after {
   opacity: 1;
 }
 
@@ -4159,7 +4259,8 @@ Contact us
   background-color: #285f94;
 }
 
-.slide-ranger .ui-state-default, .ui-widget-content .ui-state-default {
+.slide-ranger .ui-state-default,
+.ui-widget-content .ui-state-default {
   background-color: #fff !important;
 }
 
@@ -4248,7 +4349,12 @@ EMI Calculator
   color: #333;
 }
 
-.table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
+.table-bordered>tbody>tr>td,
+.table-bordered>tbody>tr>th,
+.table-bordered>tfoot>tr>td,
+.table-bordered>tfoot>tr>th,
+.table-bordered>thead>tr>td,
+.table-bordered>thead>tr>th {
   border: 1px solid #dee4ee;
   color: #3c4d6b;
 }
@@ -4343,7 +4449,8 @@ Lender Listing Page
   border-right: 1px solid #dee7f2;
 }
 
-.lender-ads-rate, .lender-compare-rate {
+.lender-ads-rate,
+.lender-compare-rate {
   display: inline-block;
   text-align: center;
   width: 143px;
@@ -4403,7 +4510,10 @@ Lender Listing Page
 
 .lender-features {}
 
-.lender-loan-sections, .lender-apply, .lender-features, .lender-rates-list {
+.lender-loan-sections,
+.lender-apply,
+.lender-features,
+.lender-rates-list {
   margin-bottom: 60px;
 }
 
@@ -4462,7 +4572,8 @@ Shortcodes
   margin-top: -1px;
 }
 
-.st-tabs .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+.st-tabs .nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
   color: #285f94;
   background-color: transparent;
   border-color: #dee7f2 #dee7f2 #dee7f2 #dee7f2;
@@ -4501,7 +4612,10 @@ Compare-Loan
 
 .rate {}
 
-.rate, .fees, .compare-rate, .repayment {
+.rate,
+.fees,
+.compare-rate,
+.repayment {
   font-size: 18px;
   color: #4b5565;
   margin-bottom: 0px;
@@ -4659,7 +4773,8 @@ Landing Page Template
   text-transform: uppercase;
 }
 
-.new-price, .old-price {
+.new-price,
+.old-price {
   margin-bottom: 30px;
 }
 
@@ -4786,18 +4901,21 @@ Landing Page Template
     bottom: 70px;
     width: 100%;
   }
+
   .slider-title {
     color: #fff;
     font-size: 32px;
     font-weight: 700;
     line-height: 42px;
   }
+
   .slider .owl-prev {
     position: absolute;
     left: 0px;
     top: 40%;
     left: 0px;
   }
+
   .slider .owl-next {
     position: absolute;
     right: 0px;
@@ -4815,20 +4933,24 @@ Landing Page Template
 }
 
 @media screen and (min-width:992px) and (max-width:1200px) {
+
   /*--------------- index - 8 -------------*/
   .refinance-rate-block-title {
     letter-spacing: 0px;
     font-weight: 600;
     font-size: 27px;
   }
+
   .loan-half-section {
     padding: 50px;
   }
+
   /*--------------- card landing page  ---------- */
   .card-benefit-tabs .st-tabs .nav-link {
     display: block;
     padding: 16px 27px;
   }
+
   /*--------------- borrow life saving   ---------- */
   .bank-account-tabs.st-tabs .nav-link {
     padding: 16px 46px;
@@ -4838,18 +4960,22 @@ Landing Page Template
 /*============= media query max-width: 768px; =============*/
 
 @media only screen and (max-width:768px) {
+
   /* start query */
   .header {
     padding-top: 5px;
     padding-bottom: 5px;
   }
+
   .logo {}
+
   /*--------------- slider for mobile view ( for mobile view  )---------- */
   .slider-captions {
     position: absolute;
     bottom: 28px;
     text-align: center;
   }
+
   .slider-title {
     color: #fff;
     font-size: 22px;
@@ -4857,41 +4983,50 @@ Landing Page Template
     font-weight: 700;
     line-height: 26px;
   }
+
   .slider .owl-prev {
     position: absolute;
     left: 0px;
     top: 30%;
     left: 0px;
   }
+
   .slider .owl-next {
     position: absolute;
     right: 0px;
     top: 30%;
     right: 0px;
   }
+
   /*--------------- Page Header ( for mobile view  )---------- */
   .page-header {
     padding: 40px 0px 80px;
   }
+
   .page-title {
     font-size: 28px;
     margin-bottom: 14px;
   }
+
   .btn-action {
     text-align: center;
   }
+
   .btn-action .btn {
     padding: 10px;
     float: left;
     margin-left: 5px;
   }
+
   .sub-nav>.nav li a {
     border-bottom: 1px solid #dee7f2;
     margin-bottom: 0px;
   }
+
   .childern {
     padding-left: 0px;
   }
+
   .widget-share {
     background-color: #fff;
     padding: 14px;
@@ -4899,24 +5034,30 @@ Landing Page Template
     top: 0px;
     right: 0px;
   }
+
   .search-nav {
     display: none;
   }
+
   .rate-counter-block {
     text-align: center;
   }
+
   .rate-icon {
     float: none;
     margin-bottom: 10px;
   }
+
   .loan-rate {
     font-size: 24px;
   }
+
   /*--------------- index - 4 ()-------------*/
   .header-transparent {
     position: relative;
     background-color: #15549a;
   }
+
   .header-transparent #navigation.small-screen #menu-button {
     display: block;
     padding: 16px 0px;
@@ -4928,10 +5069,12 @@ Landing Page Template
     border-top: 1px solid #0a4587;
     margin-top: 20px;
   }
+
   .header-transparent #navigation.small-screen ul li {
     width: 100%;
     border-top: 1px solid #0a4587;
   }
+
   .header-transparent #navigation.small-screen .submenu-button {
     position: absolute;
     z-index: 99;
@@ -4943,93 +5086,118 @@ Landing Page Template
     width: 46px;
     cursor: pointer;
   }
+
   .header-transparent #navigation.small-screen ul ul li a {
     color: #fff;
     background: none;
   }
+
   .video-play {
     left: 39%;
     top: 45px;
   }
+
   .st-tabs .nav-link {
     padding: 16px 11px;
   }
-  .lender-ads-rate, .lender-compare-rate {
+
+  .lender-ads-rate,
+  .lender-compare-rate {
     width: 123px;
   }
+
   .sub-nav>.nav li a {
     padding: 8px 0px;
     font-size: 11px;
   }
+
   .portfolioFilter a {
     text-transform: uppercase;
     background-color: #eff3f8;
     padding: 9px 23px;
   }
+
   /*--------------- index-6 ---------- */
   .lead-hero-caption {
     padding-top: 0px;
   }
+
   .header-wide .lead {
     font-size: 19px;
   }
+
   /*--------------- index-7 ---------- */
   /*--------------- index-8 ---------- */
   .refinance-hero-block {
     padding-top: 100px;
     padding-bottom: 160px;
   }
+
   .loan-half-section {
     padding: 66px;
   }
+
   /*--------------- compare credit card  ---------- */
   .expandable-info .card {
     min-height: inherit;
   }
+
   /*--------------- compare personal loan card  ---------- */
   .compare-personal-loan-table .table>tbody>tr>td {
     padding: 6px;
   }
+
   .compare-personal-loan-title {
     font-size: 13px;
     font-weight: 600;
     display: block;
     width: 148px;
   }
+
   .expandable-info .card {
     min-height: inherit;
   }
+
   /*--------------- compare student loan card  ---------- */
   .compare-student-loan-table .table>tbody>tr>td {
     padding: 6px;
   }
+
   .compare-student-loan-title {
     font-size: 13px;
     font-weight: 600;
     display: block;
     width: 148px;
   }
+
   .expandable-info .card {
     min-height: inherit;
   }
+
   /*--------------- card landing page  ---------- */
-  .header-wide .lead, .header-wide .lead {
+  .header-wide .lead,
+  .header-wide .lead {
     font-size: 21px;
   }
+
   .card-benefit-tabs .st-tabs .nav-link {
     display: block;
     padding: 16px 8px;
   }
+
   .card-benefit-tabs .st-tabs a {
     font-size: 12px;
   }
+
   /*--------------- Index - 9 bank borrow  ---------- */
   .overlay-section {
     margin-top: 0px;
   }
+
   .overlay-section .card {
     margin-bottom: 20px;
   }
+
   .post-caption-content h3 {
     font-size: 12px;
     line-height: 18px;
@@ -5037,6 +5205,7 @@ Landing Page Template
 }
 
 @media only screen and (max-width:460px) {
+
   /*--------------- slider for mobile view ( for mobile view  )---------- */
   .slider-captions {
     position: absolute;
@@ -5044,6 +5213,7 @@ Landing Page Template
     text-align: center;
     width: 100%;
   }
+
   .slider-title {
     color: #fff;
     font-size: 18px;
@@ -5051,27 +5221,33 @@ Landing Page Template
     font-weight: 700;
     line-height: 26px;
   }
+
   .slider .owl-prev {
     position: absolute;
     left: 0px;
     top: 30%;
     left: 0px;
   }
+
   .slider .owl-next {
     position: absolute;
     right: 0px;
     top: 30%;
     right: 0px;
   }
+
   .rate-icon {
     float: none;
   }
+
   .rate-counter-block {
     text-align: center;
   }
+
   .loan-rate {
     font-size: 24px;
   }
+
   .widget-share {
     background-color: #fff;
     padding: 14px;
@@ -5079,79 +5255,99 @@ Landing Page Template
     top: 0px;
     right: 0px;
   }
+
   .search-nav {
     display: none;
   }
+
   .top-text {
     padding-left: 14px;
   }
+
   .header-action {
     text-align: center;
   }
+
   .rate-badge {
     display: none;
   }
+
   .video-play {
     left: 39%;
   }
+
   /*--------------- index-6 ---------- */
   .lead-hero-caption {
     padding-top: 0px;
   }
+
   /*--------------- index-7 ---------- */
   #navigation {
     margin-top: 18px;
   }
+
   .hero-tab-block {
     padding-top: 91px;
     padding-bottom: 100px;
   }
+
   /*--------------- index-8 ---------- */
   .refinance-rate-block-title {
     font-size: 24px;
   }
+
   .refinance-hero-block {
     padding-top: 44px;
   }
+
   /*--------------- compare credit card  ---------- */
   .compare-table .table>tbody>tr>td {
     padding: 10px;
   }
+
   .compare-card-title {
     font-size: 13px;
     font-weight: 600;
     display: block;
     width: 148px;
   }
+
   .expandable-info .card {
     min-height: inherit;
   }
+
   /*--------------- compare personal loan card  ---------- */
   .compare-personal-loan-table .table>tbody>tr>td {
     padding: 10px;
   }
+
   .compare-personal-loan-title {
     font-size: 13px;
     font-weight: 600;
     display: block;
     width: 148px;
   }
+
   .expandable-info .card {
     min-height: inherit;
   }
+
   /*--------------- compare student loan card  ---------- */
   .compare-student-loan-table .table>tbody>tr>td {
     padding: 10px;
   }
+
   .compare-student-loan-title {
     font-size: 13px;
     font-weight: 600;
     display: block;
     width: 148px;
   }
+
   .expandable-info .card {
     min-height: inherit;
   }
+
   /*--------------- card landing page  ---------- */
   .card-benefit-tabs .st-tabs .nav-link {
     display: block;
@@ -5162,37 +5358,47 @@ Landing Page Template
     margin-bottom: 8px;
     margin-right: 10px;
   }
-  .header-wide .lead, .header-wide .lead {
+
+  .header-wide .lead,
+  .header-wide .lead {
     font-size: 13px;
   }
+
   .card-hero-section {
     padding-top: 60px;
     padding-bottom: 60px;
   }
+
   /*--------------- Index - 9 bank borrow  ---------- */
   .overlay-section {
     margin-top: 0px;
   }
+
   .overlay-section .card {
     margin-bottom: 20px;
   }
+
   .hover-tabs.st-tabs .nav-link {
     display: block;
     padding: 0px 39px 3px 0px;
   }
+
   .quick-info span:nth-child(2) {
     display: none;
   }
+
   /*--------------- borrow-life-saving  ---------- */
   .bank-account-tabs.st-tabs .nav-link {
     padding: 16px 57px;
   }
+
   .pinside60 {
     padding: 30px;
   }
 }
 
 @media only screen and (max-width:320px) {
+
   /*--------------- slider for mobile view ( for mobile view  )---------- */
   .slider-captions {
     position: absolute;
@@ -5201,6 +5407,7 @@ Landing Page Template
     max-width: 70%;
     left: 15%;
   }
+
   .slider-title {
     color: #fff;
     font-size: 18px;
@@ -5208,30 +5415,37 @@ Landing Page Template
     font-weight: 700;
     line-height: 26px;
   }
+
   .slider-captions .btn {
     display: none;
   }
+
   .slider .owl-prev {
     position: absolute;
     left: 0px;
     top: 30%;
     left: 0px;
   }
+
   .slider .owl-next {
     position: absolute;
     right: 0px;
     top: 30%;
     right: 0px;
   }
+
   .rate-icon {
     float: none;
   }
+
   .rate-counter-block {
     text-align: center;
   }
+
   .loan-rate {
     font-size: 24px;
   }
+
   .widget-share {
     background-color: #fff;
     padding: 14px;
@@ -5239,9 +5453,11 @@ Landing Page Template
     top: 0px;
     right: 0px;
   }
+
   .search-nav {
     display: none;
   }
+
   .pinside60 {
     padding: 30px;
   }

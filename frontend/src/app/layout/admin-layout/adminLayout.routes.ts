@@ -1,3 +1,4 @@
+import { CheckSummaryComponent } from 'src/app/main/user-dashboard/cheques/check-summary/check-summary.component';
 import { Routes } from '@angular/router';
 import { UserDashBoardComponent } from 'src/app/main/user-dashboard/user-dashboard.component';
 import { DashboardHomeComponent } from 'src/app/main/user-dashboard/dashboard-home/dashboard-home.component';
@@ -78,6 +79,7 @@ export const ADMIN_LAYOUTS_ROUTES: Routes = [
   { path: 'check-history/receieved', component: AllRecievedChecksComponent },
   { path: 'check-history/sent/:checkId', component: SentCheckComponent },
   { path: 'check-history/receieved/:checkId', component: RecievedCheckComponent },
+  { path: 'check-history/summary', component: CheckSummaryComponent },
 
 
 

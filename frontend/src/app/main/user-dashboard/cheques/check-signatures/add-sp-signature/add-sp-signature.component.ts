@@ -3,6 +3,8 @@ import htmlToImage from 'html-to-image';
 import { ActivatedRoute } from '@angular/router';
 import { UserCheckService } from 'src/app/_services/user-check.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { environment } from 'src/environments/environment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-sp-signature',
@@ -21,6 +23,7 @@ export class AddSpSignatureComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
     private ngxUiLoaderService: NgxUiLoaderService,
+    private toastr: ToastrService,
               private checkService: UserCheckService) { }
 
   ngOnInit() {
@@ -65,7 +68,11 @@ export class AddSpSignatureComponent implements OnInit {
 
     this.checkService.addCheckFrontSecondSign(formData).subscribe(
       result => {
-        console.log(result.data);
+
+        this.toastr.success('Successfully Signed on Check ');        
+        setTimeout(() => {
+          window.location.href = `${environment.apiUrl}/dashboard`;
+          }, 1500);
       },
       err => {
         console.log(err);

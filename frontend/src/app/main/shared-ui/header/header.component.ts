@@ -66,8 +66,13 @@ signatoryChecksOfReciever: number;
     this.authService.decodedtoken = null;
     this.authService.usertoken = null;
     localStorage.removeItem('access_token');
-    this.router.navigate(['/login']);
+    // this.router.navigate(['/login']);
     this.toaster.success('Logged out');
+
+    setTimeout(() => {
+    window.location.href = '/login';
+    }, 500);
+
   }
 
 }

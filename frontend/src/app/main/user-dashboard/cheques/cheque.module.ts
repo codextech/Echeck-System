@@ -13,6 +13,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { NguCarouselModule } from '@ngu/carousel';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TableModule } from 'ngx-easy-table';
+
 
 import { SenderSignatoryComponent } from './signatory-checks/sender-signatory/sender-signatory.component';
 import { RecieverSignatoryComponent } from './signatory-checks/reciever-signatory/reciever-signatory.component';
@@ -25,6 +27,7 @@ import { RecievedChecksComponent } from './recieved-checks/recieved-checks.compo
 import { RecievedCheckComponent } from './check-history/recieved-check/recieved-check.component';
 import { SentCheckComponent } from './check-history/sent-check/sent-check.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { CheckSummaryComponent } from './check-summary/check-summary.component';
 
 
 @NgModule({
@@ -33,6 +36,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
         FormsModule,
         DragDropModule,
         RouterModule,
+        TableModule,
         NgxSmartModalModule.forChild(),
         FlipModule,
         NgbModule,
@@ -54,6 +58,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
             AllRecievedChecksComponent,
             SentCheckComponent,
             RecievedCheckComponent,
+            CheckSummaryComponent
 
     ],
 

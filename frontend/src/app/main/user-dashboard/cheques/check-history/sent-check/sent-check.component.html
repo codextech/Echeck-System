@@ -28,6 +28,13 @@
                   </i>
                   Download Attatchment
               </button>
+
+              <button style="float: right" type="button" [ngClass]="{'danger': checkModel.checkStatus == 'pending',
+               'success':checkModel.checkStatus != 'pending'}" class="btn white inline  mr-3 mt-3">
+                  <i style="color: #ffffff" [ngClass]="{'fa-exclamation': checkModel.checkStatus == 'pending',
+                  'fa-check':checkModel.checkStatus != 'pending'}" class="fa text-black fa-1x"></i>
+                  Status: {{checkModel.checkStatus | titlecase}}
+              </button>
             </div>
 
 
@@ -36,7 +43,7 @@
                       <div back class="row no-margin form-area">
                           <div style="margin: auto;" *ngIf="!checkModel.check_Image.checkBack"
                             class="alert alert-info text-center">
-                           Back of Check will only show when <b>Payee</b> signature on this....!
+                           Back of Check will only show when <b>Payee</b> Signed it.
                       </div>
 
                           <img class="check-image" [src]="checkModel.check_Image.checkBack" alt="">

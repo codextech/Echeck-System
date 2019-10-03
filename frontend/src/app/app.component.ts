@@ -4,7 +4,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router, NavigationEnd } from '@angular/router';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { fadeAnimation } from './fade.animation';
-
+declare var $;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -31,12 +31,11 @@ constructor(private authService: UserAuthService, private router: Router) {}
       }
       window.scrollTo(0, 0);
   });
+
+  $('.toltip').tooltip('show');
   }
 
 
-
-
-  
 
 
 }

@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UserCheckService } from 'src/app/_services/user-check.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-add-rp-signature',
@@ -67,8 +68,8 @@ export class AddRpSignatureComponent implements OnInit {
         console.log(result.data);
         this.toastr.success('Successfully Signed on Check ');
         setTimeout(() => {
-        window.location.href = `http://localhost:4200/dashboard`;
-        }, 1500);
+          window.location.href = `${environment.apiUrl}/dashboard`;
+          }, 1500);
         // ${environment.apiUrl}
       },
       err => {

@@ -26,8 +26,10 @@ export class LoginComponent implements OnInit {
   logIn() {
 
     this.authService.userLogIn(this.logInModel).subscribe(res => {
-        this.router.navigateByUrl(this.returnUrl);
-        this.toastr.success('Welcome');
+        // this.router.navigateByUrl(this.returnUrl);
+        window.location.href = this.returnUrl;
+        
+        // this.toastr.success('Welcome');
 
     }, err => {
       console.log(err);

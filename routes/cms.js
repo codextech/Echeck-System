@@ -29,11 +29,11 @@ router.put(
 );
 
 router.post(
-  "/process",
+  "/process", multer({ storage: fileStorage }).any(),
   cmsController.addAppProcess
 );
 router.put(
-  "/process",
+  "/process",  multer({ storage: fileStorage }).any(),
   cmsController.editAppProcess
 );
 

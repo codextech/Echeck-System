@@ -23,6 +23,7 @@ const FooterLink = require("../models/content-footer-link");
 const HomeIcon = require("../models/content-home-icon");
 const ContactContent = require("../models/content-contact");
 const FAQ = require("../models/content-faq");
+const AppProcess = require("../models/content-app-process");
 
 
 // Data
@@ -37,21 +38,6 @@ const kycTypes = [
     'kycTypeDescription': 'Utility Bill, Cable Bill, Rental Bill, Traffic Tickets, Statement Copies',
   },
 ];
-
-
-const sliders = [
-  {
-    'sliderImage': 'https://www.pay2mate.com/uploads/slider1.jpg'
-  },
-  {
-    'sliderImage': 'https://www.pay2mate.com/uploads/slider2.jpg'
-  },
-  {
-    'sliderImage': 'https://www.pay2mate.com/uploads/slider3.jpg'
-  },
-];
-
-
 
 const accountTypes = [
   {
@@ -75,21 +61,33 @@ const accountTypes = [
   }
 ];
 
+// you have to upload the image files with mentioned names
+const sliders = [
+  {
+    'sliderImage': 'https://www.pay2mate.com/uploads/slider1.png'
+  },
+  {
+    'sliderImage': 'https://www.pay2mate.com/uploads/slider2.png'
+  },
+  {
+    'sliderImage': 'https://www.pay2mate.com/uploads/slider3.png'
+  },
+];
+
+
+
+
+
 
 // stories
 
 const stories = [
   {
-    'name': '',
-    'designation': '',
-    'text': '',
+    'name': 'Seshu',
+    'designation': 'Google CEO',
+    'text': 'Pay2mate is very good website to make echeck',
   },
 
-  {
-    'name': '',
-    'designation': '',
-    'text': '',
-  },
   
 ];
 
@@ -98,16 +96,11 @@ const stories = [
 
 const footerIcons = [
   {
-    'name': '',
-    'icon': '',
-    'link': '',
+    'name': 'youtube',
+    'icon': 'fa-youtube',
+    'link': 'https://youtube.com/',
   },
 
-  {
-    'name': '',
-    'icon': '',
-    'link': '',
-  },
   
 ];
 
@@ -115,26 +108,21 @@ const footerIcons = [
 
 const faqs = [
   {
-    'question': '',
-    'answer': '',
+    'question': 'PreRequisites of using Pay2mate.com',
+    'answer': 'SUbmit kyc document etc....',
   },
 
-  {
-    'question': '',
-    'answer': '',
-  },
   
 ];
 
 // contact section
 const contacts = [
   {
-    'title': '',
-    'text': '', // description
-    'icon': '', // icon to show
-    'linkText': '',
-    'link': '',
-
+    'title': 'Address',
+    'text': 'Your USA Adress', // description
+    'icon': 'fa fa-user', // icon to show
+    'linkText': 'Location On MAP',
+    'link': 'https://maps.google.com/',
   },
 
 ];
@@ -144,20 +132,8 @@ const contacts = [
 
 const bankLogos = [
   {
-    'bankLogo': 'https://www.pay2mate.com/uploads/banklogo1.jpg',
-  },
-
-  {
-    'bankLogo': 'https://www.pay2mate.com/uploads/banklogo2.jpg',
-  },
-
-  {
-    'bankLogo': 'https://www.pay2mate.com/uploads/banklogo3.jpg',
-  },
-
-  {
-    'bankLogo': 'https://www.pay2mate.com/uploads/banklogo4.jpg',
-  },
+    'bankLogo': 'https://www.pay2mate.com/uploads/banklogo1.png',
+  }
 
 ];
 
@@ -166,10 +142,17 @@ const bankLogos = [
 
 const homeIcons = [
   {
-    'icon': '',
+    'icon': 'https://www.pay2mate.com/uploads/homeicon.png',
     'text': '',
   },
+];
 
+const appProcess = [
+  {
+    'image': 'https://www.pay2mate.com/uploads/step1.png',
+    'title': 'Step 1',
+    'text': 'etc ecte ct',
+  },
 ];
 
 
@@ -350,6 +333,8 @@ exports.seedDatabase = async () =>  {
   await ContactContent.bulkCreate(contacts);
 
   await HomeIcon.bulkCreate(homeIcons);
+
+  await AppProcess.bulkCreate(appProcess);
 
   await FooterLink.bulkCreate(footerIcons);
 
