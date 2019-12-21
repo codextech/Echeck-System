@@ -130,7 +130,7 @@
                 </div>
 
 
-<!-- 
+<!--
                 <div class="text-center mt-5 mb-5">
                     <hr class="hr-text" data-content="Check Background" width="50%" />
                 </div>
@@ -265,7 +265,9 @@
             </div>
 
 
-            <div class="check-boundary">
+
+
+         <div class="check-boundary">
                 <div  #checkContainer
                 [ngStyle]="!checkBackgroundPreview &&{'background-image': 'url(' +chequeBackground+ ')','background-size':'100% 100%'} ||
                 checkBackgroundPreview && {'background-image': 'url(' + checkBackgroundPreview + ')','background-size':'100% 100%'}"
@@ -281,17 +283,27 @@
                   </div>
 
 
-                  <div id="payer-info" *ngIf="(selectedbankAccount | json) != '{}'"
+
+
+                  <div id="payer-info"
                    cdkDragBoundary=".check-boundary" cdkDrag class="col-sm-6 ml-3">
-                    <div class="md-form-group float-label">
+
+                   <div *ngIf="(selectedbankAccount | json) != '{}'"
+                    class="md-form-group float-label">
                       <h6>{{selectedbankAccount.senderName}}</h6>
                       <p>{{selectedbankAccount.senderAddress}}, {{selectedbankAccount.senderzipCode}}</p>
                     </div>
+
+                    <div *ngIf="(selectedbankAccount | json) == '{}'" class="md-form-group float-label">
+                        <h6>Sender Name here...</h6>
+                        <p>Addres here....</p>
+                    </div>
+
                   </div>
 
 
-                  <div *ngIf="(selectedbankAccount | json) != '{}'" cdkDragBoundary=".check-boundary"
-                   cdkDrag class="col-sm-3 mb-2" style="margin-left: 21%;line-height: 50px;">
+                  <div cdkDragBoundary=".check-boundary"
+                   cdkDrag class="col-sm-3 mb-2" style="margin-left: 20%;line-height: 50px;">
                     <div class="md-form-group float-label">
                       <label class="check-label wc-20">Date</label>
                       <input [(ngModel)]="checkModel.issuedDate"
@@ -299,44 +311,62 @@
                       autocomplete="off"
                        class="md-input wc-80"
                        #checkDate="ngModel" name="date"
+                       style="text-align: right;font-size: 17px;"
                        [ngClass]="{'is-invalid': checkForm.submitted && checkDate.invalid}"
                         required>
                     </div>
                   </div>
 
                   <div cdkDragBoundary=".check-boundary" cdkDrag class="col-sm-4 offset-sm-8 mb-2">
-                    <div class="md-form-group float-label">
-                      <label class="check-label wc-25">Amount</label>
+                    <div class="md-form-group float-label" style="width:100%; text-align: center;">
+                      <!-- <label class="check-label wc-25">Amount</label> -->
+                      <i class="fa fa-usd usd-icon"></i>
+                      <!-- <span class="usd-icon">$</span> -->
                       <input [(ngModel)]="checkModel.amount" name="amount"
-                       class="check-number md-input wc-70" (keyup)="convertAmountToWords()"
+                       class="check-number input-amount wc-65" (keyup)="convertAmountToWords()"
                        type="number"
                        #amount="ngModel" name="amount"
                        [ngClass]="{'is-invalid': checkForm.submitted && amount.invalid}"
                         required value=0>
-                        <i class="fa fa-usd"></i>
+
                     </div>
                   </div>
 
                   <div cdkDragBoundary=".check-boundary" cdkDrag
                    class="col-sm-11 ml-3 mb-2">
                     <div class="md-form-group float-label">
-                      <label class="check-label wc-20">Pay to the Order Of</label>
-                      <input class="md-input wc-80"  [value]="recieverName">
+                      <!-- <label class="check-label wc-20">Pay to the Order Of</label>
+                      <input class="md-input wc-80"  [value]="recieverName"> -->
+                      <div class="pay-order">
+                          <span class="pay-order-text">Pay To The <br> Order Of</span>
+                         <span class="pay-order-value">
+                            {{recieverName}}
+                         </span>
+                      </div>
                     </div>
                   </div>
+
+
 
                   <div cdkDragBoundary=".check-boundary" cdkDrag
                    class="col-sm-12 ml-3 mb-2">
                       <div class="md-form-group float-label">
-                        <input style="padding-left: 0" class="md-input wc-90"  [value]="wordsAmount">
-                        <span class="dollar wc-10">Dollars</span>
+                        <div class="amount-in-words">
+                            <span class="amount-in-words-value">
+                                {{wordsAmount}}
+                             </span>
+                            <span class="dollar">Dollars</span>
+                        </div>
+
+                        <img src="../../../../../assets/locked.png">
+                        <span class="security-enabled">Security <br> Features<br>Enabled</span>
+                        <!-- <input style="padding-left: 0" class="md-input wc-90"  [value]="wordsAmount"> -->
                       </div>
                     </div>
 
                     <div *ngIf="(selectedbankAccount | json) != '{}'" cdkDragBoundary=".check-boundary"
                      cdkDrag class="col-sm-11 ml-3 mb-2">
                         <div class="md-form-group float-label">
-                          <!-- wc-10 -->
                           <div class="bank-logo-img">
                               <img class="w-100" [src]="selectedbankAccount.bankLogo" alt="">
                           </div>
@@ -352,6 +382,7 @@
                         </div>
                       </div>
 
+
                   <div cdkDragBoundary=".check-boundary" cdkDrag
                    class="col-sm-3 ml-3">
                     <div class="md-form-group float-label">
@@ -364,7 +395,6 @@
                     <div class="md-form-group float-label"
                     [ngClass]="{'signle-sign': !secondSignImage}"
                     >
-                      <!-- <label class="check-label">Signature</label> -->
                       <span *ngIf="(selectedbankAccount | json) != '{}'" class="check-sign">
                         <span>1. </span>
                         <div class="sign-img-container">
@@ -381,6 +411,8 @@
 
                     </div>
                   </div>
+
+
 
                   <div cdkDragBoundary=".check-boundary" cdkDrag class="col-4 col-sm-4">
                     <div class="md-form-group text-center float-label">
@@ -408,7 +440,53 @@
                   </div>
 
                 </div>
-            </div>
+        </div>
+
+
+            <!--  new Check Code -->
+<!--
+            <div class="main-block"
+            [ngStyle]="!checkBackgroundPreview &&{'background-image': 'url(' +chequeBackground+ ')','background-size':'100% 100%'} ||
+                checkBackgroundPreview && {'background-image': 'url(' + checkBackgroundPreview + ')','background-size':'100% 100%'}"
+            >
+
+                <div  #checkContainer class="content">
+                    <form>
+                      <div class="first ch-row">
+                        <div class="logo"> <img src="../../../../../assets/banklogo.png"> </div>
+                        <div class="logo-right">
+                          <span class="code">5890</span>
+                          <div class="date">DATE<input type="text" name="date"></div>
+                        </div>
+                      </div>
+                      <div   class="second ch-row">
+                        <div class="pay"><span>PAY TO THE <br> ORDER OF</span><input type="text" name="pay"></div>
+                        <div class="currency">$<input type="number" name="currency"></div>
+                      </div>
+                      <div class="third ch-row">
+                        <div class="curr-word"><input type="text" name="curr-word">DOLLARS</div>
+                        <img src="../../../../../assets/locked.png">
+                        <span>Security<br>Features<br>Enabled</span>
+                        <img class="second-logo" src="../../../../../assets/banklogo.png">
+                      </div>
+                      <div cdkDrag class="fourth ch-row">
+                        <div class="for">FOR<input type="text" name="for"></div>
+                        <div style=" float: right;" class="for-right"><input type="text" name="for-right"></div>
+                      </div>
+                      <div class="fifth ch-row">
+                        <div class="ch-number">
+                          <span class="left-no">a21089198a</span>
+                          <span class="center-no">c12345678c</span>
+                          <span class="right-no">b108b</span>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+
+              </div>
+
+ -->
+
 
             <ul *ngIf="!checkForm.form.valid && checkForm.submitted"
               [ngClass]="{'alert alert-danger': !checkForm.form.valid && checkForm.submitted }"
@@ -416,8 +494,11 @@
                 <li *ngIf="checkNumber.invalid" class="text-danger">
                  <i class="fa fa-times"></i> Check Number is Required
                 </li>
-               <!--  <li *ngIf="checkDate.invalid" class="text-danger">
-                    <i class="fa fa-times"></i> Date is Required</li> -->
+
+                <li *ngIf="checkDate.invalid" class="text-danger">
+                    <i class="fa fa-times"></i> Date is Required
+                   </li>
+
                 <li *ngIf="amount.invalid" class="text-danger">
                     <i class="fa fa-times"></i> Amount is Required</li>
                 <li *ngIf="bankAccount.invalid" class="text-danger">
@@ -465,6 +546,7 @@
 
 <ngx-smart-modal
 #bankAccountModal
+(onCloseFinished)="checkModel.bankAccountId = '' "
 identifier="bankAccountModal"
 customClass="nsm-dialog-animation-ttb">
 
@@ -477,7 +559,7 @@ customClass="nsm-dialog-animation-ttb">
   </div>
   <div class="modal-footer">
       <button class="btn white" type="button"
-       (click)="bankAccountModal.close()" >Cancel</button>
+       (click)="bankAccountModal.close();" >Cancel</button>
       <button class="btn primary" type="button"
        routerLink="/add/signature">Upload</button>
   </div>

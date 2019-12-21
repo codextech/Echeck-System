@@ -19,7 +19,12 @@ export class PolicyComponent implements OnInit {
     this.cmsService.getAll()
       .subscribe(res => {
         const data = res.data;
-        this.policy = data.policy;
+        this.cmsService.cmsData = data;
+        if (data.policy) {
+        this.policy = data.policy.policyText;
+        } else {
+          this.policy = '';
+        }
       },
         err => {
           console.log(err);

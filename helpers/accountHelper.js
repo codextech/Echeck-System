@@ -5,7 +5,8 @@ const Document = require("../models/user-document");
 const KYC = require("../models/kyc");
 const KycType = require("../models/kyc-type");
 
-
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 
 exports.kycVerification = async (model, userId) => {
@@ -98,7 +99,7 @@ exports.kycDocs = async id => {
   try {
 
     docs = await KYC.findAll({
-      where:{userId: id},
+      where:{userId: id, deleted :  {[Op.not]: true} },
       include: [
         { model: KycType },
     ]
@@ -124,6 +125,25 @@ exports.updateKycStatus = async (userId) => {
     trustedUser: true,
     kycStatus: user.rawAttributes.kycStatus.values[2] // kyc Completed
   });
+
+
+  } catch (error) {
+      console.log(error);
+      throw new Error(error);
+  }
+  return user;
+
+}
+
+
+
+exports.deleteKycDocumentById = async (kycId) => {
+
+  var user;
+  try {
+   await KYC.update({
+    deleted: true,
+  }, {where: { kycId: kycId }});
 
 
   } catch (error) {

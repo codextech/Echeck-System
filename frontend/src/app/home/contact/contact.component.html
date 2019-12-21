@@ -15,13 +15,13 @@
                        <div class="col-xl-4 col-lg-4 col-md-9 col-sm-12 col-12">
                             <h1 class="page-title">Contact Us</h1>
                         </div>
-                        <div class="col-xl-8 col-lg-8 col-md-3 col-sm-12 col-12">
+                       <!--  <div class="col-xl-8 col-lg-8 col-md-3 col-sm-12 col-12">
                             <div class="row">
                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                     <div class="btn-action"> <a href="#" class="btn btn-default">How To Make Payment</a> </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -105,7 +105,7 @@
 
                             <div *ngFor="let item of contacts" class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
                                 <div style="min-height: 250px" class="bg-boxshadow pinside60 outline text-center mb30">
-                                    <div class="mb40"> <i class="{{item.icon}} fa-4x text-primary"></i></div>
+                                    <div class="mb40"> <i class="fa {{item.icon}} fa-4x text-orange"></i></div>
                                     <h2 class="capital-title">{{item.title}}</h2>
                                     <p>{{item.text}}</p>
                                 </div>

@@ -32,6 +32,15 @@ export class FaqPageComponent implements OnInit {
         });
   }
 
+  deleteFaq(id) {
+      this.cmsService.delete(id, 'faq').subscribe( res => {
+       this.faqs = this.faqs.filter(item => item.id !== id);
+        this.toastr.success('Deleted');
+      }, err => {
+        console.log(err);
+      });
+  }
+
   getPageContent() {
     this.cmsService.getAll()
       .subscribe(res => {

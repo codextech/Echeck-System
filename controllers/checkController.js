@@ -353,7 +353,7 @@ exports.saveCheck = async (req, res, next) => {
         // reciever email present in Db , send email
 
         const emailObj = {
-          msg: 'You recieved a check Please click the button to view your check',
+          msg: 'You have recieved check. Please click the button to view your check',
           amount: savedCheck.amount,
           link: `${APPURL}recieved-checks`,
           userEmail: biller.recieverEmail,

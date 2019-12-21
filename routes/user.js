@@ -4,7 +4,10 @@ const checkAuth = require('../middleware/check-auth'); // verify token for Api r
 const router = express.Router();
 
 
+
 // user companies routes
 router.get("/getall",checkAuth, userController.getUsers);
+router.delete("/delete",checkAuth, userController.deleteUser);
+router.get("/suspend",checkAuth, userController.suspendUser);
 
 module.exports = router;

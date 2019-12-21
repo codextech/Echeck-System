@@ -11,7 +11,9 @@ import { TermsComponent } from 'src/app/home/terms/terms.component';
 
 export const LANDING_LAYOUTS_ROUTES: Routes = [
 
-  { path: '', component: LandingPageComponent },
+  { path: '',
+   component: LandingPageComponent,
+   },
   { path: 'about', component: AboutComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'faq', component: FaqsComponent },

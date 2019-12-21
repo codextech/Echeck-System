@@ -17,9 +17,9 @@
 
         <div class="row mt-5">
             <div *ngFor="let item of links" class="col-6 col-sm-6 col-md-3">
-                <div style="max-height: 100px;border: 1px solid #285f94;" class="box p-1">
+                <div style="min-height: 150px;border: 1px solid #285f94;" class="box p-1">
                     <p class="text-center py-1 mt-1">
-                        <i class="fa fa-{{item.icon}} text-primary fa-2x"></i>
+                        <i class="fa {{item.icon}} text-primary fa-2x"></i>
                     </p>
                   <div class="p-1">
                         <div class="mb-1 text-ellipsis text-center"> {{item.name}}</div>
@@ -41,6 +41,8 @@
   customClass="nsm-dialog-animation-ttb">
   <div class="modal-header">
     <h5 class="modal-title">Footer Icons</h5>
+
+    <a class="btn white m-1" href="/admin/cms/icons" target="_blank">View Icon</a>
   </div>
   <div class="modal-body text-center p-lg">
     <form #companyForm="ngForm" (ngSubmit)="addFooterLink()" class="p-x-xs">

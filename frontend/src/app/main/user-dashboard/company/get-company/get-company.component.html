@@ -23,9 +23,9 @@
       >
         <ng-template let-row let-index="index">
           <td>{{ row.companyName }}</td>
+          <td>{{ row.companyAddress }}</td>
           <td>{{ row.EIN }}</td>
           <td>{{ row.partnerEmail }}</td>
-          <td>{{ row.companyCity }}</td>
           <td class="fit">
               <button (click)="onCompanyEdit(row.Id)"  class="btn btn-outline b-accent text-accent">
                          <i class="fa fa-pencil"></i>

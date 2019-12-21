@@ -35,10 +35,16 @@ exports.logIn = async (req, res, next) => {
     })
     .then(matched => {
       console.log('========', matched);
-      
+
       if (!matched) {
         return res.status(400).json({
           message: "Wrong Password"
+        });
+      }
+
+      if (foundUser.accountStatus == foundUser.rawAttributes.accountStatus.values[1]) {
+        return res.status(400).json({
+          message: "Your Account is Suspended"
         });
       }
 
@@ -208,7 +214,7 @@ exports.emailVerification = async (req, res, next) => {
   }
 
   //
-  res.redirect(`${APPURL}`);
+  res.redirect(`${APPURL}/?email_verified=${jwtToken}`);
 
   // res.status(201).json({message:`User with ${user.email} has been verified`});
 
@@ -253,7 +259,6 @@ exports.resetPasswordRequest = async (req, res, next) => {
 
 
     const token = await generateCryptoToken();
-
 
       // user.resetToken = token;
       // user.resetTokenExpire =  Date.now() + 3600000 // 1 hour
@@ -339,7 +344,7 @@ res.status(200).json({
 
    user = await User.findOne(
      {resterToken: model.token,
-       resetTokenExpire: {$gt:Date.now},
+      //  resetTokenExpire: {$gt:Date.now},
        Id: model.userId
     });
 

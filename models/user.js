@@ -25,6 +25,9 @@ const User = sequelize.define('user', {
   registerTime: Sequelize.DATE,
   firstName: Sequelize.STRING,
   lastName: Sequelize.STRING,
+  phone: Sequelize.STRING,
+  countryCode: Sequelize.STRING,
+  state: Sequelize.STRING,
   city: Sequelize.STRING,
   zipCode: Sequelize.STRING,
   country: Sequelize.STRING,
@@ -42,25 +45,13 @@ const User = sequelize.define('user', {
     type: Sequelize.ENUM,
     values: ['none', 'pending', 'completed'],
     defaultValue: 'none'
-
+  },
+  accountStatus: {
+    type: Sequelize.ENUM,
+    values: ['active', 'suspend'],
+    defaultValue: 'active'
   },
   isAdmin: Sequelize.BOOLEAN
 });
-
-// User.sync().then(result => {
-//   bcrypt.hash('admin123',10)
-//   .then(hash => {
-//     return User.create({
-//       uniqueName: 'admin',
-//       email: 'admin@rxcoin.com',
-//       password: hash,
-//       isVerified: true,
-//       isAdmin: true
-//    })
-// }).then(user => {
-//   console.log(`${user.uniqueName} User Created`);
-
-// })
-// });
 
 module.exports = User;

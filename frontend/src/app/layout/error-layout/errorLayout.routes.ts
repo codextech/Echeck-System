@@ -7,6 +7,7 @@ import { Page404Component } from 'src/app/error/page404/page404.component';
 
 
 export const ERROR_LAYOUTS_ROUTES: Routes = [
-    { path: '**', component: Page404Component },
-    { path: 'error-505', component: Page505Component },
+  { path: 'error-505', component: Page505Component },
+    // { path: '**', component: Page404Component },
+    { path: '**', redirectTo: '' }
   ];

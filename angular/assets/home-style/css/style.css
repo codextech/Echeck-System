@@ -702,7 +702,7 @@ Buttons
 }
 
 .btn-default {
- 
+
   background-color: #fb6b0a;
   color: #fff;
   border-color: #fb6b0a;
@@ -1162,7 +1162,7 @@ top bar
 
 #navigation {
   float: right;
-  margin-top: 15px;
+  margin-top: 20px;
   position: relative;
   z-index: 99;
 }
@@ -1190,7 +1190,7 @@ top bar
 }
 
 #navigation>ul>li>a {
-  padding: 16px 10px;
+  padding: 10px 10px;
   font-size: 13px;
   text-decoration: none;
   color: #fb6b0a;
@@ -1226,6 +1226,10 @@ top bar
 #navigation>ul>li:hover>a:hover:after {
   width: 100%;
   left: 0;
+}
+
+#navigation>ul>li>a:active {
+  color: white
 }
 
 #navigation>ul>li.has-sub>a {
@@ -2475,7 +2479,7 @@ index-1
   background-color: #fff;
   border: 3px solid #fb6b0a;
   color: #285f94;
-  margin: -32px auto 18px auto;
+  margin: 2px auto 18px auto;
   position: relative;
 }
 

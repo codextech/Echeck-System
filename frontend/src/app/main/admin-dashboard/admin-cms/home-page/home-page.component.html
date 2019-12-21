@@ -6,9 +6,9 @@
 
 
       <h5 class="text-muted">Usage Help  <span class="text-danger">(Only 3)</span> (How our app works)
-      
+
         <small>(350 X 200)</small>
-      </h5> 
+      </h5>
       <button [disabled]="appProcess.length == 3" (click)="appProcessModal.open()" type="button" class="btn danger md">
         <i class="fa fa-plus"></i>
         Add
@@ -22,6 +22,7 @@
               <div style="border: 1px solid #285f94;" class="box-color text-color">
                   <div class="box-header">
                       <h3>{{item.title}}</h3>
+
                       <div class="box-tool">
                           <ul class="nav nav-xs">
                               <li (click)="editAppProcess(item.id)" class="nav-item">
@@ -33,6 +34,7 @@
                       </div>
                   </div>
                   <div class="box-body">
+                      <img style="margin: auto; display: block;" class="w-50 h-50" alt="" [src]="item.image">
                       <p class="m-0 text-muted">{{item.text}}</p>
                   </div>
               </div>
@@ -52,20 +54,20 @@
   <div class="box">
 
       <div class="box-body p-3">
-  
-  
+
+
         <h5 class="text-muted">Our Product Help <span class="text-danger">(Only 4)</span>
           <small>(245 X 150)</small>
-  
+
         </h5>
 
-  
+
         <button [disabled]="homeIcon.length == 4" (click)="homeIconModal.open()" type="button" class="btn danger md">
           <i class="fa fa-plus"></i>
           Add
         </button>
-  
-  
+
+
         <div class="row mt-5">
             <div *ngFor="let item of homeIcon" class="col-6 col-sm-3 col-md-3">
                 <div style="max-height: 200px;border: 1px solid #285f94;" class="box p-1">
@@ -77,15 +79,15 @@
                 </div>
             </div>
         </div>
-  
-  
-  
-  
-  
+
+
+
+
+
       </div>
-  
+
     </div>
-  
+
 
 </div>
 

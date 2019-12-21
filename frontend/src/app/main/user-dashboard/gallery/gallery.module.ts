@@ -23,7 +23,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     NgxSmartModalModule.forChild(),
     NgxPaginationModule,
     FilterPipeModule,
-    SharedModule
+    SharedModule,
   ],
   declarations: [
     UserDocumentsComponent,

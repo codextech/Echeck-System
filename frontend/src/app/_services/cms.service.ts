@@ -2,16 +2,27 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserAuthService } from './user-auth.service';
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, of, Subject, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
-
 @Injectable({
   providedIn: 'root'
 })
 export class CmsService {
 
 cmsData: Observable<any>;
-constructor(private http: HttpClient, private auth: UserAuthService) { }
+
+private data = new BehaviorSubject('');
+currentCmsData = this.data.asObservable();
+
+constructor(private http: HttpClient, private auth: UserAuthService) {
+
+ }
+
+
+ footerLinks(links) {
+  this.data.next(links);
+}
+
 
 
 
@@ -31,9 +42,15 @@ edit(model, target) {
 
 getAll() {
   if (!this.cmsData) {
-  this.cmsData =   this.http.get<any>(`${environment.apiUrl}api/cms/getAll`);
+    console.log('.....');
+  const data$ = this.http.get<any>(`${environment.apiUrl}api/cms/getAll`);
+  data$.subscribe(res => this.footerLinks(res.data.footerLinks));
+
+
+  return data$;
+  } else {
+    return of({data: this.cmsData});
   }
-  return  this.cmsData;
 }
 
 

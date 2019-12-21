@@ -473,7 +473,13 @@ cancelAttacthDocument() {
 }
 
   convertAmountToWords() {
-    this.wordsAmount = numbo.convert(this.checkModel.amount, 'check');
+    console.log(this.checkModel.amount);
+
+    if (this.checkModel.amount) {
+      this.wordsAmount = numbo.convert(this.checkModel.amount, 'check');
+    } else { // null
+      this.wordsAmount = '';
+    }
   }
 
 

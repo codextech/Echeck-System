@@ -15,7 +15,9 @@ app.listen();
 } */
 
 // start server in dev mode
-const port = process.env.PORT || 3000;
+// const port = process.env.PORT || 3000;
+const port = process.env.PORT || 38080;
+
 http.createServer(app);
 app.listen(port, () => {
   console.log(`Server Running in ${port}`);
@@ -78,7 +80,18 @@ app.use('/uploads',express.static(path.join(__dirname, './uploads')));
 // access frontend folder
 app.use('/',express.static(path.join(__dirname, '/angular')));
 
+/* app.use(function(req, res, next){
+  res.on('finish', function(){
+    console.log("Finished " + res.headersSent); // for example
+    console.log("Finished " + res.statusCode);  // for example
+    // Do whatever you want
+  });
+  next();
+}) */
+
 app.use('/api', apiRoutes);
+
+
 
 // access angular page according to routes
 app.use((req,res) => {
@@ -87,12 +100,11 @@ app.use((req,res) => {
 
 
 
-
 // add tables realtion
 sequelizeRealtions.allTableRealtions();
 
 sequelize
-   .sync({alter: true, force: false})
+   .sync({alter: false, force: false})
   .then(result => {
   console.log('table created');
 /* sequelizeRealtions.seedDatabase();
@@ -110,5 +122,8 @@ sequelize
 }).catch(err => {
     console.log("error occured in db" + err);
   });
+
+
+
 
 module.exports = app;

@@ -54,6 +54,11 @@ router.post(
   cmsController.addFaq
 );
 
+router.delete(
+  "/faq",
+  cmsController.deleteFaq
+);
+
 router.post(
   "/policy",
   cmsController.addPolicy

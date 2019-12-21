@@ -30,12 +30,65 @@
           </ng-template>
 
           <td>
-              <span class="badge text-sm primary pos-rlt mr-2">
+              <span  class="badge text-sm primary pos-rlt mr-2">
             {{ row.kycStatus }}
               </span>
           </td>
+
+
+          <td>
+            <a (click)="sendEmailModal.open()" placement="top" ngbTooltip="Send Email"  class="btn white">
+            <i class="fa fa-envelope"></i>
+            </a>
+         </td>
+
+         <td>
+          <a (click)="onClickDeleteUser(row.Id)" placement="top" ngbTooltip="Delete User" class="btn white">
+            <i class="fa fa-trash text-danger"></i>
+          </a>
+          <a (click)="onClickSuspendUser(row.Id)" placement="top"  ngbTooltip="Suspend User" class="btn white">
+            <i class="fa fa-user text-warning"></i>
+          </a>
+          <a (click)="onClickKYCDetails(row.Id)" placement="top"  ngbTooltip="KYC" class="btn white">
+              <i class="fa fa-angle-double-right text-blue"></i>
+            </a>
+
+        </td>
+
         </ng-template>
       </ngx-table>
     </div>
   </div>
 </div>
+
+
+
+<!-- Sending EMail Template -->
+
+<ngx-smart-modal [closable]='false' [dismissable]='false'
+ #sendEmailModal identifier="sendEmailModal" customClass="nsm-dialog-animation-ttb">
+  <div class="modal-header">
+    <h5 class="modal-title">Email Template</h5>
+  </div>
+  <div class="modal-body text-center p-lg">
+    Functionality Coming Soon !
+  </div>
+
+  <div class="modal-footer">
+
+    <button
+    type="button"
+    class="btn dark-white p-x-md"
+    (click)="sendEmailModal.close()"
+  >
+    Cancel
+  </button>
+  <button
+    type="submit"
+    class="btn primary p-x-md"
+
+  >
+    Submit
+  </button>
+  </div>
+</ngx-smart-modal>

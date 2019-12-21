@@ -48,6 +48,7 @@ import { MakeCheckPageComponent } from 'src/app/main/admin-dashboard/admin-cms/m
 import { FooterPageComponent } from 'src/app/main/admin-dashboard/admin-cms/footer-page/footer-page.component';
 import { PolicyPageComponent } from 'src/app/main/admin-dashboard/admin-cms/policy-page/policy-page.component';
 import { TermPageComponent } from 'src/app/main/admin-dashboard/admin-cms/term-page/term-page.component';
+import { IconPageComponent } from 'src/app/main/admin-dashboard/admin-cms/icon-page/icon-page.component';
 
 export const ADMIN_LAYOUTS_ROUTES: Routes = [
 
@@ -206,6 +207,11 @@ children: [
 {
   path: 'term',
   component: TermPageComponent
+},
+
+{
+  path: 'icons',
+  component: IconPageComponent
 },
 ]
 }

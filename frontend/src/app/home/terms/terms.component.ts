@@ -19,7 +19,8 @@ export class TermsComponent implements OnInit {
     this.cmsService.getAll()
       .subscribe(res => {
         const data = res.data;
-        this.terms = data.term;
+        this.cmsService.cmsData = data;
+        this.terms = data.term.termText;
       },
         err => {
           console.log(err);

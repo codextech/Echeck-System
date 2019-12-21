@@ -17,20 +17,20 @@ export class LandingLayoutComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.getAllData();
+    // this.getAllData();
   }
 
-  getAllData() {
-    this.cmsService.getAll()
-      .subscribe(result => {
-        console.log(result);
-      }, err => {
-        console.log(err);
+  // getAllData() {
+  //   this.cmsService.getAll()
+  //     .subscribe(result => {
+  //       console.log(result);
+  //     }, err => {
+  //       console.log(err);
 
-      });
+  //     });
 
 
-  }
+  // }
 
   ngAfterViewInit() {
 

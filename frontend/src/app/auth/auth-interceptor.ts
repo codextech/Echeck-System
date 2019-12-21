@@ -30,8 +30,9 @@ import { environment } from 'src/environments/environment';
       const authRequest = req.clone({
         headers: req.headers.set('Authorization', 'Bearer ' + authToken)
       });
-
+      if (req.url != `${environment.apiUrl}api/home/slider`) {
       this.ngxUiLoaderService.start();
+      }
       return next.handle(authRequest)
       .pipe(
         catchError((err, caught: Observable<HttpEvent<any>>) => {

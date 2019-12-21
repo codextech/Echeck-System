@@ -1,5 +1,17 @@
 
+
+<div class="top-bar">
+    <!-- top-bar -->
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 d-none d-xl-block d-lg-block">
+                <p class="mail-text text-center">Currently, we are in Beta</p>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- /.top-bar -->
+
 <div class="header">
     <div class="container">
         <div class="row">
@@ -16,27 +28,17 @@
                   <div id="navigation">
                     <!-- navigation start-->
                     <ul>
-                        <li class="active"><a [routerLink]="['/']" class="animsition-link">Home</a>
-                            <!-- <ul>
-                                <li><a href="index.html" title="Home page 1" class="animsition-link">Home page 1</a></li>
-                                <li><a href="index-1.html" title="Home page 2" class="animsition-link">Home page 2</a></li>
-                                <li><a href="index-2.html" title="Home page 3" class="animsition-link">Home page 3</a></li>
-                                <li><a href="index-3.html" title="Home page 4" class="animsition-link">Home page 4
-                                 <span class="badge">New</span></a></li>
-                                <li><a href="index-4-students-loan.html" title="students loan" class="animsition-link">Students Loan Page <span class="badge">New</span></a> </li>
-                                <li><a href="index-5-business-loan.html" title="students loan" class="animsition-link">Business Loan Page<span class="badge">New</span></a></li>
-                                <li><a href="index-6.html" title="" class="animsition-link">Home Tabbed<span class="badge">New</span></a></li>
-                                <li><a href="index-7-borrow-bank.html" title="" class="animsition-link">Bank Home Page<span class="badge">New</span></a></li>
-                            </ul> -->
+                        <li><a [routerLink]="['/']"  class="animsition-link">Home</a>
+
                         </li>
 
-                        <li><a [routerLink]="['/contact']" routerLinkActive="active" class="animsition-link">Contact</a>
+                        <li><a [routerLink]="['/contact']" routerLinkActive="link-active" class="animsition-link">Contact</a>
                         </li>
 
-                        <li><a [routerLink]="['/about']" routerLinkActive="active" class="animsition-link">About</a>
+                        <li><a [routerLink]="['/about']" routerLinkActive="link-active" class="animsition-link">About</a>
                         </li>
 
-                        <ng-template [ngIf]="!authService.loggedIn" [ngIfElse]="loggedOut">
+                        <ng-template [ngIf]="!authService.loggedIn && authService.emailVerified" [ngIfElse]="loggedOut">
                             <li>
                               <a href="/login" routerLinkActive="active" class="animsition-link">Log in</a>
                             </li>
@@ -50,22 +52,14 @@
                         <ng-template #loggedOut>
 
                             <li *ngIf="authService.isAdmin">
-                                <a href="/admin/dashboard" routerLinkActive="active"
-                                style="color:#ffff; border-radius: 5px;
-                                padding: 10px;
-                                margin-top: 5px;
-                                background: #285f94;"
-                                 class="animsition-link dashboard-link">Dashboard</a>
+                                <a href="/admin/dashboard" routerLinkActive="link-active"
+                                 class="animsition-link">Dashboard</a>
                             </li>
 
 
                         <li *ngIf="!authService.isAdmin">
                             <a href="/dashboard" routerLinkActive="active"
-                            style="color:#ffff;  border-radius: 5px;
-                            padding: 10px;
-                            margin-top: 5px;
-                            background: #285f94;"
-                             class="animsition-link dashboard-link">Dashboard</a>
+                             class="animsition-link">Dashboard</a>
                           </li>
 
                               <li>

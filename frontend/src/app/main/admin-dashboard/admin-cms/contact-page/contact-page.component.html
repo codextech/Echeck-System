@@ -18,7 +18,7 @@
             <div *ngFor="let item of contacts" class="col-6 col-sm-6 col-md-4">
                 <div style="max-height: 200px;border: 1px solid #285f94;" class="box p-1">
                     <p class="text-center py-1 mt-1">
-                        <i class="{{item.icon}} text-primary fa-2x"></i>
+                        <i class="fa {{item.icon}} text-primary fa-2x"></i>
                     </p>
                   <div class="p-1">
                         <div class="mb-1 text-ellipsis text-center">{{item.title}}</div>
@@ -49,6 +49,8 @@
   customClass="nsm-dialog-animation-ttb">
   <div class="modal-header">
     <h5 class="modal-title">Contact Block</h5>
+    <a class="btn white m-1" href="/admin/cms/icons" target="_blank">View Icon</a>
+
   </div>
   <div class="modal-body text-center p-lg">
     <form #companyForm="ngForm" (ngSubmit)="addContact()" class="p-x-xs">
@@ -78,7 +80,7 @@
 
             <div class="col-sm-12">
                 <div class="md-form-group float-label">
-                    <input [(ngModel)]="contactModel.text" name="text" 
+                    <input [(ngModel)]="contactModel.text" name="text"
                     placeholder="1 to 2 lines description"
                     class="md-input" />
                     <label>Description</label>
@@ -91,7 +93,7 @@
             <div class="col-sm-6">
                 <div class="md-form-group float-label">
                     <input [(ngModel)]="contactModel.linkText" name="linkText"
-                    placeholder="text will show"                    
+                    placeholder="text will show"
                     class="md-input" />
                     <label>Link Text</label>
                   </div>
@@ -100,7 +102,7 @@
             <div class="col-sm-6">
                 <div class="md-form-group float-label">
                     <input [(ngModel)]="contactModel.link" name="link"
-                    placeholder="paste link..."                    
+                    placeholder="paste link..."
                      class="md-input" />
                     <label>Link</label>
                   </div>

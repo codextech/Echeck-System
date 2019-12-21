@@ -5,18 +5,8 @@ import { AccountSettingsComponent } from './account-settings.component';
 import { FormsModule } from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
-
-
-const routes: Routes = [
-
-//         {path: 'settings', component: AccountSettingsComponent, canActivate: [AuthGuard],
-//   children: [
-//     { path: 'profile', component: UserProfileComponent },
-
-//   ]}
-
-];
 
 @NgModule({
     imports: [
@@ -24,8 +14,8 @@ const routes: Routes = [
         FormsModule,
         RouterModule,
         NgbModule,
-        DropzoneModule
-
+        DropzoneModule,
+        NgxIntlTelInputModule
     ],
     declarations: [
         AccountSettingsComponent

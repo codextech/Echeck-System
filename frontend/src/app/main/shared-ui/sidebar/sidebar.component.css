@@ -6,3 +6,11 @@
 .sidenav {
   box-shadow: 5px 0px 5px 0px #9e9e9e70;
 }
+
+
+
+:host /deep/ .my-custom-class .tooltip-inner {
+  background-color: white;
+  color: green;
+  z-index: 99999;
+}

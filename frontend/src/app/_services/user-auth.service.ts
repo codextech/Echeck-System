@@ -85,14 +85,25 @@ verifyEmail(token, email) {
     return (localStorage.getItem('access_token') !== null);
   }
 
+  public get emailVerified(): boolean {
+    if (this.decodedtoken) {
+    return (this.decodedtoken.isVerified);
+    }
+  }
+
 
   public get getUserId(): boolean {
+    if (this.decodedtoken) {
+
     return (this.decodedtoken.Id);
+    }
   }
   // get role
 
   public get isAdmin(): boolean {
+    if (this.decodedtoken) {
     return (this.decodedtoken.isAdmin);
+    }
   }
 
 

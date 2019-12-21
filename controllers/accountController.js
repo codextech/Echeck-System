@@ -23,6 +23,9 @@ exports.updateProfile = (req, res, next) => {
       country: model.country,
       addressNumber: model.addressNumber,
       address: model.address,
+      state: model.state,
+      phone: model.phone,
+      countryCode: model.countryCode
 
     },
     { where: { Id: model.Id }}
@@ -38,7 +41,6 @@ exports.updateProfile = (req, res, next) => {
 
 // get user Profile
 exports.getProfile = (req, res, next) => {
-  console.log("************" + req.query.Id);
   const id = req.query.Id;
 
   User.findOne({
@@ -56,7 +58,10 @@ exports.getProfile = (req, res, next) => {
       "addressNumber",
       "address",
       "kycStatus",
-      "trustedUser"
+      "trustedUser",
+      "phone",
+      "countryCode",
+      "state",
     ]
   })
     .then(profile => {
@@ -199,6 +204,22 @@ exports.deleteDocument = async (req, res, next) => {
     res.status(200).json({ message: "Deleted", data:{} });
 
   };
+
+
+  exports.deleteKycDocument = async (req, res, next) => {
+    var kycId = req.query.kycId;
+      try {
+
+       await accountHelper.deleteKycDocumentById(kycId);
+
+      } catch (error) {
+      res.status(500).json({ message: error });
+      }
+      res.status(200).json({ message: "Deleted", data:{} });
+
+    };
+
+
 
 
 

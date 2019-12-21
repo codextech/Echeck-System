@@ -46,6 +46,8 @@ export class HomePageComponent implements OnInit {
 
           }, err => {
             console.log(err);
+          this.toastr.error(err.error.message);
+
           });
     } else if (this.isHomeIconEdit == true) {
     formData.append('id', this.homeIconModel.id);
@@ -59,8 +61,10 @@ export class HomePageComponent implements OnInit {
 
           }, err => {
             console.log(err);
+            this.toastr.error(err.error.message);
           });
     }
+
 
 
 
@@ -126,6 +130,8 @@ export class HomePageComponent implements OnInit {
 
         }, err => {
           console.log(err);
+          this.toastr.error(err.error.message);
+
         });
     } else if (this.isAppProcessEdit == true) { // update
     formData.append('id', this.appProcessModel.id);

@@ -4,6 +4,7 @@ import { HeaderComponent } from '../../../../../../../ECheck-App/Echeck-App/fron
 import { FooterComponent } from '../../../../../../../ECheck-App/Echeck-App/frontend/src/app/main/shared-ui/footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const routes: Routes = [];
 
@@ -11,6 +12,7 @@ const routes: Routes = [];
     imports: [
         CommonModule,
         RouterModule,
+        NgbModule
     ],
     declarations: [
         HeaderComponent,

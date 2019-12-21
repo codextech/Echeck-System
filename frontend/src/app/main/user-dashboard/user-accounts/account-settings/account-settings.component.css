@@ -18,3 +18,8 @@
   border: 2px dashed #285f94;
   background-color: #c8ced475;
 }
+
+
+:host /deep/ .intl-tel-input{
+width: 100%;
+}

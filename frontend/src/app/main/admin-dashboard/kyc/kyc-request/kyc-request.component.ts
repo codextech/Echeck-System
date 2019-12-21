@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/_services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
+import { FileExtentionPipe } from 'src/app/_pipe/file-extention.pipe';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-kyc-request',
@@ -17,12 +20,17 @@ export class KycRequestComponent implements OnInit {
   userId: any;
   kycTypes: any[] = [];
 
+  // images and Pdf
+  filteredImages: any[] = [];
+  filteredPdfs: any[] = [];
+
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[] = [];
 
 
   constructor(public userService: UserService,
               private router: Router,
+              private toastr: ToastrService,
               public activatedRoute: ActivatedRoute) { }
 
 
@@ -63,24 +71,84 @@ export class KycRequestComponent implements OnInit {
       result => {
         this.kycDocs = result.data;
 
+        if (this.kycDocs.length > 0) {
+        console.log('this.kycDocs ', this.kycDocs );
         // get all kyc types from array
-        const types = [...this.kycDocs.slice(0, 3).map(item => item.kyc_type.kycType)];
+        let typeIds = [...this.kycDocs.map(item => item.kycTypeId)];
+
         // filter to get unique kyc types
-        this.kycTypes = Array.from(new Set(types));
-        // images
-        this.kycDocs.map(item => {
-          this.galleryImages.push({
-            small: item.document,
-            medium: item.document,
-            big: item.document,
+        typeIds = Array.from(new Set(typeIds));
+
+        this.kycDocs.forEach(el => {
+          typeIds.forEach(id => {
+            if (el.kycTypeId == id) {
+              this.kycTypes.push(el.kyc_type);
+            }
           });
         });
+
+        // unique kyc Types
+        this.kycTypes = this.kycTypes.filter(function(obj, index, self) {
+          return (
+            index ===
+            self.findIndex(function(t) {
+              return t['kycTypeId'] === obj['kycTypeId'];
+            })
+          );
+        });
+
+        this.onClickType(this.kycTypes[0].kycTypeId);
+
+        } else {
+          this.toastr.show('No Documents Found');
+        }
+
 
       },
       err => {
         console.log(err);
       });
   }
+
+
+
+
+  onClickType(id) {
+
+    this.filteredImages = [];
+    this.filteredPdfs = [];
+    this.galleryImages = [];
+
+    // filter by id
+    let docs = this.kycDocs.filter(i => i.kycTypeId == id);
+      // images
+      const fileExtentionPipe = new FileExtentionPipe();
+
+      docs.forEach(el => {
+       const res = fileExtentionPipe.transform(el.document);
+        if (res === true) { // image
+          this.filteredImages.push(el);
+        } else { // pdf
+          this.filteredPdfs.push(el);
+        }
+      })
+
+      // images
+      this.filteredImages.map(item => {
+        this.galleryImages.push({
+          small: item.document,
+          medium: item.document,
+          big: item.document,
+        });
+      });
+
+  }
+
+  public onClickViewPdf(url) {
+    window.open(url);
+  }
+
+
 
   updateUserKycStatus() {
     this.userService.updateUserKycStatus(this.userId).subscribe(

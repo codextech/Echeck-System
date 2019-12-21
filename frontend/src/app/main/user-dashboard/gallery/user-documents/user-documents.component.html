@@ -35,16 +35,22 @@
   <div class="row row-xs">
 
 
+
       <div  *ngFor="let doc of docs | filterBy: docFilter | paginate: { itemsPerPage: 12, currentPage: p }"
        class="col-6 col-sm-4 col-md-2">
           <div class="box p-1 doc-container">
 
+
             <!-- Only For Images -->
-                  <img *ngIf="(doc.documentUrl | extention) == true" title="Image"
-                  class="doc-image" [src]="doc.documentUrl" alt="">
+                  <img *ngIf="(doc.documentUrl | extention) == true"
+                  placement="top"  ngbTooltip="{{doc.documentName}}"
+                  class="doc-image" (click)="onClickViewImage(doc.documentUrl)"  [src]="doc.documentUrl" alt="">
                   <!-- Another Document -->
-                  <img title="File" *ngIf="(doc.documentUrl | extention) == false"
-                  class="doc-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxXpfgfkMNDW_ob3dAHNcsCkPVvJrpRJA_E6BGEyk7M15wBBgL" alt="">
+                  <img (click)="onClickViewPdf(doc.documentUrl)"
+                   placement="top"  ngbTooltip="{{doc.documentName}}"
+                   *ngIf="(doc.documentUrl | extention) == false"
+
+                  class="doc-image"  src="../../../../../assets/document.png" >
 
                   <div class="delete">
                     <button (click)="deleteDocument(doc.documentId)" class="btn danger" type="button" ><i class="fa fa-trash"></i>
@@ -83,7 +89,8 @@
               <div class="box p-1 doc-container">
 
                 <!-- Only For Images -->
-                      <img  class="doc-image" [src]="background.Image" alt="">
+                      <img  class="doc-image"
+                      [src]="background.Image" (click)="onClickViewImage(background.Image)" alt="">
                       <div class="delete">
                           <button (click)="deleteCheckBackground(background.checkBackgroundId)" class="btn danger" type="button" ><i class="fa fa-trash"></i>
                         </button>
@@ -115,10 +122,24 @@
                   <div class="box p-1 doc-container">
 
                     <!-- Only For Images -->
-                          <img  class="doc-image" [src]="kycDoc.document" alt="">
+                          <img  class="doc-image"
+                           [src]="kycDoc.document"
+                           *ngIf="(kycDoc.document | extention) == true"
+                           placement="top"  [ngbTooltip]="getDocumentName(kycDoc.document)"
+                          (click)="onClickViewImage(kycDoc.document)"
+                           alt="">
+<!-- Pdf -->
+                           <img (click)="onClickViewPdf(kycDoc.document)"
+                           placement="top"  [ngbTooltip]="getDocumentName(kycDoc.document)"
+                           *ngIf="(kycDoc.document | extention) == false"
+                          class="doc-image"  src="../../../../../assets/document.png" >
+
+                          <div class="delete">
+                            <button (click)="deleteKycDocument(kycDoc.kycId)" class="btn danger" type="button" ><i class="fa fa-trash"></i>
+                          </button>
                   </div>
               </div>
-              <!-- if no check found with search -->
+
           </div>
           <div class="text-center">
           <pagination-controls maxSize="9" autoHide="true" (pageChange)="p = $event"></pagination-controls>

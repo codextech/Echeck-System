@@ -63,3 +63,34 @@ exports.getUserById = async (id) => {
     return user;
 
 }
+
+
+
+// user Managment
+
+exports.deleteUser = async (userId) => {
+  try {
+    await User.destroy({
+      where : {Id: userId}
+    });
+  } catch (error) {
+      console.log(error);
+      throw new Error(error);
+  }
+  return true;
+
+}
+
+
+exports.suspendUser = async (userId) => {
+  try {
+    await User.update({
+      accountStatus : User.rawAttributes.accountStatus.values[1],
+      }, {where: { Id: userId }})
+  } catch (error) {
+      console.log(error);
+      throw new Error(error);
+  }
+  return true;
+
+}

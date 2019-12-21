@@ -1,0 +1,19 @@
+
+
+
+
+
+.doc-container {
+  border-radius: 5px;
+  width: 130px;
+  height: 130px;
+  position: relative;
+  display: block;
+  z-index: 10;
+ }
+
+ .doc-image {
+   width: 100%;
+   height: 100%;
+   cursor: pointer;
+ }

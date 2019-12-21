@@ -12,6 +12,7 @@ import { AdminDashBoardComponent } from './admin-dashboard.component';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { NgxGalleryModule } from 'ngx-gallery';
 
+import { SharedModule } from 'src/app/shared/shared.module';
 
 import { AccountTypeComponent } from './account-type/account-type.component';
 import { KycRequestComponent } from './kyc/kyc-request/kyc-request.component';
@@ -37,8 +38,8 @@ import { AdminCmsModule } from './admin-cms/admin-cms.module';
         FilterPipeModule,
         DropzoneModule,
         NgxGalleryModule,
-        AdminCmsModule // for CMS
-
+        AdminCmsModule, // for CMS
+        SharedModule
     ],
     declarations: [
         AdminDashBoardComponent,

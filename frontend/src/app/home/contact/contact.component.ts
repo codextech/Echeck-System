@@ -4,6 +4,7 @@ import { UserAuthService } from 'src/app/_services/user-auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { CmsService } from 'src/app/_services/cms.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-contact',
@@ -17,7 +18,8 @@ export class ContactComponent implements OnInit {
   constructor(private homeService: HomeService, private toastr: ToastrService,
     private cmsService: CmsService,
     private router: Router
-    ) { }
+    ) {
+   }
 
   ngOnInit() {
     this.getPageContent();
@@ -42,6 +44,7 @@ export class ContactComponent implements OnInit {
     this.cmsService.getAll()
       .subscribe(res => {
         const data = res.data;
+        this.cmsService.cmsData = data;
         this.contacts = data.contacts;
       },
         err => {

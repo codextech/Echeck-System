@@ -1,6 +1,7 @@
 const express = require('express');
 const bankController = require('../controllers/bankController');
 const checkAuth = require('../middleware/check-auth'); // verify token for Api request
+const encryption = require('../middleware/cipher');
 const router = express.Router();
 var multer = require("multer");
 
@@ -43,10 +44,10 @@ router.get("/bank-account",checkAuth, bankController.getBankAccountById); // sin
 //  multer({ storage: fileStorage }).single("image"),
 //   bankController.creatBankAccount);
 
-router.post("/bank-account",checkAuth,
+router.post("/bank-account",checkAuth, encryption,
   bankController.creatBankAccount);
 
-router.put("/bank-account",checkAuth,
+router.put("/bank-account",checkAuth, encryption,
    bankController.updateBankAccount);
 router.delete("/bank-account",checkAuth, bankController.deleteBankAccount);
 

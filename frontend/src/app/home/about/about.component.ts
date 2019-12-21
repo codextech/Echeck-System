@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from 'src/app/_services/home.service';
 import { ToastrService } from 'ngx-toastr';
@@ -15,8 +16,9 @@ export class AboutComponent implements OnInit {
   stories: any[] = [];
   contacts: any[] = [];
   constructor(private homeService: HomeService, private toastr: ToastrService,
-    private cmsService: CmsService,
-    ) { }
+    private cmsService: CmsService
+    ) {
+    }
 
   ngOnInit() {
     this.getPageContent();
@@ -26,6 +28,7 @@ export class AboutComponent implements OnInit {
     this.cmsService.getAll()
       .subscribe(res => {
         const data = res.data;
+        this.cmsService.cmsData = data;
         this.stories = data.stories;
         this.contacts = data.contacts;
         this.about = data.about;

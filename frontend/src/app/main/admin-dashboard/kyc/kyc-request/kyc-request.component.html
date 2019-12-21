@@ -3,33 +3,64 @@
 <div class="padding">
 
 
-    <div class="box">
-      <div class="box-header">
-        <h3>KYC Documents</h3>
+  <div class="box p-3">
+    <div class="box-header">
+      <h3>KYC Documents</h3>
+    </div>
+
+    <div class="row mb-3">
+      <div *ngFor="let type of kycTypes" class="col-sm-2">
+
+        <button type="button" (click)="onClickType(type.kycTypeId)" class="btn primary pos-rlt mr-2">
+          <i class="fa  fa-check-square-o"></i>
+          {{type.kycType}}
+        </button>
+      </div>
+    </div>
+
+
+
+    <div class="row justify-content-md-center mt-3">
+
+
+      <div class="col-sm-6" style="border-bottom: 1px solid rgba(255, 68, 0, 0.376);">
+        <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
       </div>
 
-      <div *ngFor="let type of kycTypes" class="col-sm-3">
 
-          <span class="badge text-sm primary pos-rlt mr-2">
-            <i class="fa  fa-check-square-o"></i>
-            {{type}}
-          </span>
+      <div *ngIf="filteredPdfs.length > 0" class="col-sm-12">
+
+        <h4 class="text-center mt-1">PDF</h4>
+
+        <div *ngFor="let item of filteredPdfs" class="col-6 col-sm-4 col-md-3">
+          <div class="p-1 doc-container">
+            <!-- Pdf -->
+            <img (click)="onClickViewPdf(item.document)" class="doc-image" src="../../../../../assets/document.png">
+          </div>
+        </div>
+
       </div>
-
-
-
-
-        <div class="col-sm-6" style="margin: auto;">
-            <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
-            <button
-            class="btn primary mb-3"
-            (click)="updateUserKycStatus()">
-            Approve
-          </button>
-         </div>
-
-
 
 
     </div>
+
+
+
+  <div class="row mt-3 justify-content-md-center text-center" style="background: #f2f5f8 ;">
+      <div class="col-md-4 p-2">
+        <button class="btn primary" (click)="updateUserKycStatus()">
+          Approve
+        </button>
+      </div>
+
+
+      <div class="col-md-4 p-2">
+        <button class="btn danger" (click)="updateUserKycStatus()">
+          Reject
+        </button>
+      </div>
+
+    </div>
+
   </div>
+</div>

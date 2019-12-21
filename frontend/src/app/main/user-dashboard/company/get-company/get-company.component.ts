@@ -21,6 +21,10 @@ export class GetCompanyComponent implements core.OnInit {
     },
 
     {
+      key: 'companyAddress',
+      title: 'Address ',
+    },
+    {
       key: 'EIN',
       title: 'Tax Id/EIN'
     },
@@ -29,12 +33,7 @@ export class GetCompanyComponent implements core.OnInit {
       title: 'Partner Email'
     },
     {
-      key: 'city',
-      title: 'City'
-    },
-
-    {
-      key: 'actions', title: 'Actions'
+      key: 'actions', title: ''
     }
   ];
 

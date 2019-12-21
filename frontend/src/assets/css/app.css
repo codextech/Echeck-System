@@ -174,7 +174,10 @@ Buttons
 
 .btn.b-warning:hover, .btn.b-warning:focus, .btn.b-warning.active, .btn.warning:hover, .btn.warning:focus, .btn.warning.active {
   color: rgba(255, 255, 255, 0.85) !important;
-  background-color: #fd9c03; }
+  /* background-color: #fd9c03; */
+  background-color: #ff6b14;
+
+}
 
 .btn.b-warning:focus, .btn.b-warning:active, .btn.warning:focus, .btn.warning:active {
   box-shadow: 0 0 0 3px rgba(253, 171, 41, 0.5); }
@@ -3413,7 +3416,9 @@ Colors
 
 .warning {
   color: rgba(255, 255, 255, 0.85);
-  background-color: #fdab29; }
+  /* background-color: #fdab29; */
+  background: #ff7b21;
+}
   .warning.lt,
   .warning .lt {
     background-color: #fdb036; }
@@ -4016,7 +4021,9 @@ a.text-info:hover {
   color: #14baa8 !important; }
 
 a.warning:hover {
-  background-color: #fda61c; }
+  /* background-color: #fda61c; */
+  background-color:#ff6b14;
+}
 
 a.text-warning:hover {
   color: #fda61c !important; }

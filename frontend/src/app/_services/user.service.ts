@@ -53,6 +53,13 @@ getUserProfile() {
     });
  }
 
+ deleteKycDocument(id) {
+  return this.http.delete<any>(environment.apiUrl + 'api/account/kyc-document', {
+    params: {kycId: id}
+  });
+}
+
+
 
  getKycDocs(userId) {
   return this.http.get<any>(environment.apiUrl + 'api/account/kyc-docs',{
@@ -75,5 +82,18 @@ deleteDocument(id) {
     params: {documentId: id}
   });
 }
+
+
+deleteUser(id) {
+  return this.http.delete<any>(environment.apiUrl + 'api/user/delete',{
+      params: {userId: id}
+    });
+ }
+
+ suspendUser(id) {
+  return this.http.get<any>(environment.apiUrl + 'api/user/suspend',{
+      params: {userId: id}
+    });
+ }
 
 }

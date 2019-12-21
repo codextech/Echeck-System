@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     // get return url from route parameters or default to '/'
     this.route.queryParams
-    .subscribe(params => this.returnUrl = params['returnUrl'] || '/');
+    .subscribe(params => this.returnUrl = params['returnUrl'] || '/dashboard');
   }
 
   logIn() {
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     this.authService.userLogIn(this.logInModel).subscribe(res => {
         // this.router.navigateByUrl(this.returnUrl);
         window.location.href = this.returnUrl;
-        
+
         // this.toastr.success('Welcome');
 
     }, err => {

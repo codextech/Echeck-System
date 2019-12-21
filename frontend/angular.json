@@ -29,7 +29,21 @@
               "./node_modules/ngx-easy-table/style.css"
             ],
             "scripts": [
-              "./node_modules/datatables.net/js/jquery.dataTables.js"
+              "src/assets/libs/jquery/dist/jquery.min.js",
+              "src/assets/libs/popper.js/dist/umd/popper.min.js",
+              "src/assets/libs/bootstrap/dist/js/bootstrap.min.js",
+              "src/assets/libs/pace-progress/pace.min.js",
+              "src/assets/libs/pjax/pjax.min.js",
+              "src/assets/js/lazyload.config.js",
+              "src/assets/js/lazyload.js",
+              "src/assets/js/plugin.js",
+              "src/assets/js/nav.js",
+              "src/assets/js/scrollto.js",
+              "src/assets/js/scrollto.js",
+              "src/assets/js/toggleclass.js",
+              "src/assets/js/theme.js",
+              "src/assets/js/ajax.js",
+              "src/assets/js/app.js"
             ]
           },
           "configurations": {

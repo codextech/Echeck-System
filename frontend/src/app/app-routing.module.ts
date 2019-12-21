@@ -13,12 +13,14 @@ import { ErrorLayoutComponent } from './layout/error-layout/error-layout.compone
 
 const routes: Routes = [
 
+
+
   {path: '', component: LandingLayoutComponent,
-  children: LANDING_LAYOUTS_ROUTES
+  children: LANDING_LAYOUTS_ROUTES,
   },
 
  {path: '', component: AdminLayoutComponent, canActivate: [AuthGuard],
-  children: ADMIN_LAYOUTS_ROUTES
+  children: ADMIN_LAYOUTS_ROUTES,
  },
 
  {path: '', component: NoLayoutComponent,

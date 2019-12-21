@@ -9,6 +9,7 @@ const UserBank = require("../models/user-bank");
 //helper
 const bankHelper = require("../helpers/bankHelper");
 const genericHelper = require("../helpers/genericResponse");
+const {decryptData} = require('../helpers/cipherHelper');
 
 
 
@@ -289,7 +290,16 @@ exports.getBankAccount = async (req, res, next) => {
       return res.status(400).json({ message: "Accounts not found" });
     }
 
-  res.status(201).json({ message: "Succefull", data: bankAccounts });
+    let decryptedBankAccounts = []
+    //decryption
+    bankAccounts.forEach(obj => {
+     let decryptedObject =  decryptData(obj.dataValues);
+     decryptedBankAccounts.push(decryptedObject)
+    });
+    // end decryption
+
+
+  res.status(201).json({ message: "Succefull", data: decryptedBankAccounts });
 
   } catch (error) {
     res.status(500).json({ message: error });
@@ -319,7 +329,10 @@ exports.getBankAccountById = async (req, res, next) => {
       return res.status(400).json({ message: "Accounts not found" });
     }
 
-  res.status(201).json({ message: "Succefull", data: bankAccount });
+    //decryption
+    let decryptedBankAccount =  decryptData(bankAccount.dataValues);
+
+  res.status(201).json({ message: "Succefull", data: decryptedBankAccount });
 
   } catch (error) {
     res.status(500).json({ message: error });
@@ -378,6 +391,13 @@ try {
           companyId: model.companyId,
           bankId: model.bankId,
         },{where: { bankAccountId: model.bankAccountId }});
+
+/*
+        //decryption
+         let decryptedBankAccount =  decryptData(bankAccount.dataValues);
+        // end decryption
+ */
+
 
 } catch (error) {
   res.status(500).json({message: error})

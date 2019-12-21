@@ -35,8 +35,8 @@ export class AboutPageComponent implements OnInit {
   addAbout() {
     this.cmsService.save(this.model, 'about').subscribe( res => {
       this.toastr.success('About Content Added');
-      this.model = {};
-    this.model.aboutText = '';
+    //   this.model = {};
+    // this.model.aboutText = '';
     }, err => {
       console.log(err);
     });
@@ -56,8 +56,9 @@ export class AboutPageComponent implements OnInit {
 
   deleteStory(id) {
     this.cmsService.delete(id, 'story').subscribe( res => {
-      this.stories.filter(item => item.id !== id);
+     this.stories = this.stories.filter(item => item.id !== id);
       this.toastr.success('Deleted');
+
     }, err => {
       console.log(err);
     });
@@ -68,6 +69,11 @@ export class AboutPageComponent implements OnInit {
       .subscribe(res => {
         const data = res.data;
         this.stories = data.stories;
+        if (data.about != null) {
+          this.model.aboutText = data.about.aboutText;
+        } else {
+          this.model.aboutText = '';
+        }
 
       },
         err => {

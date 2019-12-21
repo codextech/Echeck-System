@@ -10,30 +10,44 @@ import { CmsService } from 'src/app/_services/cms.service';
 })
 export class HomeFooterComponent implements OnInit {
 
+
   subscriberModel: any = {}
   links: any[] = [];
   constructor(private cmsService: CmsService, private toastr: ToastrService, private homeService: HomeService) { }
 
 
+
   ngOnInit() {
-    this.getPageContent();
+
+    this.cmsService.currentCmsData.subscribe(currentData => this.loadFooterLinks(currentData))
+
   }
 
-  getPageContent() {
-    this.cmsService.getAll()
-      .subscribe(res => {
-        const data = res.data;
-        this.links = data.footerLinks;
-      },
-        err => {
-          console.log(err);
-        });
-  }
+  // getPageContent() {
+  //   debugger
+  //   this.cmsService.currentCmsData
+  //     .subscribe(res => {
+  //       if (res) {
+
+  //         console.log(' ok');
+
+  //         const data = res.data;
+  //         this.links = data.footerLinks;
+
+  //       }
+  //       console.log('not ok');
+
+
+  //     },
+  //       err => {
+  //         console.log(err);
+  //       });
+  // }
 
   addSubscribe() {
     this.homeService.addsubscriber(this.subscriberModel).subscribe(
       result => {
-        this.toastr.info('Thank you for Subscribe !');
+        this.toastr.info('Thank you for your subscription');
         this.subscriberModel = {};
       },
       err => {
@@ -42,4 +56,10 @@ export class HomeFooterComponent implements OnInit {
     );
   return null;
   }
+
+
+ public loadFooterLinks(links) {
+    this.links = links;
+  }
+
 }

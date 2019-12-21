@@ -61,6 +61,12 @@ router.get(
 
 
 router.delete(
+  "/kyc-document",
+  accountController.deleteKycDocument
+);
+
+
+router.delete(
   "/document",
   accountController.deleteDocument
 );

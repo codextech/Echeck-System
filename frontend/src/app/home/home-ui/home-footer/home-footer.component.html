@@ -68,8 +68,8 @@
             <li><a [routerLink]="['/about']">About Us</a></li>
             <li><a [routerLink]="['/contact']">Contact Us</a></li>
             <li><a [routerLink]="['/faq']">Faq</a></li>
-            <li><a [routerLink]="['/terms']">Terms</a></li>
-            <li><a [routerLink]="['/policy']">Policy</a></li>
+            <li><a [routerLink]="['/terms']">Terms of Use</a></li>
+            <li><a [routerLink]="['/policy']">Privacy Policy</a></li>
 
           </ul>
         </div>
@@ -80,7 +80,7 @@
         <div class="widget-social mt40">
           <!-- widget footer -->
           <ul class="listnone">
-            <li *ngFor="let item of links"><a target="_blank" [href]="item.link"><i class="fa fa-{{item.icon}}"></i>{{item.name}}</a></li>
+            <li *ngFor="let item of links"><a target="_blank" [href]="item.link"><i class="fa {{item.icon}}"></i>{{item.name}}</a></li>
           </ul>
         </div>
         <!-- /.widget footer -->

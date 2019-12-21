@@ -20,6 +20,7 @@ export class FaqsComponent implements OnInit {
     this.cmsService.getAll()
       .subscribe(res => {
         const data = res.data;
+        this.cmsService.cmsData = data;
         this.faqs = data.faqs;
       },
         err => {

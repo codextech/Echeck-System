@@ -5,7 +5,7 @@ import { UserCheckService } from 'src/app/_services/user-check.service';
 import { environment } from 'src/environments/environment';
 import { UserService } from 'src/app/_services/user.service';
 import { ToastrService } from 'ngx-toastr';
-
+declare var $;
 @Component({
   selector: 'app-user-documents',
   templateUrl: './user-documents.component.html',
@@ -42,13 +42,19 @@ export class UserDocumentsComponent implements OnInit {
   constructor(private authService: UserAuthService,
               private userService: UserService,
               private checkService: UserCheckService,
-              private toastr: ToastrService) { }
+              private toastr: ToastrService) {
+
+               }
 
   ngOnInit() {
+
+
     this.dropzoneImageUploadInit();
     this.getDocumnets();
     this.getCheckBackgrounds();
     this.getKycDocuments();
+
+
   }
 
   dropzoneImageUploadInit() {
@@ -146,4 +152,40 @@ export class UserDocumentsComponent implements OnInit {
     console.log('onUploadSuccess:', args);
     args[1].data.map(item =>  this.docs.push(item) );
   }
+
+
+  // kyc Delted
+
+  deleteKycDocument(id) {
+    this.userService.deleteKycDocument(id).subscribe(
+      result => {
+        this.kycDocs =  this.kycDocs.filter(item => item.kycId !== id);
+        this.toastr.success('Deleted !');
+
+      },
+      err => {
+        console.log(err);
+      });
+  }
+
+
+
+
+  public onClickViewPdf(url) {
+    window.open(url);
+  }
+
+
+  public onClickViewImage(url) {
+    $("#imgBig").attr("src",url);
+    $('#overlay').show();
+    $('#overlayContent').show();
+  }
+
+  getDocumentName(url) {
+    const wordsList = url.split('-');
+    wordsList.splice(0, 1);
+    return wordsList.join(' ');
+  }
+
 }

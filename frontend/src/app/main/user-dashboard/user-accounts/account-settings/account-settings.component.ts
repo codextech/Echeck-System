@@ -75,9 +75,9 @@ export class AccountSettingsComponent implements OnInit {
 
      // user profile
      this.userService.getUserProfile().subscribe(res => {
-      console.log(res.profile.trustedUser);
-      console.log(res.profile.Id);
+
      this.profileModel = res.profile; // populate our Form
+     this.profileModel.phoneObject = this.profileModel.phone;
      if (res.profile.trustedUser) {
       this.accountVerification = false;
     } else {
@@ -91,7 +91,6 @@ export class AccountSettingsComponent implements OnInit {
   getKycTypes() {
     this.userService.getKycTypes().subscribe(res => {
       this.kycTypes = res.data;
-      console.log(this.kycTypes);
     }, err => {
       this.toastr.error(err.message);
     });
@@ -103,29 +102,25 @@ export class AccountSettingsComponent implements OnInit {
   }
 
   onSending(_filesEvent): any {
-    if (_filesEvent) {
+    if (_filesEvent && this.kycModel.kycTypeId != undefined) {
        const formData = _filesEvent[2];
        formData.append('kycTypeId', this.kycModel.kycTypeId);
-       console.log(this.kycModel.kycTypeId);
+    } else {
+      this.toastr.error('Please Select Type');
     }
   }
 
   updateProfile() {
 
-  //   this.drpzoneRef.directiveRef.dropzone().processQueue();
-  //  console.log(this.drpzoneRef.directiveRef.dropzone());
-
-    // const formData = new FormData();
-    // formData.append('image', this.profileModel.image);
-    // formData.append('email', this.profileModel.email);
-    // formData.append('firstName', this.profileModel.firstName);
-    // formData.append('lastName', this.profileModel.lastName);
+    if (typeof this.profileModel.phoneObject === 'object' && this.profileModel.phoneObject !== null) {
+      this.profileModel.phone = this.profileModel.phoneObject.number; // get telephone
+      this.profileModel.countryCode = this.profileModel.phoneObject.countryCode;
+    }
     this.userService.updateProfile(this.profileModel).subscribe(res => {
        this.toastr.success('Profile Updated');
         this.router.navigate(['/dashboard']);
 
     }, err => {
-      console.log(err);
       this.toastr.error(err.error.message);
 
     });
@@ -170,7 +165,11 @@ export class AccountSettingsComponent implements OnInit {
 
 
  uploadFiles() {
+   if (this.kycModel.kycTypeId) {
   this.drpzone.directiveRef.dropzone().processQueue();
+   } else {
+    this.toastr.error('Please Select KYC Type');
+   }
 }
 
   uploadKYCDoc() {
@@ -179,8 +178,6 @@ export class AccountSettingsComponent implements OnInit {
     formData.append('kycDocument', this.kycModel.kycDocument);
     this.userService.uploadKycDoc(formData).subscribe(res => {
       this.messageAlert = true;
-        console.log(res);
-
     }, err => {
       console.log(err);
 
@@ -190,7 +187,6 @@ export class AccountSettingsComponent implements OnInit {
 
   changePassword() {
 
-      console.log(this.changePassModel);
       if (this.changePassModel.newPassword != this.changePassModel.confirmPass) {
         this.toastr.error('password and confirm Password not matched');
       } else {

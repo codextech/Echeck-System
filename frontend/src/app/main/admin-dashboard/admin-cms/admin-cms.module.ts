@@ -10,7 +10,7 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { NgxGalleryModule } from 'ngx-gallery';
 import { RichTextEditorAllModule } from '@syncfusion/ej2-angular-richtexteditor';
-import { IconPickerModule } from 'ngx-icon-picker';
+// import { IconPickerModule } from 'ngx-icon-picker';
 
 import { AboutPageComponent } from './about-page/about-page.component';
 import { ContactPageComponent } from './contact-page/contact-page.component';
@@ -20,6 +20,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { FooterPageComponent } from './footer-page/footer-page.component';
 import { PolicyPageComponent } from './policy-page/policy-page.component';
 import { TermPageComponent } from './term-page/term-page.component';
+import { IconPageComponent } from './icon-page/icon-page.component';
 
 @NgModule({
     imports: [
@@ -34,8 +35,6 @@ import { TermPageComponent } from './term-page/term-page.component';
         DropzoneModule,
         NgxGalleryModule,
         RichTextEditorAllModule,
-        IconPickerModule
-
     ],
     declarations: [
       HomePageComponent,
@@ -45,8 +44,8 @@ import { TermPageComponent } from './term-page/term-page.component';
         MakeCheckPageComponent,
         FooterPageComponent,
         PolicyPageComponent,
-        TermPageComponent
-
+        TermPageComponent,
+        IconPageComponent
     ],
 
 })

@@ -7,6 +7,8 @@ import { CmsService } from 'src/app/_services/cms.service';
 @Component({
   selector: 'app-userdashboard',
   templateUrl: './admin-dashboard.component.html',
+  styleUrls: ['./admin-dashboard.component.css']
+
 })
 export class AdminDashBoardComponent implements OnInit  {
 

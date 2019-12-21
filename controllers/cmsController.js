@@ -20,9 +20,9 @@ exports.addAbout = async (req, res, next) => {
     await About.destroy({where: {}});
     await About.create(model);
   } catch (error) {
-    res.status(500).json({messgae: error, data: {}});
+    res.status(500).json({message : error, data: {}});
   }
-  res.status(201).json({messgae: '', data :null});
+  res.status(201).json({message : '', data :null});
 
 };
 
@@ -33,9 +33,9 @@ exports.addPolicy = async (req, res, next) => {
     await Policy.destroy({where: {}});
     await Policy.create(model);
   } catch (error) {
-    res.status(500).json({messgae: error, data: {}});
+    res.status(500).json({message : error, data: {}});
   }
-  res.status(201).json({messgae: '', data :null});
+  res.status(201).json({message : '', data :null});
 
 }
 
@@ -45,9 +45,9 @@ exports.addTerm = async (req, res, next) => {
     await Term.destroy({where: {}});
     await Term.create(model);
   } catch (error) {
-    res.status(500).json({messgae: error, data: {}});
+    res.status(500).json({message : error, data: {}});
   }
-  res.status(201).json({messgae: '', data :null});
+  res.status(201).json({message : '', data :null});
 
 }
 
@@ -58,9 +58,9 @@ exports.addContact = async (req, res, next) => {
   try {
     await Contact.create(model);
   } catch (error) {
-    res.status(500).json({messgae: error, data: {}});
+    res.status(500).json({message : error, data: {}});
   }
-  res.status(201).json({messgae: '', data :null});
+  res.status(201).json({message : '', data :null});
 }
 
 exports.editContact = async (req, res, next) => {
@@ -69,9 +69,9 @@ exports.editContact = async (req, res, next) => {
     // await Contact.create(model);
     await Contact.update(model,{where: { id: model.id }});
   } catch (error) {
-    res.status(500).json({messgae: error, data: {}});
+    res.status(500).json({message : error, data: {}});
   }
-  res.status(201).json({messgae: '', data :null});
+  res.status(201).json({message : '', data :null});
 }
 
 /* Contact logic end */
@@ -83,9 +83,9 @@ exports.addStory = async (req, res, next) => {
   try {
     await Story.create(model);
   } catch (error) {
-    res.status(500).json({messgae: error, data: {}});
+    res.status(500).json({message : error, data: {}});
   }
-  res.status(201).json({messgae: '', data :null});
+  res.status(201).json({message : '', data :null});
 
 };
 
@@ -98,9 +98,9 @@ exports.deleteStory = async (req, res, next) => {
     });
 
   } catch (error) {
-    res.status(500).json({messgae: error, data: {}});
+    res.status(500).json({message : error, data: {}});
   }
-  res.status(201).json({messgae: '', data :null});
+  res.status(201).json({message : '', data :null});
 
 };
 
@@ -113,9 +113,9 @@ exports.addFooterLink  = async (req, res, next) => {
   try {
     await FooterLink.create(model);
   } catch (error) {
-    res.status(500).json({messgae: error, data: {}});
+    res.status(500).json({message : error, data: {}});
   }
-  res.status(201).json({messgae: '', data :null});
+  res.status(201).json({message : '', data :null});
 
 };
 
@@ -128,9 +128,9 @@ exports.deleteFooterLink = async (req, res, next) => {
     });
 
   } catch (error) {
-    res.status(500).json({messgae: error, data: {}});
+    res.status(500).json({message : error, data: {}});
   }
-  res.status(201).json({messgae: '', data :null});
+  res.status(201).json({message : '', data :null});
 
 };
 
@@ -144,16 +144,24 @@ exports.addHomeIcon = async (req, res, next) => {
   const model = req.body;
   try {
 
+    if (req.files[0]) {
+
     var imgUrl = genericHelper.getImageUrlFromArray(req, req.files[0]);
 
     await HomeIcon.create({
       icon:imgUrl,
       text: model.text
     });
+    }
+    else {
+   return res.status(400).json({message : 'Please Attacth Image', data: {}});
+
+    }
+
   } catch (error) {
-    res.status(500).json({messgae: error, data: {}});
+    res.status(500).json({message : error, data: {}});
   }
-  res.status(201).json({messgae: '', data :null});
+  res.status(201).json({message : '', data :null});
 
 };
 
@@ -162,18 +170,32 @@ exports.editHomeIcon = async (req, res, next) => {
   const model = req.body;
   try {
 
-    var imgUrl = genericHelper.getImageUrlFromArray(req, req.files[0]);
 
-    await HomeIcon.update({
-      icon:imgUrl,
-      text: model.text
-  },{where: { id: model.id }});
+    if (req.files.length > 0) {
+
+      var imgUrl = genericHelper.getImageUrlFromArray(req, req.files[0]);
+
+      await HomeIcon.update({
+        icon:imgUrl,
+        text: model.text
+    },{where: { id: model.id }});
+
+
+    }
+    else {
+
+      await HomeIcon.update({
+        text: model.text
+    },{where: { id: model.id }});
+
+
+    }
 
 
   } catch (error) {
-    res.status(500).json({messgae: error, data: {}});
+    res.status(500).json({message : error, data: {}});
   }
-  res.status(201).json({messgae: '', data :null});
+  res.status(201).json({message : '', data :null});
 
 };
 
@@ -183,6 +205,10 @@ exports.addAppProcess = async (req, res, next) => {
 
   const model = req.body;
   try {
+
+    if (req.files.length > 0) {
+
+
     var imgUrl = genericHelper.getImageUrlFromArray(req, req.files[0]);
 
     await AppProcess.create({
@@ -190,27 +216,42 @@ exports.addAppProcess = async (req, res, next) => {
       title: model.title,
       text: model.text,
     });
-  } catch (error) {
-    res.status(500).json({messgae: error, data: {}});
+
   }
-  res.status(201).json({messgae: '', data :null});
+  else {
+   return res.status(400).json({message: 'Please Attacth Image', data: {}});
+  }
+  } catch (error) {
+    res.status(500).json({message: error, data: {}});
+  }
+  res.status(201).json({message: '', data :null});
 };
 
 exports.editAppProcess = async (req, res, next) => {
 
   const model = req.body;
   try {
-    var imgUrl = genericHelper.getImageUrlFromArray(req, req.files[0]);
+
+    if (req.files.length > 0) {
+      var imgUrl = genericHelper.getImageUrlFromArray(req, req.files[0]);
     await AppProcess.update({
       image:imgUrl,
       title: model.title,
       text: model.text,
     },{where: { id: model.id }});
-    // await AppProcess.update(model,{where: { id: model.id }});
+    }
+    else {
+
+      await AppProcess.update({
+        title: model.title,
+        text: model.text,
+      },{where: { id: model.id }});
+    }
+
   } catch (error) {
-    res.status(500).json({messgae: error, data: {}});
+    res.status(500).json({message : error, data: {}});
   }
-  res.status(201).json({messgae: '', data :null});
+  res.status(201).json({message : '', data :null});
 };
 
 /* App functionality logic end */
@@ -223,9 +264,22 @@ exports.addFaq = async (req, res, next) => {
   try {
     await Faq.create(model);
   } catch (error) {
-    res.status(500).json({messgae: error, data: {}});
+    res.status(500).json({message : error, data: {}});
   }
-  res.status(201).json({messgae: '', data :null});
+  res.status(201).json({message : '', data :null});
+
+};
+
+exports.deleteFaq = async (req, res, next) => {
+
+  try {
+    await Faq.destroy({
+      where : {id: req.query.id}
+    });
+  } catch (error) {
+    res.status(500).json({message : error, data: {}});
+  }
+  res.status(201).json({message : '', data :null});
 
 };
 
@@ -260,8 +314,8 @@ exports.getAllData = async (req, res, next) => {
       term: term
      }
   } catch (error) {
-    res.status(500).json({messgae: error, data: {}});
+    res.status(500).json({message : error, data: {}});
   }
-  res.status(200).json({messgae: '', data :obj});
+  res.status(200).json({message : '', data :obj});
 
 }

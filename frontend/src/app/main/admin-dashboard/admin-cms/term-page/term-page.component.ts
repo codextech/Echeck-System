@@ -24,20 +24,37 @@ export class TermPageComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit() {
-    this.model.termText = '';
+    // this.model.termText = '';
+    this.getPageContent();
   }
 
 
   addTerm() {
     this.cmsService.save(this.model, 'term').subscribe( res => {
-      console.log(res);
       this.toastr.success('Terms Added');
-    this.model.termText = '';
+    // this.model.termText = '';
 
     }, err => {
       console.log(err);
     });
 
+  }
+
+
+
+  getPageContent() {
+    this.cmsService.getAll()
+      .subscribe(res => {
+        const data = res.data;
+        if (data.term != null) {
+          this.model.termText = data.term.termText;
+        } else {
+          this.model.termText = '';
+        }
+      },
+        err => {
+          console.log(err);
+        });
   }
 
 }
