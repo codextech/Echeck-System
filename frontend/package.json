@@ -35,7 +35,7 @@
     "html-to-image": "^0.1.1",
     "intl-tel-input": "^15.0.2",
     "jquery": "^3.2.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "ngx-bootstrap": "^4.1.1",
     "ngx-dropzone-wrapper": "^7.2.1",
     "ngx-easy-table": "^9.2.2",
